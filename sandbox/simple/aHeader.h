@@ -9,7 +9,8 @@
 
 #ifdef STUPID
 
-#elif FARGO
+#elif FARGO \
+    || FUMA
 
 #elif LEEMA
 

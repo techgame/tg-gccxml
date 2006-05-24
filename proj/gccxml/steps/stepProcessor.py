@@ -50,7 +50,7 @@ class StepProcessor(StepProcessorBase):
         self.steps += [
             CodeDependencyStep(),
             DefinesProcessorStep(),
-            #IfdefProcessorStep(),
+            IfdefProcessorStep(),
             #CodeProcessorStep(),
             ]
 
@@ -65,7 +65,7 @@ class StepProcessor(StepProcessorBase):
         print 'visitDependencyStep:'
         depList = step.findDependencies()
         for dep in depList:
-            self.root.addFile(dep)
+            self.root.addDependency(dep)
 
     def visitElementStep(self, step):
         print 'visitElementStep:'

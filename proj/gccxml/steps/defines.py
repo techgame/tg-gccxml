@@ -12,28 +12,16 @@
 
 from external import GCCXMLProcessStep
 from handlers import FileLineBaseHandler
-from handlers.cpreprocessor import PreprocessorDefinesScanner
+from handlers.cpreprocessor import DefinesScanner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class DefinesHandler(FileLineBaseHandler):
-    def emit(self, kind, args):
-        print 'emit:', kind, args
-    def onPosition(self, filename, lineno):
-        self.setFileAndLine(filename, lineno)
-    def onDefine(self, name, definition):
-        self.addElement('DEFINE', definition)
-    def onMacro(self, name, params, definition):
-        self.addElement('MACRO', (params, definition))
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 class DefinesProcessorStep(GCCXMLProcessStep):
     command = r"gccxml -E -dD %(srcfile)s %(includes)s > '%(outfile)s'"
-    HandlerFactory = DefinesHandler
-    scanner = PreprocessorDefinesScanner()
+    HandlerFactory = FileLineBaseHandler
+    scanner = DefinesScanner()
 
     def hostVisitStep(self, host):
         host.visitElementStep(self)
@@ -51,6 +39,6 @@ class DefinesProcessorStep(GCCXMLProcessStep):
         return elements
 
     def fileToElements(self, elements, srcfile):
-        crucher = self._processSrcFile(srcfile, 'defines-' + srcfile)
-        self.scanner(self.handler, crucher.outfile)
+        subproc = self._processSrcFile(srcfile, 'defines-' + srcfile)
+        self.scanner(self.handler, subproc.outfile)
 

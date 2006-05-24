@@ -20,9 +20,19 @@ class RootElement(object):
     def __init__(self):
         self.files = {}
 
+    def addDependency(self, filename):
+        aFile = self.addFile(filename)
+        return aFile
+
+    def getDependencies(self):
+        return self.files.iterkeys()
+
     def addFile(self, filename):
-        if filename not in self.files:
-            self.files[filename] = self.createFileFor(filename)
+        aFile = self.files.get(filename, None)
+        if aFile is None:
+            aFile = self.createFileFor(filename)
+            self.files[filename] = aFile
+        return aFile
 
     def createFileFor(self, filename):
         return FileElement(filename)
@@ -72,4 +82,7 @@ class FileLineBaseHandler(BaseHandler):
 
     def addElement(self, kind, data):
         self.fileElement.addElement(self.lineno, kind, data)
+
+    def emit(self, section, kind, *args):
+        print 'emit:', kind, args
 
