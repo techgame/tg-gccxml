@@ -13,6 +13,8 @@
 from base import StepVisitor
 from config import StepConfigVisitorMixin
 
+from handlers import RootElement
+
 from codeDepends import CodeDependencyStep
 from defines import DefinesProcessorStep
 from ifdef import IfdefProcessorStep
@@ -32,8 +34,10 @@ class StepProcessorBase(StepConfigVisitorMixin):
         self.steps = []
 
     def run(self):
+        self.start()
         for step in self.steps:
             step.visit(self)
+        self.end()
 
     def visitStep(self, step):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
@@ -45,17 +49,25 @@ class StepProcessor(StepProcessorBase):
         StepProcessorBase.setup(self)
         self.steps += [
             CodeDependencyStep(),
-            #DefinesProcessorStep(),
-            IfdefProcessorStep(),
+            DefinesProcessorStep(),
+            #IfdefProcessorStep(),
             #CodeProcessorStep(),
             ]
 
+    def start(self):
+        print 'start:'
+        self.root = RootElement()
+    
+    def end(self):
+        print 'end:'
+
     def visitDependencyStep(self, step):
-        self.dependencies = step.findDependencies()
-        print self.dependencies
+        print 'visitDependencyStep:'
+        depList = step.findDependencies()
+        for dep in depList:
+            self.root.addFile(dep)
 
     def visitElementStep(self, step):
-        elements = {}
-        print step.findElements(elements)
-        pass
+        print 'visitElementStep:'
+        step.findElements(self.root)
 

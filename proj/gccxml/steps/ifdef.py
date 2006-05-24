@@ -19,8 +19,7 @@ from base import ProcessStep
 
 class IfdefHandler(object):
     indent = 0
-    def __init__(self, host, elements):
-        self.host = host
+    def __init__(self, elements):
         self.elements = elements
 
     def onPreParseLine(self, line):
@@ -31,7 +30,6 @@ class IfdefHandler(object):
     def onPosition(self, filename, lineno):
         self.filename = filename
         self.lineno = int(lineno)
-        self.active = filename in self.host.dependencies
 
     def onPreprocessorIf(self, kind, expr):
         print self.indent*'    ', self.indent,
@@ -114,11 +112,15 @@ class IfdefProcessorStep(ProcessStep):
 
     def scanLine(self, handler, line, exprMatchList):
         match = self.re_prefix.match(line)
-        if match is None: return
+        if match is None: 
+            return None
+
         line = line[match.end():]
         for re_expr, onMatch in exprMatchList:
             match = re_expr.match(line)
             if match is not None:
                 onMatch(self, handler, line, match)
-                break
+                return True
+        else:
+            return False
 
