@@ -11,7 +11,18 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Definitions 
+#~ Step Visitor
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class StepVisitor(object):
+    def visitStep(self, step):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+
+    def getConfig(self):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ Steps and Step Mixins
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ProcessStep(object):
@@ -32,10 +43,22 @@ class ProcessStep(object):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class StepVisitor(object):
-    def visitStep(self, step):
-        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+class ElementFileStepMixin(ProcessStep):
+    def findElements(self, elements):
+        handler =  self._getHandlerForStep(elements)
+        fileList = self._getFilesForStep(elements)
+        return self.fileListToElements(elements, handler, fileList)
 
-    def getConfig(self):
+    def fileListToElements(self, elements, handler, fileList, **kw):
+        for filename in fileList:
+            handler.setFilename(filename)
+            self.fileToElements(elements, handler, filename, **kw)
+        return elements
+
+    def _getHandlerForStep(self, elements):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+    def _getFilesForStep(self, elements):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+    def fileToElements(self, elements, handler, srcfile):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 

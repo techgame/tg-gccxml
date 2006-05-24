@@ -33,6 +33,9 @@ class ExternalProcessStep(ProcessStep):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+class GCCXMLException(Exception):
+    pass
+
 class GCCXMLProcessStep(ExternalProcessStep):
     # an example command
     command = r"gccxml <options> %(srcfile)s %(includes)s > '%(outfile)s'"
@@ -49,7 +52,10 @@ class GCCXMLProcessStep(ExternalProcessStep):
         cmdline = self.getCmdLine(srcfile, outfile)
         process = self._subprocess(cmdline, **kw)
         if outfile:
-            process.wait()
+            retcode = process.wait()
+            if retcode != 0:
+                # unsuccessful compile, proceed
+                raise GCCXMLException("GCCXML subprocess returned failure code: %d (%08x)" % (retcode, retcode))
             process.outfile = open(outfile, 'rb')
         else:
             process.outfile = process.stdout

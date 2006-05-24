@@ -15,9 +15,10 @@ from config import StepConfigVisitorMixin
 
 from handlers import RootElement
 
-from codeDepends import CodeDependencyStep
+from includes import IncludesProcessorStep
 from defines import DefinesProcessorStep
 from ifdef import IfdefProcessorStep
+from code import CodeProcessorStep
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -27,17 +28,19 @@ class StepProcessorBase(StepConfigVisitorMixin):
     def __init__(self):
         self.setup()
 
-    def __call__(self):
-        self.run()
-
     def setup(self):
         self.steps = []
 
+    def __call__(self):
+        self.run()
     def run(self):
         self.start()
         for step in self.steps:
             step.visit(self)
         self.end()
+
+    def start(self): pass
+    def end(self): pass
 
     def visitStep(self, step):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
@@ -48,26 +51,18 @@ class StepProcessor(StepProcessorBase):
     def setup(self):
         StepProcessorBase.setup(self)
         self.steps += [
-            CodeDependencyStep(),
-            DefinesProcessorStep(),
-            IfdefProcessorStep(),
-            #CodeProcessorStep(),
+            #IncludesProcessorStep(),
+            #DefinesProcessorStep(),
+            #IfdefProcessorStep(),
+            CodeProcessorStep(),
             ]
 
     def start(self):
-        print 'start:'
         self.root = RootElement()
     
-    def end(self):
-        print 'end:'
-
-    def visitDependencyStep(self, step):
-        print 'visitDependencyStep:'
-        depList = step.findDependencies()
-        for dep in depList:
-            self.root.addDependency(dep)
-
-    def visitElementStep(self, step):
-        print 'visitElementStep:'
+    def visitStep(self, step):
         step.findElements(self.root)
+
+    def end(self):
+        pass
 

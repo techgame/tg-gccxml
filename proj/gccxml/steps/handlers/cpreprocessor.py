@@ -12,51 +12,22 @@
 
 import re
 
+from lineScanners import LineScannerWithContinuations
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class LineScannerBase(object):
-    def __call__(self, handler, fileToScan):
-        return self.scanFile(handler, fileToScan)
-    def scanFile(self, handler, fileToScan):
-        scanLine = self.scanLine
-        mode = None
+class CPreprocessorScanner(LineScannerWithContinuations):
+    re_preprocessor = re.compile(r'^\s*#\s*(\w+)\s*(.*)\s*')
 
-        incLineno = handler.incLineno
-        for line in fileToScan:
-            if mode is not None:
-                mode = mode(handler, line)
-            else:
-                mode = scanLine(handler, line)
-
-            incLineno()
-
-    def scanLine(self, handler, line):
-        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class CPreprocessorScanner(LineScannerBase):
-    re_preprocessor = re.compile(r'^\s*#\s*(\w+)\s*(.*)')
-
-    def scanLine(self, handler, line, matcher=re_preprocessor.match):
+    def scanCompleteLine(self, handler, line, matcher=re_preprocessor.match):
         match = matcher(line)
         if match is None: 
             return 
 
-        directive, restOfLine = match.groups()
-        return self.continueLine(directive, '', handler, restOfLine)
-
-    def continueLine(self, directive, body, handler, line):
-        body = body + line
-        if line.endswith('\\'):
-            body = body[:-1]
-            # line continuation
-            return lambda h,l: self.continueLine(directive, body, h, l)
-
-        # definiton complete
-        self.dispatchDirective(handler, directive, body.strip())
+        directive, body = match.groups()
+        self.dispatchDirective(handler, directive, body)
 
     def dispatchDirective(self, handler, directive, body):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))

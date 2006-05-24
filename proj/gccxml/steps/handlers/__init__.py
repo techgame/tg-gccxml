@@ -37,6 +37,9 @@ class RootElement(object):
     def createFileFor(self, filename):
         return FileElement(filename)
 
+    def getHandleFor(self, section, kind):
+        return FileLineBaseHandler(self)
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class FileElement(object):
@@ -70,7 +73,7 @@ class FileLineBaseHandler(BaseHandler):
     fileElement = None
     filename, lineno = "", 0
 
-    def setFileAndLine(self, filename, lineno=1):
+    def setFilename(self, filename, lineno=1):
         self.filename = filename
         self.lineno = int(lineno)
         self.fileElement = self.rootElement.files.get(filename, None)
@@ -83,6 +86,23 @@ class FileLineBaseHandler(BaseHandler):
     def addElement(self, kind, data):
         self.fileElement.addElement(self.lineno, kind, data)
 
+    def addDependency(self, filename):
+        self.fileElement = self.rootElement.addDependency(filename)
+
     def emit(self, section, kind, *args):
-        print 'emit:', kind, args
+        if kind == 'position':
+            filename, lineno = args[:2]
+            self.setFilename(filename, lineno)
+            return
+
+        elif kind == 'includes':
+            srcfile, depends = args[:2]
+            for d in depends:
+                self.addDependency(d)
+
+        elif  self.fileElement is None:
+            return
+
+        print 'emit:', section, '"%s":%d' % (self.filename, self.lineno)
+        print '   ', kind, args
 

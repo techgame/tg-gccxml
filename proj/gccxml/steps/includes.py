@@ -11,16 +11,22 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import os
+import tempfile
+
 from base import ElementFileStepMixin
 from external import GCCXMLProcessStep
-from handlers.cpreprocessor import DefinesScanner
+from handlers.makefileRule import MakefileRuleScanner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class DefinesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
-    command = r"gccxml -E -dD %(srcfile)s %(includes)s > '%(outfile)s'"
+class IncludesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
+    command = r"gccxml -E -MT TARGET -M %(srcfile)s %(includes)s > %(outfile)s"
+    scanner = MakefileRuleScanner()
+
+    # standard out file descriptor
+    stdout_fd = GCCXMLProcessStep.PIPE
 
     def _getHandlerForStep(self, elements):
         return elements.getHandleFor('preprocess', 'defines')
@@ -28,8 +34,8 @@ class DefinesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
         return self._getSourceFiles()
 
     def fileToElements(self, elements, handler, srcfile):
-        subproc = self._processSrcFile(srcfile, 'defines-' + os.path.basename(srcfile))
-        self.scanner(handler, subproc.outfile)
+        cruncher = self._processSrcFile(srcfile, 'depends-'+os.path.basename(srcfile)+'.mak')
+        self.scanner(handler, cruncher.outfile)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -43,6 +49,21 @@ class DefinesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
     scanner = property(getScanner, setScanner)
 
     def createScanner(self):
-        scanner = DefinesScanner()
+        scanner = MakefileRuleScanner()
         self.setScanner(scanner)
+        self.initBaseline()
+
+    def _getBaselineSourceFiles(self):
+        return self.config.files.get('baseline', [])
+
+    def initBaseline(self):
+        filelist = self._getBaselineSourceFiles()
+        if not filelist:
+            aBaseline = tempfile.NamedTemporaryFile('w', suffix='.c')
+            aBaseline.write('''void main() {}''')
+            aBaseline.flush()
+            filelist = [aBaseline.name]
+
+        for basesrcfile in filelist:
+            self.fileToElements(None, None, basesrcfile)
 

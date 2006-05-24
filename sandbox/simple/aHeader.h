@@ -7,19 +7,26 @@
 
 #define A_MACRO(A_MARCO_ARG_1, A_MACRO_ARG_2) A_MACRO_ARG_1##A_MACRO_ARG_2
 
-#ifdef STUPID
+#ifdef WEIRD || LUMA
 
-#elif FARGO \
-    || FUMA
+#define SHANE_A
 
-#elif LEEMA
+#elif defined(LEEMA)
+
+#define SHANE_B
 
 #else
-struct {
+
+#define SHANE_C
+
+typedef struct {
     int anInt;
     char* aString;
 } AStruct;
+
 #endif
 
-void stupid(AStruct& aRef);
+void aFuncWithStruct(AStruct* aRef);
+
+void aFuncWithInt(int anInt);
 

@@ -11,37 +11,38 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import re
-from base import ProcessStep
-from handlers import FileLineBaseHandler
+from base import ElementFileStepMixin, ProcessStep
 from handlers.cpreprocessor import ConditionsScanner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class IfdefProcessorStep(ProcessStep):
-    HandlerFactory = FileLineBaseHandler
-    scanner = ConditionsScanner()
+class IfdefProcessorStep(ElementFileStepMixin, ProcessStep):
+    def _getHandlerForStep(self, elements):
+        return elements.getHandleFor('preprocess', 'conditional')
+    def _getFilesForStep(self, elements):
+        return elements.getDependencies()
 
-    def hostVisitStep(self, host):
-        host.visitElementStep(self)
-
-    def findElements(self, elements):
-        self.handler = self.HandlerFactory(elements)
-        result = self.fileListToElements(elements, elements.getDependencies())
-        del self.handler
-        return result
-
-    def fileListToElements(self, elements, fileList, **kw):
-        elements = {}
-        for filename in fileList:
-            self.fileToElements(elements, filename, **kw)
-        return elements
-
-    def fileToElements(self, elements, srcfile):
+    def fileToElements(self, elements, handler, srcfile):
         srcfile = open(srcfile, 'rb')
         try:
-            self.scanner(self.handler, srcfile)
+            self.scanner(handler, srcfile)
         finally:
             srcfile.close()
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    _scanner = None
+    def getScanner(self):
+        if self._scanner is None:
+            self.createScanner()
+        return self._scanner
+    def setScanner(self, scanner):
+        self._scanner = scanner
+    scanner = property(getScanner, setScanner)
+
+    def createScanner(self):
+        scanner = ConditionsScanner()
+        self.setScanner(scanner)
 
