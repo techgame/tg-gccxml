@@ -10,15 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from base import StepVisitor
 from config import StepConfigVisitorMixin
-
-from TG.gccxml.model.elements import RootElement
-
-from includes import IncludesProcessorStep
-from defines import DefinesProcessorStep
-from ifdef import IfdefProcessorStep
-from code import CodeProcessorStep
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -44,25 +36,4 @@ class StepProcessorBase(StepConfigVisitorMixin):
 
     def visitStep(self, step):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class StepProcessor(StepProcessorBase):
-    def setup(self):
-        StepProcessorBase.setup(self)
-        self.steps += [
-            IncludesProcessorStep(),
-            DefinesProcessorStep(),
-            IfdefProcessorStep(),
-            CodeProcessorStep(),
-            ]
-
-    def start(self):
-        self.root = RootElement()
-    
-    def visitStep(self, step):
-        step.findElements(self.root)
-
-    def end(self):
-        pass
 

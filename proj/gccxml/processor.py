@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 ##~ Copyright (C) 2002-2006  TechGame Networks, LLC.              ##
 ##~                                                               ##
@@ -11,25 +10,35 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from TG.gccxml.processor import StepProcessor
+from model.elements import RootElement
+
+from steps.stepProcessor import StepProcessorBase
+
+import steps.includes
+import steps.defines
+import steps.ifdef
+import steps.code
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-def main():
-    sp = StepProcessor()
+class StepProcessor(StepProcessorBase):
+    def setup(self):
+        StepProcessorBase.setup(self)
+        self.steps += [
+            steps.includes.IncludesProcessorStep(),
+            steps.defines.DefinesProcessorStep(),
+            steps.ifdef.IfdefProcessorStep(),
+            steps.code.CodeProcessorStep(),
+            ]
 
-    sp.cfg.inc = ['.']
-    sp.cfg.src = ['genSource.c']
-    sp.cfg.baseline = ['baseline.c']
+    def start(self):
+        self.root = RootElement()
+    
+    def visitStep(self, step):
+        step.findElements(self.root)
 
-    sp.run()
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Main 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-if __name__=='__main__':
-    main()
+    def end(self):
+        pass
 
