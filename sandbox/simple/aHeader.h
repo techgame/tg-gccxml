@@ -9,15 +9,15 @@
 
 #ifdef WEIRD || LUMA
 
-#define SHANE_A
+#define SECTION_A
 
 #elif defined(LEEMA)
 
-#define SHANE_B
+#define SECTION_B
 
 #else
 
-#define SHANE_C
+#define SECTION_C
 
 typedef struct {
     int anInt;

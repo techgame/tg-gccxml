@@ -13,7 +13,7 @@
 from base import StepVisitor
 from config import StepConfigVisitorMixin
 
-from handlers import RootElement
+from TG.gccxml.model.elements import RootElement
 
 from includes import IncludesProcessorStep
 from defines import DefinesProcessorStep

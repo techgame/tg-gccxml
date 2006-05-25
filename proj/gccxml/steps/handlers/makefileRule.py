@@ -17,6 +17,8 @@ from lineScanners import LineScannerWithContinuations
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class MakefileRuleScanner(LineScannerWithContinuations):
+    baselineMode = False
+
     _baseline = frozenset()
     def getBaseline(self):
         return self._baseline
@@ -25,16 +27,15 @@ class MakefileRuleScanner(LineScannerWithContinuations):
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    def scanCompleteLine(self, handler, line):
+    def scanCompleteLine(self, emitter, line):
         target, line = line.split(':', 1)
         files = [x.replace('\\$', ' ') for x in line.replace('\\ ', '\\$').split()]
         srcfile, files = files[0], files[1:]
 
-        if handler is None:
-            # no handler -- create the baseline
+        if self.baselineMode:
             self.setBaseline(files)
-            return
-
-        files = [f for f in files if f not in self.getBaseline()]
-        handler.emit('includes', srcfile, files)
+            emitter.emit('includes-baseline', srcfile, files)
+        else:
+            files = [f for f in files if f not in self.getBaseline()]
+            emitter.emit('includes', srcfile, files)
 

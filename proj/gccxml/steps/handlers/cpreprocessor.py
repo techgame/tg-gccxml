@@ -21,15 +21,15 @@ from lineScanners import LineScannerWithContinuations
 class CPreprocessorScanner(LineScannerWithContinuations):
     re_preprocessor = re.compile(r'^\s*#\s*(\w+)\s*(.*)\s*')
 
-    def scanCompleteLine(self, handler, line, matcher=re_preprocessor.match):
+    def scanCompleteLine(self, emitter, line, matcher=re_preprocessor.match):
         match = matcher(line)
         if match is None: 
             return 
 
         directive, body = match.groups()
-        self.dispatchDirective(handler, directive, body)
+        self.dispatchDirective(emitter, directive, body)
 
-    def dispatchDirective(self, handler, directive, body):
+    def dispatchDirective(self, emitter, directive, body):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,21 +37,21 @@ class CPreprocessorScanner(LineScannerWithContinuations):
 class ConditionsScanner(CPreprocessorScanner):
     conditionDirectives = set(('ifndef', 'ifdef', 'if', 'elif', 'else', 'endif'))
 
-    def dispatchDirective(self, handler, directive, body):
+    def dispatchDirective(self, emitter, directive, body):
         if directive in self.conditionDirectives:
-            self.onCondition(handler, directive, body)
+            self.onCondition(emitter, directive, body)
 
-    def onCondition(self, handler, directive, body):
-        handler.emit(directive, body)
+    def onCondition(self, emitter, directive, body):
+        emitter.emit('conditional', directive, body)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class DefinesScanner(CPreprocessorScanner):
-    def dispatchDirective(self, handler, directive, body):
+    def dispatchDirective(self, emitter, directive, body):
         if directive.isdigit():
-            self.onFilePosition(handler, directive, body)
+            self.onFilePosition(emitter, directive, body)
         elif directive == "define":
-            self.onDefine(handler, directive, body)
+            self.onDefine(emitter, directive, body)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -63,22 +63,22 @@ class DefinesScanner(CPreprocessorScanner):
     commonDefs['ARGS'] %= commonDefs
 
     filePositionMatcher = re.compile(r'''(["'])(.*?)\1\s*(\d*)''' % commonDefs).match
-    def onFilePosition(self, handler, lineno, body):
+    def onFilePosition(self, emitter, lineno, body):
         _, filename, flags = self.filePositionMatcher(body).groups()
         lineno = int(lineno)
         flags = int(flags or 0)
-        handler.emit('position', filename, lineno, flags)
+        emitter.emit('position', filename, lineno, flags)
 
     identMatcher = re.compile(r'(%(IDENT)s)%(REST)s' % commonDefs).match
     macroMatcher = re.compile(r'%(ARGS)s%(REST)s' % commonDefs).match
-    def onDefine(self, handler, directive, body):
+    def onDefine(self, emitter, directive, body):
         ident, body = self.identMatcher(body).groups()
 
         marcoPart = self.macroMatcher(body)
         if marcoPart is None:
-            handler.emit('define', ident, body)
+            emitter.emit('define', ident, body)
         else:
             args, body = marcoPart.groups()
             args = tuple(a.strip() for a in args.split(','))
-            handler.emit('macro', ident, args, body)
+            emitter.emit('macro', ident, args, body)
 

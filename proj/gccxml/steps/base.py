@@ -45,20 +45,20 @@ class ProcessStep(object):
 
 class ElementFileStepMixin(ProcessStep):
     def findElements(self, elements):
-        handler =  self._getHandlerForStep(elements)
+        emitter =  self._getEmitterForStep(elements)
         fileList = self._getFilesForStep(elements)
-        return self.fileListToElements(elements, handler, fileList)
+        return self.fileListToElements(elements, emitter, fileList)
 
-    def fileListToElements(self, elements, handler, fileList, **kw):
+    def fileListToElements(self, elements, emitter, fileList, **kw):
         for filename in fileList:
-            handler.setFilename(filename)
-            self.fileToElements(elements, handler, filename, **kw)
+            emitter.setFilename(filename)
+            self.fileToElements(elements, emitter, filename, **kw)
         return elements
 
-    def _getHandlerForStep(self, elements):
+    def _getEmitterForStep(self, elements):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
     def _getFilesForStep(self, elements):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
-    def fileToElements(self, elements, handler, srcfile):
+    def fileToElements(self, elements, emitter, srcfile):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 

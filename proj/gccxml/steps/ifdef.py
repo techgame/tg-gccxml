@@ -11,7 +11,9 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import re
+
 from base import ElementFileStepMixin, ProcessStep
+
 from handlers.cpreprocessor import ConditionsScanner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,30 +21,31 @@ from handlers.cpreprocessor import ConditionsScanner
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class IfdefProcessorStep(ElementFileStepMixin, ProcessStep):
-    def _getHandlerForStep(self, elements):
-        return elements.getHandleFor('preprocess', 'conditional')
+    def _getEmitterForStep(self, elements):
+        return elements.getEmitterFor('preprocess', 'conditional')
     def _getFilesForStep(self, elements):
         return elements.getDependencies()
 
-    def fileToElements(self, elements, handler, srcfile):
+    def fileToElements(self, elements, emitter, srcfile):
+        scanner = self.getScanner(elements, emitter)
+
         srcfile = open(srcfile, 'rb')
         try:
-            self.scanner(handler, srcfile)
+            scanner(emitter, srcfile)
         finally:
             srcfile.close()
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     _scanner = None
-    def getScanner(self):
+    def getScanner(self, elements, emitter):
         if self._scanner is None:
-            self.createScanner()
+            self.createScanner(elements, emitter)
         return self._scanner
     def setScanner(self, scanner):
         self._scanner = scanner
-    scanner = property(getScanner, setScanner)
 
-    def createScanner(self):
+    def createScanner(self, elements, emitter):
         scanner = ConditionsScanner()
         self.setScanner(scanner)
 

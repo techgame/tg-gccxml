@@ -12,6 +12,8 @@
 
 import bisect
 
+import emitters
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Elements
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,8 +39,13 @@ class RootElement(object):
     def createFileFor(self, filename):
         return FileElement(filename)
 
-    def getHandleFor(self, section, kind):
-        return FileLineBaseHandler(self)
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    emitterFactoryMap = emitters.emitterFactoryMap
+    def getEmitterFor(self, section, kind):
+        factory = emitters.getEmitterFactoryFromMap(section, kind, 
+                        self.emitterFactoryMap)
+        return factory(self)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -57,55 +64,4 @@ class FileElement(object):
 
     def addElement(self, line, elemKind, elemArgs):
         self.insertAtLine(line, (elemKind, elemArgs))
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Handlers 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class BaseHandler(object):
-    rootElement = None
-    def __init__(self, rootElement):
-        self.rootElement = rootElement
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class FileLineBaseHandler(BaseHandler):
-    fileElement = None
-    filename, lineno = "", 0
-
-    def setFilename(self, filename, lineno=1):
-        self.filename = filename
-        self.lineno = int(lineno)
-        self.fileElement = self.rootElement.files.get(filename, None)
-
-    def incLineno(self, delta=1):
-        self.lineno += 1
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    def addElement(self, kind, data):
-        self.fileElement.addElement(self.lineno, kind, data)
-
-    def addFile(self, filename):
-        self.fileElement = self.rootElement.addFile(filename)
-    def addDependency(self, filename):
-        self.rootElement.addDependency(filename)
-
-    def emit(self, kind, *args):
-        if kind == 'position':
-            filename, lineno = args[:2]
-            self.setFilename(filename, lineno)
-            return
-
-        elif kind == 'includes':
-            srcfile, depends = args[:2]
-            self.addFile(srcfile)
-            for d in depends:
-                self.addDependency(d)
-
-        elif self.fileElement is None:
-            return
-
-        print 'emit:', '"%s":%d' % (self.filename, self.lineno)
-        print '   ', kind, args
 

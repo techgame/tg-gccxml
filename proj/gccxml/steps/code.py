@@ -24,25 +24,28 @@ from handlers.gccxml import GCCXMLScanner
 class CodeProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
     command = r"gccxml %(srcfile)s %(includes)s -fxml='%(outfile)s'"
 
-    def _getHandlerForStep(self, elements):
-        return elements.getHandleFor('code', 'defines')
+    def _getEmitterForStep(self, elements):
+        return elements.getEmitterFor('code', 'gccxml')
     def _getFilesForStep(self, elements):
         return self._getSourceFiles()
 
-    def fileToElements(self, elements, handler, srcfile):
+    def fileToElements(self, elements, emitter, srcfile):
+        scanner = self.getScanner(elements, emitter)
+
         cruncher = self._processSrcFile(srcfile, 'code-'+os.path.basename(srcfile)+'.xml')
-        self.scanner(handler, cruncher.outfile)
+        scanner(emitter, cruncher.outfile)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     _scanner = None
-    def getScanner(self):
+    def getScanner(self, elements, emitter):
         if self._scanner is None:
-            self.createScanner()
+            self.createScanner(elements, emitter)
         return self._scanner
     def setScanner(self, scanner):
         self._scanner = scanner
-    scanner = property(getScanner, setScanner)
 
-    def createScanner(self):
+    def createScanner(self, elements, emitter):
         scanner = GCCXMLScanner()
         self.setScanner(scanner)
 

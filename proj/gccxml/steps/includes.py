@@ -23,40 +23,42 @@ from handlers.makefileRule import MakefileRuleScanner
 
 class IncludesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
     command = r"gccxml -E -MT TARGET -M %(srcfile)s %(includes)s > %(outfile)s"
-    scanner = MakefileRuleScanner()
 
-    # standard out file descriptor
-    stdout_fd = GCCXMLProcessStep.PIPE
-
-    def _getHandlerForStep(self, elements):
-        return elements.getHandleFor('preprocess', 'defines')
+    def _getEmitterForStep(self, elements):
+        return elements.getEmitterFor('dependency', 'makefile')
     def _getFilesForStep(self, elements):
         return self._getSourceFiles()
 
-    def fileToElements(self, elements, handler, srcfile):
+    def fileToElements(self, elements, emitter, srcfile):
+        scanner = self.getScanner(elements, emitter)
+
         cruncher = self._processSrcFile(srcfile, 'depends-'+os.path.basename(srcfile)+'.mak')
-        self.scanner(handler, cruncher.outfile)
+        scanner(emitter, cruncher.outfile)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     _scanner = None
-    def getScanner(self):
+    def getScanner(self, elements, emitter):
         if self._scanner is None:
-            self.createScanner()
+            self.createScanner(elements, emitter)
         return self._scanner
     def setScanner(self, scanner):
         self._scanner = scanner
-    scanner = property(getScanner, setScanner)
 
-    def createScanner(self):
+    def createScanner(self, elements, emitter):
         scanner = MakefileRuleScanner()
         self.setScanner(scanner)
-        self.initBaseline()
+
+        scanner.baselineMode = True
+        try:
+            self.initBaseline(elements, emitter)
+        finally:
+            scanner.baselineMode = False
 
     def _getBaselineSourceFiles(self):
         return self.config.files.get('baseline', [])
 
-    def initBaseline(self):
+    def initBaseline(self, elements, emitter):
         filelist = self._getBaselineSourceFiles()
         if not filelist:
             aBaseline = tempfile.NamedTemporaryFile('w', suffix='.c')
@@ -65,5 +67,5 @@ class IncludesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
             filelist = [aBaseline.name]
 
         for basesrcfile in filelist:
-            self.fileToElements(None, None, basesrcfile)
+            self.fileToElements(elements, emitter, basesrcfile)
 
