@@ -97,10 +97,6 @@ class Element(object):
         return False
     def isPreprocessor(self):
         return False
-    def isDefine(self):
-        return False
-    def isMacro(self):
-        return False
     def isFile(self):
         return False
 
@@ -144,7 +140,7 @@ class Element(object):
 
 class ElementVisitor(object):
     # root reference
-    def onGCCXML(self, item, *args, **kw): pass
+    def onRoot(self, item, *args, **kw): pass
 
     # file references
     def onFile(self, item, *args, **kw): pass
@@ -161,10 +157,6 @@ class ElementVisitor(object):
     def onPointerType(self, item, *args, **kw): pass
     def onReferenceType(self, item, *args, **kw): pass
     def onArrayType(self, item, *args, **kw): pass
-
-    # preprocessor
-    def onDefine(self, item, *args, **kw): pass
-    def onMacro(self, item, *args, **kw): pass
 
     # context elements
     def onContext(self, item, *args, **kw): pass
@@ -355,35 +347,6 @@ class ArrayType(AlignedType):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onArrayType(self, *args, **kw)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Preprocessor
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class Define(Element):
-    name = ''
-    body = ''
-
-    def isPreprocessor(self):
-        return True
-    def isDefine(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onDefine(self, *args, **kw)
-
-class Macro(Element):
-    name = ''
-    params = ''
-    body = ''
-
-    def isPreprocessor(self):
-        return True
-    def isMacro(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onMacro(self, *args, **kw)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Contexts, Structures, Unions, and Fields
@@ -586,23 +549,20 @@ class Destructor(Method):
 
 class GCC_XML(Element):
     # use this name because it matches the xml scheme
-
-    _builder = None
-    def getBuilder(self):
-        if self._builder is None:
-            pass #self.setBuilder(None)
-        return self._builder
-    def setBuilder(self, builder):
-        self._builder = builder
-    def delBuilder(self):
-        self._builder = None
-    builder = property(getBuilder, setBuilder, delBuilder)
+    _elements = None
+    def getElements(self):
+        if self._elements is None:
+            self.setElements([])
+        return self._elements
+    def setElements(self, elements):
+        self._elements = elements
+    elements = property(getElements, setElements)
 
     def addElement(self, elem):
-        self.getBuilder().addElement(elem)
+        self.elements.append(elem)
 
     def _visit(self, visitor, *args, **kw):
-        return visitor.onGCCXML(self, *args, **kw)
+        return visitor.onRoot(self, *args, **kw)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Child definitions
@@ -615,7 +575,6 @@ GCC_XML.setChildTypes([
         Typedef, Union, Struct, Class,
         FunctionType, Function, Method, Constructor, Destructor, 
         Variable, Field,
-        Define, Macro,
         ])
 
 Enumeration.setChildTypes([EnumValue])
@@ -693,9 +652,4 @@ class GCCXMLHandler(xml.sax.handler.ContentHandler):
 
     def _log(self, msg):
         print msg
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-def parse(xmlFile):
-    return GCCXMLHandler().parse(xmlFile)
 

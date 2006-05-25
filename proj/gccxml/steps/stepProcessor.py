@@ -51,9 +51,9 @@ class StepProcessor(StepProcessorBase):
     def setup(self):
         StepProcessorBase.setup(self)
         self.steps += [
-            #IncludesProcessorStep(),
-            #DefinesProcessorStep(),
-            #IfdefProcessorStep(),
+            IncludesProcessorStep(),
+            DefinesProcessorStep(),
+            IfdefProcessorStep(),
             CodeProcessorStep(),
             ]
 

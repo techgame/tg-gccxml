@@ -42,7 +42,7 @@ class ConditionsScanner(CPreprocessorScanner):
             self.onCondition(handler, directive, body)
 
     def onCondition(self, handler, directive, body):
-        handler.emit('preprocessor', directive, body)
+        handler.emit(directive, body)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -67,7 +67,7 @@ class DefinesScanner(CPreprocessorScanner):
         _, filename, flags = self.filePositionMatcher(body).groups()
         lineno = int(lineno)
         flags = int(flags or 0)
-        handler.emit('preprocessor', 'position', filename, lineno, flags)
+        handler.emit('position', filename, lineno, flags)
 
     identMatcher = re.compile(r'(%(IDENT)s)%(REST)s' % commonDefs).match
     macroMatcher = re.compile(r'%(ARGS)s%(REST)s' % commonDefs).match
@@ -76,9 +76,9 @@ class DefinesScanner(CPreprocessorScanner):
 
         marcoPart = self.macroMatcher(body)
         if marcoPart is None:
-            handler.emit('preprocessor', 'define', ident, body)
+            handler.emit('define', ident, body)
         else:
             args, body = marcoPart.groups()
             args = tuple(a.strip() for a in args.split(','))
-            handler.emit('preprocessor', 'macro', ident, args, body)
+            handler.emit('macro', ident, args, body)
 

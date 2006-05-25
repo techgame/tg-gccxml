@@ -86,10 +86,12 @@ class FileLineBaseHandler(BaseHandler):
     def addElement(self, kind, data):
         self.fileElement.addElement(self.lineno, kind, data)
 
+    def addFile(self, filename):
+        self.fileElement = self.rootElement.addFile(filename)
     def addDependency(self, filename):
-        self.fileElement = self.rootElement.addDependency(filename)
+        self.rootElement.addDependency(filename)
 
-    def emit(self, section, kind, *args):
+    def emit(self, kind, *args):
         if kind == 'position':
             filename, lineno = args[:2]
             self.setFilename(filename, lineno)
@@ -97,12 +99,13 @@ class FileLineBaseHandler(BaseHandler):
 
         elif kind == 'includes':
             srcfile, depends = args[:2]
+            self.addFile(srcfile)
             for d in depends:
                 self.addDependency(d)
 
-        elif  self.fileElement is None:
+        elif self.fileElement is None:
             return
 
-        print 'emit:', section, '"%s":%d' % (self.filename, self.lineno)
+        print 'emit:', '"%s":%d' % (self.filename, self.lineno)
         print '   ', kind, args
 

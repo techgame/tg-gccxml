@@ -10,17 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from TG.gccxml.model.xmlElements import GCCXMLHandler
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class GCCXMLScanner(GCCXMLHandler):
-    def __call__(self, handler, fileToScan):
-        self.scanFile(handler, fileToScan)
-
-    def scanFile(self, handler, fileToScan):
-        root = self.parse(fileToScan)
-        handler.emit('gccxml-model', root)
 

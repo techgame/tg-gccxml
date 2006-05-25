@@ -36,5 +36,5 @@ class MakefileRuleScanner(LineScannerWithContinuations):
             return
 
         files = [f for f in files if f not in self.getBaseline()]
-        handler.emit('preprocessor', 'includes', srcfile, files)
+        handler.emit('includes', srcfile, files)
 
