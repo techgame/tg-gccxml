@@ -21,8 +21,8 @@ def main():
     sp = StepProcessor()
 
     sp.cfg.inc = ['.']
-    sp.cfg.src = ['genSource.c']
-    sp.cfg.baseline = ['baseline.c']
+    sp.cfg.src = ['genSource.cpp']
+    sp.cfg.baseline = ['baseline.cpp']
 
     sp.run()
 

@@ -13,39 +13,84 @@
 import xml.sax
 import xml.sax.handler
 
+import gccElements
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Element(object):
+def ignore(v):
+    return None
+
+class definition(str): pass
+class reference(str): pass
+
+class fileReference(str): pass
+
+def acccessStr(v):
+    return v
+
+def intOr0(v):
+    return int(v or 0)
+def intOrNone(v):
+    if v: return int(v)
+    else: return None
+def boolOr0(v):
+    return bool(int(v or 0))
+
+def referenceList(v):
+    return [reference(i) for i in v.split(' ')]
+
+def throwList(v): 
+    return referenceList(v)
+
+def funcAttrList(v): 
+    return v.split(' ')
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class XMLElement(object):
+    ElementFactory = None
+    attrValueMap = dict()
+    attrNameMap = dict(cvs_revision=None,)
+
     def __init__(self, attrs):
-        self.setXMLAttrs(attrs)
+        self._setXMLAttrs(attrs)
 
-    def __repr__(self):
-        r = '<' + self.__class__.__name__
-        name = getattr(self, 'name', '')
-        if name:
-            r+= ' "%s"' % name
-
-        id = getattr(self, 'id', '')
-        if id:
-            r+= ' id:' + id
-
-        if self.file:
-            r+= ' loc:%s+%s' % (self.file, self.line)
-        return r + '>'
     @classmethod
     def getXMLElementName(klass):
         return klass.__name__
 
-    def setXMLAttrs(self, attrs):
-        for n,v in attrs.items():
-            setattr(self, n, v)
+    def _setXMLAttrs(self, attrs):
+        self.attrs = self._transformAttrs(attrs)
+
+    def _transformAttrs(self, attrs):
+        attrNameMap = self.attrNameMap
+        attrValueMap = self.attrValueMap
+
+        print 'in:', self.getXMLElementName()
+        newAttrs = {}
+        for xn,xv in attrs.items():
+            # see if we are converting this name
+            n = attrNameMap.get(xn, xn)
+            if not n: continue
+
+            # get the value conversion function from the xml attribute name
+            vFn = attrValueMap[xn]
+
+            # convert the value 
+            v = vFn(xv)
+
+            # set it into the new attr map under the new name
+            newAttrs[n] = v
+            print '   ', n, '=', v
+
+        return newAttrs
 
     def startElement(self, name, attrs):
-        factory = self.getChildTypes().get(name, None)
-        if factory is not None:
-            elem = factory(attrs)
+        xmlElemFactory = self.getChildTypes().get(name, None)
+        if xmlElemFactory is not None:
+            elem = xmlElemFactory(attrs)
         else:
             elem = None
         return elem
@@ -55,80 +100,14 @@ class Element(object):
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    file = '' # index into file list
-
-    # make line an integer so we can compare with it
-    _line = None
-    def getLine(self):
-        return self._line
-    def setLine(self, line):
-        if line:
-            self._line = int(line)
-        else: self._line = None
-    line = property(getLine, setLine)
-
-    # location is a duplicate of file & line
-    location = property(lambda s:None, lambda s, v:None)
-
     def addElement(self, elem):
         raise Exception("Unexpected child element: %s for: %s" % (elem, self))
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    def isCallable(self): 
-        return False
-    def isArgument(self): 
-        return False
-    def isType(self): 
-        return False
-    def isPointerType(self): 
-        return False
-    def isTypedef(self):
-        return False
-    def isVariable(self):
-        return False
-    def isContext(self):
-        return False
-    def isModifiedType(self):
-        return False
-    def isCompositeType(self):
-        return False
-    def isField(self):
-        return False
-    def isPreprocessor(self):
-        return False
-    def isFile(self):
-        return False
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    def visit(self, visitor, *args, **kw):
-        self._visitSpecial(visitor, *args, **kw)
-        return self._visit(visitor, *args, **kw)
-    def _visit(self, visitor, *args, **kw):
-        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
-    def visitChildren(self, visitor, *args, **kw):
-        for child in self.iterVisitChildren(visitor):
-            child.visit(visitor, *args, **kw)
-    def visitAll(self, visitor, *args, **kw):
-        self.visit(visitor, *args, **kw)
-        for child in self.iterVisitChildren(visitor):
-            child.visitAll(visitor, *args, **kw)
-    def iterVisitChildren(self, visitor):
-        return iter([])
-
-    def _visitSpecial(self, visitor, *args, **kw):
-        if self.isType():
-            visitor.onType(self, *args, **kw)
-        if self.isContext():
-            visitor.onContext(self, *args, **kw)
-        if self.isCallable():
-            visitor.onCallable(self, *args, **kw)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #~ Child Elements Types
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    _elemTypeMap = {}
     @classmethod
     def getChildTypes(klass):
         return klass._elemTypeMap
@@ -137,124 +116,72 @@ class Element(object):
         klass._elemTypeMap = dict((et.getXMLElementName(), et) for et in elementTypes)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class ElementVisitor(object):
-    # root reference
-    def onRoot(self, item, *args, **kw): pass
-
-    # file references
-    def onFile(self, item, *args, **kw): pass
-
-    # simple types
-    def onType(self, item, *args, **kw): pass
-    def onFundamentalType(self, item, *args, **kw): pass
-    def onCvQualifiedType(self, item, *args, **kw): pass
-    def onEnumeration(self, item, *args, **kw): pass
-    def onEnumValue(self, item, *args, **kw): pass
-
-    # complex types and pointers
-    def onTypedef(self, item, *args, **kw): pass
-    def onPointerType(self, item, *args, **kw): pass
-    def onReferenceType(self, item, *args, **kw): pass
-    def onArrayType(self, item, *args, **kw): pass
-
-    # context elements
-    def onContext(self, item, *args, **kw): pass
-    def onNamespace(self, item, *args, **kw): pass
-    def onUnion(self, item, *args, **kw): pass
-    def onStruct(self, item, *args, **kw): pass
-    def onClass(self, item, *args, **kw): pass
-
-    # context members
-    def onVariable(self, item, *args, **kw): pass
-    def onField(self, item, *args, **kw): pass
-
-    # sub elements of Callables
-    def onArgument(self, item, *args, **kw): pass
-    def onEllipsis(self, item, *args, **kw): pass
-
-    # callables
-    def onCallable(self, item, *args, **kw): pass
-    def onFunction(self, item, *args, **kw): pass
-    def onFunctionType(self, item, *args, **kw): pass
-    def onMethod(self, item, *args, **kw): pass
-    def onConstructor(self, item, *args, **kw): pass
-    def onDestructor(self, item, *args, **kw): pass
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ File references
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class File(Element):
-    name = ''
-
-    def isFile(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onFile(self, *args, **kw)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Types
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CType(Element):
-    id = None # key in identmap
+class IdentifiedElement(XMLElement):
+    ElementFactory = None
 
-    def isType(self):
-        return True
+    attrValueMap = XMLElement.attrValueMap.copy()
+    attrValueMap.update(
+        id=definition,
+        )
 
-class AlignedType(CType):
-    _align = None
-    def getAlign(self):
-        return self._align
-    def setAlign(self, align):
-        self._align = int(align)
-    align = property(getAlign, setAlign)
+class LocatedElement(IdentifiedElement):
+    ElementFactory = None
 
-class SizedType(AlignedType):
-    _size = None
-    def getSize(self):
-        return self._size
-    def setSize(self, size):
-        self._size = int(size)
-    size = property(getSize, setSize)
+    attrValueMap = IdentifiedElement.attrValueMap.copy()
+    attrValueMap.update(
+        file=ignore,
+        line=ignore,
+        #location=locationOrNone,  # ignore this in favor of file and line references
+        )
+    attrNameMap = IdentifiedElement.attrNameMap.copy()
+    attrNameMap.update(
+        location=None, # ignore location -- prefer file and line references
+        )
+
+class SizedType(LocatedElement):
+    ElementFactory = None
+
+    attrValueMap = LocatedElement.attrValueMap.copy()
+    attrValueMap.update(
+        align=intOr0,
+        size=intOr0,
+        )
 
 class FundamentalType(SizedType):
-    name = ''
+    ElementFactory = gccElements.FundamentalType
+    ElementFactory = None
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onFundamentalType(self, *args, **kw)
+    attrValueMap = SizedType.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        )
 
-class CvQualifiedType(CType):
-    type = None # index into typemap
+class CvQualifiedType(LocatedElement):
+    ElementFactory = gccElements.CvQualifiedType
 
-    _const = False
-    def getConst(self):
-        return self._const
-    def setConst(self, const):
-        self._const = bool(int(const or 0))
-    const = property(getConst, setConst)
-
-    _volatile = False
-    def getVolatile(self):
-        return self._volatile
-    def setVolatile(self, volatile):
-        self._volatile =  bool(int(volatile or 0))
-    volatile = property(getVolatile, setVolatile)
-    
-    def isModifiedType(self):
-        return True
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onCvQualifiedType(self, *args, **kw)
+    attrValueMap = LocatedElement.attrValueMap.copy()
+    attrValueMap.update(
+        type=reference,
+        const=boolOr0,
+        volatile=boolOr0,
+        )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Enumeration Type
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Enumeration(SizedType):
-    name = ''
-    context = None
+    ElementFactory = gccElements.Enumeration
+
+    attrValueMap = SizedType.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        artificial=boolOr0,
+        context=reference,
+        )
 
     _enumValues = None
     def getEnumValues(self):
@@ -266,112 +193,97 @@ class Enumeration(SizedType):
     enumValues = property(getEnumValues, setEnumValues)
 
     def addElement(self, elem):
-        if elem.isEnumValue():
+        if isinstance(elem, EnumValue):
             self.enumValues.append(elem)
         else:
-            raise Exception("Unexpected child element: %s for: %s" % (elem, self))
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onEnumeration(self, *args, **kw)
-
-    def iterVisitChildren(self, visitor):
-        return iter(self.enumValues)
+            SizedType.addElement(self, enum)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class EnumValue(Element):
-    name = ''
+class EnumValue(XMLElement):
+    ElementFactory = gccElements.EnumValue
 
-    _init = 0
-    def getInit(self):
-        return self._init
-    def setInit(self, init):
-        self._init = int(init or 0)
-    init = property(getInit, setInit)
-    
-    def isEnumValue(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onEnumValue(self, *args, **kw)
+    attrValueMap = XMLElement.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        init=intOr0,
+        )
+    attrNameMap = XMLElement.attrNameMap.copy()
+    attrNameMap.update(init='value')
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Typedefs, pointers, and arrays
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Typedef(CType):
-    name = ''
-    type = None # index into typemap
-    context = None # index into composite type
+class Typedef(LocatedElement):
+    ElementFactory = gccElements.Typedef
 
-    def isTypedef(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onTypedef(self, *args, **kw)
+    attrValueMap = LocatedElement.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        type=reference,
+        context=reference,
+        )
 
 class PointerType(SizedType):
-    type = None # index into typemap
+    ElementFactory = gccElements.PointerType
 
-    def isPointerType(self):
-        return True
+    attrValueMap = SizedType.attrValueMap.copy()
+    attrValueMap.update(
+        type=reference,
+        )
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onPointerType(self, *args, **kw)
+class ReferenceType(SizedType):
+    ElementFactory = gccElements.ReferenceType
 
-class ReferenceType(PointerType):
-    type = None # index into typemap
+    attrValueMap = SizedType.attrValueMap.copy()
+    attrValueMap.update(
+        type=reference,
+        )
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onReferenceType(self, *args, **kw)
+class ArrayType(SizedType):
+    ElementFactory = gccElements.ArrayType
 
-class ArrayType(AlignedType):
-    type = None # index into typemap
-
-    _min = 0
-    def getMin(self):
-        return self._min
-    def setMin(self, min):
-        self._min = int(min or 0)
-    min = property(getMin, setMin)
-
-    _max = None
-    def getMax(self):
-        return self._max
-    def setMax(self, max):
-        if max:
-            self._max = int(max)
-        else:
-            self._max = None
-    max = property(getMax, setMax)
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onArrayType(self, *args, **kw)
+    attrValueMap = SizedType.attrValueMap.copy()
+    attrValueMap.update(
+        type=reference,
+        min=intOr0,
+        max=intOrNone,
+        )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Contexts, Structures, Unions, and Fields
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Namespace(Element):
-    id = None # key in identmap
-    name = ''
-    members = ''
+class Namespace(XMLElement):
+    ElementFactory = gccElements.Namespace
 
-    def isContext(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onNamespace(self, *args, **kw)
+    attrValueMap = XMLElement.attrValueMap.copy()
+    attrValueMap.update(
+        id=definition,
+        name=str,
+        mangled=str,
+        context=reference,
+        members=referenceList,
+        )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CompositeType(SizedType):
-    name = ''
-    mangled = ''
-    bases = ''
-    context = None # index into composite type
+    ElementFactory = None
 
-    memebers = ''
+    attrValueMap = SizedType.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        mangled=str,
+        size=intOr0,
+        align=intOr0,
+
+        context=reference,
+
+        bases=referenceList,
+        members=referenceList,
+        )
 
     _fields = None
     def getFields(self):
@@ -382,102 +294,120 @@ class CompositeType(SizedType):
         self._fields = fields
     fields = property(getFields, setFields)
 
-    def addField(self, field):
-        self.fields.append(field)
+    def addElement(self, elem):
+        if isinstance(elem, Field):
+            self.fields.append(elem)
+        else:
+            SizedType.addElement(self, enum)
 
-    def isCompositeType(self):
-        return True
-    def isContext(self):
-        return True
-
-    def iterVisitChildren(self, visitor):
-        return iter(self.fields)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Union(CompositeType):
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onUnion(self, *args, **kw)
+    ElementFactory = gccElements.Union
 
 class Struct(CompositeType):
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onStruct(self, *args, **kw)
+    ElementFactory = gccElements.Struct
+
+    attrValueMap = CompositeType.attrValueMap.copy()
+    attrValueMap.update(
+        incomplete=boolOr0,
+        artificial=boolOr0,
+        )
+
+    _baseReferences = None
+    def getBaseReferences(self):
+        if self._baseReferences is None:
+            self.setBaseReferences([])
+        return self._baseReferences
+    def setBaseReferences(self, baseReferences):
+        self._baseReferences = baseReferences
+    baseReferences = property(getBaseReferences, setBaseReferences)
+
+    def addElement(self, elem):
+        if isinstance(elem, Base):
+            self.baseReferences.append(elem)
+        else:
+            CompositeType.addElement(self, enum)
 
 class Class(Struct):
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onClass(self, *args, **kw)
+    ElementFactory = gccElements.Class
+
+    attrValueMap = Struct.attrValueMap.copy()
+    attrValueMap.update()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class Base(XMLElement):
+    ElementFactory = gccElements.Base
+
+    attrValueMap = XMLElement.attrValueMap.copy()
+    attrValueMap.update(
+        type=reference,
+        access=acccessStr,
+        virtual=boolOr0,
+        )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Variable
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Variable(Element):
-    id = None # key in identmap
-    name = ""
-    type = None # index into typemap
-    context = None # index into composite type
+class Variable(LocatedElement):
+    ElementFactory = gccElements.Variable
 
-    init = None # initial value -- useful it type is constant
+    attrValueMap = LocatedElement.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        type=reference,
+        context=reference,
+        artificial=boolOr0,
+        extern=boolOr0,
+        init=str,
+        )
+    attrNameMap = LocatedElement.attrNameMap.copy()
+    attrNameMap.update(init='value')
 
-    def isVariable(self):
-        return True
+class Field(LocatedElement):
+    ElementFactory = gccElements.Field
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onVariable(self, *args, **kw)
+    attrValueMap = LocatedElement.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        mangled=str,
+        access=acccessStr,
 
-class Field(Element):
-    id = None # key in identmap
-    name = ""
-    mangled = '' # mangled name
-    type = None # index into typemap
-    bits = None
+        offset=intOrNone,
+        bits=intOrNone,
 
-    context = None # index into composite type
-    access = ''
-
-    _offset = None
-    def getOffset(self):
-        return self._offset
-    def setOffset(self, offset):
-        if offset:
-            self._offset = int(offset)
-        else: self._offset = None
-    offset = property(getOffset, setOffset)
-
-    def isField(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onField(self, *args, **kw)
+        type=reference,
+        context=reference,
+        )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Callable Types & Argument
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Argument(Element):
-    name = ''
-    type = None # index into typemap
+class Argument(LocatedElement):
+    ElementFactory = gccElements.Argument
 
-    def isArgument(self): 
-        return True
-    def isEllipsisArgument(self):
-        return False
+    attrValueMap = LocatedElement.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        type=reference,
+        )
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onArgument(self, *args, **kw)
+class Ellipsis(XMLElement):
+    ElementFactory = gccElements.Ellipsis
 
-class Ellipsis(Element):
-    def isArgument(self): 
-        return True
-    def isEllipsisArgument(self): 
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onEllipsis(self, *args, **kw)
+    attrValueMap = XMLElement.attrValueMap.copy()
+    attrValueMap.update()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Callable(CType):
-    def isCallable(self): 
-        return True
+class Callable(LocatedElement):
+    ElementFactory = None
+
+    attrValueMap = LocatedElement.attrValueMap.copy()
+    attrValueMap.update()
 
     _arguments = None
     def getArguments(self):
@@ -489,65 +419,78 @@ class Callable(CType):
     arguments = property(getArguments, setArguments)
 
     def addElement(self, elem):
-        if elem.isArgument():
+        if isinstance(elem, (Argument, Ellipsis)):
             self.arguments.append(elem)
         else:
-            raise Exception("Unexpected child element: %s for: %s" % (elem, self))
-
-    def iterVisitChildren(self, visitor):
-        return iter(self.arguments)
-
-class Function(Callable):
-    name = ''
-    mangled = ''
-
-    context = None # index into composite type
-    extern = None # extern method?
-
-    returns = None # index into typemap
-    
-    _inline = False
-    def getInline(self):
-        return self._inline
-    def setInline(self, inline):
-        self._inline = bool(int(inline or 0))
-    inline = property(getInline, setInline)
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onFunction(self, *args, **kw)
+            LocatedElement.addElement(self, enum)
 
 class FunctionType(Callable):
-    returns = None # index into typemap
+    ElementFactory = gccElements.FunctionType
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onFunctionType(self, *args, **kw)
+    attrValueMap = Callable.attrValueMap.copy()
+    attrValueMap.update(
+        returns=reference,
+        )
+
+class Function(Callable):
+    ElementFactory = gccElements.Function
+
+    attrValueMap = Callable.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        mangled=str,
+        endline=intOrNone,
+
+        returns=reference,
+        context=reference,
+
+        extern=boolOr0,
+        inline=boolOr0,
+
+        attributes=funcAttrList,
+        throw=throwList,
+        )
 
 class Method(Function):
-    throw = ''
+    ElementFactory = gccElements.Method
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onMethod(self, *args, **kw)
+    attrValueMap = Function.attrValueMap.copy()
+    attrValueMap.update(
+        access=acccessStr,
+        virtual=boolOr0,
+        )
 
 class Constructor(Method):
-    _explicit = False
-    def getExplicit(self):
-        return self._explicit
-    def setExplicit(self, explicit):
-        self._explicit = bool(int(explicit or 0))
-    explicit = property(getExplicit, setExplicit)
+    ElementFactory = gccElements.Constructor
 
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onConstructor(self, *args, **kw)
+    attrValueMap = Function.attrValueMap.copy()
+    attrValueMap.update(
+        artificial=boolOr0,
+        explicit=boolOr0,
+        )
 
 class Destructor(Method):
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onDestructor(self, *args, **kw)
+    ElementFactory = gccElements.Destructor
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ File references
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class File(IdentifiedElement):
+    ElementFactory = gccElements.File
+
+    attrValueMap = IdentifiedElement.attrValueMap.copy()
+    attrValueMap.update(
+        name=str,
+        )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ GCC XML Elements
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class GCC_XML(Element):
+class GCC_XML(XMLElement):
+    ElementFactory = None
+
     # use this name because it matches the xml scheme
     _elements = None
     def getElements(self):
@@ -560,9 +503,6 @@ class GCC_XML(Element):
 
     def addElement(self, elem):
         self.elements.append(elem)
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onRoot(self, *args, **kw)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Child definitions
@@ -579,6 +519,8 @@ GCC_XML.setChildTypes([
 
 Enumeration.setChildTypes([EnumValue])
 Callable.setChildTypes([Argument, Ellipsis])
+
+Struct.setChildTypes([Base]) # Class is a subtype of Struct
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ xml.sax.handler.ContentHandler

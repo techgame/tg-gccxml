@@ -10,8 +10,6 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from model.elements import RootElement
-
 from steps.stepProcessor import StepProcessorBase
 
 import steps.includes
@@ -19,11 +17,15 @@ import steps.defines
 import steps.ifdef
 import steps.code
 
+import model.elements
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class StepProcessor(StepProcessorBase):
+    RootElementFactory = model.elements.RootElement
+
     def setup(self):
         StepProcessorBase.setup(self)
         self.steps += [
@@ -34,7 +36,7 @@ class StepProcessor(StepProcessorBase):
             ]
 
     def start(self):
-        self.root = RootElement()
+        self.root = self.RootElementFactory()
     
     def visitStep(self, step):
         step.findElements(self.root)
