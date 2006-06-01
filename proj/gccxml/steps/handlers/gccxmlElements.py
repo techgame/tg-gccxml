@@ -127,6 +127,9 @@ class XMLElement(object):
     def addElement(self, elem):
         raise Exception("Unexpected child element: %s for: %s" % (elem, self))
 
+    def iterChildren(self):
+        return iter(())
+
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #~ GCC Model creation
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,7 +141,14 @@ class XMLElement(object):
 
         model = emitter.emit('create', itemKind, self.topLevel, dict(self._staticAttrs()))
         self.model = model
+        self.createModelChildren(emitter, idMap, model)
         return model
+
+    def createModelChildren(self, emitter, idMap, model):
+        for e in self.iterChildren():
+            sub = e.createModel(emitter, idMap)
+            if sub is not None:
+                emitter.emit('add-child', model, sub)
 
     def _staticAttrs(self):
         for n,v in self.attrs.iteritems():
@@ -147,6 +157,13 @@ class XMLElement(object):
 
     def linkModel(self, emitter, idMap):
         emitter.emit('linked', self.itemKind, self.topLevel, self.model, dict(self._linkAttrs(idMap)))
+        self.linkModelChildren(emitter, idMap, self.model)
+
+    def linkModelChildren(self, emitter, idMap, model):
+        for e in self.iterChildren():
+            sub = e.linkModel(emitter, idMap)
+            if sub is not None:
+                emitter.emit('link-child', model, sub)
 
     def _linkAttrs(self, idMap):
         attrs = self.attrs
@@ -255,15 +272,8 @@ class Enumeration(SizedType):
         else:
             SizedType.addElement(self, enum)
     
-    def createModel(self, emitter, idMap):
-        SizedType.createModel(self, emitter, idMap)
-        for e in self.enumValues:
-            e.createModel(emitter, idMap)
-
-    def linkModel(self, emitter, idMap):
-        SizedType.linkModel(self, emitter, idMap)
-        for e in self.enumValues:
-            e.linkModel(emitter, idMap)
+    def iterChildren(self):
+        return iter(self.enumValues)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -367,15 +377,8 @@ class CompositeType(SizedType):
         else:
             SizedType.addElement(self, enum)
 
-    def createModel(self, emitter, idMap):
-        SizedType.createModel(self, emitter, idMap)
-        for e in self.fields:
-            e.createModel(emitter, idMap)
-
-    def linkModel(self, emitter, idMap):
-        SizedType.linkModel(self, emitter, idMap)
-        for e in self.fields:
-            e.linkModel(emitter, idMap)
+    def iterChildren(self):
+        return iter(self.fields)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -405,17 +408,10 @@ class Struct(CompositeType):
             self.baseReferences.append(elem)
         else:
             CompositeType.addElement(self, enum)
+
+    def iterChildren(self):
+        return iter(self.baseReferences)
     
-    def createModel(self, emitter, idMap):
-        CompositeType.createModel(self, emitter, idMap)
-        for e in self.baseReferences:
-            e.createModel(emitter, idMap)
-
-    def linkModel(self, emitter, idMap):
-        CompositeType.linkModel(self, emitter, idMap)
-        for e in self.baseReferences:
-            e.linkModel(emitter, idMap)
-
 class Class(Struct):
     itemKind = 'Class'
 
@@ -513,15 +509,8 @@ class Callable(LocatedElement):
         else:
             LocatedElement.addElement(self, enum)
 
-    def createModel(self, emitter, idMap):
-        LocatedElement.createModel(self, emitter, idMap)
-        for e in self.arguments:
-            e.createModel(emitter, idMap)
-
-    def linkModel(self, emitter, idMap):
-        LocatedElement.linkModel(self, emitter, idMap)
-        for e in self.arguments:
-            e.linkModel(emitter, idMap)
+    def iterChildren(self):
+        return iter(self.arguments)
 
 class FunctionType(Callable):
     itemKind = 'FunctionType'

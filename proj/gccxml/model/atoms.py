@@ -11,6 +11,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import bisect
+import itertools
 
 import xml.sax
 import xml.sax.handler
@@ -71,7 +72,6 @@ class ModelAtomVisitor(object):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ModelAtom(object):
-    def isCallable(self): return False
     def isArgument(self): return False
     def isType(self): return False
     def isPointerType(self): return False
@@ -82,7 +82,13 @@ class ModelAtom(object):
     def isContext(self): return False
     def isCvQualifiedType(self): return False
     def isCompositeType(self): return False
+    def isBase(self): return False
     def isField(self): return False
+    def isCallable(self): return False
+    def isFunction(self): return False
+    def isMethod(self): return False
+    def isConstructor(self): return False
+    def isDestructor(self): return False
     def isPreprocessor(self): return False
     def isPPInclude(self): return False
     def isPPConditional(self): return False
@@ -114,6 +120,13 @@ class ModelAtom(object):
             visitor.onContext(self, *args, **kw)
         elif self.isCallable():
             visitor.onCallable(self, *args, **kw)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def addAtom(self, atom): 
+        raise Exception("Unexpected atom %r added to %r" % (atom, self))
+    def linkAtom(self, atom): 
+        pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Types
@@ -171,6 +184,12 @@ class Enumeration(CType):
 
     def iterVisitChildren(self, visitor):
         return iter(self.enumValues)
+
+    def addAtom(self, atom): 
+        if atom.isEnumValue():
+            self.enumValues.append(atom)
+        else:
+            CType.addAtom(atom)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -277,6 +296,12 @@ class CompositeType(CType):
     def iterVisitChildren(self, visitor):
         return iter(self.fields)
 
+    def addAtom(self, atom):
+        if atom.isField():
+            self.fields.append(atom)
+        else:
+            CType.addAtom(self, atom)
+
 class Union(CompositeType):
     def _visit(self, visitor, *args, **kw):
         return visitor.onUnion(self, *args, **kw)
@@ -285,8 +310,38 @@ class Struct(CompositeType):
     incomplete = False
     artificial = False
 
+    _methods = None
+    def getMethods(self):
+        if self._methods is None:
+            self.setMethods([])
+        return self._methods
+    def setMethods(self, methods):
+        self._methods = methods
+    methods = property(getMethods, setMethods)
+
+    _bases = None
+    def getBases(self):
+        if self._bases is None:
+            self.setBases([])
+        return self._bases
+    def setBases(self, bases):
+        self._bases = bases
+    bases = property(getBases, setBases)
+
     def _visit(self, visitor, *args, **kw):
         return visitor.onStruct(self, *args, **kw)
+
+    def addAtom(self, atom):
+        if atom.isMethod():
+            self.methods.append(atom)
+        elif atom.isBase():
+            self.bases.append(atom)
+        else:
+            CompositeType.addAtom(self, atom)
+
+    def iterVisitChildren(self, visitor):
+        baseIter = CompositeType.iterVisitChildren(self, visitor)
+        return itertools.chain(baseIter, self.methods, self.bases)
 
 class Class(Struct):
     def _visit(self, visitor, *args, **kw):
@@ -297,6 +352,9 @@ class Base(ModelAtom):
     type = None
     access = ''
     virtual = False
+
+    def isBase(self): 
+        return True
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Variable
@@ -378,6 +436,12 @@ class Callable(LocatedElement):
     def iterVisitChildren(self, visitor):
         return iter(self.arguments)
 
+    def addAtom(self, atom):
+        if atom.isArgument():
+            self.arguments.append(atom)
+        else:
+            LocatedElement.addAtom(self, atom)
+
 class FunctionType(Callable):
     returns = None # index into typemap
 
@@ -398,12 +462,18 @@ class Function(Callable):
     attributes = None # list of string attributes
     throw = None # list of references
 
+    def isFunction(self): 
+        return True
+
     def _visit(self, visitor, *args, **kw):
         return visitor.onFunction(self, *args, **kw)
 
 class Method(Function):
     access = ''
     virtual = False
+
+    def isMethod(self): 
+        return True
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onMethod(self, *args, **kw)
@@ -412,10 +482,16 @@ class Constructor(Method):
     explicit = False
     artificial = False
 
+    def isConstructor(self): 
+        return True
+
     def _visit(self, visitor, *args, **kw):
         return visitor.onConstructor(self, *args, **kw)
 
 class Destructor(Method):
+    def isDestructor(self): 
+        return True
+
     def _visit(self, visitor, *args, **kw):
         return visitor.onDestructor(self, *args, **kw)
 

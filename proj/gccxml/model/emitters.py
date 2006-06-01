@@ -186,6 +186,10 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
         item = self.setItemAttrs(item, staticAttrs)
         return item
 
+    @emitKind(emitKindMap, 'add-child')
+    def onAddChild(self, kind, model, childModel):
+        model.addAtom(childModel)
+
     @emitKind(emitKindMap, 'linked')
     def onLinked(self, kind, itemKind, topLevel, item, linkedAttrs):
         item = self.setItemAttrs(item, linkedAttrs)
@@ -196,6 +200,10 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
                 file.addAtom(item)
 
         return item
+
+    @emitKind(emitKindMap, 'link-child')
+    def onLinkChild(self, kind, model, childModel):
+        model.linkAtom(childModel)
 
     def setItemAttrs(self, item, attrs):
         for n,v in attrs.iteritems():

@@ -17,6 +17,15 @@ from TG.gccxml.processor import StepProcessor
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+def inspectResult(root):
+    from pprint import pprint
+    for n, f in root.files.iteritems():
+        print
+        print 'File:', n, f
+        for lineno, atom in f.lines:
+            print ' ', lineno, ':', atom
+            pprint(vars(atom), indent=10)
+
 def main():
     sp = StepProcessor()
 
@@ -25,6 +34,8 @@ def main():
     sp.cfg.baseline = ['baseline.cpp']
 
     sp.run()
+
+    inspectResult(sp.root)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Main 
