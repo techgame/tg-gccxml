@@ -130,14 +130,12 @@ class PreprocessorEmitter(FileBasedEmitter):
         return self.setItemAttrs(atoms.PPMacro(), ident=ident, args=args, body=body)
 
     def setItemAttrs(self, item, **attrs):
-        item.file = self.fileAtom
-        item.line = self.lineno
+        file = self.fileAtom
+        attrs.update(file=file, line=self.lineno)
 
-        for n,v in attrs.iteritems():
-            setattr(item, n, v)
-
-        if item.file is not None:
-            item.file.addAtom(item)
+        item._updateAttrs(attrs)
+        if file is not None:
+            file.addAtom(item)
         return item
 
 registerEmitter(PreprocessorEmitter, 'preprocess')
@@ -206,8 +204,7 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
         model.linkAtom(childModel)
 
     def setItemAttrs(self, item, attrs):
-        for n,v in attrs.iteritems():
-            setattr(item, n, v)
+        item._updateAttrs(attrs)
         return item
 
 registerEmitter(GCCXMLCodeEmitter, 'code', 'gccxml')

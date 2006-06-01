@@ -123,6 +123,11 @@ class ModelAtom(object):
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    def _updateAttrs(self, attrs):
+        for n,v in attrs.iteritems():
+            if v != getattr(self, n):
+                setattr(self, n, v)
+
     def addAtom(self, atom): 
         raise Exception("Unexpected atom %r added to %r" % (atom, self))
     def linkAtom(self, atom): 
@@ -254,6 +259,7 @@ class ArrayType(CType):
 class Namespace(LocatedElement):
     name = ''
     mangled = ''
+    demangled = ''
     members = None # list of composite members
     context = None
 
@@ -268,6 +274,7 @@ class Namespace(LocatedElement):
 class CompositeType(CType):
     name = ''
     mangled = ''
+    demangled = ''
     size = 0
     align = 0
 
@@ -352,6 +359,7 @@ class Base(ModelAtom):
     type = None
     access = ''
     virtual = False
+    offset = 0
 
     def isBase(self): 
         return True
@@ -379,6 +387,7 @@ class Variable(LocatedElement):
 class Field(LocatedElement):
     name = ""
     mangled = '' # mangled name
+    demangled = ''
     access = ''
 
     bits = None
@@ -451,6 +460,7 @@ class FunctionType(Callable):
 class Function(Callable):
     name = ''
     mangled = ''
+    demangled = ''
     endline = None
 
     returns = None # index into typemap
