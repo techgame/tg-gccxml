@@ -12,16 +12,16 @@
 
 import os
 
-from base import ElementFileStepMixin
+from base import PreprocessorStep
 from external import GCCXMLProcessStep
-
 from handlers.cpreprocessor import DefinesScanner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class DefinesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
+class DefinesProcessorStep(PreprocessorStep, GCCXMLProcessStep):
+    ScannerFactory = DefinesScanner
     command = r"gccxml -E -dD %(srcfile)s %(includes)s > '%(outfile)s'"
 
     def _getEmitterForStep(self, elements):
@@ -34,18 +34,4 @@ class DefinesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
 
         subproc = self._processSrcFile(srcfile, 'defines-' + os.path.basename(srcfile))
         scanner(emitter, subproc.outfile)
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    _scanner = None
-    def getScanner(self, elements, emitter):
-        if self._scanner is None:
-            self.createScanner(elements, emitter)
-        return self._scanner
-    def setScanner(self, scanner):
-        self._scanner = scanner
-
-    def createScanner(self, elements, emitter):
-        scanner = DefinesScanner()
-        self.setScanner(scanner)
 

@@ -78,6 +78,7 @@ def throwList(v):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class XMLElement(object):
+    topLevel = True
     attrValueMap = dict()
     attrNameMap = dict(cvs_revision=None,)
 
@@ -135,7 +136,7 @@ class XMLElement(object):
         if not itemKind:
             return None
 
-        model = emitter.emit('create', itemKind, dict(self._staticAttrs()))
+        model = emitter.emit('create', itemKind, self.topLevel, dict(self._staticAttrs()))
         self.model = model
         return model
 
@@ -145,7 +146,7 @@ class XMLElement(object):
                 yield n, v
 
     def linkModel(self, emitter, idMap):
-        emitter.emit('linked', self.itemKind, self.model, dict(self._linkAttrs(idMap)))
+        emitter.emit('linked', self.itemKind, self.topLevel, self.model, dict(self._linkAttrs(idMap)))
 
     def _linkAttrs(self, idMap):
         attrs = self.attrs
@@ -267,6 +268,7 @@ class Enumeration(SizedType):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class EnumValue(XMLElement):
+    topLevel = False
     itemKind = 'EnumValue'
 
     attrValueMap = XMLElement.attrValueMap.copy()
@@ -423,6 +425,7 @@ class Class(Struct):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Base(XMLElement):
+    topLevel = False
     itemKind = 'Base'
 
     attrValueMap = XMLElement.attrValueMap.copy()
@@ -452,6 +455,7 @@ class Variable(LocatedElement):
     attrNameMap.update(init='value')
 
 class Field(LocatedElement):
+    topLevel = False
     itemKind = 'Field'
 
     attrValueMap = LocatedElement.attrValueMap.copy()
@@ -472,6 +476,7 @@ class Field(LocatedElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Argument(LocatedElement):
+    topLevel = False
     itemKind = 'Argument'
 
     attrValueMap = LocatedElement.attrValueMap.copy()
@@ -481,6 +486,7 @@ class Argument(LocatedElement):
         )
 
 class Ellipsis(XMLElement):
+    topLevel = False
     itemKind = 'Ellipsis'
 
     attrValueMap = XMLElement.attrValueMap.copy()

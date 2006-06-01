@@ -12,6 +12,7 @@
 
 from steps.stepProcessor import StepProcessorBase
 
+import steps.dependency
 import steps.includes
 import steps.defines
 import steps.ifdef
@@ -29,6 +30,7 @@ class StepProcessor(StepProcessorBase):
     def setup(self):
         StepProcessorBase.setup(self)
         self.steps += [
+            steps.dependency.DependencyProcessorStep(),
             steps.includes.IncludesProcessorStep(),
             steps.defines.DefinesProcessorStep(),
             steps.ifdef.IfdefProcessorStep(),
@@ -42,5 +44,9 @@ class StepProcessor(StepProcessorBase):
         step.findElements(self.root)
 
     def end(self):
-        pass
+        from pprint import pprint
+        for n, f in self.root.files.iteritems():
+            for lineno, atom in f.lines:
+                print ' ', lineno, ':', atom
+                pprint(vars(atom), indent=10)
 

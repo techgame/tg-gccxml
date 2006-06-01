@@ -21,7 +21,7 @@ from handlers.makefileRule import MakefileRuleScanner
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class IncludesProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
+class DependencyProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
     command = r"gccxml -E -MT TARGET -M %(srcfile)s %(includes)s > %(outfile)s"
 
     def _getEmitterForStep(self, elements):

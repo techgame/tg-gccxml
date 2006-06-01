@@ -10,8 +10,6 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import bisect
-
 import emitters
 import atoms
 
@@ -30,8 +28,10 @@ class RootElement(object):
     def getDependencies(self):
         return self.files.iterkeys()
 
+    def getFile(self, filename):
+        return self.files.get(filename, None)
     def addFile(self, filename):
-        aFile = self.files.get(filename, None)
+        aFile = self.getFile(filename)
         if aFile is None:
             aFile = self.createFileFor(filename)
             self.files[filename] = aFile

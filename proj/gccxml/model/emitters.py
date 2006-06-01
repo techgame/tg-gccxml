@@ -64,7 +64,7 @@ class FileBasedEmitter(BaseEmitter):
     def setFilename(self, filename, lineno=1):
         self.filename = filename
         self.lineno = int(lineno)
-        self.fileAtom = self.rootElement.files.get(filename, None)
+        self.fileAtom = self.rootElement.getFile(filename)
 
     def incLineno(self, delta=1):
         self.lineno += 1
@@ -116,6 +116,11 @@ class PreprocessorEmitter(FileBasedEmitter):
     def onCondition(self, kind, directive, body):
         return self.setItemAttrs(atoms.PPConditional(), directive=directive, body=body)
 
+    @emitKind(emitKindMap, 'include')
+    def onDefine(self, kind, filename, isSystemInclude):
+        includedFile = self.rootElement.getFile(filename)
+        return self.setItemAttrs(atoms.PPInclude(), filename=filename, isSystemInclude=isSystemInclude, includedFile=includedFile)
+
     @emitKind(emitKindMap, 'define')
     def onDefine(self, kind, ident, body):
         return self.setItemAttrs(atoms.PPDefine(), ident=ident, body=body)
@@ -130,6 +135,9 @@ class PreprocessorEmitter(FileBasedEmitter):
 
         for n,v in attrs.iteritems():
             setattr(item, n, v)
+
+        if item.file is not None:
+            item.file.addAtom(item)
         return item
 
 registerEmitter(PreprocessorEmitter, 'preprocess')
@@ -165,10 +173,13 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
         )
 
     @emitKind(emitKindMap, 'create')
-    def onCreate(self, kind, itemKind, staticAttrs):
+    def onCreate(self, kind, itemKind, topLevel, staticAttrs):
         # return item model to link
         if itemKind == 'File':
-            item = self.rootElement.addFile(staticAttrs['name'])
+            filename = staticAttrs['name']
+            item = self.rootElement.getFile(filename)
+            if item is None:
+                item = atoms.File(filename)
         else:
             factory = self.itemKindToAtoms[itemKind]
             item = factory()
@@ -176,8 +187,14 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
         return item
 
     @emitKind(emitKindMap, 'linked')
-    def onLinked(self, kind, itemKind, item, linkedAttrs):
+    def onLinked(self, kind, itemKind, topLevel, item, linkedAttrs):
         item = self.setItemAttrs(item, linkedAttrs)
+
+        if topLevel:
+            file = getattr(item, 'file', None)
+            if file is not None:
+                file.addAtom(item)
+
         return item
 
     def setItemAttrs(self, item, attrs):

@@ -46,6 +46,20 @@ class ConditionsScanner(CPreprocessorScanner):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+class IncludesScanner(CPreprocessorScanner):
+    includeDirectives = set(('include', ))
+
+    def dispatchDirective(self, emitter, directive, body):
+        if directive in self.includeDirectives:
+            self.onInclude(emitter, body)
+
+    def onInclude(self, emitter, filename):
+        isSystemInclude = (filename[0:1] == '<')
+        filename=filename[1:-1]
+        emitter.emit('include', filename, isSystemInclude)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class DefinesScanner(CPreprocessorScanner):
     def dispatchDirective(self, emitter, directive, body):
         if directive.isdigit():

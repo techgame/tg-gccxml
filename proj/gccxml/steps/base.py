@@ -62,3 +62,32 @@ class ElementFileStepMixin(ProcessStep):
     def fileToElements(self, elements, emitter, srcfile):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class PreprocessorStep(ElementFileStepMixin):
+    ScannerFactory = None
+
+    def fileToElements(self, elements, emitter, srcfile):
+        scanner = self.getScanner(elements, emitter)
+
+        srcfile = open(srcfile, 'rb')
+        try:
+            scanner(emitter, srcfile)
+        finally:
+            srcfile.close()
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    _scanner = None
+    def getScanner(self, elements, emitter):
+        if self._scanner is None:
+            self.createScanner(elements, emitter)
+        return self._scanner
+    def setScanner(self, scanner):
+        self._scanner = scanner
+
+    def createScanner(self, elements, emitter):
+        scanner = self.ScannerFactory()
+        self.setScanner(scanner)
+
+

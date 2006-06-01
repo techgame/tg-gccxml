@@ -10,6 +10,8 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import bisect
+
 import xml.sax
 import xml.sax.handler
 
@@ -422,6 +424,17 @@ class Destructor(Method):
 class PreprocessorAtom(LocatedElement):
     def isPreprocessorAtom(self):
         return True
+
+class PPInclude(PreprocessorAtom):
+    filename = ''
+    includedFile = None
+    isSystemInclude = False
+
+    def isPPInclude(self):
+        return True
+
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onPPInclude(self, *args, **kw)
 
 class PPConditional(PreprocessorAtom):
     directive = ''
