@@ -17,7 +17,7 @@ import xml.sax.handler
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class ElementVisitor(object):
+class ModelAtomVisitor(object):
     # root reference
     def onRoot(self, item, *args, **kw): pass
 
@@ -62,7 +62,7 @@ class ElementVisitor(object):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Element(object):
+class ModelAtom(object):
     def isCallable(self): return False
     def isArgument(self): return False
     def isType(self): return False
@@ -107,7 +107,11 @@ class Element(object):
 #~ Types
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CType(Element):
+class LocatedElement(ModelAtom):
+    file = None # reference to a File instance
+    line = 0
+
+class CType(LocatedElement):
     def isType(self):
         return True
 
@@ -138,6 +142,7 @@ class Enumeration(CType):
     name = ''
     align = 0
     size = 0
+    artificial = False
     context = None
 
     _enumValues = None
@@ -157,7 +162,7 @@ class Enumeration(CType):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class EnumValue(Element):
+class EnumValue(ModelAtom):
     name = ''
     value = ''
     
@@ -203,6 +208,7 @@ class ReferenceType(CType):
 class ArrayType(CType):
     type = None # index into typemap
     align = 0
+    size = 0
     min = 0
     max = None
 
@@ -214,9 +220,11 @@ class ArrayType(CType):
 #~ Contexts, Structures, Unions, and Fields
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Namespace(Element):
+class Namespace(LocatedElement):
     name = ''
-    members = ''
+    mangled = ''
+    members = None # list of composite members
+    context = None
 
     def isContext(self):
         return True
@@ -262,6 +270,7 @@ class Union(CompositeType):
         return visitor.onUnion(self, *args, **kw)
 
 class Struct(CompositeType):
+    incomplete = False
     artificial = False
 
     def _visit(self, visitor, *args, **kw):
@@ -272,7 +281,7 @@ class Class(Struct):
         return visitor.onClass(self, *args, **kw)
 
 
-class Base(Element):
+class Base(ModelAtom):
     type = None
     access = ''
     virtual = False
@@ -281,10 +290,13 @@ class Base(Element):
 #~ Variable
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Variable(Element):
+class Variable(LocatedElement):
     name = ""
     type = None # index into typemap
     context = None # index into composite type
+
+    artificial = False
+    extern = False
 
     value = ''
 
@@ -294,7 +306,7 @@ class Variable(Element):
     def _visit(self, visitor, *args, **kw):
         return visitor.onVariable(self, *args, **kw)
 
-class Field(Element):
+class Field(LocatedElement):
     name = ""
     mangled = '' # mangled name
     access = ''
@@ -315,7 +327,7 @@ class Field(Element):
 #~ Callable Types & Argument
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Argument(Element):
+class Argument(LocatedElement):
     name = ''
     type = None # index into typemap
 
@@ -327,7 +339,7 @@ class Argument(Element):
     def _visit(self, visitor, *args, **kw):
         return visitor.onArgument(self, *args, **kw)
 
-class Ellipsis(Element):
+class Ellipsis(ModelAtom):
     def isArgument(self): 
         return True
     def isEllipsisArgument(self): 
@@ -338,7 +350,7 @@ class Ellipsis(Element):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Callable(Element):
+class Callable(LocatedElement):
     def isCallable(self): 
         return True
 
@@ -386,6 +398,7 @@ class Method(Function):
 
 class Constructor(Method):
     explicit = False
+    artificial = False
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onConstructor(self, *args, **kw)
@@ -398,7 +411,7 @@ class Destructor(Method):
 #~ File references
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class File(Element):
+class File(ModelAtom):
     name = ''
 
     def isFile(self):

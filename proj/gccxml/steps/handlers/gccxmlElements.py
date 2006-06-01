@@ -13,21 +13,38 @@
 import xml.sax
 import xml.sax.handler
 
-import gccElements
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Definitions 
+#~ Attr Value Map Functions
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-def ignore(v):
-    return None
+class Linkable(object):
+    @staticmethod
+    def isLinkable(item):
+        return isinstance(item, Linkable)
 
-class definition(str): pass
-class reference(str): pass
+    def link(self, idMap):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 
-class fileReference(str): pass
+class LinkReference(Linkable):
+    def __init__(self, v):
+        self.ref = v
 
-def acccessStr(v):
+    def link(self, idMap):
+        if self.ref:
+            item = idMap[self.ref]
+        else: item = None
+        return item
+
+class LinkReferenceList(Linkable):
+    def __init__(self, refList):
+        self.refList = list(refList)
+
+    def link(self, idMap):
+        return [m for m in (ref.link(idMap) for ref in self.refList) if m]
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def passThrough(v):
     return v
 
 def intOr0(v):
@@ -38,19 +55,29 @@ def intOrNone(v):
 def boolOr0(v):
     return bool(int(v or 0))
 
+def ignore(v):
+    return None
+def acccessStr(v):
+    return v
+def funcAttrList(v): 
+    return v.split(' ')
+
+def definition(v):
+    return v
+def reference(v):
+    return LinkReference(v)
+
 def referenceList(v):
-    return [reference(i) for i in v.split(' ')]
+    return LinkReferenceList(reference(i) for i in v.split(' '))
 
 def throwList(v): 
     return referenceList(v)
 
-def funcAttrList(v): 
-    return v.split(' ')
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ XML Element base class
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class XMLElement(object):
-    ElementFactory = None
     attrValueMap = dict()
     attrNameMap = dict(cvs_revision=None,)
 
@@ -68,7 +95,6 @@ class XMLElement(object):
         attrNameMap = self.attrNameMap
         attrValueMap = self.attrValueMap
 
-        print 'in:', self.getXMLElementName()
         newAttrs = {}
         for xn,xv in attrs.items():
             # see if we are converting this name
@@ -77,13 +103,10 @@ class XMLElement(object):
 
             # get the value conversion function from the xml attribute name
             vFn = attrValueMap[xn]
-
             # convert the value 
             v = vFn(xv)
-
             # set it into the new attr map under the new name
             newAttrs[n] = v
-            print '   ', n, '=', v
 
         return newAttrs
 
@@ -104,6 +127,35 @@ class XMLElement(object):
         raise Exception("Unexpected child element: %s for: %s" % (elem, self))
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ GCC Model creation
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def createModel(self, emitter, idMap):
+        itemKind = self.itemKind
+        if not itemKind:
+            return None
+
+        model = emitter.emit('create', itemKind, dict(self._staticAttrs()))
+        self.model = model
+        return model
+
+    def _staticAttrs(self):
+        for n,v in self.attrs.iteritems():
+            if not Linkable.isLinkable(v):
+                yield n, v
+
+    def linkModel(self, emitter, idMap):
+        emitter.emit('linked', self.itemKind, self.model, dict(self._linkAttrs(idMap)))
+
+    def _linkAttrs(self, idMap):
+        attrs = self.attrs
+        for n,v in attrs.iteritems():
+            if Linkable.isLinkable(v):
+                v = v.link(idMap)
+                attrs[n] = v
+                yield n, v
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #~ Child Elements Types
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -120,20 +172,25 @@ class XMLElement(object):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class IdentifiedElement(XMLElement):
-    ElementFactory = None
+    itemKind = None
 
     attrValueMap = XMLElement.attrValueMap.copy()
     attrValueMap.update(
         id=definition,
         )
 
-class LocatedElement(IdentifiedElement):
-    ElementFactory = None
+    def createModel(self, emitter, idMap):
+        id = self.attrs.pop('id')
+        model = XMLElement.createModel(self, emitter, idMap)
+        idMap[id] = model
+        return model
 
+
+class LocatedElement(IdentifiedElement):
     attrValueMap = IdentifiedElement.attrValueMap.copy()
     attrValueMap.update(
-        file=ignore,
-        line=ignore,
+        file=reference,
+        line=intOr0,
         #location=locationOrNone,  # ignore this in favor of file and line references
         )
     attrNameMap = IdentifiedElement.attrNameMap.copy()
@@ -142,25 +199,24 @@ class LocatedElement(IdentifiedElement):
         )
 
 class SizedType(LocatedElement):
-    ElementFactory = None
-
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update(
         align=intOr0,
         size=intOr0,
         )
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class FundamentalType(SizedType):
-    ElementFactory = gccElements.FundamentalType
-    ElementFactory = None
+    itemKind = 'FundamentalType'
 
     attrValueMap = SizedType.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
+        name=passThrough,
         )
 
 class CvQualifiedType(LocatedElement):
-    ElementFactory = gccElements.CvQualifiedType
+    itemKind = 'CvQualifiedType'
 
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update(
@@ -174,11 +230,11 @@ class CvQualifiedType(LocatedElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Enumeration(SizedType):
-    ElementFactory = gccElements.Enumeration
+    itemKind = 'Enumeration'
 
     attrValueMap = SizedType.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
+        name=passThrough,
         artificial=boolOr0,
         context=reference,
         )
@@ -201,11 +257,11 @@ class Enumeration(SizedType):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class EnumValue(XMLElement):
-    ElementFactory = gccElements.EnumValue
+    itemKind = 'EnumValue'
 
     attrValueMap = XMLElement.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
+        name=passThrough,
         init=intOr0,
         )
     attrNameMap = XMLElement.attrNameMap.copy()
@@ -216,17 +272,17 @@ class EnumValue(XMLElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Typedef(LocatedElement):
-    ElementFactory = gccElements.Typedef
+    itemKind = 'Typedef'
 
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
+        name=passThrough,
         type=reference,
         context=reference,
         )
 
 class PointerType(SizedType):
-    ElementFactory = gccElements.PointerType
+    itemKind = 'PointerType'
 
     attrValueMap = SizedType.attrValueMap.copy()
     attrValueMap.update(
@@ -234,7 +290,7 @@ class PointerType(SizedType):
         )
 
 class ReferenceType(SizedType):
-    ElementFactory = gccElements.ReferenceType
+    itemKind = 'ReferenceType'
 
     attrValueMap = SizedType.attrValueMap.copy()
     attrValueMap.update(
@@ -242,7 +298,7 @@ class ReferenceType(SizedType):
         )
 
 class ArrayType(SizedType):
-    ElementFactory = gccElements.ArrayType
+    itemKind = 'ArrayType'
 
     attrValueMap = SizedType.attrValueMap.copy()
     attrValueMap.update(
@@ -255,14 +311,13 @@ class ArrayType(SizedType):
 #~ Contexts, Structures, Unions, and Fields
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Namespace(XMLElement):
-    ElementFactory = gccElements.Namespace
+class Namespace(IdentifiedElement):
+    itemKind = 'Namespace'
 
-    attrValueMap = XMLElement.attrValueMap.copy()
+    attrValueMap = IdentifiedElement.attrValueMap.copy()
     attrValueMap.update(
-        id=definition,
-        name=str,
-        mangled=str,
+        name=passThrough,
+        mangled=passThrough,
         context=reference,
         members=referenceList,
         )
@@ -270,12 +325,12 @@ class Namespace(XMLElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CompositeType(SizedType):
-    ElementFactory = None
+    itemKind = None
 
     attrValueMap = SizedType.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
-        mangled=str,
+        name=passThrough,
+        mangled=passThrough,
         size=intOr0,
         align=intOr0,
 
@@ -303,10 +358,10 @@ class CompositeType(SizedType):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Union(CompositeType):
-    ElementFactory = gccElements.Union
+    itemKind = 'Union'
 
 class Struct(CompositeType):
-    ElementFactory = gccElements.Struct
+    itemKind = 'Struct'
 
     attrValueMap = CompositeType.attrValueMap.copy()
     attrValueMap.update(
@@ -330,7 +385,7 @@ class Struct(CompositeType):
             CompositeType.addElement(self, enum)
 
 class Class(Struct):
-    ElementFactory = gccElements.Class
+    itemKind = 'Class'
 
     attrValueMap = Struct.attrValueMap.copy()
     attrValueMap.update()
@@ -338,7 +393,7 @@ class Class(Struct):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Base(XMLElement):
-    ElementFactory = gccElements.Base
+    itemKind = 'Base'
 
     attrValueMap = XMLElement.attrValueMap.copy()
     attrValueMap.update(
@@ -352,27 +407,27 @@ class Base(XMLElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Variable(LocatedElement):
-    ElementFactory = gccElements.Variable
+    itemKind = 'Variable'
 
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
+        name=passThrough,
         type=reference,
         context=reference,
         artificial=boolOr0,
         extern=boolOr0,
-        init=str,
+        init=passThrough,
         )
     attrNameMap = LocatedElement.attrNameMap.copy()
     attrNameMap.update(init='value')
 
 class Field(LocatedElement):
-    ElementFactory = gccElements.Field
+    itemKind = 'Field'
 
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
-        mangled=str,
+        name=passThrough,
+        mangled=passThrough,
         access=acccessStr,
 
         offset=intOrNone,
@@ -387,16 +442,16 @@ class Field(LocatedElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Argument(LocatedElement):
-    ElementFactory = gccElements.Argument
+    itemKind = 'Argument'
 
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
+        name=passThrough,
         type=reference,
         )
 
 class Ellipsis(XMLElement):
-    ElementFactory = gccElements.Ellipsis
+    itemKind = 'Ellipsis'
 
     attrValueMap = XMLElement.attrValueMap.copy()
     attrValueMap.update()
@@ -404,8 +459,6 @@ class Ellipsis(XMLElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Callable(LocatedElement):
-    ElementFactory = None
-
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update()
 
@@ -425,7 +478,7 @@ class Callable(LocatedElement):
             LocatedElement.addElement(self, enum)
 
 class FunctionType(Callable):
-    ElementFactory = gccElements.FunctionType
+    itemKind = 'FunctionType'
 
     attrValueMap = Callable.attrValueMap.copy()
     attrValueMap.update(
@@ -433,12 +486,12 @@ class FunctionType(Callable):
         )
 
 class Function(Callable):
-    ElementFactory = gccElements.Function
+    itemKind = 'Function'
 
     attrValueMap = Callable.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
-        mangled=str,
+        name=passThrough,
+        mangled=passThrough,
         endline=intOrNone,
 
         returns=reference,
@@ -452,7 +505,7 @@ class Function(Callable):
         )
 
 class Method(Function):
-    ElementFactory = gccElements.Method
+    itemKind = 'Method'
 
     attrValueMap = Function.attrValueMap.copy()
     attrValueMap.update(
@@ -461,7 +514,7 @@ class Method(Function):
         )
 
 class Constructor(Method):
-    ElementFactory = gccElements.Constructor
+    itemKind = 'Constructor'
 
     attrValueMap = Function.attrValueMap.copy()
     attrValueMap.update(
@@ -470,18 +523,18 @@ class Constructor(Method):
         )
 
 class Destructor(Method):
-    ElementFactory = gccElements.Destructor
+    itemKind = 'Destructor'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ File references
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class File(IdentifiedElement):
-    ElementFactory = gccElements.File
+    itemKind = 'File'
 
     attrValueMap = IdentifiedElement.attrValueMap.copy()
     attrValueMap.update(
-        name=str,
+        name=passThrough,
         )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -489,20 +542,30 @@ class File(IdentifiedElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class GCC_XML(XMLElement):
-    ElementFactory = None
-
     # use this name because it matches the xml scheme
-    _elements = None
-    def getElements(self):
-        if self._elements is None:
-            self.setElements([])
-        return self._elements
-    def setElements(self, elements):
-        self._elements = elements
-    elements = property(getElements, setElements)
+
+    elements = None # list of elements
+    idMap = None # map of ids to elements
 
     def addElement(self, elem):
         self.elements.append(elem)
+
+    def walk(self, emitters):
+        idMap = {}
+        for elem in self.elements:
+            elem.createModel(emitters, idMap)
+
+        for elem in self.elements:
+            elem.linkModel(emitters, idMap)
+
+        #from pprint import pprint as pp
+        #pp(idMap)
+
+    def start(self):
+        self.elements = []
+
+    def end(self):
+        pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Child definitions
@@ -586,9 +649,9 @@ class GCCXMLHandler(xml.sax.handler.ContentHandler):
                 raise Exception("Stack mismatch: root is not where it is supposed to be")
     
     def startRoot(self):
-        pass
+        self.root.start()
     def endRoot(self):
-        pass
+        self.root.end()
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

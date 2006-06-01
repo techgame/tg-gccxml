@@ -45,7 +45,7 @@ class BaseEmitter(object):
     def emit(self, kind, *args):
         emitCmd = self.emitKindMap.get(kind) or self.emitKindMap.get(None)
         if emitCmd:
-            emitCmd(self, kind, *args)
+            return emitCmd(self, kind, *args)
 
 def emitKind(emitKindMap, key):
     def addToEmitKindMap(func):
@@ -126,12 +126,28 @@ registerEmitter(PreprocessorEmitter, 'preprocess')
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+class _DebugAtom(object):
+    def __init__(self, itemKind, attrs):
+        self.itemKind = itemKind
+        self.attrs = attrs
+
+    def __repr__(self):
+        return '%s(%s)' % (self.itemKind, ', '.join(list('%s=%r' % i for i in self.attrs.iteritems())))
+
 class GCCXMLCodeEmitter(FileBasedEmitter):
     emitKindMap = FileBasedEmitter.emitKindMap.copy()
 
-    @emitKind(emitKindMap, 'gccxml-model')
-    def onModel(self, kind, model):
-        pass
+    @emitKind(emitKindMap, 'create')
+    def onCreate(self, kind, itemKind, staticAttrs):
+        # return item model to link
+        print kind, itemKind
+        itemModel = itemKind, staticAttrs
+        return itemModel
+
+    @emitKind(emitKindMap, 'linked')
+    def onLinked(self, kind, itemKind, itemModel, linkedAttrs):
+        itemModel += linkedAttrs,
+        return itemModel
 
 registerEmitter(GCCXMLCodeEmitter, 'code', 'gccxml')
 
