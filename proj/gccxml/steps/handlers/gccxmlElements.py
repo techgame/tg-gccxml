@@ -103,11 +103,15 @@ class XMLElement(object):
             if not n: continue
 
             # get the value conversion function from the xml attribute name
-            vFn = attrValueMap[xn]
-            # convert the value 
-            v = vFn(xv)
-            # set it into the new attr map under the new name
-            newAttrs[n] = v
+            try:
+                vFn = attrValueMap[xn]
+                # convert the value 
+                v = vFn(xv)
+                # set it into the new attr map under the new name
+                newAttrs[n] = v
+            except Exception, e:
+                e.args += (self, attrs)
+                raise
 
         return newAttrs
 
@@ -340,6 +344,7 @@ class Namespace(IdentifiedElement):
     attrValueMap.update(
         name=passThrough,
         mangled=passThrough,
+        demangled=passThrough,
         context=reference,
         members=referenceList,
         )
@@ -353,6 +358,7 @@ class CompositeType(SizedType):
     attrValueMap.update(
         name=passThrough,
         mangled=passThrough,
+        demangled=passThrough,
         size=intOr0,
         align=intOr0,
 
@@ -427,6 +433,7 @@ class Base(XMLElement):
     attrValueMap = XMLElement.attrValueMap.copy()
     attrValueMap.update(
         type=reference,
+        offset=intOr0,
         access=acccessStr,
         virtual=boolOr0,
         )
@@ -458,6 +465,7 @@ class Field(LocatedElement):
     attrValueMap.update(
         name=passThrough,
         mangled=passThrough,
+        demangled=passThrough,
         access=acccessStr,
 
         offset=intOrNone,
@@ -527,6 +535,7 @@ class Function(Callable):
     attrValueMap.update(
         name=passThrough,
         mangled=passThrough,
+        demangled=passThrough,
         endline=intOrNone,
 
         returns=reference,
@@ -551,7 +560,7 @@ class Method(Function):
 class Constructor(Method):
     itemKind = 'Constructor'
 
-    attrValueMap = Function.attrValueMap.copy()
+    attrValueMap = Method.attrValueMap.copy()
     attrValueMap.update(
         artificial=boolOr0,
         explicit=boolOr0,
@@ -559,6 +568,10 @@ class Constructor(Method):
 
 class Destructor(Method):
     itemKind = 'Destructor'
+
+    attrValueMap = Method.attrValueMap.copy()
+    attrValueMap.update(
+        )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ File references
