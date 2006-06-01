@@ -60,6 +60,11 @@ class ModelAtomVisitor(object):
     def onConstructor(self, item, *args, **kw): pass
     def onDestructor(self, item, *args, **kw): pass
 
+    # preprocessor
+    def isPPConditional(self, item, *args, **kw): pass
+    def isPPDefine(self, item, *args, **kw): pass
+    def isPPMacro(self, item, *args, **kw): pass
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ModelAtom(object):
@@ -76,6 +81,9 @@ class ModelAtom(object):
     def isCompositeType(self): return False
     def isField(self): return False
     def isPreprocessor(self): return False
+    def isPPConditional(self): return False
+    def isPPDefine(self): return False
+    def isPPMacro(self): return False
     def isFile(self): return False
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -408,16 +416,67 @@ class Destructor(Method):
         return visitor.onDestructor(self, *args, **kw)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ Preprocessor Atoms
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class PreprocessorAtom(LocatedElement):
+    def isPreprocessorAtom(self):
+        return True
+
+class PPConditional(PreprocessorAtom):
+    directive = ''
+    body = ''
+
+    def isPPConditional(self):
+        return True
+
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onPPConditional(self, *args, **kw)
+
+class PPDefine(PreprocessorAtom):
+    ident = ''
+    body = ''
+
+    def isPPDefine(self):
+        return True
+
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onPPDefine(self, *args, **kw)
+
+class PPMacro(PreprocessorAtom):
+    ident = ''
+    args = None # list of idents
+    body = ''
+
+    def isPPMacro(self):
+        return True
+
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onPPMacro(self, *args, **kw)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ File references
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class File(ModelAtom):
     name = ''
 
+    def __init__(self, name=''):
+        ModelAtom.__init__(self)
+        self.name = name
+        self.lines = []
+
     def isFile(self):
         return True
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onFile(self, *args, **kw)
+    
+    def __len__(self):
+        return len(self.lines)
+    def __iter__(self):
+        return iter(self.lines)
 
+    def addAtom(self, atom):
+        bisect.insort(self.lines, (atom.line, atom))
 

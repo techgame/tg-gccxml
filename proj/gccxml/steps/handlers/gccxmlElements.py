@@ -180,11 +180,11 @@ class IdentifiedElement(XMLElement):
         )
 
     def createModel(self, emitter, idMap):
-        id = self.attrs.pop('id')
+        id = self.attrs.pop('id', None)
         model = XMLElement.createModel(self, emitter, idMap)
-        idMap[id] = model
+        if id is not None:
+            idMap[id] = model
         return model
-
 
 class LocatedElement(IdentifiedElement):
     attrValueMap = IdentifiedElement.attrValueMap.copy()
@@ -253,6 +253,16 @@ class Enumeration(SizedType):
             self.enumValues.append(elem)
         else:
             SizedType.addElement(self, enum)
+    
+    def createModel(self, emitter, idMap):
+        SizedType.createModel(self, emitter, idMap)
+        for e in self.enumValues:
+            e.createModel(emitter, idMap)
+
+    def linkModel(self, emitter, idMap):
+        SizedType.linkModel(self, emitter, idMap)
+        for e in self.enumValues:
+            e.linkModel(emitter, idMap)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -355,6 +365,16 @@ class CompositeType(SizedType):
         else:
             SizedType.addElement(self, enum)
 
+    def createModel(self, emitter, idMap):
+        SizedType.createModel(self, emitter, idMap)
+        for e in self.fields:
+            e.createModel(emitter, idMap)
+
+    def linkModel(self, emitter, idMap):
+        SizedType.linkModel(self, emitter, idMap)
+        for e in self.fields:
+            e.linkModel(emitter, idMap)
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Union(CompositeType):
@@ -383,6 +403,16 @@ class Struct(CompositeType):
             self.baseReferences.append(elem)
         else:
             CompositeType.addElement(self, enum)
+    
+    def createModel(self, emitter, idMap):
+        CompositeType.createModel(self, emitter, idMap)
+        for e in self.baseReferences:
+            e.createModel(emitter, idMap)
+
+    def linkModel(self, emitter, idMap):
+        CompositeType.linkModel(self, emitter, idMap)
+        for e in self.baseReferences:
+            e.linkModel(emitter, idMap)
 
 class Class(Struct):
     itemKind = 'Class'
@@ -476,6 +506,16 @@ class Callable(LocatedElement):
             self.arguments.append(elem)
         else:
             LocatedElement.addElement(self, enum)
+
+    def createModel(self, emitter, idMap):
+        LocatedElement.createModel(self, emitter, idMap)
+        for e in self.arguments:
+            e.createModel(emitter, idMap)
+
+    def linkModel(self, emitter, idMap):
+        LocatedElement.linkModel(self, emitter, idMap)
+        for e in self.arguments:
+            e.linkModel(emitter, idMap)
 
 class FunctionType(Callable):
     itemKind = 'FunctionType'

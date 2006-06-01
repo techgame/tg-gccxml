@@ -10,6 +10,8 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import atoms
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,19 +58,19 @@ def emitKind(emitKindMap, key):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class FileBasedEmitter(BaseEmitter):
-    fileElement = None
+    fileAtom = None
     filename, lineno = "", 0
 
     def setFilename(self, filename, lineno=1):
         self.filename = filename
         self.lineno = int(lineno)
-        self.fileElement = self.rootElement.files.get(filename, None)
+        self.fileAtom = self.rootElement.files.get(filename, None)
 
     def incLineno(self, delta=1):
         self.lineno += 1
 
     def addElement(self, kind, data):
-        self.fileElement.addElement(self.lineno, kind, data)
+        self.fileAtom.addElement(self.lineno, kind, data)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -83,7 +85,7 @@ class FileBasedEmitter(BaseEmitter):
 
 class DependencyEmitter(FileBasedEmitter):
     def addFile(self, filename):
-        self.fileElement = self.rootElement.addFile(filename)
+        self.fileAtom = self.rootElement.addFile(filename)
     def addDependency(self, filename):
         self.rootElement.addDependency(filename)
 
@@ -112,42 +114,76 @@ class PreprocessorEmitter(FileBasedEmitter):
 
     @emitKind(emitKindMap, 'conditional')
     def onCondition(self, kind, directive, body):
-        pass
+        return self.setItemAttrs(atoms.PPConditional(), directive=directive, body=body)
 
     @emitKind(emitKindMap, 'define')
     def onDefine(self, kind, ident, body):
-        pass
+        return self.setItemAttrs(atoms.PPDefine(), ident=ident, body=body)
 
     @emitKind(emitKindMap, 'macro')
     def onMacro(self, kind, ident, args, body):
-        pass
+        return self.setItemAttrs(atoms.PPMacro(), ident=ident, args=args, body=body)
+
+    def setItemAttrs(self, item, **attrs):
+        item.file = self.fileAtom
+        item.line = self.lineno
+
+        for n,v in attrs.iteritems():
+            setattr(item, n, v)
+        return item
 
 registerEmitter(PreprocessorEmitter, 'preprocess')
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class _DebugAtom(object):
-    def __init__(self, itemKind, attrs):
-        self.itemKind = itemKind
-        self.attrs = attrs
-
-    def __repr__(self):
-        return '%s(%s)' % (self.itemKind, ', '.join(list('%s=%r' % i for i in self.attrs.iteritems())))
-
 class GCCXMLCodeEmitter(FileBasedEmitter):
     emitKindMap = FileBasedEmitter.emitKindMap.copy()
+
+    itemKindToAtoms = dict(
+        FundamentalType=atoms.FundamentalType,
+        CvQualifiedType=atoms.CvQualifiedType,
+        Enumeration=atoms.Enumeration,
+        EnumValue=atoms.EnumValue,
+        Typedef=atoms.Typedef,
+        PointerType=atoms.PointerType,
+        ReferenceType=atoms.ReferenceType,
+        ArrayType=atoms.ArrayType,
+        Namespace=atoms.Namespace,
+        Union=atoms.Union,
+        Struct=atoms.Struct,
+        Class=atoms.Class,
+        Base=atoms.Base,
+        Variable=atoms.Variable,
+        Field=atoms.Field,
+        Argument=atoms.Argument,
+        Ellipsis=atoms.Ellipsis,
+        FunctionType=atoms.FunctionType,
+        Function=atoms.Function,
+        Method=atoms.Method,
+        Constructor=atoms.Constructor,
+        Destructor=atoms.Destructor,
+        )
 
     @emitKind(emitKindMap, 'create')
     def onCreate(self, kind, itemKind, staticAttrs):
         # return item model to link
-        print kind, itemKind
-        itemModel = itemKind, staticAttrs
-        return itemModel
+        if itemKind == 'File':
+            item = self.rootElement.addFile(staticAttrs['name'])
+        else:
+            factory = self.itemKindToAtoms[itemKind]
+            item = factory()
+        item = self.setItemAttrs(item, staticAttrs)
+        return item
 
     @emitKind(emitKindMap, 'linked')
-    def onLinked(self, kind, itemKind, itemModel, linkedAttrs):
-        itemModel += linkedAttrs,
-        return itemModel
+    def onLinked(self, kind, itemKind, item, linkedAttrs):
+        item = self.setItemAttrs(item, linkedAttrs)
+        return item
+
+    def setItemAttrs(self, item, attrs):
+        for n,v in attrs.iteritems():
+            setattr(item, n, v)
+        return item
 
 registerEmitter(GCCXMLCodeEmitter, 'code', 'gccxml')
 

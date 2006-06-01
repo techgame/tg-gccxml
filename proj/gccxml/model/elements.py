@@ -13,6 +13,7 @@
 import bisect
 
 import emitters
+import atoms
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Elements
@@ -37,7 +38,7 @@ class RootElement(object):
         return aFile
 
     def createFileFor(self, filename):
-        return FileElement(filename)
+        return atoms.File(filename)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -46,22 +47,4 @@ class RootElement(object):
         factory = emitters.getEmitterFactoryFromMap(section, kind, 
                         self.emitterFactoryMap)
         return factory(self)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class FileElement(object):
-    def __init__(self, filename):
-        self.filename = filename
-        self.lines = []
-
-    def __len__(self):
-        return len(self.lines)
-    def __iter__(self):
-        return iter(self.lines)
-
-    def insertAtLine(self, line, content):
-        bisect.insort(self.lines, line, content)
-
-    def addElement(self, line, elemKind, elemArgs):
-        self.insertAtLine(line, (elemKind, elemArgs))
 
