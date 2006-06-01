@@ -46,7 +46,11 @@ class StepProcessor(StepProcessorBase):
     def end(self):
         from pprint import pprint
         for n, f in self.root.files.iteritems():
+            print
+            print 'File:', n, f
             for lineno, atom in f.lines:
+                if not atom.isPPInclude(): 
+                    continue
                 print ' ', lineno, ':', atom
                 pprint(vars(atom), indent=10)
 

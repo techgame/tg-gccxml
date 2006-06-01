@@ -63,9 +63,10 @@ class ModelAtomVisitor(object):
     def onDestructor(self, item, *args, **kw): pass
 
     # preprocessor
-    def isPPConditional(self, item, *args, **kw): pass
-    def isPPDefine(self, item, *args, **kw): pass
-    def isPPMacro(self, item, *args, **kw): pass
+    def onPPInclude(self, item, *args, **kw): pass
+    def onPPConditional(self, item, *args, **kw): pass
+    def onPPDefine(self, item, *args, **kw): pass
+    def onPPMacro(self, item, *args, **kw): pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -83,6 +84,7 @@ class ModelAtom(object):
     def isCompositeType(self): return False
     def isField(self): return False
     def isPreprocessor(self): return False
+    def isPPInclude(self): return False
     def isPPConditional(self): return False
     def isPPDefine(self): return False
     def isPPMacro(self): return False
