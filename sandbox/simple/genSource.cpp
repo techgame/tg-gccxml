@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include "aHeader.h"
 
+long aLong;
+long long aLongLong;
+
+unsigned long anUnsignedLong;
+long unsigned long aLongUnsignedLong;
+
+float aFloat;
+double aDouble;
+long double aLongDouble;
+
 enum anEnum {
     value0,
     value1,
@@ -19,4 +29,3 @@ class BClass : public AClass {
     public:
         virtual ~BClass() { }
 };
-

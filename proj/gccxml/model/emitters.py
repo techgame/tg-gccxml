@@ -135,8 +135,25 @@ class PreprocessorEmitter(FileBasedEmitter):
 
         item._updateAttrs(attrs)
         if file is not None:
+            self.linkConditional(item, file)
             file.addAtom(item)
         return item
+
+    def linkConditional(self, item, file):
+        if not item.isPPConditional():
+            return
+
+        if item.isConditionalOpening():
+            return
+
+        for line, fileItem in file.lines[::-1]:
+            if fileItem.isPPConditional():
+                if fileItem.next or fileItem.isConditionalEnding():
+                    continue
+
+                fileItem.next = item
+                item.prev = fileItem
+                break
 
 registerEmitter(PreprocessorEmitter, 'preprocess')
 

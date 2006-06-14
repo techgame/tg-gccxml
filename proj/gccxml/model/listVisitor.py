@@ -12,12 +12,18 @@ from atoms import ModelAtomVisitor
 class ListingVisitor(ModelAtomVisitor):
     useCommonCalls = True
 
-    level = 0
+    def __init__(self):
+        self.stack = []
     def onAtomCommon(self, item):
-        print self.level * "  " + repr(item)
+        if item in self.stack:
+            return
 
-        self.level += 1
+        print '%08s|' % (getattr(item, 'line', 0) or ''), len(self.stack)*"  " + repr(item)
+
+
+        self.stack.append(item)
         item.visitChildren(self)
-        self.level -= 1
+        if self.stack.pop() is not item:
+            raise Exception("Stack mismatch")
         return item
 

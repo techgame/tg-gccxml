@@ -86,6 +86,7 @@ class ModelAtom(object):
     def isRoot(self): return False
     def isArgument(self): return False
     def isType(self): return False
+    def isBasicType(self): return False
     def isPointerType(self): return False
     def isReferenceType(self): return False
     def isArrayType(self): return False
@@ -147,11 +148,13 @@ class ModelAtom(object):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
     def visitChildren(self, visitor, *args, **kw):
         for child in self.iterVisitChildren(visitor):
-            child.visit(visitor, *args, **kw)
+            if child is not None:
+                child.visit(visitor, *args, **kw)
     def visitAll(self, visitor, *args, **kw):
         self.visit(visitor, *args, **kw)
         for child in self.iterVisitChildren(visitor):
-            child.visitAll(visitor, *args, **kw)
+            if child is not None:
+                child.visitAll(visitor, *args, **kw)
     def iterVisitChildren(self, visitor):
         return iter([])
 
@@ -252,6 +255,10 @@ class CType(LocatedElement):
     def getTypeString(self, descriptive=False):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 
+    def getTypeChain(self):
+        return [self.type] + self.type.getTypeChain()
+
+
 class FundamentalType(CType):
     name = ''
     align = 0
@@ -260,8 +267,16 @@ class FundamentalType(CType):
     def __repr_atom__(self):
         return "%s size:%s align:%s" % (self.name, self.size, self.align)
 
+    def isType(self):
+        return True
+    def isBasicType(self):
+        return True
+
     def getTypeString(self, descriptive=False):
         return self.name
+
+    def getTypeChain(self):
+        return []
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onFundamentalType(self, *args, **kw)
@@ -646,6 +661,12 @@ class FunctionType(Callable):
 
     def isType(self):
         return True
+    def isBasicType(self):
+        return True
+
+    def getTypeChain(self):
+        return []
+
     def isFunction(self):
         return False
 
@@ -745,11 +766,20 @@ class PPInclude(PreprocessorAtom):
 class PPConditional(PreprocessorAtom):
     directive = ''
     body = ''
+    next = None
+    prev = None
 
     def __repr_atom__(self):
         return '#%s %s' % (self.directive, self.body)
     def isPPConditional(self):
         return True
+
+    def isConditionalOpening(self):
+        return self.directive.startswith('if')
+    def isConditionalContinuation(self):
+        return self.directive.startswith('el')
+    def isConditionalEnding(self):
+        return self.directive.startswith('end')
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onPPConditional(self, *args, **kw)

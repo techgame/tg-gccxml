@@ -43,5 +43,5 @@ if __name__=='__main__':
         genFile.close()
 
     #inspectResult(root)
-    ListingVisitor(root)
+    root.visit(ListingVisitor())
 
