@@ -12,7 +12,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import cPickle
-from TG.gccxml.processor import StepProcessor
+#from TG.gccxml.processor import StepProcessor
 from TG.gccxml.model.listVisitor import ListingVisitor
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,30 +30,18 @@ def inspectResult(root):
             print ' ', lineno, ':', atom
             pprint(vars(atom), indent=10)
 
-def main():
-    sp = StepProcessor()
-
-    sp.cfg.inc = ['.']
-    sp.cfg.src = ['genOpenGL.cpp']
-    sp.cfg.baseline = ['baseline.cpp']
-
-    sp.run()
-    
-    return sp
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Main 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
-    sp = main()
-
-    genFile = file('gen.pickle', 'wb')
-    print 'Dumping root to:', genFile.name
+    genFile = file('gen.pickle', 'rb')
+    print 'Reading root from:', genFile.name
     try:
-        cPickle.dump(sp.root, genFile, cPickle.HIGHEST_PROTOCOL)
+        root = cPickle.load(genFile)
     finally:
         genFile.close()
 
-    #inspectResult(sp.root)
+    #inspectResult(root)
+    ListingVisitor(root)
 

@@ -17,28 +17,11 @@ import atoms
 #~ Elements
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class RootElement(object):
-    def __init__(self):
-        self.files = {}
-
-    def addDependency(self, filename):
-        aFile = self.addFile(filename)
-        return aFile
-
+class RootElement(atoms.Root):
     def getDependencies(self):
         return self.files.iterkeys()
-
-    def getFile(self, filename):
-        return self.files.get(filename, None)
-    def addFile(self, filename):
-        aFile = self.getFile(filename)
-        if aFile is None:
-            aFile = self.createFileFor(filename)
-            self.files[filename] = aFile
-        return aFile
-
-    def createFileFor(self, filename):
-        return atoms.File(filename)
+    def addDependency(self, filename):
+        return self.addFile(filename)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

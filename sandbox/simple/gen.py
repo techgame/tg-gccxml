@@ -11,6 +11,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import cPickle
 from TG.gccxml.processor import StepProcessor
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,12 +36,21 @@ def main():
 
     sp.run()
 
-    inspectResult(sp.root)
+    return sp
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Main 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
-    main()
+    sp = main()
+
+    genFile = file('gen.pickle', 'wb')
+    print 'Dumping root to:', genFile.name
+    try:
+        cPickle.dump(sp.root, genFile, cPickle.HIGHEST_PROTOCOL)
+    finally:
+        genFile.close()
+
+    #inspectResult(sp.root)
 

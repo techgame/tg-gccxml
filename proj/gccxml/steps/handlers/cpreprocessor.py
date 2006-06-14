@@ -79,7 +79,7 @@ class DefinesScanner(CPreprocessorScanner):
     filePositionMatcher = re.compile(r'''(["'])(.*?)\1\s*(\d*)''' % commonDefs).match
     def onFilePosition(self, emitter, lineno, body):
         _, filename, flags = self.filePositionMatcher(body).groups()
-        lineno = int(lineno)
+        lineno = int(lineno)-1
         flags = int(flags or 0)
         emitter.emit('position', filename, lineno, flags)
 
