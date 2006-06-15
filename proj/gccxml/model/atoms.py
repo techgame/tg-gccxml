@@ -26,9 +26,56 @@ def getTypeString(aTypeAtom, descriptive=False):
     assert aTypeAtom.isType(), repr(aTypeAtom)
     return aTypeAtom.getTypeString(descriptive)
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class ModelAtomVisitor(object):
     # Common visitor types
-    useCommonCalls = False
+
+    def visitAll(self, itemIterable, *args, **kw):
+        self._visitItems = set()
+        for item in self.itemIterable:
+            self._visit(item, *args, **kw)
+        del self._visitItems
+
+    def visit(self, item, *args, **kw):
+        self._visitItems = set()
+        self._visit(item, *args, **kw)
+        del self._visitItems
+
+    def _visit(self, item, *args, **kw):
+        if item in self._visitItems:
+            return
+
+        self._visitItems.add(item)
+        try:
+            item.visit(self, *args, **kw)
+            item.visitChildren(self, *args, **kw)
+        finally:
+            self._visitItems.remove(item)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def onPreVisitAtom(self, item, *args, **kw):
+        self.onVisitAtomCommon(item, *args, **kw)
+    def onPostVisitAtom(self, result, item, *args, **kw):
+        return result
+
+    def onVisitAtomCommon(self, item, *args, **kw):
+        self.onAtomCommon(item, *args, **kw)
+        if item.isType():
+            self.onTypeCommon(item, *args, **kw)
+        if item.isContext():
+            self.onContextCommon(item, *args, **kw)
+        elif item.isCallable():
+            self.onCallableCommon(item, *args, **kw)
+
+    def onVisitChildrenOf(self, item, children, *args, **kw):
+        for c in children:
+            if c is not None:
+                self._visit(c)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     def onAtomCommon(self, item, *args, **kw): pass
     def onTypeCommon(self, item, *args, **kw): pass
     def onContextCommon(self, item, *args, **kw): pass
@@ -87,12 +134,14 @@ class ModelAtom(object):
     def isArgument(self): return False
     def isType(self): return False
     def isBasicType(self): return False
+    def isFundamentalType(self): return False
     def isPointerType(self): return False
     def isReferenceType(self): return False
     def isArrayType(self): return False
     def isTypedef(self): return False
     def isVariable(self): return False
     def isContext(self): return False
+    def isContainer(self): return False
     def isCvQualifiedType(self): return False
     def isCompositeType(self): return False
     def isUnion(self): return False
@@ -141,31 +190,15 @@ class ModelAtom(object):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def visit(self, visitor, *args, **kw):
-        if visitor.useCommonCalls:
-            self._visitCommon(visitor, *args, **kw)
-        return self._visit(visitor, *args, **kw)
+        visitor.onPreVisitAtom(self, *args, **kw)
+        result = self._visit(visitor, *args, **kw)
+        return visitor.onPostVisitAtom(result, self, *args, **kw)
     def _visit(self, visitor, *args, **kw):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
     def visitChildren(self, visitor, *args, **kw):
-        for child in self.iterVisitChildren(visitor):
-            if child is not None:
-                child.visit(visitor, *args, **kw)
-    def visitAll(self, visitor, *args, **kw):
-        self.visit(visitor, *args, **kw)
-        for child in self.iterVisitChildren(visitor):
-            if child is not None:
-                child.visitAll(visitor, *args, **kw)
-    def iterVisitChildren(self, visitor):
+        return visitor.onVisitChildrenOf(self, self.iterVisitChildren(), *args, **kw)
+    def iterVisitChildren(self):
         return iter([])
-
-    def _visitCommon(self, visitor, *args, **kw):
-        visitor.onAtomCommon(self, *args, **kw)
-        if self.isType():
-            visitor.onTypeCommon(self, *args, **kw)
-        if self.isContext():
-            visitor.onContextCommon(self, *args, **kw)
-        elif self.isCallable():
-            visitor.onCallableCommon(self, *args, **kw)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -192,11 +225,13 @@ class Root(ModelAtom):
 
     def isRoot(self): 
         return True
+    def isContainer(self):
+        return True
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onRoot(self, *args, **kw)
 
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return self.files.itervalues()
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -231,11 +266,13 @@ class File(ModelAtom):
 
     def isFile(self):
         return True
+    def isContainer(self): 
+        return True
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onFile(self, *args, **kw)
     
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return (x[-1] for x in self.lines)
 
     def addAtom(self, atom):
@@ -267,9 +304,11 @@ class FundamentalType(CType):
     def __repr_atom__(self):
         return "%s size:%s align:%s" % (self.name, self.size, self.align)
 
-    def isType(self):
+    def isFundamentalType(self):
         return True
     def isBasicType(self):
+        return True
+    def isType(self):
         return True
 
     def getTypeString(self, descriptive=False):
@@ -282,7 +321,7 @@ class FundamentalType(CType):
         return visitor.onFundamentalType(self, *args, **kw)
 
 class CvQualifiedType(CType):
-    type = None
+    type = None # a Type Atom
     const = False
     volatile = False
     
@@ -301,7 +340,7 @@ class CvQualifiedType(CType):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onCvQualifiedType(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -313,7 +352,7 @@ class Enumeration(CType):
     align = 0
     size = 0
     artificial = False
-    context = None
+    context = None # a Context Atom
 
     _enumValues = None
     def getEnumValues(self):
@@ -333,7 +372,7 @@ class Enumeration(CType):
     def _visit(self, visitor, *args, **kw):
         return visitor.onEnumeration(self, *args, **kw)
 
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter(self.enumValues)
 
     def addAtom(self, atom): 
@@ -363,8 +402,8 @@ class EnumValue(ModelAtom):
 
 class Typedef(CType):
     name = ''
-    type = None # index into typemap
-    context = None # index into composite type
+    type = None # a Type Atom
+    context = None # a Context Atom
 
     def __repr_atom__(self):
         return '%s %s' % (self.name, getTypeString(self.type, True))
@@ -380,13 +419,13 @@ class Typedef(CType):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onTypedef(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 class PointerType(CType):
     align = 0
     size = 0
-    type = None # index into typemap
+    type = None # a Type Atom
 
     def __repr_atom__(self):
         return getTypeString(self.type, True)
@@ -397,13 +436,13 @@ class PointerType(CType):
     def isPointerType(self): return True
     def _visit(self, visitor, *args, **kw):
         return visitor.onPointerType(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 class ReferenceType(CType):
     align = 0
     size = 0
-    type = None # index into typemap
+    type = None # a Type Atom
 
     def __repr_atom__(self):
         return getTypeString(self.type, True)
@@ -414,11 +453,11 @@ class ReferenceType(CType):
     def isReferenceType(self): return True
     def _visit(self, visitor, *args, **kw):
         return visitor.onReferenceType(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 class ArrayType(CType):
-    type = None # index into typemap
+    type = None # a Type Atom
     align = 0
     size = 0
     min = 0
@@ -433,7 +472,7 @@ class ArrayType(CType):
     def isArrayType(self): return True
     def _visit(self, visitor, *args, **kw):
         return visitor.onArrayType(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -445,17 +484,19 @@ class Namespace(LocatedElement):
     mangled = ''
     demangled = ''
     members = () # list of composite members
-    context = None
+    context = None # a Context Atom
 
     def __repr_atom__(self):
         return '%s members:%s' % (self.name, len(self.members))
 
     def isContext(self):
         return True
+    def isContainer(self):
+        return True
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onNamespace(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter(self.members)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -467,7 +508,7 @@ class CompositeType(CType):
     size = 0
     align = 0
 
-    context = None # index into composite type
+    context = None # a Context Atom
     bases = () # list of base clases
     members = () # list of composite members
 
@@ -481,8 +522,10 @@ class CompositeType(CType):
         return True
     def isContext(self):
         return True
+    def isContainer(self):
+        return True
 
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return itertools.chain(self.bases, self.members)
 
 class Union(CompositeType):
@@ -512,7 +555,7 @@ class Struct(CompositeType):
         else:
             CompositeType.addAtom(self, atom)
 
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return itertools.chain(self.baseRefs, self.members)
 
 class Class(Struct):
@@ -524,7 +567,7 @@ class Class(Struct):
 
 
 class Base(ModelAtom):
-    type = None
+    type = None # a Struct/Class atom
     access = ''
     virtual = False
     offset = 0
@@ -548,8 +591,8 @@ class Base(ModelAtom):
 
 class Variable(LocatedElement):
     name = ""
-    type = None # index into typemap
-    context = None # index into composite type
+    type = None # a Type Atom
+    context = None # a Context Atom
 
     artificial = False
     extern = False
@@ -566,7 +609,7 @@ class Variable(LocatedElement):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onVariable(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 class Field(LocatedElement):
@@ -578,8 +621,8 @@ class Field(LocatedElement):
     bits = None
     offset = None
 
-    type = None # index into typemap
-    context = None # index into composite type
+    type = None # a Type Atom
+    context = None # a Context Atom
 
     def __repr_atom__(self):
         r = [self.name, 'type:'+getTypeString(self.type, True)]
@@ -593,7 +636,7 @@ class Field(LocatedElement):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onField(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -602,7 +645,7 @@ class Field(LocatedElement):
 
 class Argument(LocatedElement):
     name = ''
-    type = None # index into typemap
+    type = None # a Type Atom
 
     def __repr_atom__(self):
         r = [self.name, 'type:'+getTypeString(self.type, True)]
@@ -614,7 +657,7 @@ class Argument(LocatedElement):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onArgument(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
+    def iterVisitChildren(self):
         return iter([self.type])
 
 class Ellipsis(ModelAtom):
@@ -632,8 +675,16 @@ class Ellipsis(ModelAtom):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Callable(LocatedElement):
+    returns = None # a Type Atom
+
     def isCallable(self): 
         return True
+    def isContainer(self):
+        return True
+
+    def getType(self):
+        return self.returns
+    type = property(getType)
 
     _arguments = None
     def getArguments(self):
@@ -644,8 +695,8 @@ class Callable(LocatedElement):
         self._arguments = arguments
     arguments = property(getArguments, setArguments)
 
-    def iterVisitChildren(self, visitor):
-        return iter(self.arguments)
+    def iterVisitChildren(self):
+        return itertools.chain([self.returns], self.arguments)
 
     def addAtom(self, atom):
         if atom.isArgument():
@@ -654,8 +705,6 @@ class Callable(LocatedElement):
             LocatedElement.addAtom(self, atom)
 
 class FunctionType(Callable):
-    returns = None # index into typemap
-
     def __repr_atom__(self):
         return 'returns:' + repr(self.returns)
 
@@ -678,8 +727,6 @@ class FunctionType(Callable):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onFunctionType(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
-        return iter([self.returns])
 
 class Function(Callable):
     name = ''
@@ -687,8 +734,8 @@ class Function(Callable):
     demangled = ''
     endline = None
 
-    returns = None # index into typemap
-    context = None # index into typemap
+    returns = None # a Type Atom 
+    context = None # a Context Atom
     
     inline = False
     extern = False
@@ -708,8 +755,6 @@ class Function(Callable):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onFunction(self, *args, **kw)
-    def iterVisitChildren(self, visitor):
-        return itertools.chain([self.returns], self.arguments)
 
 class Method(Function):
     access = ''

@@ -12,36 +12,27 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import cPickle
-#from TG.gccxml.processor import StepProcessor
-from TG.gccxml.model.listVisitor import ListingVisitor
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Definitions 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-def inspectResult(root):
-    from pprint import pprint
-    for n, f in root.files.iteritems():
-        print
-        print 'File:', n, f
-        for lineno, atom in f.lines:
-            if not atom.isFunction():
-                continue
-            print ' ', lineno, ':', atom
-            pprint(vars(atom), indent=10)
+from TG.gccxml.model.atoms import ModelAtomVisitor
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Main 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-if __name__=='__main__':
-    genFile = file('gen.pickle', 'rb')
-    print 'Reading root from:', genFile.name
-    try:
-        root = cPickle.load(genFile)
-    finally:
-        genFile.close()
+class FunctionListing(ModelAtomVisitor):
+    def onCallableCommon(self, item):
+        if not item.isFunction(): return 
+        if not item.extern: return
 
-    #inspectResult(root)
-    ListingVisitor(root)
+        args = (x[0] for x in self.iterArgNames(item))
+        returns = item.returns.getTypeString()
+
+        print '%s(%s): %s' % (item.name, ', '.join(args), returns)
+
+    def iterArgNames(self, item, template='arg_%d'):
+        return ((a.name or (template % i),a) for i, a in enumerate(item.arguments))
+        
+
+if __name__=='__main__':
+    root = cPickle.load(file('gen.pickle', 'rb'))
+    root.visitAll(FunctionListing())
 

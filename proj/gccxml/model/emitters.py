@@ -142,18 +142,19 @@ class PreprocessorEmitter(FileBasedEmitter):
     def linkConditional(self, item, file):
         if not item.isPPConditional():
             return
+        elif item.isConditionalOpening():
+            item.prev = None
+            item.next = None
+        else:
 
-        if item.isConditionalOpening():
-            return
+            for lineno, lineItem in file.lines[::-1]:
+                if lineItem.isPPConditional():
+                    if lineItem.next or lineItem.isConditionalEnding():
+                        continue
 
-        for line, fileItem in file.lines[::-1]:
-            if fileItem.isPPConditional():
-                if fileItem.next or fileItem.isConditionalEnding():
-                    continue
-
-                fileItem.next = item
-                item.prev = fileItem
-                break
+                    lineItem.next = item
+                    item.prev = lineItem
+                    break
 
 registerEmitter(PreprocessorEmitter, 'preprocess')
 

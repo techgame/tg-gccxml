@@ -10,20 +10,32 @@ from atoms import ModelAtomVisitor
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ListingVisitor(ModelAtomVisitor):
-    useCommonCalls = True
-
     def __init__(self):
         self.stack = []
+
     def onAtomCommon(self, item):
         if item in self.stack:
             return
 
-        print '%08s|' % (getattr(item, 'line', 0) or ''), len(self.stack)*"  " + repr(item)
+        self.onItem(item)
+        if self.predicate(item):
+            self.stack.append(item)
+            try:
+                item.visitChildren(self)
+            finally:
+                stackItem = self.stack.pop()
+            if stackItem is not item:
+                raise Exception("Stack mismatch")
 
+    def onItem(self, item):
+        self.printItem(item, len(self.stack))
 
-        self.stack.append(item)
-        item.visitChildren(self)
-        if self.stack.pop() is not item:
-            raise Exception("Stack mismatch")
-        return item
+    def predicate(self, item):
+        return True
+
+    def printItem(self, item, indent=-1):
+        if indent < 0: indent = len(self.stack)
+        lineno = (getattr(item, 'line', 0) or '')
+        indent *= "    "
+        print '%08s|%s%r' % (lineno, indent, item)
 
