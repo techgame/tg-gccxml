@@ -104,7 +104,7 @@ class ModelAtom(object):
         return ((d, d.treeDependencies()) for d in self.iterVisitDependencies())
 
     def allDependencies(self):
-        seen = set()
+        seen = set([None])
         deps = list(self.iterVisitDependencies())
         while deps:
             d = deps.pop()
@@ -426,6 +426,8 @@ class CompositeType(CType):
     demangled = ''
     size = 0
     align = 0
+    artificial = False
+    access = ''
 
     context = None # a Context Atom
     bases = () # list of base clases
@@ -444,6 +446,9 @@ class CompositeType(CType):
     def isContainer(self):
         return True
 
+    def isAnonymous(self):
+        return not bool(self.name)
+
     def iterVisitChildren(self):
         return chain(self.bases, self.members)
 
@@ -456,7 +461,6 @@ class Union(CompositeType):
 
 class Struct(CompositeType):
     incomplete = False
-    artificial = False
     baseRefs = () # list of base references
 
     def __init__(self):

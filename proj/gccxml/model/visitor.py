@@ -81,8 +81,9 @@ class BasicAtomVisitorMixin(object):
 
     def visit(self, atom, *args, **kw):
         self._visitAtoms = set()
-        self._visit(atom, *args, **kw)
+        result = self._visit(atom, *args, **kw)
         del self._visitAtoms
+        return result
 
     def _visit(self, atom, *args, **kw):
         # this method prevents the DFS from tracing loops in the graph

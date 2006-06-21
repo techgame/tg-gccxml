@@ -10,60 +10,115 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ciBase import CodeItem
+from ciBase import CodeItem, NullCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 CIEllipsis = None
-CIMethod = None
-CIConstructor = None
-CIDestructor = None
 
 class CIArgument(CodeItem):
+    def isTopLevel(self):
+        return False
+
     def codeRef(self):
-        return self.referenceFor(self.item.type)
+        return self.item.name
+
     def codeDef(self):
-        return ''
+        raise NotImplementedError()
+
+class CIEllipsis(CodeItem):
+    def isTopLevel(self):
+        return False
+
+    def codeRef(self):
+        raise NotImplementedError()
+
+    def codeDef(self):
+        raise NotImplementedError()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CICallable(CodeItem):
+    bindCall = 'bind'
+    unnamedArgTemplate = 'arg_%s'
+
     def argumentReferences(self, arguments=None):
         arguments = arguments or self.item.arguments
-        result = [self.referenceFor(a) for a in arguments]
-        return result
-    def argumentNames(self, arguments=None, argTempalte='arg_%d'):
+        return [self.refFor(a) for a in arguments]
+
+    def argumentNames(self, arguments=None):
+        def argName(idx, a):
+            return a.name or (self.unnamedArgTemplate % idx)
+
         arguments = arguments or self.item.arguments
-        result = [(a.name or argTempalte % i) for i, a in enumerate(arguments)]
-        return result
+        return [argName(idx,a) for idx, a in enumerate(arguments)]
+
+    def returnReference(self):
+        returns = self.item.returns
+        if returns:
+            return self.refFor(returns)
+        else: return 'None'
+
+    def refBindCall(self):
+        return self.bindCall
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIFunctionType(CICallable):
+    bindCall = 'CFUNCTYPE'
+    template = (
+        '%(bindCall)s(%(returnType)s, [%(paramTypes)s])'
+        )
+
     def codeRef(self):
         return self.codeDef()
+
     def codeDef(self):
-        item = self.item
-        return 'CFUNCTYPE(%s, [%s])' % (
-                    self.referenceFor(item.returns), 
-                    ', '.join(self.argumentReferences(item.arguments)),
+        return self.template % dict(
+                    bindCall=self.refBindCall(),
+                    returnType=self.returnReference(),
+                    paramTypes=', '.join(self.argumentReferences()),
                     )
 
 class CIFunction(CICallable):
     template = (
-        '@glCall(%(returnType)s, [%(paramTypes)s])\n'
         'def %(funcName)s(%(paramNames)s): pass\n'
+        )
+    templateTypeDecorator = (
+        '@%(bindCall)s(%(returnType)s, [%(paramTypes)s])'
         )
 
     def codeRef(self):
         return self.item.name
 
     def codeDef(self):
-        item = self.item
-        kw = dict(
-            funcName=item.name,
-            returnType=self.referenceFor(item.returns),
-            paramTypes=', '.join(self.argumentReferences(item.arguments)),
-            paramNames=', '.join(self.argumentNames(item.arguments)),
+        return '\n'.join([
+                self.codeTypeDecorator(),
+                self.codeFuncDecl(),
+                ])
+
+    def codeTypeDecorator(self):
+        return self.templateTypeDecorator % dict(
+            bindCall=self.refBindCall(),
+            returnType=self.returnReference(),
+            paramTypes=', '.join(self.argumentReferences()),
             )
 
-        return self.template % kw
+    def codeFuncDecl(self):
+        return self.template % dict(
+            funcName=self.ref(),
+            paramNames=', '.join(self.argumentNames()))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CIMethod(NullCodeItem):
+    pass
+
+class CIConstructor(NullCodeItem):
+    pass
+
+class CIDestructor(NullCodeItem):
+    pass
 

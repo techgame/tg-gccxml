@@ -10,14 +10,21 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ciBase import CodeItem
+from ciBase import CodeItem, NullCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CIPPInclude = None
-CIPPConditional = None
-CIPPDefine = None
-CIPPMacro = None
+class CIPPInclude(NullCodeItem): 
+    pass
+
+class CIPPConditional(NullCodeItem): 
+    pass
+
+class CIPPDefine(NullCodeItem): 
+    pass
+
+class CIPPMacro(NullCodeItem): 
+    pass
 

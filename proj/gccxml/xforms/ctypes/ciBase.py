@@ -10,20 +10,51 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from weakref import proxy
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generation
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CodeItem(object):
     def __init__(self, context, item):
-        self.item = item
+        self.item = proxy(item)
         item.codeItem = self
 
-    def mark(self, markCB):
-        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+    @property
+    def codeItem(self):
+        return self
 
+    def isTopLevel(self):
+        return True
+
+    def ref(self):
+        return self.codeRef()
     def codeRef(self):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+
+    def codeDef(self):
+        return ''
+
+    def refFor(self, item):
+        return item.codeItem.codeRef()
+    def codeFor(self, item):
+        return item.codeItem.codeDef()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class NamedCodeItem(CodeItem):
+    def codeRef(self):
+        return self.item.name
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class NullCodeItem(CodeItem):
+    def isTopLevel(self):
+        return False
+
+    def codeRef(self):
+        return ''
 
     def codeDef(self):
         return ''

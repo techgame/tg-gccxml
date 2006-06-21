@@ -361,6 +361,8 @@ class CompositeType(SizedType):
         demangled=passThrough,
         size=intOr0,
         align=intOr0,
+        artificial=boolOr0,
+        access=passThrough,
 
         context=reference,
 
@@ -391,13 +393,16 @@ class CompositeType(SizedType):
 class Union(CompositeType):
     itemKind = 'Union'
 
+    attrValueMap = CompositeType.attrValueMap.copy()
+    attrValueMap.update(
+        )
+
 class Struct(CompositeType):
     itemKind = 'Struct'
 
     attrValueMap = CompositeType.attrValueMap.copy()
     attrValueMap.update(
         incomplete=boolOr0,
-        artificial=boolOr0,
         )
 
     _baseReferences = None

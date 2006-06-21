@@ -24,159 +24,154 @@ from ciPreprocessor import *
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CodeGenVisitor(visitor.AtomVisitor):
+    context = None
+    def __init__(self, context):
+        self.context = context
+
+    @classmethod
+    def validateFactories(klass):
+        invalidFactories = []
+        for n, v in vars(klass).iteritems():
+            if n.startswith('CI') and n.endswith('Factory'):
+                if v is None:
+                    invalidFactories.append(n)
+
+        if invalidFactories:
+            e = Exception("Invalid code item factories: [%s]" % (', '.join(invalidFactories),))
+            e.invalidFactories = invalidFactories
+            raise e
+        else:
+            return True
+
     # root reference
     CIRootFactory = CIRoot
     def onRoot(self, atom):
-        if self.CIRootFactory:
-            return self.CIRootFactory(atom)
+        return self.CIRootFactory(self.context, atom)
 
     # file references
     CIFileFactory = CIFile
     def onFile(self, atom):
-        if self.CIFileFactory:
-            return self.CIFileFactory(atom)
+        return self.CIFileFactory(self.context, atom)
 
     # namespace 
     CINamespaceFactory = CINamespace
     def onNamespace(self, atom):
-        if self.CINamespaceFactory:
-            return self.CINamespaceFactory(atom)
+        return self.CINamespaceFactory(self.context, atom)
 
     # simple types
     CIFundamentalTypeFactory = CIFundamentalType
     def onFundamentalType(self, atom):
-        if self.CIFundamentalTypeFactory:
-            return self.CIFundamentalTypeFactory(atom)
+        return self.CIFundamentalTypeFactory(self.context, atom)
 
     CICvQualifiedTypeFactory = CICvQualifiedType
     def onCvQualifiedType(self, atom):
-        if self.CICvQualifiedTypeFactory:
-            return self.CICvQualifiedTypeFactory(atom)
+        return self.CICvQualifiedTypeFactory(self.context, atom)
 
     CIEnumerationFactory = CIEnumeration
     def onEnumeration(self, atom):
-        if self.CIEnumerationFactory:
-            return self.CIEnumerationFactory(atom)
+        return self.CIEnumerationFactory(self.context, atom)
 
     CIEnumValueFactory = CIEnumValue
     def onEnumValue(self, atom):
-        if self.CIEnumValueFactory:
-            return self.CIEnumValueFactory(atom)
+        return self.CIEnumValueFactory(self.context, atom)
 
 
     # complex types and pointers
     CITypedefFactory = CITypedef
     def onTypedef(self, atom):
-        if self.CITypedefFactory:
-            return self.CITypedefFactory(atom)
+        return self.CITypedefFactory(self.context, atom)
 
     CIPointerTypeFactory = CIPointerType
     def onPointerType(self, atom):
-        if self.CIPointerTypeFactory:
-            return self.CIPointerTypeFactory(atom)
+        return self.CIPointerTypeFactory(self.context, atom)
 
     CIReferenceTypeFactory = CIReferenceType
     def onReferenceType(self, atom):
-        if self.CIReferenceTypeFactory:
-            return self.CIReferenceTypeFactory(atom)
+        return self.CIReferenceTypeFactory(self.context, atom)
 
     CIArrayTypeFactory = CIArrayType
     def onArrayType(self, atom):
-        if self.CIArrayTypeFactory:
-            return self.CIArrayTypeFactory(atom)
+        return self.CIArrayTypeFactory(self.context, atom)
 
 
     # composite elements
     CIUnionFactory = CIUnion
     def onUnion(self, atom):
-        if self.CIUnionFactory:
-            return self.CIUnionFactory(atom)
+        return self.CIUnionFactory(self.context, atom)
 
     CIStructFactory = CIStruct
     def onStruct(self, atom):
-        if self.CIStructFactory:
-            return self.CIStructFactory(atom)
+        return self.CIStructFactory(self.context, atom)
 
     CIClassFactory = CIClass
     def onClass(self, atom):
-        if self.CIClassFactory:
-            return self.CIClassFactory(atom)
+        return self.CIClassFactory(self.context, atom)
 
     CIBaseFactory = CIBase
     def onBase(self, atom):
-        if self.CIBaseFactory:
-            return self.CIBaseFactory(atom)
+        return self.CIBaseFactory(self.context, atom)
 
 
     # context members
     CIVariableFactory = CIVariable
     def onVariable(self, atom):
-        if self.CIVariableFactory:
-            return self.CIVariableFactory(atom)
+        return self.CIVariableFactory(self.context, atom)
 
     CIFieldFactory = CIField
     def onField(self, atom):
-        if self.CIFieldFactory:
-            return self.CIFieldFactory(atom)
+        return self.CIFieldFactory(self.context, atom)
 
 
     # sub elements of Callables
     CIArgumentFactory = CIArgument
     def onArgument(self, atom):
-        if self.CIArgumentFactory:
-            return self.CIArgumentFactory(atom)
+        return self.CIArgumentFactory(self.context, atom)
 
     CIEllipsisFactory = CIEllipsis
     def onEllipsis(self, atom):
-        if self.CIEllipsisFactory:
-            return self.CIEllipsisFactory(atom)
+        return self.CIEllipsisFactory(self.context, atom)
 
 
     # callables
     CIFunctionFactory = CIFunction
     def onFunction(self, atom):
-        if self.CIFunctionFactory:
-            return self.CIFunctionFactory(atom)
+        return self.CIFunctionFactory(self.context, atom)
 
     CIFunctionTypeFactory = CIFunctionType
     def onFunctionType(self, atom):
-        if self.CIFunctionTypeFactory:
-            return self.CIFunctionTypeFactory(atom)
+        return self.CIFunctionTypeFactory(self.context, atom)
 
     CIMethodFactory = CIMethod
     def onMethod(self, atom):
-        if self.CIMethodFactory:
-            return self.CIMethodFactory(atom)
+        return self.CIMethodFactory(self.context, atom)
 
     CIConstructorFactory = CIConstructor
     def onConstructor(self, atom):
-        if self.CIConstructorFactory:
-            return self.CIConstructorFactory(atom)
+        return self.CIConstructorFactory(self.context, atom)
 
     CIDestructorFactory = CIDestructor
     def onDestructor(self, atom):
-        if self.CIDestructorFactory:
-            return self.CIDestructorFactory(atom)
+        return self.CIDestructorFactory(self.context, atom)
 
 
     # preprocessor
     CIPPIncludeFactory = CIPPInclude
     def onPPInclude(self, atom):
-        if self.CIPPIncludeFactory:
-            return self.CIPPIncludeFactory(atom)
+        return self.CIPPIncludeFactory(self.context, atom)
 
     CIPPConditionalFactory = CIPPConditional
     def onPPConditional(self, atom):
-        if self.CIPPConditionalFactory:
-            return self.CIPPConditionalFactory(atom)
+        return self.CIPPConditionalFactory(self.context, atom)
 
     CIPPDefineFactory = CIPPDefine
     def onPPDefine(self, atom):
-        if self.CIPPDefineFactory:
-            return self.CIPPDefineFactory(atom)
+        return self.CIPPDefineFactory(self.context, atom)
 
     CIPPMacroFactory = CIPPMacro
     def onPPMacro(self, atom):
-        if self.CIPPMacroFactory:
-            return self.CIPPMacroFactory(atom)
+        return self.CIPPMacroFactory(self.context, atom)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CodeGenVisitor.validateFactories()
 

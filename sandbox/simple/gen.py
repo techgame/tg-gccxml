@@ -11,21 +11,12 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import cPickle
 from TG.gccxml.processor import StepProcessor
+from TG.gccxml.model import storeToFileNamed
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-def inspectResult(root):
-    from pprint import pprint
-    for n, f in root.files.iteritems():
-        print
-        print 'File:', n, f
-        for lineno, atom in f.lines:
-            print ' ', lineno, ':', atom
-            pprint(vars(atom), indent=10)
 
 def main():
     sp = StepProcessor()
@@ -44,13 +35,5 @@ def main():
 
 if __name__=='__main__':
     sp = main()
-
-    genFile = file('gen.pickle', 'wb')
-    print 'Dumping root to:', genFile.name
-    try:
-        cPickle.dump(sp.root, genFile, cPickle.HIGHEST_PROTOCOL)
-    finally:
-        genFile.close()
-
-    #inspectResult(sp.root)
+    storeToFileNamed(sp.root, 'srcCode.model')
 

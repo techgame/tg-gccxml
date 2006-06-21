@@ -13,19 +13,6 @@
 from ciBase import CodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Definitions 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-CIFundamentalType = None
-CICvQualifiedType = None
-CIEnumeration = None
-CIEnumValue = None
-CITypedef = None
-CIPointerType = None
-CIReferenceType = None
-CIArrayType = None
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Specific Code Item Generators
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -73,33 +60,64 @@ class CIFundamentalType(CodeItem):
         'complex long double': None,
     }
     def codeRef(self):
-        return self.item.name
+        return self.typeMapping[self.item.name]
     def codeDef(self):
-        return self.item.name
+        return None
 
-class CIDecorated(CodeItem):
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CICvQualifiedType(CodeItem):
     def codeRef(self):
-        return self.referenceFor(self.item.type)
+        return self.refFor(self.item.type)
     def codeDef(self):
-        return ''
+        return self.codeFor(self.item.type)
 
-class CIPointer(CodeItem):
+class CIPointerType(CodeItem):
+    template = (
+        '%(name)s.ptr = POINTER(%(name)s)'
+        )
+
     def codeRef(self):
         itemType = self.item.type
-        ref = self.referenceFor(itemType)
+        ref = self.refFor(itemType)
         if hasattr(itemType, 'name'):
             return ref + '.ptr'
         else:
             return 'POINTER(%s)' % (ref,)
     def codeDef(self):
-        ref = self.referenceFor(self.item.type)
-        return '%s.ptr = POINTER(%s)\n' % (ref, ref)
+        itemType = self.item.type
+        ref = self.refFor(itemType)
+        if hasattr(itemType, 'name'):
+            return self.template % dict(
+                    name=ref,
+                    )
+        else:
+            return None
+
+class CIReferenceType(CIPointerType):
+    pass
 
 class CITypedef(CodeItem):
+    template = 'class %(name)s(%(typeName)s): pass'
+
     def codeRef(self):
         return self.item.name
     def codeDef(self):
         item = self.item
         if item.type.isFundamentalType():
-            return 'class %(name)s(%(typeName)): pass' % dict(name=item.name, typeName=item.type.name)
+            return self.template % dict(
+                    name=self.ref(), 
+                    typeName=self.refFor(item.type),
+                    )
+
+class CIArrayType(CodeItem):
+    pass
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CIEnumeration(CodeItem):
+    pass
+
+class CIEnumValue(CodeItem):
+    pass
 

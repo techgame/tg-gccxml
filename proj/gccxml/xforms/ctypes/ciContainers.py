@@ -11,13 +11,18 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ciBase import CodeItem
+from ciBase import CodeItem, NullCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CIRoot = None
-CIFile = None
-CINamespace = None
+class CIRoot(NullCodeItem): 
+    pass
+
+class CIFile(NullCodeItem): 
+    pass
+
+class CINamespace (NullCodeItem): 
+    pass
 
