@@ -11,29 +11,28 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from TG.gccxml.processor import StepProcessor
-from TG.gccxml.model import storeToFileNamed
+from TG.gccxml.codeAnalyzer import CodeAnalyzer
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def main():
-    sp = StepProcessor()
+    analyzer = CodeAnalyzer()
 
-    sp.cfg.inc = ['.']
-    sp.cfg.src = ['genOpenGL.cpp']
-    sp.cfg.baseline = ['baseline.cpp']
+    analyzer.cfg.inc = ['.']
+    analyzer.cfg.src = ['genOpenGL.cpp']
+    analyzer.cfg.baseline = ['baseline.cpp']
 
-    sp.run()
+    analyzer.run()
     
-    return sp
+    return analyzer
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Main 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
-    sp = main()
-    storeToFileNamed(sp.root, 'srcCode.model')
+    analyzer = main()
+    analyzer.root.storeToFileNamed('srcCode.model')
 

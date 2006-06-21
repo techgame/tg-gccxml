@@ -10,6 +10,11 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+try:
+    import cPickle as _pickle
+except ImportError:
+    import pickle as _pickle
+
 import emitters
 import atoms
 
@@ -30,4 +35,37 @@ class RootElement(atoms.Root):
         factory = emitters.getEmitterFactoryFromMap(section, kind, 
                         self.emitterFactoryMap)
         return factory(self)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ Pickle tools
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def storeToFileNamed(self, filename):
+        modelFile = file(filename, 'wb')
+        try:
+            result = self.storeToFile(modelFile)
+        finally:
+            modelFile.close()
+        return result
+
+    def storeToFile(self, file):
+        return _pickle.dump(self, file, _pickle.HIGHEST_PROTOCOL)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    @classmethod
+    def loadFromFileNamed(klass, filename):
+        modelFile = file(filename, 'rb')
+        try:
+            self = klass.loadFromFile(modelFile)
+        finally:
+            modelFile.close()
+        return self
+
+    @classmethod
+    def loadFromFile(klass, file):
+        self = _pickle.load(file)
+        if not isinstance(self, klass):
+            raise TypeError("File did not contain a RootElement")
+        return self
 

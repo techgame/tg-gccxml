@@ -10,31 +10,25 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from steps.stepProcessor import StepProcessorBase
-
-import steps.dependency
-import steps.includes
-import steps.defines
-import steps.ifdef
-import steps.code
-
-import model.elements
+from model.elements import RootElement
+from analyzer.stepProcessor import StepProcessorBase
+from analyzer import dependency, includes, defines, ifdef, code
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class StepProcessor(StepProcessorBase):
-    RootElementFactory = model.elements.RootElement
+class CodeAnalyzer(StepProcessorBase):
+    RootElementFactory = RootElement
 
     def setup(self):
         StepProcessorBase.setup(self)
         self.steps += [
-            steps.dependency.DependencyProcessorStep(),
-            steps.includes.IncludesProcessorStep(),
-            steps.defines.DefinesProcessorStep(),
-            steps.ifdef.IfdefProcessorStep(),
-            steps.code.CodeProcessorStep(),
+            dependency.DependencyProcessorStep(),
+            includes.IncludesProcessorStep(),
+            defines.DefinesProcessorStep(),
+            ifdef.IfdefProcessorStep(),
+            code.CodeProcessorStep(),
             ]
 
     def start(self):
