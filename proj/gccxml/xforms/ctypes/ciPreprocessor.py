@@ -19,11 +19,19 @@ from ciBase import CodeItem, NullCodeItem
 class CIPPInclude(NullCodeItem): 
     pass
 
-class CIPPConditional(NullCodeItem): 
-    pass
+class CIPPConditional(CodeItem): 
+    def isTopLevel(self):
+        return True
+    def codeDef(self):
+        return '\nif 1:\n    # %s %s\n    # "%s":%s-%s\n    %s' % (
+                self.item.directive, self.item.body,
+                self.item.file.name, self.item.line, self.item.next.line,
+                '\n    '.join(self.codeFor(a) for a in self.item.getEnclosed())
+                )
 
-class CIPPDefine(NullCodeItem): 
-    pass
+class CIPPDefine(CodeItem): 
+    def codeDef(self):
+        return '%s = %s' % (self.item.ident, self.item.body)
 
 class CIPPMacro(NullCodeItem): 
     pass

@@ -42,21 +42,14 @@ class AtomFilter(visitor.AtomVisitor):
                 self._depends.update(e.allDependencies())
         return self._depends
 
-    def onUnion(self, item):
-        self.items.add(item)
-    def onStruct(self, item):
-        self.items.add(item)
-
     def onFunction(self, item):
         if item.extern and item.name.startswith('gl'):
             # TODO: Restore
+            return
             if 'Texture' in item.name:
                 self.functions.add(item)
 
     def onPPDefine(self, item):
-        # TODO: Restore
-        if self.defines: return
-
         if item.ident in self.filterConditionals:
             return
 
@@ -74,9 +67,6 @@ class AtomFilter(visitor.AtomVisitor):
         'GL_GLEXT_FUNCTION_POINTERS',
         ])
     def onPPConditional(self, item):
-        # TODO: Restore
-        if self.conditions: return
-
         if item.body in self.filterConditionals:
             return
 
@@ -97,7 +87,7 @@ if __name__=='__main__':
     atomFilter.visit(root)
     allAtoms = set(atomFilter.iterAll())
 
-    codeVisitor = codeGen.CodeGenVisitor(None)
+    codeVisitor = codeGen.CCodeGenVisitor(None)
     codeVisitor.visitAll(allAtoms)
     for atom in allAtoms:
         ci = atom.codeItem

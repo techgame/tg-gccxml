@@ -23,7 +23,7 @@ from ciPreprocessor import *
 #~ Code Gen Node Visitor
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CodeGenVisitor(visitor.AtomVisitor):
+class BaseCodeGenVisitor(visitor.AtomVisitor):
     context = None
     def __init__(self, context):
         self.context = context
@@ -53,11 +53,13 @@ class CodeGenVisitor(visitor.AtomVisitor):
     def onFile(self, atom):
         return self.CIFileFactory(self.context, atom)
 
-    # namespace 
-    CINamespaceFactory = CINamespace
-    def onNamespace(self, atom):
-        return self.CINamespaceFactory(self.context, atom)
+BaseCodeGenVisitor.validateFactories()
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ C Code Generation
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CCodeGenVisitor(BaseCodeGenVisitor):
     # simple types
     CIFundamentalTypeFactory = CIFundamentalType
     def onFundamentalType(self, atom):
@@ -87,6 +89,7 @@ class CodeGenVisitor(visitor.AtomVisitor):
 
     CIReferenceTypeFactory = CIReferenceType
     def onReferenceType(self, atom):
+        # technically this is C++, but it tends to sneak in to C code
         return self.CIReferenceTypeFactory(self.context, atom)
 
     CIArrayTypeFactory = CIArrayType
@@ -102,14 +105,6 @@ class CodeGenVisitor(visitor.AtomVisitor):
     CIStructFactory = CIStruct
     def onStruct(self, atom):
         return self.CIStructFactory(self.context, atom)
-
-    CIClassFactory = CIClass
-    def onClass(self, atom):
-        return self.CIClassFactory(self.context, atom)
-
-    CIBaseFactory = CIBase
-    def onBase(self, atom):
-        return self.CIBaseFactory(self.context, atom)
 
 
     # context members
@@ -141,18 +136,6 @@ class CodeGenVisitor(visitor.AtomVisitor):
     def onFunctionType(self, atom):
         return self.CIFunctionTypeFactory(self.context, atom)
 
-    CIMethodFactory = CIMethod
-    def onMethod(self, atom):
-        return self.CIMethodFactory(self.context, atom)
-
-    CIConstructorFactory = CIConstructor
-    def onConstructor(self, atom):
-        return self.CIConstructorFactory(self.context, atom)
-
-    CIDestructorFactory = CIDestructor
-    def onDestructor(self, atom):
-        return self.CIDestructorFactory(self.context, atom)
-
 
     # preprocessor
     CIPPIncludeFactory = CIPPInclude
@@ -171,7 +154,40 @@ class CodeGenVisitor(visitor.AtomVisitor):
     def onPPMacro(self, atom):
         return self.CIPPMacroFactory(self.context, atom)
 
+CCodeGenVisitor.validateFactories()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ C++ Code Generation
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CodeGenVisitor.validateFactories()
+class CPPCodeGenVisitor(CCodeGenVisitor):
+    # namespace 
+    CINamespaceFactory = CINamespace
+    def onNamespace(self, atom):
+        return self.CINamespaceFactory(self.context, atom)
+
+    # composite elements
+    CIClassFactory = CIClass
+    def onClass(self, atom):
+        return self.CIClassFactory(self.context, atom)
+
+    CIBaseFactory = CIBase
+    def onBase(self, atom):
+        return self.CIBaseFactory(self.context, atom)
+
+
+    # callables
+    CIMethodFactory = CIMethod
+    def onMethod(self, atom):
+        return self.CIMethodFactory(self.context, atom)
+
+    CIConstructorFactory = CIConstructor
+    def onConstructor(self, atom):
+        return self.CIConstructorFactory(self.context, atom)
+
+    CIDestructorFactory = CIDestructor
+    def onDestructor(self, atom):
+        return self.CIDestructorFactory(self.context, atom)
+
+CPPCodeGenVisitor.validateFactories()
 

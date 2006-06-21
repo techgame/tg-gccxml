@@ -10,7 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from bisect import insort
+from bisect import insort, bisect_left, bisect_right
 from itertools import chain
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -192,6 +192,19 @@ class File(ModelAtom):
 
     def addAtom(self, atom):
         insort(self.lines, (atom.line, atom))
+
+    def getAtomsBetween(self, fromAtom, toAtom=None):
+        return (l[-1] for l in self.getLinesBetween(fromAtom, toAtom))
+    def getLinesBetween(self, fromAtom, toAtom=None):
+        if fromAtom is not None:
+            idx0 = bisect_right(self.lines, (fromAtom.line, fromAtom))
+        else: idx0 = None
+
+        if toAtom is not None:
+            idx1 = bisect_left(self.lines, (toAtom.line, toAtom))
+        else: idx1 = None
+
+        return self.lines[idx0:idx1]
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -753,6 +766,12 @@ class PPConditional(PreprocessorAtom):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onPPConditional(self, *args, **kw)
+
+    def getEnclosed(self):
+        if self.next is None:
+            return []
+        elif self.file is not None:
+            return self.file.getAtomsBetween(self, self.next)
 
 class PPDefine(PreprocessorAtom):
     ident = ''

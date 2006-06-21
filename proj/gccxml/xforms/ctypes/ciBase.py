@@ -37,9 +37,15 @@ class CodeItem(object):
         return ''
 
     def refFor(self, item):
-        return item.codeItem.codeRef()
+        ci = getattr(item, 'codeItem', None)
+        if ci:
+            return ci.codeRef()
+        else: return ''
     def codeFor(self, item):
-        return item.codeItem.codeDef()
+        ci = getattr(item, 'codeItem', None)
+        if ci:
+            return ci.codeDef()
+        else: return ''
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
