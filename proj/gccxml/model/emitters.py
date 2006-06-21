@@ -110,7 +110,21 @@ class PreprocessorEmitter(FileBasedEmitter):
 
     @emitKind(emitKindMap, 'position')
     def onPosition(self, kind, filename, lineno, flags=None):
-        self.setFilename(filename, lineno)
+        # set to the previous line because we will be incremented before the
+        # next line is read
+        self.setFilename(filename, lineno-1)
+
+    @emitKind(emitKindMap, 'position-push')
+    def onPositionPush(self, kind, filename, lineno, flags=None):
+        """This is generated as a result of a #include"""
+        
+    @emitKind(emitKindMap, 'position-load')
+    def onPositionLoad(self, kind, filename, lineno, flags=None):
+        """This is generated as a result of conditional (#if/#ifdef/#else/#elif) blocks"""
+
+    @emitKind(emitKindMap, 'position-pop')
+    def onPositionPop(self, kind, filename, lineno, flags=None):
+        """This is generated after a #include is complete"""
 
     @emitKind(emitKindMap, 'conditional')
     def onCondition(self, kind, directive, body):
@@ -142,14 +156,14 @@ class PreprocessorEmitter(FileBasedEmitter):
     def linkConditional(self, item, file):
         if not item.isPPConditional():
             return
-        elif item.isConditionalOpening():
+        elif item.isOpening():
             item.prev = None
             item.next = None
         else:
 
             for lineno, lineItem in file.lines[::-1]:
                 if lineItem.isPPConditional():
-                    if lineItem.next or lineItem.isConditionalEnding():
+                    if lineItem.next or lineItem.isClosing():
                         continue
 
                     lineItem.next = item

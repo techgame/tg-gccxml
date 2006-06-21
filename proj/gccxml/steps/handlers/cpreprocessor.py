@@ -76,11 +76,17 @@ class DefinesScanner(CPreprocessorScanner):
             )
     commonDefs['ARGS'] %= commonDefs
 
-    filePositionMatcher = re.compile(r'''(["'])(.*?)\1\s*(\d*)''' % commonDefs).match
+    filePositionMatcher = re.compile(r'''["'](.*?)["']\s*(\d*)''' % commonDefs).match
     def onFilePosition(self, emitter, lineno, body):
-        _, filename, flags = self.filePositionMatcher(body).groups()
-        lineno = int(lineno)-1
+        filename, flags = self.filePositionMatcher(body).groups()
+        lineno = int(lineno)
         flags = int(flags or 0)
+        if flags == 1:
+            emitter.emit('position-push', filename, lineno, flags)
+        elif flags == 2:
+            emitter.emit('position-pop', filename, lineno, flags)
+        else:
+            emitter.emit('position-load', filename, lineno, flags)
         emitter.emit('position', filename, lineno, flags)
 
     identMatcher = re.compile(r'(%(IDENT)s)%(REST)s' % commonDefs).match

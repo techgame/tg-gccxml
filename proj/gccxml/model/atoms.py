@@ -10,11 +10,8 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import bisect
-import itertools
-
-import xml.sax
-import xml.sax.handler
+from bisect import insort
+from itertools import chain
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -25,107 +22,6 @@ def getTypeString(aTypeAtom, descriptive=False):
         return None
     assert aTypeAtom.isType(), repr(aTypeAtom)
     return aTypeAtom.getTypeString(descriptive)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class ModelAtomVisitor(object):
-    # Common visitor types
-
-    def visitAll(self, itemIterable, *args, **kw):
-        self._visitItems = set()
-        for item in self.itemIterable:
-            self._visit(item, *args, **kw)
-        del self._visitItems
-
-    def visit(self, item, *args, **kw):
-        self._visitItems = set()
-        self._visit(item, *args, **kw)
-        del self._visitItems
-
-    def _visit(self, item, *args, **kw):
-        if item in self._visitItems:
-            return
-
-        self._visitItems.add(item)
-        try:
-            item.visit(self, *args, **kw)
-            item.visitChildren(self, *args, **kw)
-        finally:
-            self._visitItems.remove(item)
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    def onPreVisitAtom(self, item, *args, **kw):
-        self.onVisitAtomCommon(item, *args, **kw)
-    def onPostVisitAtom(self, result, item, *args, **kw):
-        return result
-
-    def onVisitAtomCommon(self, item, *args, **kw):
-        self.onAtomCommon(item, *args, **kw)
-        if item.isType():
-            self.onTypeCommon(item, *args, **kw)
-        if item.isContext():
-            self.onContextCommon(item, *args, **kw)
-        elif item.isCallable():
-            self.onCallableCommon(item, *args, **kw)
-
-    def onVisitChildrenOf(self, item, children, *args, **kw):
-        for c in children:
-            if c is not None:
-                self._visit(c)
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    def onAtomCommon(self, item, *args, **kw): pass
-    def onTypeCommon(self, item, *args, **kw): pass
-    def onContextCommon(self, item, *args, **kw): pass
-    def onCallableCommon(self, item, *args, **kw): pass
-
-    # root reference
-    def onRoot(self, item, *args, **kw): pass
-
-    # file references
-    def onFile(self, item, *args, **kw): pass
-
-    # simple types
-    def onFundamentalType(self, item, *args, **kw): pass
-    def onCvQualifiedType(self, item, *args, **kw): pass
-    def onEnumeration(self, item, *args, **kw): pass
-    def onEnumValue(self, item, *args, **kw): pass
-
-    # complex types and pointers
-    def onTypedef(self, item, *args, **kw): pass
-    def onPointerType(self, item, *args, **kw): pass
-    def onReferenceType(self, item, *args, **kw): pass
-    def onArrayType(self, item, *args, **kw): pass
-
-    # context elements
-    def onNamespace(self, item, *args, **kw): pass
-    def onUnion(self, item, *args, **kw): pass
-    def onStruct(self, item, *args, **kw): pass
-    def onClass(self, item, *args, **kw): pass
-    def onBase(self, item, *args, **kw): pass
-
-    # context members
-    def onVariable(self, item, *args, **kw): pass
-    def onField(self, item, *args, **kw): pass
-
-    # sub elements of Callables
-    def onArgument(self, item, *args, **kw): pass
-    def onEllipsis(self, item, *args, **kw): pass
-
-    # callables
-    def onFunction(self, item, *args, **kw): pass
-    def onFunctionType(self, item, *args, **kw): pass
-    def onMethod(self, item, *args, **kw): pass
-    def onConstructor(self, item, *args, **kw): pass
-    def onDestructor(self, item, *args, **kw): pass
-
-    # preprocessor
-    def onPPInclude(self, item, *args, **kw): pass
-    def onPPConditional(self, item, *args, **kw): pass
-    def onPPDefine(self, item, *args, **kw): pass
-    def onPPMacro(self, item, *args, **kw): pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -190,15 +86,32 @@ class ModelAtom(object):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def visit(self, visitor, *args, **kw):
-        visitor.onPreVisitAtom(self, *args, **kw)
-        result = self._visit(visitor, *args, **kw)
-        return visitor.onPostVisitAtom(result, self, *args, **kw)
+        return visitor.onVisitAtom(self, self._visit, *args, **kw)
     def _visit(self, visitor, *args, **kw):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+
     def visitChildren(self, visitor, *args, **kw):
         return visitor.onVisitChildrenOf(self, self.iterVisitChildren(), *args, **kw)
     def iterVisitChildren(self):
         return iter([])
+
+    def visitDependencies(self, visitor, *args, **kw):
+        return visitor.onVisitDependenciesOf(self, self.iterVisitDependencies(), *args, **kw)
+    def iterVisitDependencies(self):
+        return self.iterVisitChildren()
+
+    def treeDependencies(self):
+        return ((d, d.treeDependencies()) for d in self.iterVisitDependencies())
+
+    def allDependencies(self):
+        seen = set()
+        deps = list(self.iterVisitDependencies())
+        while deps:
+            d = deps.pop()
+            if d not in seen:
+                seen.add(d)
+                deps.extend(d.iterVisitDependencies())
+                yield d
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -230,9 +143,10 @@ class Root(ModelAtom):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onRoot(self, *args, **kw)
-
     def iterVisitChildren(self):
         return self.files.itervalues()
+    def iterVisitDependencies(self):
+        return iter([])
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -271,12 +185,37 @@ class File(ModelAtom):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onFile(self, *args, **kw)
-    
     def iterVisitChildren(self):
         return (x[-1] for x in self.lines)
+    def iterVisitDependencies(self):
+        return iter([])
 
     def addAtom(self, atom):
-        bisect.insort(self.lines, (atom.line, atom))
+        insort(self.lines, (atom.line, atom))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class Namespace(ModelAtom):
+    name = ''
+    mangled = ''
+    demangled = ''
+    members = () # list of composite members
+    context = None # a Context Atom
+
+    def __repr_atom__(self):
+        return '%s members:%s' % (self.name, len(self.members))
+
+    def isContext(self):
+        return True
+    def isContainer(self):
+        return True
+
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onNamespace(self, *args, **kw)
+    def iterVisitChildren(self):
+        return iter(self.members)
+    def iterVisitDependencies(self):
+        return iter([])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Types
@@ -286,6 +225,10 @@ class LocatedElement(ModelAtom):
     file = None # reference to a File instance
     line = 0
 
+    def getLoc(self):
+        return self.file, self.line
+    loc = property(getLoc)
+
 class CType(LocatedElement):
     def isType(self):
         return True
@@ -294,7 +237,6 @@ class CType(LocatedElement):
 
     def getTypeChain(self):
         return [self.type] + self.type.getTypeChain()
-
 
 class FundamentalType(CType):
     name = ''
@@ -371,7 +313,6 @@ class Enumeration(CType):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onEnumeration(self, *args, **kw)
-
     def iterVisitChildren(self):
         return iter(self.enumValues)
 
@@ -479,28 +420,6 @@ class ArrayType(CType):
 #~ Contexts, Structures, Unions, and Fields
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Namespace(LocatedElement):
-    name = ''
-    mangled = ''
-    demangled = ''
-    members = () # list of composite members
-    context = None # a Context Atom
-
-    def __repr_atom__(self):
-        return '%s members:%s' % (self.name, len(self.members))
-
-    def isContext(self):
-        return True
-    def isContainer(self):
-        return True
-
-    def _visit(self, visitor, *args, **kw):
-        return visitor.onNamespace(self, *args, **kw)
-    def iterVisitChildren(self):
-        return iter(self.members)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 class CompositeType(CType):
     name = ''
     mangled = ''
@@ -526,7 +445,7 @@ class CompositeType(CType):
         return True
 
     def iterVisitChildren(self):
-        return itertools.chain(self.bases, self.members)
+        return chain(self.bases, self.members)
 
 class Union(CompositeType):
     def isUnion(self): 
@@ -556,7 +475,7 @@ class Struct(CompositeType):
             CompositeType.addAtom(self, atom)
 
     def iterVisitChildren(self):
-        return itertools.chain(self.baseRefs, self.members)
+        return chain(self.baseRefs, self.members)
 
 class Class(Struct):
     def isClass(self): 
@@ -564,7 +483,6 @@ class Class(Struct):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onClass(self, *args, **kw)
-
 
 class Base(ModelAtom):
     type = None # a Struct/Class atom
@@ -584,6 +502,9 @@ class Base(ModelAtom):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onBase(self, *args, **kw)
+    
+    def iterVisitChildren(self):
+        return iter([self.type])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Variable
@@ -696,7 +617,7 @@ class Callable(LocatedElement):
     arguments = property(getArguments, setArguments)
 
     def iterVisitChildren(self):
-        return itertools.chain([self.returns], self.arguments)
+        return chain([self.returns], self.arguments)
 
     def addAtom(self, atom):
         if atom.isArgument():
@@ -819,11 +740,11 @@ class PPConditional(PreprocessorAtom):
     def isPPConditional(self):
         return True
 
-    def isConditionalOpening(self):
+    def isOpening(self):
         return self.directive.startswith('if')
-    def isConditionalContinuation(self):
+    def isAlternate(self):
         return self.directive.startswith('el')
-    def isConditionalEnding(self):
+    def isClosing(self):
         return self.directive.startswith('end')
 
     def _visit(self, visitor, *args, **kw):

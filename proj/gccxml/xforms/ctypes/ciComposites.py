@@ -10,7 +10,22 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from ciBase import CodeItem
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CIVariable = None
+CIField = None
+CIUnion = None
+CIStruct = None
+CIClass = None
+CIBase = None
+
+class CIStruct(CodeItem):
+    def codeRef(self):
+        return self.item.name
+    def codeDef(self):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 

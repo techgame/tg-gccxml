@@ -13,7 +13,6 @@
 
 import cPickle
 from TG.gccxml.processor import StepProcessor
-from TG.gccxml.model.listVisitor import ListingVisitor
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 

@@ -11,6 +11,20 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Definitions 
+#~ Code generation
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CodeItem(object):
+    def __init__(self, context, item):
+        self.item = item
+        item.codeItem = self
+
+    def mark(self, markCB):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+
+    def codeRef(self):
+        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+
+    def codeDef(self):
+        return ''
 
