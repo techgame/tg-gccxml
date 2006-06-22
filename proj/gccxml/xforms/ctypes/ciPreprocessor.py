@@ -10,29 +10,40 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ciBase import CodeItem, NullCodeItem
+from ciBase import CodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIPPInclude(NullCodeItem): 
+class CIPPInclude(CodeItem): 
     pass
 
 class CIPPConditional(CodeItem): 
-    def isTopLevel(self):
-        return True
-    def codeDef(self):
-        return '\nif 1:\n    # %s %s\n    # "%s":%s-%s\n    %s' % (
-                self.item.directive, self.item.body,
-                self.item.file.name, self.item.line, self.item.next.line,
-                '\n    '.join(self.codeFor(a) for a in self.item.getEnclosed())
-                )
+    def writeTo(self, stream):
+        if self.item.isOpening():
+            print >> stream, 'if 1: # %s %s (%s)' % (self.item.directive, self.item.body, self.loc)
+            stream.indent()
+            print >> stream, '"""%s"""' % (self.item.body,)
+
+        elif self.item.isAlternate():
+            stream.dedent()
+            if self.item.directive != 'else':
+                print >> stream, 'elif 1: # %s %s (%s)' % (self.item.directive, self.item.body, self.loc)
+                stream.indent()
+                print >> stream, '"""%s"""' % (self.item.body,)
+            else:
+                print >> stream, 'else: # %s %s (%s)' % (self.item.directive, self.item.prev.body, self.loc)
+                stream.indent()
+                print >> stream, '"""%s"""' % (self.item.prev.body,)
+
+        elif self.item.isClosing():
+            stream.dedent()
 
 class CIPPDefine(CodeItem): 
-    def codeDef(self):
-        return '%s = %s' % (self.item.ident, self.item.body)
+    def writeTo(self, stream):
+        print >> stream, '%s = %s' % (self.item.ident, self.item.body)
 
-class CIPPMacro(NullCodeItem): 
+class CIPPMacro(CodeItem): 
     pass
 

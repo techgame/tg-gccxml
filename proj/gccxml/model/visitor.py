@@ -15,7 +15,8 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ModelAtomVisitorInterface(object):
-    def onVisitAtom(self, atom, atomVisitCB, *args, **kw): pass
+    def onVisitAtom(self, atom, atomVisitCB, *args, **kw):
+        return atomVisitCB(self, *args, **kw)
     def onVisitChildrenOf(self, atom, iterChildren, *args, **kw): pass
     def onVisitDependenciesOf(self, atom, iterDependencies, *args, **kw): pass
 
@@ -98,7 +99,12 @@ class BasicAtomVisitorMixin(object):
         return result
 
     def _visitAtom(self, atom, *args, **kw):
-        raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+        return atom.visit(self, *args, **kw)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class BasicAtomVisitor(BasicAtomVisitorMixin, AtomVisitorInterface):
+    pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -140,6 +146,28 @@ class AtomVisitorMixin(BasicAtomVisitorMixin):
     def onContextCommon(self, atom, *args, **kw): pass
     def onCallableCommon(self, atom, *args, **kw): pass
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class AtomVisitor(AtomVisitorMixin, AtomVisitorInterface):
     pass
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ Title 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class AtomFilterVisitor(AtomVisitor):
+    def __init__(self):
+        self.results = set()
+
+    def iter(self):
+        return iter(self.results)
+    def select(self, item):
+        if item is not None:
+            try:
+                if item.isAtom():
+                    item = [item]
+            except AttributeError:
+                pass
+
+            self.results.update(item)
 

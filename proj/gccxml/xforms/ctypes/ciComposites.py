@@ -10,41 +10,25 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ciBase import CodeItem, NamedCodeItem
+from ciBase import CodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIVariable(NamedCodeItem):
-    def codeRef(self):
-        return self.item.name
-
-    def codeDef(self):
-        raise NotImplementedError()
+class CIVariable(CodeItem):
+    pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIField(NamedCodeItem):
-    template = '(%(name)s, %(typeName)s),'
-
-    def isTopLevel(self):
-        return False
-
-    def codeRef(self):
-        return self.item.name
-
-    def codeDef(self):
-        return self.template % dict(
-                name=self.ref(),
-                typeName=self.refFor(self.item.type),
-                )
+class CIField(CodeItem):
+    pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Composites
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CompositeCodeItem(NamedCodeItem):
+class CompositeCodeItem(CodeItem):
     template = (
         'class %(name)s(%(bindClass)s):\n'
         '    _fields_ = [%(fields)s]'

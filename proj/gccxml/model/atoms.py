@@ -26,6 +26,7 @@ def getTypeString(aTypeAtom, descriptive=False):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ModelAtom(object):
+    def isAtom(self): return True
     def isRoot(self): return False
     def isArgument(self): return False
     def isType(self): return False
@@ -773,12 +774,37 @@ class PPConditional(PreprocessorAtom):
         elif self.file is not None:
             return self.file.getAtomsBetween(self, self.next)
 
+    def getOpening(self):
+        result = self
+        while result.prev is not None:
+            result = result.prev
+        return result
+
+    def inOrder(self):
+        p = list(self.iterPrev())[::-1]
+        n = list(self.iterNext())
+        return p + [self] + n
+    def iterPrev(self):
+        c = self.prev
+        while c is not None:
+            yield c
+            c = c.prev
+    def iterNext(self):
+        c = self.next
+        while c is not None:
+            yield c
+            c = c.next
+
 class PPDefine(PreprocessorAtom):
     ident = ''
     body = ''
 
     def __repr_atom__(self):
         return '#define %s %s' % (self.ident, self.body)
+
+    def getName(self):
+        return self.ident
+    name = property(getName)
 
     def isPPDefine(self):
         return True
@@ -793,6 +819,10 @@ class PPMacro(PreprocessorAtom):
 
     def __repr_atom__(self):
         return '#define %s(%s) %s' % (self.ident, ', '.join(self.args), self.body)
+
+    def getName(self):
+        return self.ident
+    name = property(getName)
 
     def isPPMacro(self):
         return True

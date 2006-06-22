@@ -23,7 +23,7 @@ from ciPreprocessor import *
 #~ Code Gen Node Visitor
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class BaseCodeGenVisitor(visitor.AtomVisitor):
+class BaseCodeGenVisitor(visitor.BasicAtomVisitor):
     context = None
     def __init__(self, context):
         self.context = context

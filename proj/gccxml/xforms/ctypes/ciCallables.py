@@ -10,7 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ciBase import CodeItem, NullCodeItem
+from ciBase import CodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -113,12 +113,12 @@ class CIFunction(CICallable):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIMethod(NullCodeItem):
+class CIMethod(CodeItem):
     pass
 
-class CIConstructor(NullCodeItem):
+class CIConstructor(CodeItem):
     pass
 
-class CIDestructor(NullCodeItem):
+class CIDestructor(CodeItem):
     pass
 

@@ -15,39 +15,17 @@ from itertools import chain
 
 from TG.gccxml.model import loadFromFileNamed
 from TG.gccxml.model import visitor
+from TG.gccxml.xforms.context import CodeContext
 from TG.gccxml.xforms.ctypes import codeGen
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class AtomFilter(visitor.AtomVisitor):
-    def __init__(self):
-        self.functions = set()
-        self.defines = set()
-        self.conditions = set()
-        self.items = set()
-
-    def iterResults(self):
-        return chain(self.conditions, self.defines, self.functions, self.items)
-
-    def iterAll(self):
-        return chain(self.getDepends(), self.iterResults())
-
-    _depends = None
-    def getDepends(self):
-        if self._depends is None:
-            self._depends = set()
-            for e in self.iterResults():
-                self._depends.update(e.allDependencies())
-        return self._depends
-
+class GLFilterVisitor(visitor.AtomFilterVisitor):
     def onFunction(self, item):
         if item.extern and item.name.startswith('gl'):
-            # TODO: Restore
-            return
-            if 'Texture' in item.name:
-                self.functions.add(item)
+            self.select(item)
 
     def onPPDefine(self, item):
         if item.ident in self.filterConditionals:
@@ -55,7 +33,7 @@ class AtomFilter(visitor.AtomVisitor):
 
         if item.ident.startswith('GL'):
             # Grab all GL defines
-            self.defines.add(item)
+            self.select(item)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -67,13 +45,17 @@ class AtomFilter(visitor.AtomVisitor):
         'GL_GLEXT_FUNCTION_POINTERS',
         ])
     def onPPConditional(self, item):
+        if not item.isOpening():
+            return 
         if item.body in self.filterConditionals:
             return
+        if item.body.startswith('GL_VERSION'):
+            return
 
-        if item.isOpening() and item.body.startswith('GL'):
+        if item.body.startswith('GL'):
             # Grab all opening GL blocks to capture OpenGL Extension defines.
             # Closing and continuation blocks will be linked with the opening blocks.
-            self.conditions.add(item)
+            self.select(item.inOrder())
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Main 
@@ -83,16 +65,16 @@ if __name__=='__main__':
     from pprint import pprint
     root = loadFromFileNamed('srcCode.model')
 
-    atomFilter = AtomFilter()
+    atomFilter = GLFilterVisitor()
     atomFilter.visit(root)
-    allAtoms = set(atomFilter.iterAll())
+    #atomFilter.results = set(i for k,i in zip(range(20), atomFilter.results))
 
-    codeVisitor = codeGen.CCodeGenVisitor(None)
-    codeVisitor.visitAll(allAtoms)
-    for atom in allAtoms:
-        ci = atom.codeItem
-        if ci and ci.isTopLevel():
-            d = ci.codeDef()
-            if d is not None:
-                print d
+    context = CodeContext()
+
+    codeVisitor = codeGen.CCodeGenVisitor(context)
+    codeVisitor.visitAll(atomFilter.results)
+
+    #context.printAll()
+    context.writeToFiles()
+
 

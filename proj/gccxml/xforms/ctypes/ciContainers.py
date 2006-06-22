@@ -11,18 +11,18 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ciBase import CodeItem, NullCodeItem
+from ciBase import CodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIRoot(NullCodeItem): 
+class CIRoot(CodeItem): 
     pass
 
-class CIFile(NullCodeItem): 
+class CIFile(CodeItem): 
     pass
 
-class CINamespace (NullCodeItem): 
+class CINamespace (CodeItem): 
     pass
 
