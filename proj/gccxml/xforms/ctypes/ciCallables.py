@@ -19,106 +19,90 @@ from ciBase import CodeItem
 CIEllipsis = None
 
 class CIArgument(CodeItem):
-    def isTopLevel(self):
-        return False
+    def getHostCI(self):
+        return None
 
-    def codeRef(self):
-        return self.item.name
-
-    def codeDef(self):
-        raise NotImplementedError()
+    def typeRef(self):
+        return self.item.type.codeItem.typeRef()
 
 class CIEllipsis(CodeItem):
-    def isTopLevel(self):
-        return False
+    def getHostCI(self):
+        return None
 
-    def codeRef(self):
-        raise NotImplementedError()
-
-    def codeDef(self):
+    def typeRef(self):
         raise NotImplementedError()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CICallable(CodeItem):
-    bindCall = 'bind'
-    unnamedArgTemplate = 'arg_%s'
+    templateArgIndex = 'arg_%s'
 
-    def argumentReferences(self, arguments=None):
+    def argTypeRefs(self, arguments=None):
         arguments = arguments or self.item.arguments
-        return [self.refFor(a) for a in arguments]
+        return [self.typeRefFor(a) for a in arguments]
+    def joinArgTypeRefs(self, sep=', '):
+        return sep.join(self.argTypeRefs())
 
-    def argumentNames(self, arguments=None):
+    def argNames(self, arguments=None):
         def argName(idx, a):
-            return a.name or (self.unnamedArgTemplate % idx)
+            return a.name or (self.templateArgIndex % idx)
 
         arguments = arguments or self.item.arguments
         return [argName(idx,a) for idx, a in enumerate(arguments)]
+    def joinArgNames(self, sep=', '):
+        return sep.join(self.argNames())
 
-    def returnReference(self):
-        returns = self.item.returns
-        if returns:
-            return self.refFor(returns)
-        else: return 'None'
-
-    def refBindCall(self):
-        return self.bindCall
+    def retTypeRef(self):
+        return self.typeRefFor(self.item.returns)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIFunctionType(CICallable):
-    bindCall = 'CFUNCTYPE'
-    template = (
-        '%(bindCall)s(%(returnType)s, [%(paramTypes)s])'
-        )
+    funcTypeTemplate = 'CFUNCTYPE(%(retTypeRef)s, [%(argTypeRefs)s])'
 
-    def codeRef(self):
-        return self.codeDef()
-
-    def codeDef(self):
-        return self.template % dict(
-                    bindCall=self.refBindCall(),
-                    returnType=self.returnReference(),
-                    paramTypes=', '.join(self.argumentReferences()),
+    def writeTo(self, stream):
+        print >> stream, self.typeDecl()
+        
+    def typeDecl(self):
+        return self.funcTypeTemplate % dict(
+                    retTypeRef=self.retTypeRef(),
+                    argTypeRefs=self.joinArgTypeRefs(),
                     )
 
 class CIFunction(CICallable):
-    template = (
-        'def %(funcName)s(%(paramNames)s): pass\n'
-        )
-    templateTypeDecorator = (
-        '@%(bindCall)s(%(returnType)s, [%(paramTypes)s])'
-        )
+    decoTempalte = '@bind(%(retTypeRef)s, [%(argTypeRefs)s])'
+    funcTemplate = 'def %(funcName)s(%(paramNames)s): pass\n'
 
-    def codeRef(self):
-        return self.item.name
+    def writeTo(self, stream):
+        print >> stream, self.decoDecl()
+        print >> stream, self.funcDecl()
 
-    def codeDef(self):
-        return '\n'.join([
-                self.codeTypeDecorator(),
-                self.codeFuncDecl(),
-                ])
-
-    def codeTypeDecorator(self):
-        return self.templateTypeDecorator % dict(
-            bindCall=self.refBindCall(),
-            returnType=self.returnReference(),
-            paramTypes=', '.join(self.argumentReferences()),
+    def decoDecl(self):
+        return self.decoTempalte % dict(
+            retTypeRef=self.retTypeRef(),
+            argTypeRefs=self.joinArgTypeRefs(),
             )
 
-    def codeFuncDecl(self):
-        return self.template % dict(
-            funcName=self.ref(),
-            paramNames=', '.join(self.argumentNames()))
+    def funcDecl(self):
+        return self.funcTemplate % dict(
+            funcName=self.name,
+            paramNames=self.joinArgNames())
+
+    @property
+    def name(self):
+        return self.item.name
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIMethod(CodeItem):
+    # TODO: Implement CIMethod
     pass
 
 class CIConstructor(CodeItem):
+    # TODO: Implement CIConstructor
     pass
 
 class CIDestructor(CodeItem):
+    # TODO: Implement CIDestructor
     pass
 

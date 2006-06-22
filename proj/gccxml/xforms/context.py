@@ -25,7 +25,7 @@ class CodeContext(object):
 
     def writeToFiles(self):
         for ciFile in self.ciRoot.files:
-            fn = ciFile.name+'.py'
+            fn = ciFile.name.replace('.', '_') +'.py'
             stream = open(fn, 'wb')
             try:
                 ciFile.writeTo(BlockWriter(stream))

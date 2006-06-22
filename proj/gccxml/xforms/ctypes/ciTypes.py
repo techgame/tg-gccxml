@@ -16,7 +16,23 @@ from ciBase import CodeItem
 #~ Specific Code Item Generators
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIFundamentalType(CodeItem):
+class TypeCodeItem(CodeItem):
+    typeRefTemplate = '%s'
+
+    def typeRef(self):
+        return self.typeRefTemplate % (self.typeDecl(),)
+
+    def typeDecl(self):
+        return self.typeRefFor(self.item.type)
+
+    def writeTo(self, stream):
+        pass
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CIFundamentalType(TypeCodeItem):
+    typeRefTemplate = '%s'
+
     typeMapping = {
         # gccxml name: ctypes
 
@@ -59,65 +75,56 @@ class CIFundamentalType(CodeItem):
         'complex double': None,
         'complex long double': None,
     }
-    def codeRef(self):
+
+    def typeDecl(self):
         return self.typeMapping[self.item.name]
-    def codeDef(self):
-        return None
+
+    def writeTo(self, stream):
+        pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CICvQualifiedType(CodeItem):
-    def codeRef(self):
-        return self.refFor(self.item.type)
-    def codeDef(self):
-        return self.codeFor(self.item.type)
+class CICvQualifiedType(TypeCodeItem):
+    typeRefTemplate = '%s'
 
-class CIPointerType(CodeItem):
-    template = (
-        '%(name)s.ptr = POINTER(%(name)s)'
-        )
-
-    def codeRef(self):
-        itemType = self.item.type
-        ref = self.refFor(itemType)
-        if hasattr(itemType, 'name'):
-            return ref + '.ptr'
-        else:
-            return 'POINTER(%s)' % (ref,)
-    def codeDef(self):
-        itemType = self.item.type
-        ref = self.refFor(itemType)
-        if hasattr(itemType, 'name'):
-            return self.template % dict(
-                    name=ref,
-                    )
-        else:
-            return None
+class CIPointerType(TypeCodeItem):
+    typeRefTemplate = 'POINTER(%s)'
 
 class CIReferenceType(CIPointerType):
-    pass
+    typeRefTemplate = 'REFERENCE(%s)'
 
-class CITypedef(CodeItem):
-    template = 'class %(name)s(%(typeName)s): pass'
+class CIArrayType(TypeCodeItem):
+    typeRefTemplate = 'ARRAY(%s)'
+    # TODO: Implement CIArrayType
 
-    def codeRef(self):
+class CITypedef(TypeCodeItem):
+    typeRefTemplate = '%s'
+    template = 'class %(typedefName)s(%(typeRef)s): pass'
+
+    def typeDecl(self):
         return self.item.name
-    def codeDef(self):
-        item = self.item
-        if item.type.isFundamentalType():
-            return self.template % dict(
-                    name=self.ref(), 
-                    typeName=self.refFor(item.type),
-                    )
 
-class CIArrayType(CodeItem):
-    pass
+    def writeTo(self, stream):
+        print >> stream, self.typedefDecl()
+
+    def typedefDecl(self):
+        typeRef = self.typeRefFor(self.item.type)
+
+        # TODO: handle typedef of void more elegantly
+        if typeRef != 'None':
+            return self.template % dict(
+                    typedefName=self.item.name,
+                    typeRef=typeRef,)
+        else:
+            return '%s = %s' % (self.item.name, typeRef)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIEnumeration(CodeItem):
-    pass
+class CIEnumeration(TypeCodeItem):
+    typeRefTemplate = 'ENUM(%s)'
+    # TODO: Implement CIEnumeration Type
 
 class CIEnumValue(CodeItem):
     pass
+    # TODO: Implement CIEnumValue
 

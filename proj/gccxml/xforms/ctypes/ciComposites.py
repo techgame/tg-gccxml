@@ -17,11 +17,13 @@ from ciBase import CodeItem
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIVariable(CodeItem):
+    # TODO: Implement CIVariable
     pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIField(CodeItem):
+    # TODO: Implement CIField
     pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,6 +31,7 @@ class CIField(CodeItem):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CompositeCodeItem(CodeItem):
+    # TODO: Implement CIField
     template = (
         'class %(name)s(%(bindClass)s):\n'
         '    _fields_ = [%(fields)s]'
@@ -57,12 +60,15 @@ class CompositeCodeItem(CodeItem):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIUnion(CompositeCodeItem):
+    # TODO: Implement CIUnion
     bindClass = 'Union'
 
 class CIStruct(CompositeCodeItem):
+    # TODO: Implement CIStruct
     bindClass = 'Structure'
 
 class CIClass(CIStruct):
+    # TODO: Implement CIClass
     bindClass = 'Structure'
 
     def codeDef(self):
@@ -71,5 +77,6 @@ class CIClass(CIStruct):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIBase(CodeItem):
+    # TODO: Implement CIBase
     pass
 

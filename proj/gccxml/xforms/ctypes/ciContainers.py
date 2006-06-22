@@ -13,7 +13,7 @@
 
 from bisect import insort, bisect_left, bisect_right
 
-from ciBase import CodeItem
+from ciBase import CodeItem, asCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -24,7 +24,7 @@ class CIRoot(CodeItem):
         self.files = []
 
     def add(self, ciFile):
-        ciFile = CodeItem.asCodeItem(ciFile)
+        ciFile = asCodeItem(ciFile)
         self.files.append(ciFile)
 
     def getHostCI(self):
@@ -38,13 +38,14 @@ class CIFile(CodeItem):
         self.ciAll = set()
 
     @property
-    def name(self): return self.item.name
+    def name(self): 
+        return self.item.name
 
     def getHostCI(self):
         return self.item.root.codeItem
 
     def add(self, ci):
-        ci = CodeItem.asCodeItem(ci)
+        ci = asCodeItem(ci)
         if ci not in self.ciAll:
             assert ci.file is self.item
             insort(self.lines, (ci.line, ci))
@@ -72,6 +73,13 @@ class CIFile(CodeItem):
     def writeHeaderTo(self, stream):
         print >> stream, '# Generated from "%s"' % (self.item.name,)
         print >> stream
+        print >> stream, 'from ctypes import *'
+        print >> stream
+        print >> stream, 'def bind(retType, argTypes):'
+        print >> stream, '    def typeBind(func):'
+        print >> stream, '        return func'
+        print >> stream, '    return typeBind'
+        print >> stream
 
     def writeContentTo(self, stream):
         lastIdx = 0
@@ -91,5 +99,6 @@ class CIFile(CodeItem):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CINamespace(CodeItem): 
+    # TODO: Implement CINamespace
     pass
 

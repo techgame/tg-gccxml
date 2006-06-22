@@ -49,6 +49,7 @@ class BaseCodeGenVisitor(visitor.DependencyAtomVisitor):
         if ci is None:
             ci = atom.visit(self)
             atom.visitDependencies(self)
+            self.cache[atom] = ci
         return ci
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,7 +57,10 @@ class BaseCodeGenVisitor(visitor.DependencyAtomVisitor):
     # root reference
     CIRootFactory = CIRoot
     def onRoot(self, atom):
-        return self.CIRootFactory(self.context, atom)
+        result = self.CIRootFactory(self.context, atom)
+        for f in atom.files.itervalues():
+            self._visit(f)
+        return result
 
     # file references
     CIFileFactory = CIFile

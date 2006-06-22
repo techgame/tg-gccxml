@@ -43,7 +43,12 @@ class CIPPConditional(CodeItem):
 
 class CIPPDefine(CodeItem): 
     def writeTo(self, stream):
-        print >> stream, '%s = %s' % (self.item.ident, self.item.body)
+        if self.item.body[:1].isalpha():
+            # TODO: handle out of order constants more elegantly
+            print >> stream, '# TODO: Rearrange for dependency'
+            print >> stream, '# %s = %s' % (self.item.ident, self.item.body)
+        else:
+            print >> stream, '%s = %s' % (self.item.ident, self.item.body)
 
 class CIPPMacro(CodeItem): 
     def writeTo(self, stream):

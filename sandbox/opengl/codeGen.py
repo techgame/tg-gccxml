@@ -78,8 +78,7 @@ if __name__=='__main__':
     codeVisitor = codeGen.CCodeGenVisitor(context)
     codeVisitor.visitAll(atomFilter.results)
 
-    for a in atomFilter.results:
-        ci = a.codeItem
+    for ci in codeVisitor.cache.itervalues():
         ci.emit()
 
     context.ciRoot = root.codeItem

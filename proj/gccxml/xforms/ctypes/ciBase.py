@@ -17,13 +17,14 @@ from weakref import proxy
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def asCodeItem(self):
-    if self.isAtom():
-        return self.codeItem
-    else: return self
+    if self is None:
+        return None
+    elif self.isAtom():
+        return getattr(self, 'codeItem', None)
+    else: 
+        return self
 
 class CodeItem(object):
-    asCodeItem = asCodeItem
-
     def __new__(klass, context, item):
         ci = getattr(item, 'codeItem', None)
         if ci is not None:
@@ -62,4 +63,16 @@ class CodeItem(object):
     @property
     def loc(self):
         return '"%s":%s' % (self.item.file.name, self.item.line)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def typeRefFor(self, atom):
+        result = asCodeItem(atom).typeRef()
+
+        # TODO: handle missing typdefs more elegantly
+        if result.endswith('_t'):
+            print (atom.loc, atom.type, result)
+            return self.typeRefFor(atom.type)
+
+        return result
 
