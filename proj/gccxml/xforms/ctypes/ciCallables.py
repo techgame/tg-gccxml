@@ -70,7 +70,7 @@ class CIFunctionType(CICallable):
                     )
 
 class CIFunction(CICallable):
-    decoTempalte = '@bind(%(retTypeRef)s, [%(argTypeRefs)s])'
+    decoTemplate = '@bind(%(retTypeRef)s, [%(argTypeRefs)s])'
     funcTemplate = 'def %(funcName)s(%(paramNames)s): pass\n'
 
     def writeTo(self, stream):
@@ -78,7 +78,7 @@ class CIFunction(CICallable):
         print >> stream, self.funcDecl()
 
     def decoDecl(self):
-        return self.decoTempalte % dict(
+        return self.decoTemplate % dict(
             retTypeRef=self.retTypeRef(),
             argTypeRefs=self.joinArgTypeRefs(),
             )
