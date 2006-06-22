@@ -32,6 +32,7 @@ class CIPPConditional(CodeItem):
                 print >> stream, 'elif 1: # %s %s (%s)' % (self.item.directive, self.item.body, self.loc)
                 stream.indent()
                 print >> stream, '"""%s"""' % (self.item.body,)
+
             else:
                 print >> stream, 'else: # %s %s (%s)' % (self.item.directive, self.item.prev.body, self.loc)
                 stream.indent()
@@ -45,5 +46,8 @@ class CIPPDefine(CodeItem):
         print >> stream, '%s = %s' % (self.item.ident, self.item.body)
 
 class CIPPMacro(CodeItem): 
-    pass
+    def writeTo(self, stream):
+        name, args, body = (self.item.ident, ', '.join(self.item.args), self.item.body)
+        print >> stream, 'def %s(%s):' % (name, args)
+        print >> stream, '    """#define %s(%s) %s"""' % (name, args, body)
 

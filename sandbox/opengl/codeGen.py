@@ -23,6 +23,12 @@ from TG.gccxml.xforms.ctypes import codeGen
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class GLFilterVisitor(visitor.AtomFilterVisitor):
+    def onRoot(self, item):
+        self.select(item)
+
+    def onFile(self, item):
+        self.select(item)
+
     def onFunction(self, item):
         if item.extern and item.name.startswith('gl'):
             self.select(item)
@@ -67,13 +73,16 @@ if __name__=='__main__':
 
     atomFilter = GLFilterVisitor()
     atomFilter.visit(root)
-    #atomFilter.results = set(i for k,i in zip(range(20), atomFilter.results))
 
     context = CodeContext()
-
     codeVisitor = codeGen.CCodeGenVisitor(context)
     codeVisitor.visitAll(atomFilter.results)
 
+    for a in atomFilter.results:
+        ci = a.codeItem
+        ci.emit()
+
+    context.ciRoot = root.codeItem
     #context.printAll()
     context.writeToFiles()
 

@@ -23,10 +23,11 @@ from ciPreprocessor import *
 #~ Code Gen Node Visitor
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class BaseCodeGenVisitor(visitor.BasicAtomVisitor):
+class BaseCodeGenVisitor(visitor.DependencyAtomVisitor):
     context = None
     def __init__(self, context):
         self.context = context
+        self.cache = dict()
 
     @classmethod
     def validateFactories(klass):
@@ -42,6 +43,15 @@ class BaseCodeGenVisitor(visitor.BasicAtomVisitor):
             raise e
         else:
             return True
+
+    def _visitAtom(self, atom):
+        ci = self.cache.get(atom, None)
+        if ci is None:
+            ci = atom.visit(self)
+            atom.visitDependencies(self)
+        return ci
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # root reference
     CIRootFactory = CIRoot

@@ -161,12 +161,15 @@ class Root(ModelAtom):
         return aFile
 
     def createFileFor(self, filename):
-        return File(filename)
+        result = File(filename)
+        result.root = self
+        return result
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class File(ModelAtom):
     name = ''
+    root = None
 
     def __init__(self, name=''):
         ModelAtom.__init__(self)
@@ -765,6 +768,10 @@ class PPConditional(PreprocessorAtom):
     def isClosing(self):
         return self.directive.startswith('end')
 
+    def iterVisitDependencies(self):
+        if not self.isOpening():
+            return iter([self.getFirst()])
+        else: return iter([])
     def _visit(self, visitor, *args, **kw):
         return visitor.onPPConditional(self, *args, **kw)
 
@@ -780,16 +787,25 @@ class PPConditional(PreprocessorAtom):
             result = result.prev
         return result
 
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     def inOrder(self):
-        p = list(self.iterPrev())[::-1]
-        n = list(self.iterNext())
-        return p + [self] + n
-    def iterPrev(self):
+        p = reversed(list(self.iterPrev()))
+        n = self.iterNext(True)
+        return chain(p, n)
+    def getFirst(self):
+        r = self
+        while r.prev is not None:
+            r = r.prev
+        return r
+    def iterPrev(self, incSelf=False):
+        if incSelf: yield self
         c = self.prev
         while c is not None:
             yield c
             c = c.prev
-    def iterNext(self):
+    def iterNext(self, incSelf=False):
+        if incSelf: yield self
         c = self.next
         while c is not None:
             yield c

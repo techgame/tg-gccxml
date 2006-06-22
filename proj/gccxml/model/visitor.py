@@ -101,9 +101,32 @@ class BasicAtomVisitorMixin(object):
     def _visitAtom(self, atom, *args, **kw):
         return atom.visit(self, *args, **kw)
 
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def onVisitChildrenOf(self, atom, iterChildren, *args, **kw):
+        for c in iterChildren:
+            if c is not None:
+                self._visit(c, *args, **kw)
+
+    def onVisitDependenciesOf(self, atom, iterDependencies, *args, **kw):
+        for e in iterDependencies:
+            if e is not None:
+                self._visit(e, *args, **kw)
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class BasicAtomVisitor(BasicAtomVisitorMixin, AtomVisitorInterface):
+    pass
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class DependencyAtomVisitorMixin(BasicAtomVisitorMixin):
+    def _visitAtom(self, atom, *args, **kw):
+        result = atom.visit(self, *args, **kw)
+        atom.visitDependencies(self, *args, **kw)
+        return result
+
+class DependencyAtomVisitor(DependencyAtomVisitorMixin, AtomVisitorInterface):
     pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -119,16 +142,6 @@ class AtomVisitorMixin(BasicAtomVisitorMixin):
     def onVisitAtom(self, atom, atomVisitCB, *args, **kw):
         self._visitAtomCommon(atom, *args, **kw)
         return atomVisitCB(self, *args, **kw)
-
-    def onVisitChildrenOf(self, atom, iterChildren, *args, **kw):
-        for c in iterChildren:
-            if c is not None:
-                self._visit(c, *args, **kw)
-
-    def onVisitDependenciesOf(self, atom, iterDependencies, *args, **kw):
-        for e in iterDependencies:
-            if e is not None:
-                self._visit(e, *args, **kw)
 
     def _visitAtomCommon(self, atom, *args, **kw):
         self.onAtomCommon(atom, *args, **kw)
