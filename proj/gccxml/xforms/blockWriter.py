@@ -39,7 +39,7 @@ class BlockWriter(object):
     def dedent(self, count=1):
         self.level -= count
         self._makeIndent()
-        self.indentNext = False
+        #self.indentNext = False
 
     def _makeIndent(self):
         assert self.level >= 0, self.level

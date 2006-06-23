@@ -37,6 +37,15 @@ class CIFile(CodeItem):
         self.lines = []
         self.ciAll = set()
 
+    def isRequired(self):
+        for e in self.lines:
+            if e[-1]:
+                return True
+        else:
+            return False
+    def __len__(self):
+        return len(self.lines)
+
     @property
     def name(self): 
         return self.item.name
@@ -47,7 +56,6 @@ class CIFile(CodeItem):
     def add(self, ci):
         ci = asCodeItem(ci)
         if ci not in self.ciAll:
-            assert ci.file is self.item
             insort(self.lines, (ci.line, ci))
             self.ciAll.add(ci)
 
@@ -83,7 +91,8 @@ class CIFile(CodeItem):
 
     def writeContentTo(self, stream):
         lastIdx = 0
-        for idx, l in self.lines:
+        validLines = (e for e in self.lines if e[-1])
+        for idx, l in validLines:
             if not lastIdx:
                 pass
             elif idx-lastIdx > 3:
@@ -94,7 +103,10 @@ class CIFile(CodeItem):
                 print >> stream
             lastIdx = idx
 
-            l.writeTo(stream)
+            if l:
+                l.writeTo(stream)
+            else:
+                assert False, l
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

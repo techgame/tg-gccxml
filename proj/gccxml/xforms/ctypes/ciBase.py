@@ -40,6 +40,18 @@ class CodeItem(object):
     def _initialize(self):
         pass
 
+    def __nonzero__(self):
+        return self.isRequired()
+
+    _required = True
+    def isRequired(self):
+        return True
+        return self._required
+    def require(self, required=True):
+        #if not self._required:
+        #    print self.item
+        self._required = required
+
     def isAtom(self):
         return False
     def isCodeItem(self):
@@ -50,7 +62,7 @@ class CodeItem(object):
 
     def emit(self):
         ciHost = self.getHostCI()
-        if ciHost:
+        if ciHost is not None:
             ciHost.add(self)
 
     def writeTo(self, stream):
@@ -67,12 +79,12 @@ class CodeItem(object):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def typeRefFor(self, atom):
-        result = asCodeItem(atom).typeRef()
+        ci = asCodeItem(atom)
+        return ci.typeRef()
+    
+    def ptrTypeRefFor(self, atom):
+        ci = asCodeItem(atom)
+        if ci is not None:
+            return ci.ptrTypeRef()
 
-        # TODO: handle missing typdefs more elegantly
-        if result.endswith('_t'):
-            print (atom.loc, atom.type, result)
-            return self.typeRefFor(atom.type)
-
-        return result
 

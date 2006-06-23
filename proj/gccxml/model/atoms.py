@@ -335,6 +335,7 @@ class Enumeration(CType):
 
     def addAtom(self, atom): 
         if atom.isEnumValue():
+            atom.host = self
             self.enumValues.append(atom)
         else:
             CType.addAtom(atom)
@@ -342,6 +343,7 @@ class Enumeration(CType):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class EnumValue(ModelAtom):
+    host = None # Enumeration instance
     name = ''
     value = ''
     
@@ -469,6 +471,9 @@ class CompositeType(CType):
     def iterVisitChildren(self):
         return chain(self.bases, self.members)
 
+    def iterFields(self):
+        return (e for e in self.members if e.isField())
+
 class Union(CompositeType):
     def isUnion(self): 
         return True
@@ -491,6 +496,7 @@ class Struct(CompositeType):
 
     def addAtom(self, atom):
         if atom.isBaseRef():
+            atom.host = self
             self.baseRefs.append(atom)
         else:
             CompositeType.addAtom(self, atom)
@@ -506,6 +512,7 @@ class Class(Struct):
         return visitor.onClass(self, *args, **kw)
 
 class Base(ModelAtom):
+    host = None # a Struct/Class atom
     type = None # a Struct/Class atom
     access = ''
     virtual = False
@@ -559,6 +566,7 @@ class Field(LocatedElement):
     mangled = '' # mangled name
     demangled = ''
     access = ''
+    attributes = () # list of string attributes
 
     bits = None
     offset = None
@@ -586,6 +594,7 @@ class Field(LocatedElement):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Argument(LocatedElement):
+    host = None # a Callable instance
     name = ''
     type = None # a Type Atom
 
@@ -603,6 +612,8 @@ class Argument(LocatedElement):
         return iter([self.type])
 
 class Ellipsis(ModelAtom):
+    host = None # a Callable instance
+
     def isArgument(self): 
         return True
     def isEllipsisArgument(self): 
@@ -642,6 +653,7 @@ class Callable(LocatedElement):
 
     def addAtom(self, atom):
         if atom.isArgument():
+            atom.host = self
             self.arguments.append(atom)
         else:
             LocatedElement.addAtom(self, atom)

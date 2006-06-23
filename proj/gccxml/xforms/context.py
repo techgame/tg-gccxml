@@ -11,6 +11,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import sys
+import os
 from bisect import insort, bisect_left, bisect_right
 
 from blockWriter import BlockWriter
@@ -25,16 +26,25 @@ class CodeContext(object):
 
     def writeToFiles(self):
         for ciFile in self.ciRoot.files:
-            fn = ciFile.name.replace('.', '_') +'.py'
+            if not ciFile: 
+                continue
+
+            print 'Writing:', ciFile.name, len(ciFile)
+            fn = os.path.basename(ciFile.name).replace('.', '_') +'.py'
             stream = open(fn, 'wb')
             try:
                 ciFile.writeTo(BlockWriter(stream))
             finally:
                 stream.close()
+            print
 
     def writeTo(self, stream):
         stream = BlockWriter.wrap(stream)
 
         for ciFile in self.ciRoot.files:
+            if not ciFile: 
+                print 'skipping:', ciFile, len(ciFile)
+                continue
+
             ciFile.writeTo(stream)
 

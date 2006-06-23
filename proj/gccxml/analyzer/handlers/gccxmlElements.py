@@ -59,7 +59,7 @@ def ignore(v):
     return None
 def acccessStr(v):
     return v
-def funcAttrList(v): 
+def attrList(v): 
     return v.split(' ')
 
 def definition(v):
@@ -472,6 +472,7 @@ class Field(LocatedElement):
         mangled=passThrough,
         demangled=passThrough,
         access=acccessStr,
+        attributes=attrList,
 
         offset=intOrNone,
         bits=intOrNone,
@@ -549,7 +550,7 @@ class Function(Callable):
         extern=boolOr0,
         inline=boolOr0,
 
-        attributes=funcAttrList,
+        attributes=attrList,
         throw=throwList,
         )
 

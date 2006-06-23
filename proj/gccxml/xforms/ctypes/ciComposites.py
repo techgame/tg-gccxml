@@ -17,45 +17,87 @@ from ciBase import CodeItem
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIVariable(CodeItem):
+    @property
+    def name(self):
+        return self.item.name
+
     # TODO: Implement CIVariable
-    pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIField(CodeItem):
-    # TODO: Implement CIField
-    pass
+    tempalte = '("%(fieldName)s". %(fieldTypeRef)s),'
+    @property
+    def name(self):
+        return self.item.name
+
+    def writeTo(self, stream):
+        print >> stream, self.tempalte % dict(
+                fieldName=self.name, 
+                fieldTypeRef=self.typeRefFor(self.item.type))
+
+    def getHostCI(self):
+        return self.item.context.codeItem
+
+    def typeRef(self, require=True):
+        if require: self.require()
+        return self.typeRefFor(self.item.type)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Composites
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CompositeCodeItem(CodeItem):
-    # TODO: Implement CIField
-    template = (
-        'class %(name)s(%(bindClass)s):\n'
-        '    _fields_ = [%(fields)s]'
-        )
-    fieldSep = '\n        '
-    bindClass = 'Structure'
+    _required = False
+    template = 'class %(name)s(%(bindClass)s):'
+    fieldOpenTemplate = '_fields_ = ['
+    fieldCloseTemplate = '    ]'
+    fieldEmptyTemplate = '_fields_ = []'
 
-    def isTopLevel(self):
-        return not self.item.isAnonymous()
+    bindClass = None #'Structure' or 'Union'
 
-    def codeDef(self):
+    def typeRef(self, require=True):
+        if require: self.require()
+        return self.name
+
+    def ptrTypeRef(self, require=True):
+        return 'POINTER(%s)' % (self.name,)
+
+    @property
+    def name(self): 
+        return self.item.name
+
+    def writeTo(self, stream):
+        print >> stream, self.compositeDecl()
+
+        stream.indent()
+        self.writeFieldsTo(stream)
+        stream.dedent()
+
+    def writeFieldsTo(self, stream):
+        fieldList = list(self.item.iterFields())
+        if not fieldList:
+            print >> stream, self.fieldEmptyTemplate
+            return
+
+        else:
+            print >> stream, self.fieldOpenTemplate
+            stream.indent()
+
+            for field in fieldList:
+                field.codeItem.writeTo(stream)
+
+            stream.dedent()
+            print >> stream, self.fieldCloseTemplate
+
+    def add(self, ciField):
+        pass
+
+    def compositeDecl(self):
         return self.template % dict(
-                name=self.ref(),
-                bindClass=self.refBindClass(),
-                fields=self.fieldsCodeDef() or '')
-
-    def fieldsCodeDef(self):
-        fields = [self.codeFor(f) for f in self.item.members if f.isField()]
-        if fields:
-            fields.insert(0, '')
-            return self.fieldSep.join(fields)
-
-    def refBindClass(self):
-        return self.bindClass
+                name=self.typeRef(),
+                bindClass=self.bindClass)
+                
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -70,9 +112,6 @@ class CIStruct(CompositeCodeItem):
 class CIClass(CIStruct):
     # TODO: Implement CIClass
     bindClass = 'Structure'
-
-    def codeDef(self):
-        raise NotImplementedError("Class translations are not implemented yet")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

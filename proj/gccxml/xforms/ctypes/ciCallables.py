@@ -11,6 +11,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 from ciBase import CodeItem
+from ciTypes import TypeCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -19,17 +20,23 @@ from ciBase import CodeItem
 CIEllipsis = None
 
 class CIArgument(CodeItem):
+    @property
+    def name(self):
+        return self.item.name
+
     def getHostCI(self):
         return None
 
-    def typeRef(self):
-        return self.item.type.codeItem.typeRef()
+    def typeRef(self, require=True):
+        if require: self.require()
+        return self.typeRefFor(self.item.type)
 
 class CIEllipsis(CodeItem):
     def getHostCI(self):
         return None
 
-    def typeRef(self):
+    def typeRef(self, require=True):
+        if require: self.require()
         raise NotImplementedError()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,13 +64,18 @@ class CICallable(CodeItem):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIFunctionType(CICallable):
+class CIFunctionType(CICallable, TypeCodeItem):
+    _required = False
     funcTypeTemplate = 'CFUNCTYPE(%(retTypeRef)s, [%(argTypeRefs)s])'
 
     def writeTo(self, stream):
-        print >> stream, self.typeDecl()
+        print >> stream, self._typeDecl()
         
-    def typeDecl(self):
+    def typeRef(self, require=True):
+        if require: self.require()
+        return self._typeDecl()
+
+    def _typeDecl(self):
         return self.funcTypeTemplate % dict(
                     retTypeRef=self.retTypeRef(),
                     argTypeRefs=self.joinArgTypeRefs(),
