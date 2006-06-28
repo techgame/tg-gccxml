@@ -165,15 +165,29 @@ class AtomVisitor(AtomVisitorMixin, AtomVisitorInterface):
     pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Title 
+#~ Atom Filters
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class AtomFilterVisitor(AtomVisitor):
-    def __init__(self):
-        self.results = set()
+    selected = None
 
+    def __init__(self):
+        self.selected = set()
+
+    def visitAll(self, atomCollection, *args, **kw):
+        super(AtomFilterVisitor, self).visitAll(atomCollection, *args, **kw)
+        return self.selected
+
+    def visit(self, atom, *args, **kw):
+        super(AtomFilterVisitor, self).visit(atom, *args, **kw)
+        return self.selected
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def clear(self):
+        self.selected = set()
     def iter(self):
-        return iter(self.results)
+        return iter(self.selected)
     def select(self, item):
         if item is not None:
             try:
@@ -182,5 +196,5 @@ class AtomFilterVisitor(AtomVisitor):
             except AttributeError:
                 pass
 
-            self.results.update(item)
+            self.selected.update(item)
 

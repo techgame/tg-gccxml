@@ -34,6 +34,7 @@ class CodeItem(object):
     def __init__(self, context, item):
         self.item = item
         item.codeItem = self
+        self.context = context
 
         self._initialize()
 

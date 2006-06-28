@@ -10,7 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from TG.gccxml.model import visitor
+from TG.gccxml.xforms.codeItemVisitor import BaseCodeItemVisitor
 
 #from ciBase import *
 from ciRoot import CIRoot
@@ -28,36 +28,10 @@ from ciComposites import CIVariable, CIField, CIStruct, CIUnion
 from ciPreprocessor import CIPPInclude, CIPPConditional, CIPPDefine, CIPPMacro
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Code Gen Node Visitor
+#~ C Code Item Visitor
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class BaseCodeGenVisitor(visitor.DependencyAtomVisitor):
-    context = None
-    def __init__(self, context):
-        self.context = context
-        self.cache = dict()
-
-    @classmethod
-    def validateFactories(klass):
-        invalidFactories = [n for n,v in vars(klass).items() if v is None and n.startswith('CI')]
-
-        if invalidFactories:
-            e = Exception("Invalid code item factories: [%s]" % (', '.join(invalidFactories),))
-            e.invalidFactories = invalidFactories
-            raise e
-        else:
-            return True
-
-    def _visitAtom(self, atom):
-        ci = self.cache.get(atom, None)
-        if ci is None:
-            ci = atom.visit(self)
-            atom.visitDependencies(self)
-            self.cache[atom] = ci
-        return ci
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+class CCodeItemVisitor(BaseCodeItemVisitor):
     # root reference
     CIRoot = CIRoot
     def onRoot(self, atom):
@@ -71,13 +45,6 @@ class BaseCodeGenVisitor(visitor.DependencyAtomVisitor):
     def onFile(self, atom):
         return self.CIFile(self.context, atom)
 
-BaseCodeGenVisitor.validateFactories()
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ C Code Generation
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class CCodeGenVisitor(BaseCodeGenVisitor):
     # simple types
     CIFundamentalType = CIFundamentalType
     def onFundamentalType(self, atom):
@@ -172,5 +139,5 @@ class CCodeGenVisitor(BaseCodeGenVisitor):
     def onPPMacro(self, atom):
         return self.CIPPMacro(self.context, atom)
 
-CCodeGenVisitor.validateFactories()
+CCodeItemVisitor.validateFactories()
 

@@ -20,11 +20,14 @@ from ciBase import CodeItem, asCodeItem
 
 class CIRoot(CodeItem): 
     def _initialize(self):
-        self.files = []
+        self.files = {}
+
+    def __getitem__(self, key):
+        return self.files[key]
 
     def add(self, ciFile):
         ciFile = asCodeItem(ciFile)
-        self.files.append(ciFile)
+        self.files[ciFile.name] = ciFile
 
     def getHostCI(self):
         return None

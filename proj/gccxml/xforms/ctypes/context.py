@@ -6,13 +6,23 @@
 ##~ found in the LICENSE file included with this distribution.    ##
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 
+__all__ = ['AtomFilterVisitor', 'CCodeGenContext', 'CPPCodeGenContext']
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from context import *
+from TG.gccxml.xforms.context import *
+import cCodeItemVisitor 
+import cppCodeItemVisitor 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CCodeGenContext(CodeGenContext):
+    CodeItemVisitor = cCodeItemVisitor.CCodeItemVisitor
+
+class CPPCodeGenContext(CodeGenContext):
+    CodeItemVisitor = cppCodeItemVisitor.CPPCodeItemVisitor
 

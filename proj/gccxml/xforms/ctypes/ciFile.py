@@ -39,9 +39,7 @@ fileFooter = '''\
 class CIFile(CodeItem): 
     header = fileHeader
     footer = fileFooter
-    importStmts = [
-        'from ctypes import *',
-        ]
+    importStmts = [ ]
 
     def _initialize(self):
         # make a modifable copy of importStmts
@@ -151,6 +149,10 @@ class CIFile(CodeItem):
         return self.lines[idx0:idx1]
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def writeToFile(self):
+        stream = self.context.createStream(self.getFilename())
+        return self.writeTo(stream)
 
     def writeTo(self, stream):
         self.writeHeaderTo(stream)

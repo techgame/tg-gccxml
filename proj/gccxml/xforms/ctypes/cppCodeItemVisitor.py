@@ -10,14 +10,14 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from codeGen import CCodeGenVisitor
+from cCodeItemVisitor import CCodeItemVisitor
 from ciCPlusPlus import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ C++ Code Generation
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CPPCodeGenVisitor(CCodeGenVisitor):
+class CPPCodeItemVisitor(CCodeItemVisitor):
     # complex types and pointers
     CIReferenceTypeFactory = CIReferenceType
     def onReferenceType(self, atom):
@@ -52,5 +52,5 @@ class CPPCodeGenVisitor(CCodeGenVisitor):
     def onDestructor(self, atom):
         return self.CIDestructorFactory(self.context, atom)
 
-CPPCodeGenVisitor.validateFactories()
+CPPCodeItemVisitor.validateFactories()
 

@@ -11,18 +11,13 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from itertools import chain
-
-from TG.gccxml.model import loadFromFileNamed
-from TG.gccxml.model import visitor
-from TG.gccxml.xforms.context import CodeContext
-from TG.gccxml.xforms.ctypes import codeGen
+from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class GLFilterVisitor(visitor.AtomFilterVisitor):
+class GLFilterVisitor(AtomFilterVisitor):
     def onRoot(self, item):
         self.select(item)
 
@@ -68,27 +63,14 @@ class GLFilterVisitor(visitor.AtomFilterVisitor):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
-    from pprint import pprint
-    root = loadFromFileNamed('srcCode.model')
+    context = CCodeGenContext.fromFileNamed('srcCode.model')
+    context.atomFilter = GLFilterVisitor()
 
-    atomFilter = GLFilterVisitor()
-    atomFilter.visit(root)
+    gl = context['OpenGL/gl.h']
+    gl.importAll('_glcommon')
+    gl.writeToFile()
 
-    context = CodeContext()
-    codeVisitor = codeGen.CCodeGenVisitor(context)
-    codeVisitor.visitAll(atomFilter.results)
-
-    for ci in codeVisitor.cache.itervalues():
-        ci.emit()
-
-    ci_gl = root.files['OpenGL/gl.h'].codeItem
-    ci_gl.importAll('_glcommon', clear=True)
-
-    ci_gl_ext = root.files['OpenGL/glext.h'].codeItem
-    ci_gl_ext.importAll('_glcommon', ci_gl, clear=True)
-
-    context.ciRoot = root.codeItem
-    #context.printAll()
-    context.writeToFiles()
-
+    glext = context['OpenGL/glext.h']
+    glext.importAll('_glcommon', gl)
+    glext.writeToFile()
 
