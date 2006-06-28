@@ -41,7 +41,7 @@ class CIEllipsis(CodeItem):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CICallable(CodeItem):
+class CallableCodeItem(CodeItem):
     templateArgIndex = 'arg_%s'
 
     def argTypeRefs(self, arguments=None):
@@ -64,7 +64,7 @@ class CICallable(CodeItem):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CIFunctionType(CICallable, TypeCodeItem):
+class CIFunctionType(CallableCodeItem, TypeCodeItem):
     _required = False
     funcTypeTemplate = 'CFUNCTYPE(%(retTypeRef)s, [%(argTypeRefs)s])'
 
@@ -81,7 +81,7 @@ class CIFunctionType(CICallable, TypeCodeItem):
                     argTypeRefs=self.joinArgTypeRefs(),
                     )
 
-class CIFunction(CICallable):
+class CIFunction(CallableCodeItem):
     decoTemplate = '@bind(%(retTypeRef)s, [%(argTypeRefs)s])'
     funcTemplate = 'def %(funcName)s(%(paramNames)s): pass\n'
 
@@ -103,18 +103,4 @@ class CIFunction(CICallable):
     @property
     def name(self):
         return self.item.name
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class CIMethod(CodeItem):
-    # TODO: Implement CIMethod
-    pass
-
-class CIConstructor(CodeItem):
-    # TODO: Implement CIConstructor
-    pass
-
-class CIDestructor(CodeItem):
-    # TODO: Implement CIDestructor
-    pass
 

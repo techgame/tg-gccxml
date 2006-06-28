@@ -12,12 +12,20 @@
 
 from TG.gccxml.model import visitor
 
-from ciBase import *
-from ciContainers import *
-from ciTypes import *
-from ciComposites import *
-from ciCallables import *
-from ciPreprocessor import *
+#from ciBase import *
+from ciRoot import CIRoot
+from ciFile import CIFile
+
+from ciTypes import CIFundamentalType, CICvQualifiedType
+from ciTypes import CIPointerType, CIReferenceType, CIArrayType
+from ciTypes import CITypedef
+from ciTypes import CIEnumeration, CIEnumValue
+
+from ciCallables import CIArgument, CIEllipsis, CIFunction, CIFunctionType
+
+from ciComposites import CIVariable, CIField, CIStruct, CIUnion
+
+from ciPreprocessor import CIPPInclude, CIPPConditional, CIPPDefine, CIPPMacro
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code Gen Node Visitor
@@ -31,11 +39,7 @@ class BaseCodeGenVisitor(visitor.DependencyAtomVisitor):
 
     @classmethod
     def validateFactories(klass):
-        invalidFactories = []
-        for n, v in vars(klass).iteritems():
-            if n.startswith('CI') and n.endswith('Factory'):
-                if v is None:
-                    invalidFactories.append(n)
+        invalidFactories = [n for n,v in vars(klass).items() if v is None and n.startswith('CI')]
 
         if invalidFactories:
             e = Exception("Invalid code item factories: [%s]" % (', '.join(invalidFactories),))
@@ -55,17 +59,17 @@ class BaseCodeGenVisitor(visitor.DependencyAtomVisitor):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # root reference
-    CIRootFactory = CIRoot
+    CIRoot = CIRoot
     def onRoot(self, atom):
-        result = self.CIRootFactory(self.context, atom)
+        result = self.CIRoot(self.context, atom)
         for f in atom.files.itervalues():
             self._visit(f)
         return result
 
     # file references
-    CIFileFactory = CIFile
+    CIFile = CIFile
     def onFile(self, atom):
-        return self.CIFileFactory(self.context, atom)
+        return self.CIFile(self.context, atom)
 
 BaseCodeGenVisitor.validateFactories()
 
@@ -75,133 +79,98 @@ BaseCodeGenVisitor.validateFactories()
 
 class CCodeGenVisitor(BaseCodeGenVisitor):
     # simple types
-    CIFundamentalTypeFactory = CIFundamentalType
+    CIFundamentalType = CIFundamentalType
     def onFundamentalType(self, atom):
-        return self.CIFundamentalTypeFactory(self.context, atom)
+        return self.CIFundamentalType(self.context, atom)
 
-    CICvQualifiedTypeFactory = CICvQualifiedType
+    CICvQualifiedType = CICvQualifiedType
     def onCvQualifiedType(self, atom):
-        return self.CICvQualifiedTypeFactory(self.context, atom)
+        return self.CICvQualifiedType(self.context, atom)
 
-    CIEnumerationFactory = CIEnumeration
+    CIEnumeration = CIEnumeration
     def onEnumeration(self, atom):
-        return self.CIEnumerationFactory(self.context, atom)
+        return self.CIEnumeration(self.context, atom)
 
-    CIEnumValueFactory = CIEnumValue
+    CIEnumValue = CIEnumValue
     def onEnumValue(self, atom):
-        return self.CIEnumValueFactory(self.context, atom)
+        return self.CIEnumValue(self.context, atom)
 
 
     # complex types and pointers
-    CITypedefFactory = CITypedef
+    CITypedef = CITypedef
     def onTypedef(self, atom):
-        return self.CITypedefFactory(self.context, atom)
+        return self.CITypedef(self.context, atom)
 
-    CIPointerTypeFactory = CIPointerType
+    CIPointerType = CIPointerType
     def onPointerType(self, atom):
-        return self.CIPointerTypeFactory(self.context, atom)
+        return self.CIPointerType(self.context, atom)
 
-    CIReferenceTypeFactory = CIReferenceType
+    CIReferenceType = CIReferenceType
     def onReferenceType(self, atom):
         # technically this is C++, but it tends to sneak in to C code
-        return self.CIReferenceTypeFactory(self.context, atom)
+        return self.CIReferenceType(self.context, atom)
 
-    CIArrayTypeFactory = CIArrayType
+    CIArrayType = CIArrayType
     def onArrayType(self, atom):
-        return self.CIArrayTypeFactory(self.context, atom)
+        return self.CIArrayType(self.context, atom)
 
 
     # composite elements
-    CIUnionFactory = CIUnion
+    CIUnion = CIUnion
     def onUnion(self, atom):
-        return self.CIUnionFactory(self.context, atom)
+        return self.CIUnion(self.context, atom)
 
-    CIStructFactory = CIStruct
+    CIStruct = CIStruct
     def onStruct(self, atom):
-        return self.CIStructFactory(self.context, atom)
+        return self.CIStruct(self.context, atom)
 
 
     # context members
-    CIVariableFactory = CIVariable
+    CIVariable = CIVariable
     def onVariable(self, atom):
-        return self.CIVariableFactory(self.context, atom)
+        return self.CIVariable(self.context, atom)
 
-    CIFieldFactory = CIField
+    CIField = CIField
     def onField(self, atom):
-        return self.CIFieldFactory(self.context, atom)
+        return self.CIField(self.context, atom)
 
 
     # sub elements of Callables
-    CIArgumentFactory = CIArgument
+    CIArgument = CIArgument
     def onArgument(self, atom):
-        return self.CIArgumentFactory(self.context, atom)
+        return self.CIArgument(self.context, atom)
 
-    CIEllipsisFactory = CIEllipsis
+    CIEllipsis = CIEllipsis
     def onEllipsis(self, atom):
-        return self.CIEllipsisFactory(self.context, atom)
+        return self.CIEllipsis(self.context, atom)
 
 
     # callables
-    CIFunctionFactory = CIFunction
+    CIFunction = CIFunction
     def onFunction(self, atom):
-        return self.CIFunctionFactory(self.context, atom)
+        return self.CIFunction(self.context, atom)
 
-    CIFunctionTypeFactory = CIFunctionType
+    CIFunctionType = CIFunctionType
     def onFunctionType(self, atom):
-        return self.CIFunctionTypeFactory(self.context, atom)
+        return self.CIFunctionType(self.context, atom)
 
 
     # preprocessor
-    CIPPIncludeFactory = CIPPInclude
+    CIPPInclude = CIPPInclude
     def onPPInclude(self, atom):
-        return self.CIPPIncludeFactory(self.context, atom)
+        return self.CIPPInclude(self.context, atom)
 
-    CIPPConditionalFactory = CIPPConditional
+    CIPPConditional = CIPPConditional
     def onPPConditional(self, atom):
-        return self.CIPPConditionalFactory(self.context, atom)
+        return self.CIPPConditional(self.context, atom)
 
-    CIPPDefineFactory = CIPPDefine
+    CIPPDefine = CIPPDefine
     def onPPDefine(self, atom):
-        return self.CIPPDefineFactory(self.context, atom)
+        return self.CIPPDefine(self.context, atom)
 
-    CIPPMacroFactory = CIPPMacro
+    CIPPMacro = CIPPMacro
     def onPPMacro(self, atom):
-        return self.CIPPMacroFactory(self.context, atom)
+        return self.CIPPMacro(self.context, atom)
 
 CCodeGenVisitor.validateFactories()
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ C++ Code Generation
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class CPPCodeGenVisitor(CCodeGenVisitor):
-    # namespace 
-    CINamespaceFactory = CINamespace
-    def onNamespace(self, atom):
-        return self.CINamespaceFactory(self.context, atom)
-
-    # composite elements
-    CIClassFactory = CIClass
-    def onClass(self, atom):
-        return self.CIClassFactory(self.context, atom)
-
-    CIBaseFactory = CIBase
-    def onBase(self, atom):
-        return self.CIBaseFactory(self.context, atom)
-
-
-    # callables
-    CIMethodFactory = CIMethod
-    def onMethod(self, atom):
-        return self.CIMethodFactory(self.context, atom)
-
-    CIConstructorFactory = CIConstructor
-    def onConstructor(self, atom):
-        return self.CIConstructorFactory(self.context, atom)
-
-    CIDestructorFactory = CIDestructor
-    def onDestructor(self, atom):
-        return self.CIDestructorFactory(self.context, atom)
-
-CPPCodeGenVisitor.validateFactories()
 

@@ -41,16 +41,20 @@ class CodeItem(object):
         pass
 
     def __nonzero__(self):
-        return self.isRequired()
+        return self.isRequired() and self.isValidCodeItem()
 
     _required = True
     def isRequired(self):
-        return True
         return self._required
     def require(self, required=True):
-        #if not self._required:
-        #    print self.item
         self._required = required
+
+    def isValidCodeItem(self):
+        hostCI = self.getHostCI()
+        if hostCI is not None:
+            return hostCI.isValidCodeItem()
+        else:
+            return False
 
     def isAtom(self):
         return False

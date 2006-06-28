@@ -16,8 +16,56 @@ from ciBase import CodeItem
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+class CIPPDefine(CodeItem): 
+    template = '%(ident)s = %(body)s'
+
+    def writeTo(self, stream):
+        print >> stream, self.template % dict(
+                                ident=self.item.ident, 
+                                body=self.getDefineBody())
+
+    def getDefineBody(self):
+        body = self.item.body
+
+        if not body[:1].isalpha():
+            return body
+
+        derefList = []
+        ppDefines = self.item.file.root.ppDefines
+        while body[:1].isalpha():
+            nextDefine = ppDefines.get(body, None)
+            if nextDefine is None: 
+                return body
+            elif body == nextDefine.body: 
+                return body
+            else:
+                derefList.append(body)
+                body = nextDefine.body
+        return body + ' # = ' + ' = '.join(derefList)
+
+class CIPPMacro(CodeItem): 
+    template = (
+        'def %(ident)s(%(args)s):\n'
+        '    """#define %(ident)s(%(args)s) %(body)s"""')
+            
+    def writeTo(self, stream):
+        print >> stream, self.template % dict(
+                                ident=self.item.ident, 
+                                args=self.joinArgNames(), 
+                                body=self.item.body,
+                                )
+
+    def argNames(self):
+        return self.item.args
+    def joinArgNames(self, sep=', '):
+        return sep.join(self.argNames())
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class CIPPInclude(CodeItem): 
     pass
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIPPConditional(CodeItem): 
     def writeTo(self, stream):
@@ -40,19 +88,4 @@ class CIPPConditional(CodeItem):
 
         elif self.item.isClosing():
             stream.dedent()
-
-class CIPPDefine(CodeItem): 
-    def writeTo(self, stream):
-        if self.item.body[:1].isalpha():
-            # TODO: handle out of order constants more elegantly
-            print >> stream, '# TODO: Rearrange for dependency'
-            print >> stream, '# %s = %s' % (self.item.ident, self.item.body)
-        else:
-            print >> stream, '%s = %s' % (self.item.ident, self.item.body)
-
-class CIPPMacro(CodeItem): 
-    def writeTo(self, stream):
-        name, args, body = (self.item.ident, ', '.join(self.item.args), self.item.body)
-        print >> stream, 'def %s(%s):' % (name, args)
-        print >> stream, '    """#define %s(%s) %s"""' % (name, args, body)
 

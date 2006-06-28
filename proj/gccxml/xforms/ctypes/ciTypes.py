@@ -17,7 +17,7 @@ from ciBase import CodeItem
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class TypeCodeItem(CodeItem):
-    _required = False
+    #_required = False
     typeRefTemplate = '%s'
 
     def typeRef(self, require=True):
@@ -118,8 +118,8 @@ class CIPointerType(TypeCodeItem):
     def _typeDecl(self):
         return self.ptrTypeRefFor(self.item.type)
 
-class CIReferenceType(CIPointerType):
-    typeRefTemplate = 'REFERENCE(%s)'
+# In case someone uses references in C code accidentally
+CIReferenceType = CIPointerType
 
 class CIArrayType(TypeCodeItem):
     typeRefTemplate = 'ARRAY(%s)'
@@ -127,7 +127,11 @@ class CIArrayType(TypeCodeItem):
 
 class CITypedef(TypeCodeItem):
     typeRefTemplate = '%s'
-    template = 'class %(typedefName)s(%(typeRef)s): pass'
+    fundamentTypeTemplate = 'class %(name)s(%(typeRef)s):\n    """%(comment)s"""'
+    typedefTemplate = '%(name)s = %(typeRef)s # %(comment)s'
+    
+    comment = 'typedef %(name)s'
+    missingComment = ' as %(basicTypeRef)s for absent %(origTypeRef)s'
 
     def _typeDecl(self):
         return self.item.name
@@ -135,16 +139,45 @@ class CITypedef(TypeCodeItem):
     def writeTo(self, stream):
         print >> stream, self.typedefDecl()
 
-    def typedefDecl(self):
-        itemType = self.item.type
-        typeRef = self.typeRefFor(itemType)
-        if itemType.isFundamentalType():
-            if typeRef not in ('None', None):
-                return self.template % dict(
-                        typedefName=self._typeDecl(),
-                        typeRef=typeRef,)
+    def typedefDecl(self, itemType=None):
+        if itemType is None:
+            itemType = self.item.type
 
-        return '%s = %s # typedef' % (self._typeDecl(), typeRef)
+        if itemType.isFundamentalType():
+            return self.typedefDeclFundamentalType(itemType)
+        elif getattr(itemType, 'codeItem', None):
+            return self.typedefDeclSimple(itemType)
+        else:
+            return self.typedefDeclMissingType(itemType)
+
+    def typedefDeclSimple(self, itemType):
+        kw = dict(
+                name=self._typeDecl(),
+                typeRef=self.typeRefFor(itemType),)
+        kw.update(comment=self.comment % kw)
+
+        return self.typedefTemplate % kw
+
+    def typedefDeclFundamentalType(self, itemType):
+        if itemType.isVoidType():
+            return self.typedefDeclSimple(itemType)
+
+        kw = dict(
+                name=self._typeDecl(),
+                typeRef=self.typeRefFor(itemType),)
+        kw.update(comment=self.comment % kw)
+        return self.fundamentTypeTemplate % kw
+
+    def typedefDeclMissingType(self, itemType):
+        basicItemType = itemType.resolveBasicType()
+        assert basicItemType is not itemType, repr(itemType)
+            
+        kw = dict(
+                origTypeRef=self.typeRefFor(itemType), 
+                basicTypeRef=self.typeRefFor(basicItemType))
+        self.comment += self.missingComment % kw
+        return self.typedefDecl(basicItemType)
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

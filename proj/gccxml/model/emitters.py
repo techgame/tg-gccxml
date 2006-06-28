@@ -39,9 +39,9 @@ def getEmitterFactoryFromMap(section, kind, factoryMap=emitterFactoryMap):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class BaseEmitter(object):
-    rootElement = None
-    def __init__(self, rootElement):
-        self.rootElement = rootElement
+    root = None
+    def __init__(self, root):
+        self.root = root
 
     emitKindMap = {}
     def emit(self, kind, *args):
@@ -64,7 +64,7 @@ class FileBasedEmitter(BaseEmitter):
     def setFilename(self, filename, lineno=1):
         self.filename = filename
         self.lineno = int(lineno)
-        self.fileAtom = self.rootElement.getFile(filename)
+        self.fileAtom = self.root.getFile(filename)
 
     def incLineno(self, delta=1):
         self.lineno += 1
@@ -85,9 +85,9 @@ class FileBasedEmitter(BaseEmitter):
 
 class DependencyEmitter(FileBasedEmitter):
     def addFile(self, filename):
-        self.fileAtom = self.rootElement.addFile(filename)
+        self.fileAtom = self.root.addFile(filename)
     def addDependency(self, filename):
-        self.rootElement.addDependency(filename)
+        self.root.addDependency(filename)
 
     emitKindMap = FileBasedEmitter.emitKindMap.copy()
 
@@ -131,8 +131,8 @@ class PreprocessorEmitter(FileBasedEmitter):
         return self.setItemAttrs(atoms.PPConditional(), directive=directive, body=body)
 
     @emitKind(emitKindMap, 'include')
-    def onDefine(self, kind, filename, isSystemInclude):
-        includedFile = self.rootElement.getFile(filename)
+    def onInclude(self, kind, filename, isSystemInclude):
+        includedFile = self.root.getFile(filename)
         return self.setItemAttrs(atoms.PPInclude(), filename=filename, isSystemInclude=isSystemInclude, includedFile=includedFile)
 
     @emitKind(emitKindMap, 'define')
@@ -151,6 +151,7 @@ class PreprocessorEmitter(FileBasedEmitter):
         if file is not None:
             self.linkConditional(item, file)
             file.addAtom(item)
+        self.root.addPPAtom(item)
         return item
 
     def linkConditional(self, item, file):
@@ -207,7 +208,7 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
         # return item model to link
         if itemKind == 'File':
             filename = staticAttrs['name']
-            item = self.rootElement.getFile(filename)
+            item = self.root.getFile(filename)
             if item is None:
                 item = atoms.File(filename)
         else:

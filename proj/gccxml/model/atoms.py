@@ -74,7 +74,7 @@ class ModelAtom(object):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def __iter__(self):
-        for child in self.iterVisitChildren(None):
+        for child in self.iterVisitChildren():
             yield child
     def iterAll(self):
         yield self
@@ -133,6 +133,7 @@ class ModelAtom(object):
 class Root(ModelAtom):
     def __init__(self):
         self.files = {}
+        self.ppDefines = {}
 
     def __repr_atom__(self):
         return "%s files" % len(self.files)
@@ -164,6 +165,12 @@ class Root(ModelAtom):
         result = File(filename)
         result.root = self
         return result
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def addPPAtom(self, ppAtom):
+        if ppAtom.isPPDefine() or ppAtom.isPPMacro():
+            self.ppDefines[ppAtom.ident] = ppAtom
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -255,6 +262,9 @@ class CType(LocatedElement):
     def getTypeChain(self):
         return [self.type] + self.type.getTypeChain()
 
+    def resolveBasicType(self):
+        return self
+
 class FundamentalType(CType):
     name = ''
     align = 0
@@ -269,6 +279,9 @@ class FundamentalType(CType):
         return True
     def isType(self):
         return True
+
+    def isVoidType(self):
+        return self.name == 'void'
 
     def getTypeString(self, descriptive=False):
         return self.name
@@ -301,6 +314,9 @@ class CvQualifiedType(CType):
         return visitor.onCvQualifiedType(self, *args, **kw)
     def iterVisitChildren(self):
         return iter([self.type])
+
+    def resolveBasicType(self):
+        return self.type.resolveBasicType()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Enumeration Type
@@ -381,6 +397,9 @@ class Typedef(CType):
         return visitor.onTypedef(self, *args, **kw)
     def iterVisitChildren(self):
         return iter([self.type])
+
+    def resolveBasicType(self):
+        return self.type.resolveBasicType()
 
 class PointerType(CType):
     align = 0

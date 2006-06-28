@@ -97,25 +97,12 @@ class CompositeCodeItem(CodeItem):
         return self.template % dict(
                 name=self.typeRef(),
                 bindClass=self.bindClass)
-                
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIUnion(CompositeCodeItem):
-    # TODO: Implement CIUnion
     bindClass = 'Union'
 
 class CIStruct(CompositeCodeItem):
-    # TODO: Implement CIStruct
     bindClass = 'Structure'
-
-class CIClass(CIStruct):
-    # TODO: Implement CIClass
-    bindClass = 'Structure'
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class CIBase(CodeItem):
-    # TODO: Implement CIBase
-    pass
 

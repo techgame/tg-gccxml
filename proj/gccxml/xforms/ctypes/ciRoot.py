@@ -10,39 +10,25 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import sys
 from bisect import insort, bisect_left, bisect_right
 
-from blockWriter import BlockWriter
+from ciBase import CodeItem, asCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CodeContext(object):
-    def printAll(self):
-        self.writeTo(sys.stdout)
+class CIRoot(CodeItem): 
+    def _initialize(self):
+        self.files = []
 
-    def writeToFiles(self):
-        for ciFile in self.ciRoot.files:
-            if not ciFile: 
-                continue
+    def add(self, ciFile):
+        ciFile = asCodeItem(ciFile)
+        self.files.append(ciFile)
 
-            print 'Writing:', ciFile.filename, len(ciFile)
-            stream = open(ciFile.filename, 'wb')
-            try:
-                ciFile.writeTo(BlockWriter(stream))
-            finally:
-                stream.close()
-            print
+    def getHostCI(self):
+        return None
 
-    def writeTo(self, stream):
-        stream = BlockWriter.wrap(stream)
-
-        for ciFile in self.ciRoot.files:
-            if not ciFile: 
-                print 'skipping:', ciFile, len(ciFile)
-                continue
-
-            ciFile.writeTo(stream)
+    def isValidCodeItem(self):
+        return True
 

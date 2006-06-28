@@ -81,6 +81,12 @@ if __name__=='__main__':
     for ci in codeVisitor.cache.itervalues():
         ci.emit()
 
+    ci_gl = root.files['OpenGL/gl.h'].codeItem
+    ci_gl.importAll('_glcommon', clear=True)
+
+    ci_gl_ext = root.files['OpenGL/glext.h'].codeItem
+    ci_gl_ext.importAll('_glcommon', ci_gl, clear=True)
+
     context.ciRoot = root.codeItem
     #context.printAll()
     context.writeToFiles()
