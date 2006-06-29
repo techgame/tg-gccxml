@@ -21,10 +21,12 @@ def main():
     analyzer = CodeAnalyzer()
 
     analyzer.cfg.inc = ['.']
-    analyzer.cfg.src = ['genOpenGL.cpp']
-    analyzer.cfg.baseline = ['baseline.cpp']
+    analyzer.cfg.src = ['genOpenGL.c']
+    analyzer.cfg.baseline = ['baseline.c']
 
     analyzer.run()
+
+    analyzer.root.storeToFileNamed('build/gccxml/srcCode.model')
     
     return analyzer
 
@@ -34,5 +36,4 @@ def main():
 
 if __name__=='__main__':
     analyzer = main()
-    analyzer.root.storeToFileNamed('srcCode.model')
 

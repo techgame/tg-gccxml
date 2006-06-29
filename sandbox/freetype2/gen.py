@@ -25,6 +25,8 @@ def main():
     analyzer.cfg.baseline = ['baseline.c']
 
     analyzer.run()
+
+    analyzer.root.storeToFileNamed('build/gccxml/srcCode.model')
     
     return analyzer
 
@@ -34,5 +36,4 @@ def main():
 
 if __name__=='__main__':
     analyzer = main()
-    analyzer.root.storeToFileNamed('srcCode.model')
 

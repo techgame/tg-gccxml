@@ -11,6 +11,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import os
 from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,15 +57,32 @@ class FilterVisitor(AtomFilterVisitor):
 #~ Main 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-if __name__=='__main__':
-    context = CCodeGenContext.fromFileNamed('srcCode.model')
+def main():
+    srcCodeModelFile = 'build/gccxml/srcCode.model'
+    if not os.path.exists(srcCodeModelFile):
+        import gen
+        root = gen.main().root
+        context = CCodeGenContext(root)
+    else:
+        context = CCodeGenContext.fromFileNamed(srcCodeModelFile)
+
     context.atomFilter = FilterVisitor()
 
     gl = context['OpenGL/gl.h']
     gl.importAll('_ctypes_gl')
-    gl.writeToFile()
 
     glext = context['OpenGL/glext.h']
     glext.importAll('_ctypes_gl', gl)
-    glext.writeToFile()
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    context.outputPath = 'out'
+    for ciFile in [gl, glext]:
+        print 'Writing:', ciFile.filename
+        ciFile.writeToFile()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+if __name__=='__main__':
+    main()
 

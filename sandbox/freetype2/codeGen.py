@@ -33,8 +33,15 @@ class FilterVisitor(AtomFilterVisitor):
 #~ Main 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-if __name__=='__main__':
-    context = CCodeGenContext.fromFileNamed('srcCode.model')
+def main():
+    srcCodeModelFile = 'build/gccxml/srcCode.model'
+    if not os.path.exists(srcCodeModelFile):
+        import gen
+        root = gen.main().root
+        context = CCodeGenContext(root)
+    else:
+        context = CCodeGenContext.fromFileNamed(srcCodeModelFile)
+
     context.atomFilter = FilterVisitor()
 
     ciFilesByName = dict((os.path.basename(f.name), f) for f in context if f)
@@ -53,9 +60,16 @@ if __name__=='__main__':
     freetype = ciFilesByName['freetype.h']
     freetype.importAll(fttypes, ftsystem)
 
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     context.outputPath = 'out'
     for ciFile in ciFilesByName.values():
         print 'Writing:', ciFile.filename
         ciFile.blockSeparator = ''
         ciFile.writeToFile()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+if __name__=='__main__':
+    main()
 
