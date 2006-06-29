@@ -223,7 +223,7 @@ class CITypedef(TypeCodeItem):
 
 class CIEnumeration(TypeCodeItem):
     typeRefTemplate = '%s'
-    template = 'class %(enumName)s(c_int):'
+    template = "class %(enumName)s(c_int):\n    '''enum %(enumName)s''' "
 
     def _typeDecl(self):
         return self.item.name

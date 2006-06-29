@@ -184,14 +184,30 @@ class CIFile(CodeItem):
                                     generatedFrom=self.item.name,
                                     )
 
+    prependFiles = ()
+    appendFiles = ()
     def writeContentTo(self, stream):
+        for ciFile in self.prependFiles:
+            ciFile.writeContentTo(stream)
+
+        self.writeLinesTo(self.lines, stream)
+
+        for ciFile in self.appendFiles:
+            ciFile.writeContentTo(stream)
+
+    def writeLinesTo(self, lines, stream):
         lastIdx = 0
-        for idx, lineItem in self.lines:
+        for idx, lineItem in lines:
             if not lineItem:
                 continue
-
-            lastIdx = self.writeSeparatorTo(stream, lastIdx, idx)
-            lineItem.writeTo(stream)
+            else:
+                lastIdx = self.writeSeparatorTo(stream, lastIdx, idx)
+                if isinstance(lineItem, (str, unicode)):
+                    # allow for literals
+                    print >> stream, lineItem
+                else:
+                    lineItem.writeTo(stream)
+        print >> stream
 
     def writeSeparatorTo(self, stream, lastIdx, idx):
         if not lastIdx:

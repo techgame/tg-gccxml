@@ -3,13 +3,26 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 from _ctypes_freetype import *
-from ftconfig import *
-from ftimage import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
 #~   "/usr/local/include/freetype2/freetype/fttypes.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#~ Code block from "/usr/local/include/freetype2/freetype/config/ftconfig.h" ~~~
+
+class FT_Int32(c_int):
+    """typedef FT_Int32"""
+
+#~ Code block from "/usr/local/include/freetype2/freetype/config/ftoption.h" ~~~
+
+FT_RENDER_POOL_SIZE = 16384L
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+FT_MAX_MODULES = 32
+
+#~ Code block from "/usr/local/include/freetype2/freetype/fttypes.h" ~~~
 
 class FT_Byte(c_ubyte):
     """typedef FT_Byte"""
@@ -29,7 +42,7 @@ class FT_Int(FT_Int32):
 class FT_UInt(c_uint):
     """typedef FT_UInt"""
 
-class FT_Long(FT_Pos):
+class FT_Long(c_long):
     """typedef FT_Long"""
 
 class FT_ULong(c_ulong):
@@ -83,6 +96,7 @@ class FT_ListRec_(Structure):
         ]
 
 FT_ListRec = FT_ListRec_ # typedef FT_ListRec
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:

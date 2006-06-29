@@ -4,12 +4,17 @@
 
 from _ctypes_freetype import *
 from fttypes import *
+from ftimage import *
 from ftsystem import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
 #~   "/usr/local/include/freetype2/freetype/freetype.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+FREETYPE_MAJOR = 2
+FREETYPE_MINOR = 1
+FREETYPE_PATCH = 9
 
 class FT_Glyph_Metrics_(Structure):
     _fields_ = [
@@ -57,6 +62,7 @@ FT_GlyphSlot = POINTER("FT_GlyphSlotRec_") # typedef FT_GlyphSlot
 FT_CharMap = POINTER("FT_CharMapRec_") # typedef FT_CharMap
 
 class FT_Encoding_(c_int):
+    '''enum FT_Encoding_''' 
     FT_ENCODING_NONE = 0
     FT_ENCODING_MS_SYMBOL = 1937337698
     FT_ENCODING_UNICODE = 1970170211
@@ -128,6 +134,21 @@ class FT_FaceRec_(Structure):
         ]
 FT_Face.set_type(FT_FaceRec_)
 
+FT_FACE_FLAG_SCALABLE = ( 1L << 0 )
+FT_FACE_FLAG_FIXED_SIZES = ( 1L << 1 )
+FT_FACE_FLAG_FIXED_WIDTH = ( 1L << 2 )
+FT_FACE_FLAG_SFNT = ( 1L << 3 )
+FT_FACE_FLAG_HORIZONTAL = ( 1L << 4 )
+FT_FACE_FLAG_VERTICAL = ( 1L << 5 )
+FT_FACE_FLAG_KERNING = ( 1L << 6 )
+FT_FACE_FLAG_FAST_GLYPHS = ( 1L << 7 )
+FT_FACE_FLAG_MULTIPLE_MASTERS = ( 1L << 8 )
+FT_FACE_FLAG_GLYPH_NAMES = ( 1L << 9 )
+FT_FACE_FLAG_EXTERNAL_STREAM = ( 1L << 10 )
+
+FT_STYLE_FLAG_ITALIC = ( 1 << 0 )
+FT_STYLE_FLAG_BOLD = ( 1 << 1 )
+
 class FT_Size_InternalRec_(Structure):
     _fields_ = []
 FT_Size_Internal = POINTER(FT_Size_InternalRec_) # typedef FT_Size_Internal
@@ -182,7 +203,7 @@ class FT_GlyphSlotRec_(Structure):
         ("num_subglyphs", FT_UInt),
         ("subglyphs", FT_SubGlyph),
         ("control_data", c_void_p),
-        ("control_len", FT_Pos),
+        ("control_len", c_long),
         ("lsb_delta", FT_Pos),
         ("rsb_delta", FT_Pos),
         ("other", c_void_p),
@@ -201,6 +222,12 @@ def FT_Library_Version(library, amajor, aminor, apatch): pass
 @bind(FT_Error, [FT_Library])
 def FT_Done_FreeType(library): pass
 
+
+FT_OPEN_MEMORY = 0x1
+FT_OPEN_STREAM = 0x2
+FT_OPEN_PATHNAME = 0x4
+FT_OPEN_DRIVER = 0x8
+FT_OPEN_PARAMS = 0x10
 
 class FT_Parameter_(Structure):
     _fields_ = [
@@ -264,11 +291,30 @@ def FT_Load_Glyph(face, glyph_index, load_flags): pass
 def FT_Load_Char(face, char_code, load_flags): pass
 
 
+FT_LOAD_DEFAULT = 0x0
+FT_LOAD_NO_SCALE = 0x1
+FT_LOAD_NO_HINTING = 0x2
+FT_LOAD_RENDER = 0x4
+FT_LOAD_NO_BITMAP = 0x8
+FT_LOAD_VERTICAL_LAYOUT = 0x10
+FT_LOAD_FORCE_AUTOHINT = 0x20
+FT_LOAD_CROP_BITMAP = 0x40
+FT_LOAD_PEDANTIC = 0x80
+FT_LOAD_IGNORE_GLOBAL_ADVANCE_WIDTH = 0x200
+FT_LOAD_NO_RECURSE = 0x400
+FT_LOAD_IGNORE_TRANSFORM = 0x800
+FT_LOAD_MONOCHROME = 0x1000
+FT_LOAD_LINEAR_DESIGN = 0x2000
+
+FT_LOAD_SBITS_ONLY = 0x4000
+FT_LOAD_NO_AUTOHINT = 0x8000
+
 @bind(None, [FT_Face, POINTER(FT_Matrix), POINTER(FT_Vector)])
 def FT_Set_Transform(face, matrix, delta): pass
 
 
 class FT_Render_Mode_(c_int):
+    '''enum FT_Render_Mode_''' 
     FT_RENDER_MODE_NORMAL = 0
     FT_RENDER_MODE_LIGHT = 1
     FT_RENDER_MODE_MONO = 2
@@ -348,6 +394,7 @@ def FT_FloorFix(a): pass
 
 @bind(None, [POINTER(FT_Vector), POINTER(FT_Matrix)])
 def FT_Vector_Transform(vec, matrix): pass
+
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
