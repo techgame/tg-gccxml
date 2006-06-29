@@ -50,50 +50,50 @@ class CIField(CodeItem):
 class CompositeCodeItem(CodeItem):
     _required = True
     template = 'class %(name)s(%(bindClass)s):'
+    pointerTemplate = 'POINTER(%(name)s)'
+    forwardPtrTemplate = '%(ptrTypedefName)s.set_type(%(name)s)'
+
     fieldOpenTemplate = '_fields_ = ['
     fieldCloseTemplate = '    ]'
     fieldEmptyTemplate = '_fields_ = []'
 
     bindClass = None #'Structure' or 'Union'
+    forwardPtrs = ()
 
     def typeRef(self, require=True):
         if require: self.require()
         return self.name
 
-    ptrsToMe = None
     def ptrTypeRefFrom(self, ciPtrType):
-        return 'POINTER(%s)' % (self.name,)
+        if ciPtrType.isForwardType:
+            name = '"' + self.name + '"'
 
-        # We currently have a problem with forward declaring pointers
-        # and resolving them to the correct type when we are done
-        print "FIXME:", self.name, self.loc
+            if not self.forwardPtrs:
+                self.forwardPtrs = []
+            self.forwardPtrs.append(ciPtrType)
+        else: 
+            name = self.name
 
-        if self.ptrsToMe not in (None, ciPtrType):
-            print "Multiple pointers!"
-
-        self.ptrsToMe = ciPtrType
-
-        #for x in ciPtrType.item.referers:
-        #    print '    :', x, x.loc
-
-        return 'POINTER(%s)' % (self.name,)
+        return self.pointerTemplate % dict(name=name,)
 
     @property
     def name(self): 
         return self.item.name
 
     def writeTo(self, stream):
-        print >> stream, self.compositeDecl()
-
+        self.writeDeclTo(stream)
         stream.indent()
         self.writeFieldsTo(stream)
         stream.dedent()
+        self.writePointerDefTo(stream)
+
+    def writeDeclTo(self, stream):
+        print >> stream, self.compositeDecl()
 
     def writeFieldsTo(self, stream):
         fieldList = list(self.item.iterFields())
         if not fieldList:
             print >> stream, self.fieldEmptyTemplate
-            return
 
         else:
             print >> stream, self.fieldOpenTemplate
@@ -104,6 +104,16 @@ class CompositeCodeItem(CodeItem):
 
             stream.dedent()
             print >> stream, self.fieldCloseTemplate
+
+    def writePointerDefTo(self, stream):
+        for fwdPtr in self.forwardPtrs:
+            if fwdPtr.ciTypedef is not None:
+                ptrTypedefName = fwdPtr.ciTypedef.typeRef()
+                print >> stream, self.forwardPtrTemplate % dict(
+                                            ptrTypedefName=ptrTypedefName, 
+                                            name=self.typeRef())
+            else:
+                assert False, fwdPtr
 
     def add(self, ciField):
         pass

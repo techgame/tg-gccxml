@@ -2,8 +2,9 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ctypes import *
+from _ctypes_freetype import *
 from ftconfig import *
+from ftimage import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
@@ -22,25 +23,25 @@ class FT_Short(c_short):
 class FT_UShort(c_ushort):
     """typedef FT_UShort"""
 
-class FT_Int(c_int):
+class FT_Int(FT_Int32):
     """typedef FT_Int"""
 
 class FT_UInt(c_uint):
     """typedef FT_UInt"""
 
-class FT_Long(c_long):
+class FT_Long(FT_Pos):
     """typedef FT_Long"""
 
 class FT_ULong(c_ulong):
     """typedef FT_ULong"""
 
-class FT_F26Dot6(c_long):
+class FT_F26Dot6(FT_Long):
     """typedef FT_F26Dot6"""
 
-class FT_Fixed(c_long):
+class FT_Fixed(FT_F26Dot6):
     """typedef FT_Fixed"""
 
-class FT_Error(c_int):
+class FT_Error(FT_Int):
     """typedef FT_Error"""
 
 FT_Pointer = c_void_p # typedef FT_Pointer
@@ -55,24 +56,25 @@ class FT_Matrix_(Structure):
 
 FT_Matrix = FT_Matrix_ # typedef FT_Matrix
 
-FT_Generic_Finalizer = POINTER(CFUNCTYPE(None, c_void_p)) # typedef FT_Generic_Finalizer
+FT_Generic_Finalizer = POINTER(CFUNCTYPE(None, FT_Pointer)) # typedef FT_Generic_Finalizer
 
 class FT_Generic_(Structure):
     _fields_ = [
-        ("data", c_void_p),
+        ("data", FT_Pointer),
         ("finalizer", FT_Generic_Finalizer),
         ]
 
 FT_Generic = FT_Generic_ # typedef FT_Generic
 
-FT_ListNode = POINTER(FT_ListNodeRec_) # typedef FT_ListNode
+FT_ListNode = POINTER("FT_ListNodeRec_") # typedef FT_ListNode
 
 class FT_ListNodeRec_(Structure):
     _fields_ = [
         ("prev", FT_ListNode),
         ("next", FT_ListNode),
-        ("data", c_void_p),
+        ("data", FT_Pointer),
         ]
+FT_ListNode.set_type(FT_ListNodeRec_)
 
 class FT_ListRec_(Structure):
     _fields_ = [

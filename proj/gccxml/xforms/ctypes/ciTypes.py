@@ -19,9 +19,13 @@ from ciBase import CodeItem
 class TypeCodeItem(CodeItem):
     #_required = False
     typeRefTemplate = '%s'
+    ciTypedef = None
 
     def typeRef(self, require=True):
         if require: self.require()
+        if self.ciTypedef is not None:
+            return self.ciTypedef.typeRef()
+
         return self.typeRefTemplate % (self._typeDecl(),)
 
     def ptrTypeRefFrom(self, ciPtrType):
@@ -33,6 +37,9 @@ class TypeCodeItem(CodeItem):
 
     def _typeDecl(self):
         return self.typeRefFor(self.item.type)
+
+    def getCIBasicType(self):
+        return self.item.basicType.codeItem
 
     def writeTo(self, stream):
         pass
@@ -87,6 +94,9 @@ class CIFundamentalType(TypeCodeItem):
         'complex long double': None,
     }
 
+    def isValidCodeItem(self):
+        return True
+
     def _typeDecl(self):
         return self._typeDeclFor(self.item.name)
     def _typeDeclFor(klass, typeName):
@@ -121,8 +131,16 @@ class CIPointerType(TypeCodeItem):
     def isValidCodeItem(self):
         return True
 
+    _forwardType = False
+    def getForwardType(self):
+        return self._forwardType
+    def setForwardType(self, forwardType=True):
+        self._forwardType = forwardType
+    isForwardType = property(getForwardType, setForwardType)
+
     def _typeDecl(self):
-        return self.ptrTypeRefFor(self.item.type, self)
+        ptrTypeRef = self.ptrTypeRefFor(self.item.type, self)
+        return ptrTypeRef
 
 # In case someone uses references in C code accidentally
 CIReferenceType = CIPointerType
@@ -145,18 +163,23 @@ class CITypedef(TypeCodeItem):
     def writeTo(self, stream):
         print >> stream, self.typedefDecl()
 
+        self.getCIBasicType().ciTypedef = self
+
     def typedefDecl(self, itemType=None):
         if itemType is None:
             itemType = self.item.type
 
         if itemType.isFundamentalType():
             return self.typedefDeclFundamentalType(itemType)
-        elif getattr(itemType, 'codeItem', None):
-            return self.typedefDeclSimple(itemType)
+        elif itemType.isPointerType():
+            return self.typedefDeclPointerType(itemType)
         else:
-            return self.typedefDeclMissingType(itemType)
+            return self.typedefDeclSimple(itemType)
 
     def typedefDeclSimple(self, itemType):
+        if not getattr(itemType, 'codeItem', None):
+            return self.typedefDeclMissingType(itemType)
+
         kw = dict(
                 name=self._typeDecl(),
                 typeRef=self.typeRefFor(itemType),)
@@ -173,6 +196,15 @@ class CITypedef(TypeCodeItem):
                 typeRef=self.typeRefFor(itemType),)
         kw.update(comment=self.comment % kw)
         return self.fundamentTypeTemplate % kw
+
+    def typedefDeclPointerType(self, itemType):
+        ciPointer = itemType.codeItem
+
+        basicType = itemType.type.basicType
+        if basicType.file is self.file:
+            if basicType.line > self.line:
+                ciPointer.setForwardType()
+        return self.typedefDeclSimple(itemType)
 
     def typedefDeclMissingType(self, itemType):
         basicItemType = itemType.basicType

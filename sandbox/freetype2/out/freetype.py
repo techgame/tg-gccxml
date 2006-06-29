@@ -2,9 +2,8 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from ctypes import *
+from _ctypes_freetype import *
 from fttypes import *
-from ftimage import *
 from ftsystem import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,13 +48,13 @@ class FT_DriverRec_(Structure):
     _fields_ = []
 FT_Driver = POINTER(FT_DriverRec_) # typedef FT_Driver
 
-FT_Face = POINTER(FT_FaceRec_) # typedef FT_Face
+FT_Face = POINTER("FT_FaceRec_") # typedef FT_Face
 
-FT_Size = POINTER(FT_SizeRec_) # typedef FT_Size
+FT_Size = POINTER("FT_SizeRec_") # typedef FT_Size
 
-FT_GlyphSlot = POINTER(FT_GlyphSlotRec_) # typedef FT_GlyphSlot
+FT_GlyphSlot = POINTER("FT_GlyphSlotRec_") # typedef FT_GlyphSlot
 
-FT_CharMap = POINTER(FT_CharMapRec_) # typedef FT_CharMap
+FT_CharMap = POINTER("FT_CharMapRec_") # typedef FT_CharMap
 
 class FT_Encoding_(c_int):
     FT_ENCODING_NONE = 0
@@ -87,6 +86,7 @@ class FT_CharMapRec_(Structure):
         ("platform_id", FT_UShort),
         ("encoding_id", FT_UShort),
         ]
+FT_CharMap.set_type(FT_CharMapRec_)
 
 class FT_Face_InternalRec_(Structure):
     _fields_ = []
@@ -126,6 +126,7 @@ class FT_FaceRec_(Structure):
         ("extensions", c_void_p),
         ("internal", FT_Face_Internal),
         ]
+FT_Face.set_type(FT_FaceRec_)
 
 class FT_Size_InternalRec_(Structure):
     _fields_ = []
@@ -152,6 +153,7 @@ class FT_SizeRec_(Structure):
         ("metrics", FT_Size_Metrics),
         ("internal", FT_Size_Internal),
         ]
+FT_Size.set_type(FT_SizeRec_)
 
 class FT_SubGlyphRec_(Structure):
     _fields_ = []
@@ -180,12 +182,13 @@ class FT_GlyphSlotRec_(Structure):
         ("num_subglyphs", FT_UInt),
         ("subglyphs", FT_SubGlyph),
         ("control_data", c_void_p),
-        ("control_len", c_long),
+        ("control_len", FT_Pos),
         ("lsb_delta", FT_Pos),
         ("rsb_delta", FT_Pos),
         ("other", c_void_p),
         ("internal", FT_Slot_Internal),
         ]
+FT_GlyphSlot.set_type(FT_GlyphSlotRec_)
 
 @bind(FT_Error, [POINTER(FT_Library)])
 def FT_Init_FreeType(alibrary): pass

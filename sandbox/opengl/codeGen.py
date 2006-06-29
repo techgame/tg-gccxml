@@ -61,10 +61,10 @@ if __name__=='__main__':
     context.atomFilter = FilterVisitor()
 
     gl = context['OpenGL/gl.h']
-    gl.importAll('_glcommon')
+    gl.importAll('_ctypes_gl')
     gl.writeToFile()
 
     glext = context['OpenGL/glext.h']
-    glext.importAll('_glcommon', gl)
+    glext.importAll('_ctypes_gl', gl)
     glext.writeToFile()
 

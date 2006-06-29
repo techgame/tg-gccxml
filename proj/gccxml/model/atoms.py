@@ -28,6 +28,7 @@ def getTypeString(aTypeAtom, descriptive=False):
 
 class ModelAtom(object):
     def isAtom(self): return True
+    def isLocated(self): return False
     def isRoot(self): return False
     def isArgument(self): return False
     def isType(self): return False
@@ -272,6 +273,9 @@ class LocatedElement(ModelAtom):
     file = None # reference to a File instance
     line = 0
 
+    def isLocated(self):
+        return self.file is not None
+
     def getLoc(self):
         if self.file is not None:
             return '"%s":%s' % (self.file.name, self.line)
@@ -295,6 +299,33 @@ class CType(LocatedElement):
     basicType = property(getBasicType)
     def _resolveBasicType(self):
         return self
+
+    referers = ()
+    def linkFrom(self, fromAtom): 
+        if self.referers is ():
+            self.referers = []
+        self.referers.append(fromAtom)
+
+    _refLinks = None
+    def getRefLinks(self):
+        if self._refLinks is not None:
+            return self._refLinks
+
+        files = {}
+        self._refLinks = files
+
+        for r in self.referers:
+            if r.isLocated():
+                fileLinks = files.setdefault(r.file, {})
+                fileLinks[r.line] = r
+
+        return files
+    def getFirstRefLinkByFile(self, file):
+        return min(self.getRefLinks()[file].iteritems())
+    def getFirstRefLinks(self):
+        return dict(
+                (f, min(v.iteritems())) 
+                for f,v in self.getRefLinks().iteritems())
 
 class CDelgateType(CType):
     _basicType = None
@@ -462,12 +493,6 @@ class PointerType(CType):
     def iterVisitChildren(self):
         return iter([self.type])
 
-    referers = None
-    def linkFrom(self, fromAtom): 
-        if self.referers is None:
-            self.referers = []
-        self.referers.append(fromAtom)
-
 class ReferenceType(CType):
     align = 0
     size = 0
@@ -529,6 +554,9 @@ class CompositeType(CType):
 
     def getTypeString(self, descriptive=False):
         return self.name
+
+    def getTypeChain(self):
+        return []
 
     def isCompositeType(self):
         return True
@@ -739,6 +767,12 @@ class FunctionType(Callable):
         return True
     def isBasicType(self):
         return True
+
+    def getBasicType(self):
+        return self._resolveBasicType()
+    basicType = property(getBasicType)
+    def _resolveBasicType(self):
+        return self
 
     def getTypeChain(self):
         return []

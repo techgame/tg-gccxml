@@ -38,17 +38,20 @@ if __name__=='__main__':
     context.atomFilter = FilterVisitor()
 
     ciFilesByName = dict((os.path.basename(f.name), f) for f in context if f)
+    for ciFile in ciFilesByName.itervalues():
+        ciFile.importAll('_ctypes_freetype')
 
     ftconfig = ciFilesByName['ftconfig.h']
+    ftimage = ciFilesByName['ftimage.h']
 
     fttypes = ciFilesByName['fttypes.h']
-    fttypes.importAll(ftconfig)
+    fttypes.importAll(ftconfig, ftimage)
 
-    ftimage = ciFilesByName['ftimage.h']
     ftsystem = ciFilesByName['ftsystem.h']
+    ftsystem.importAll(fttypes)
 
     freetype = ciFilesByName['freetype.h']
-    freetype.importAll(fttypes, ftimage, ftsystem)
+    freetype.importAll(fttypes, ftsystem)
 
     context.outputPath = 'out'
     for ciFile in ciFilesByName.values():

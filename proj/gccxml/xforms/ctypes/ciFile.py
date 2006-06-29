@@ -44,9 +44,7 @@ class CIFile(CodeItem):
     footer = fileFooter
     blockSeparator = '#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
-    importStmts = [
-        'from ctypes import *',
-        ]
+    importStmts = []
 
     def _initialize(self):
         # make a modifable copy of importStmts

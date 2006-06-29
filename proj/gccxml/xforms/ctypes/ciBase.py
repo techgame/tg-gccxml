@@ -52,7 +52,7 @@ class CodeItem(object):
         return '<%s: %s>' % (className, repr_codeItem)
 
     def __repr_codeItem__(self, short=False):
-        return self.item.__repr__(short)
+        return self.item.__repr_atom__()
 
     def __nonzero__(self):
         return self.isRequired() and self.isValidCodeItem()
