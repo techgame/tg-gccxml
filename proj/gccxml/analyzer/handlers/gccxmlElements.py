@@ -22,16 +22,16 @@ class Linkable(object):
     def isLinkable(item):
         return isinstance(item, Linkable)
 
-    def link(self, idMap):
+    def link(self, fromItem, linkToId):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
 
 class LinkReference(Linkable):
     def __init__(self, v):
         self.ref = v
 
-    def link(self, idMap):
+    def link(self, fromItem, linkToId):
         if self.ref:
-            item = idMap[self.ref]
+            item = linkToId(fromItem, self.ref)
         else: item = None
         return item
 
@@ -39,8 +39,8 @@ class LinkReferenceList(Linkable):
     def __init__(self, refList):
         self.refList = list(refList)
 
-    def link(self, idMap):
-        return [m for m in (ref.link(idMap) for ref in self.refList) if m]
+    def link(self, fromItem, linkToId):
+        return [m for m in (ref.link(fromItem, linkToId) for ref in self.refList) if m]
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -79,6 +79,7 @@ def throwList(v):
 
 class XMLElement(object):
     topLevel = True
+    itemKind = None
     attrValueMap = dict()
     attrNameMap = dict(cvs_revision=None,)
 
@@ -159,21 +160,21 @@ class XMLElement(object):
             if not Linkable.isLinkable(v):
                 yield n, v
 
-    def linkModel(self, emitter, idMap):
-        emitter.emit('linked', self.itemKind, self.topLevel, self.model, dict(self._linkAttrs(idMap)))
-        self.linkModelChildren(emitter, idMap, self.model)
+    def linkModel(self, emitter, linkToId):
+        emitter.emit('linked', self.itemKind, self.topLevel, self.model, dict(self._linkAttrs(linkToId)))
+        self.linkModelChildren(emitter, linkToId, self.model)
 
-    def linkModelChildren(self, emitter, idMap, model):
+    def linkModelChildren(self, emitter, linkToId, model):
         for e in self.iterChildren():
-            sub = e.linkModel(emitter, idMap)
+            sub = e.linkModel(emitter, linkToId)
             if sub is not None:
                 emitter.emit('link-child', model, sub)
 
-    def _linkAttrs(self, idMap):
+    def _linkAttrs(self, linkToId):
         attrs = self.attrs
         for n,v in attrs.iteritems():
             if Linkable.isLinkable(v):
-                v = v.link(idMap)
+                v = v.link(self.model, linkToId)
                 attrs[n] = v
                 yield n, v
 
@@ -609,11 +610,13 @@ class GCC_XML(XMLElement):
         for elem in self.elements:
             elem.createModel(emitters, idMap)
 
-        for elem in self.elements:
-            elem.linkModel(emitters, idMap)
+        def linkToId(fromItem, toItemId):
+            toItem = idMap[toItemId]
+            emitters.emit('link-from-to', fromItem, toItem)
+            return toItem
 
-        #from pprint import pprint as pp
-        #pp(idMap)
+        for elem in self.elements:
+            elem.linkModel(emitters, linkToId)
 
     def start(self):
         self.elements = []

@@ -66,7 +66,7 @@ class CallableCodeItem(CodeItem):
 
 class CIFunctionType(CallableCodeItem, TypeCodeItem):
     _required = False
-    funcTypeTemplate = 'CFUNCTYPE(%(retTypeRef)s, [%(argTypeRefs)s])'
+    funcTypeTemplate = 'CFUNCTYPE(%(retTypeRef)s, %(argTypeRefs)s)'
 
     def writeTo(self, stream):
         print >> stream, self._typeDecl()

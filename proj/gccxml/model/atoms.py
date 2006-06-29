@@ -10,6 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from collections import deque
 from bisect import insort, bisect_left, bisect_right
 from itertools import chain
 
@@ -19,7 +20,7 @@ from itertools import chain
 
 def getTypeString(aTypeAtom, descriptive=False):
     if not aTypeAtom:
-        return None
+        return 'None'
     assert aTypeAtom.isType(), repr(aTypeAtom)
     return aTypeAtom.getTypeString(descriptive)
 
@@ -47,6 +48,7 @@ class ModelAtom(object):
     def isBaseRef(self): return False
     def isField(self): return False
     def isCallable(self): return False
+    def isFunctionType(self): return False
     def isFunction(self): return False
     def isMethod(self): return False
     def isConstructor(self): return False
@@ -64,23 +66,30 @@ class ModelAtom(object):
         repr_atom = self.__repr_atom__()
         if not repr_atom:
             repr_atom = 'id:0x%x' % id(self)
-        if short:
-            return "<%s: %s>" % (self.__class__.__name__, repr_atom)
-        else:
-            return "<%s.%s: %s>" % (self.__class__.__module__, self.__class__.__name__, repr_atom)
+
+        if short: className = self.__class__.__name__
+        else: className = '.'.join([self.__class__.__module__, self.__class__.__name__])
+
+        return "<%s: %s>" % (className, repr_atom)
+
     def __repr_atom__(self):
         return ""
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    def __iter__(self):
-        for child in self.iterVisitChildren():
-            yield child
     def iterAll(self):
-        yield self
-        for child in self:
-            for each in child.iterAll():
-                yield each
+        work = deque([self])
+        seen = set(work)
+        seen.add(None)
+
+        while work:
+            atom = work.popleft()
+            yield atom
+
+            children = [child for child in atom.iterVisitChildren() if child not in seen]
+            seen.update(children)
+            work.extend(children)
+
     def iterTree(self):
         return self, (child.iterTree() for child in self)
 
@@ -123,7 +132,12 @@ class ModelAtom(object):
 
     def addAtom(self, atom): 
         raise Exception("Unexpected atom %r added to %r" % (atom, self))
-    def linkAtom(self, atom): 
+
+    def linkChild(self, atom): 
+        pass
+    def linkTo(self, toAtom): 
+        pass
+    def linkFrom(self, fromAtom): 
         pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,6 +151,9 @@ class Root(ModelAtom):
 
     def __repr_atom__(self):
         return "%s files" % len(self.files)
+
+    def __iter__(self):
+        return self.iterAll()
 
     def isRoot(self): 
         return True
@@ -188,6 +205,12 @@ class File(ModelAtom):
             return '"%s" atoms:%s lines:%s' % (self.name, len(self.lines), self.lines[-1][0])
         else:
             return '"%s" atoms:%s lines:%s' % (self.name, 0, 0)
+
+    def __iter__(self):
+        return self.iterLineItems()
+
+    def iterLineItems(self):
+        return (l[-1] for l in self.lines)
 
     def isFile(self):
         return True
@@ -250,7 +273,12 @@ class LocatedElement(ModelAtom):
     line = 0
 
     def getLoc(self):
-        return self.file, self.line
+        if self.file is not None:
+            return '"%s":%s' % (self.file.name, self.line)
+        elif self.line:
+            return '"":%s' % (self.line,)
+        else:
+            return ''
     loc = property(getLoc)
 
 class CType(LocatedElement):
@@ -262,8 +290,19 @@ class CType(LocatedElement):
     def getTypeChain(self):
         return [self.type] + self.type.getTypeChain()
 
-    def resolveBasicType(self):
+    def getBasicType(self):
+        return self._resolveBasicType()
+    basicType = property(getBasicType)
+    def _resolveBasicType(self):
         return self
+
+class CDelgateType(CType):
+    _basicType = None
+    def getBasicType(self):
+        if self._basicType is None:
+            self._basicType = self._resolveBasicType()
+        return self._basicType
+    basicType = property(getBasicType)
 
 class FundamentalType(CType):
     name = ''
@@ -292,7 +331,7 @@ class FundamentalType(CType):
     def _visit(self, visitor, *args, **kw):
         return visitor.onFundamentalType(self, *args, **kw)
 
-class CvQualifiedType(CType):
+class CvQualifiedType(CDelgateType):
     type = None # a Type Atom
     const = False
     volatile = False
@@ -315,8 +354,8 @@ class CvQualifiedType(CType):
     def iterVisitChildren(self):
         return iter([self.type])
 
-    def resolveBasicType(self):
-        return self.type.resolveBasicType()
+    def _resolveBasicType(self):
+        return self.type.getBasicType()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Enumeration Type
@@ -376,7 +415,7 @@ class EnumValue(ModelAtom):
 #~ Typedefs, pointers, and arrays
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Typedef(CType):
+class Typedef(CDelgateType):
     name = ''
     type = None # a Type Atom
     context = None # a Context Atom
@@ -398,8 +437,9 @@ class Typedef(CType):
     def iterVisitChildren(self):
         return iter([self.type])
 
-    def resolveBasicType(self):
-        return self.type.resolveBasicType()
+    def _resolveBasicType(self):
+        return self.type.getBasicType()
+
 
 class PointerType(CType):
     align = 0
@@ -412,11 +452,21 @@ class PointerType(CType):
     def getTypeString(self, descriptive=False):
         return getTypeString(self.type, True) + '*'
 
-    def isPointerType(self): return True
+    def isPointerType(self): 
+        return True
+    def isBasicPointerType(self): 
+        return self.type.basicType.isBasicType()
+
     def _visit(self, visitor, *args, **kw):
         return visitor.onPointerType(self, *args, **kw)
     def iterVisitChildren(self):
         return iter([self.type])
+
+    referers = None
+    def linkFrom(self, fromAtom): 
+        if self.referers is None:
+            self.referers = []
+        self.referers.append(fromAtom)
 
 class ReferenceType(CType):
     align = 0
@@ -430,6 +480,9 @@ class ReferenceType(CType):
         return getTypeString(self.type, True) + '&'
 
     def isReferenceType(self): return True
+    def isFundamentalReferenceType(self): 
+        return self.type.isFundamentalType()
+
     def _visit(self, visitor, *args, **kw):
         return visitor.onReferenceType(self, *args, **kw)
     def iterVisitChildren(self):
@@ -620,6 +673,7 @@ class Argument(LocatedElement):
     def __repr_atom__(self):
         r = [self.name, 'type:'+getTypeString(self.type, True)]
         return ' '.join(i for i in r if i)
+
     def isArgument(self): 
         return True
     def isEllipsisArgument(self):
@@ -633,13 +687,13 @@ class Argument(LocatedElement):
 class Ellipsis(ModelAtom):
     host = None # a Callable instance
 
+    def __repr_atom__(self):
+        return '...'
+
     def isArgument(self): 
         return True
     def isEllipsisArgument(self): 
         return True
-
-    def __repr_atom__(self):
-        return '...'
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onEllipsis(self, *args, **kw)
@@ -689,6 +743,8 @@ class FunctionType(Callable):
     def getTypeChain(self):
         return []
 
+    def isFunctionType(self):
+        return True
     def isFunction(self):
         return False
 

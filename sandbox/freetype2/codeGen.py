@@ -11,24 +11,14 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from itertools import chain
-
-from TG.gccxml.model import loadFromFileNamed
-from TG.gccxml.model import visitor
-from TG.gccxml.xforms.context import CodeContext
-from TG.gccxml.xforms.ctypes import codeGen
+import os
+from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class FilterVisitor(visitor.AtomFilterVisitor):
-    def onRoot(self, item):
-        self.select(item)
-
-    def onFile(self, item):
-        self.select(item)
-
+class FilterVisitor(AtomFilterVisitor):
     def onFunction(self, item):
         if item.extern and item.name.startswith('FT_'):
             self.select(item)
@@ -44,22 +34,25 @@ class FilterVisitor(visitor.AtomFilterVisitor):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
-    from pprint import pprint
-    root = loadFromFileNamed('srcCode.model')
+    context = CCodeGenContext.fromFileNamed('srcCode.model')
+    context.atomFilter = FilterVisitor()
 
-    atomFilter = FilterVisitor()
-    atomFilter.visit(root)
+    ciFilesByName = dict((os.path.basename(f.name), f) for f in context if f)
 
-    context = CodeContext()
-    codeVisitor = codeGen.CCodeGenVisitor(context)
-    codeVisitor.visitAll(atomFilter.results)
+    ftconfig = ciFilesByName['ftconfig.h']
 
-    for ci in codeVisitor.cache.itervalues():
-        if ci is not None:
-            ci.emit()
+    fttypes = ciFilesByName['fttypes.h']
+    fttypes.importAll(ftconfig)
 
-    context.ciRoot = root.codeItem
-    #context.printAll()
-    context.writeToFiles()
+    ftimage = ciFilesByName['ftimage.h']
+    ftsystem = ciFilesByName['ftsystem.h']
 
+    freetype = ciFilesByName['freetype.h']
+    freetype.importAll(fttypes, ftimage, ftsystem)
+
+    context.outputPath = 'out'
+    for ciFile in ciFilesByName.values():
+        print 'Writing:', ciFile.filename
+        ciFile.blockSeparator = ''
+        ciFile.writeToFile()
 

@@ -12,6 +12,7 @@ __all__ = ['AtomFilterVisitor', 'CodeGenContext']
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import os
 from bisect import insort, bisect_left, bisect_right
 
 from TG.gccxml import model
@@ -48,7 +49,7 @@ class CodeGenContext(object):
 
     def __getitem__(self, key):
         return self.ciRoot[key]
-    def __iter__(self, key):
+    def __iter__(self):
         return iter(self.ciRoot)
 
     _ciRoot = None
@@ -92,16 +93,53 @@ class CodeGenContext(object):
         return self.atomFilter.visit(self.root)
 
     def _runCodeItemVisitor(self):
-        self.codeItemVisitor.visitAll(self.selected)
+        self.codeItemVisitor.visit(self.root)
         self.ciRoot = self.root.codeItem
+
+        #self.codeItemVisitor.visitAll(self.root.files.itervalues())
+
+        self.codeItemVisitor.visitAll(self.selected)
         for ci in self.codeItemVisitor.iterCodeItems():
-            ci.emit()
+            if ci is not None:
+                ci.emit()
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ File generation utilities
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    _outputPath = ''
+    def getOutputPath(self):
+        return self._outputPath
+    def setOutputPath(self, outputPath):
+        self._outputPath = outputPath
+    outputPath = property(getOutputPath, setOutputPath)
+
+    def makeOutputPath(self):
+        outputPath = self.getOutputPath()
+        if not os.path.exists(outputPath):
+            os.makedirs(outputPath)
+            return True
+        else: return False
+
+    def getOutputFilename(self, filename):
+        return os.path.join(self.getOutputPath(), filename)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def createStream(self, filename):
-        stream = open(filename, 'wb')
+        filename = self.getOutputFilename(filename)
+
+        for try_ in (1, 2):
+            try:
+                stream = open(filename, 'wb')
+            except IOError, e:
+                if (e.errno == 2):
+                    if self.makeOutputPath():
+                        continue
+                raise
+
         return self.asBlockStream(stream)
+
     def asBlockStream(self, stream):
         return BlockWriter.wrap(stream)
 

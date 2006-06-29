@@ -1,12 +1,14 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ ImportStatements 
+#~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from ctypes import *
 from _glcommon import *
 from gl import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Code generated from "OpenGL/glext.h"
+#~ Code generated from:
+#~   "OpenGL/glext.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 GL_GLEXT_VERSION = 29
@@ -6606,7 +6608,9 @@ if 1: # ifndef GL_GREMEDY_string_marker ("OpenGL/glext.h":6482)
     def glStringMarkerGREMEDY(arg_0, arg_1): pass
     
     
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ End of code generated from "OpenGL/glext.h"
+#~ End of code generated from:
+#~   "OpenGL/glext.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -17,13 +17,7 @@ from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class GLFilterVisitor(AtomFilterVisitor):
-    def onRoot(self, item):
-        self.select(item)
-
-    def onFile(self, item):
-        self.select(item)
-
+class FilterVisitor(AtomFilterVisitor):
     def onFunction(self, item):
         if item.extern and item.name.startswith('gl'):
             self.select(item)
@@ -64,7 +58,7 @@ class GLFilterVisitor(AtomFilterVisitor):
 
 if __name__=='__main__':
     context = CCodeGenContext.fromFileNamed('srcCode.model')
-    context.atomFilter = GLFilterVisitor()
+    context.atomFilter = FilterVisitor()
 
     gl = context['OpenGL/gl.h']
     gl.importAll('_glcommon')

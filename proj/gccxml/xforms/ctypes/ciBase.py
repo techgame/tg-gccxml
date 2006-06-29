@@ -41,6 +41,19 @@ class CodeItem(object):
     def _initialize(self):
         pass
 
+    def __repr__(self, short=False):
+        repr_codeItem = self.__repr_codeItem__(short)
+        if not repr_codeItem:
+            repr_codeItem = 'id:0x%x' % id(self)
+
+        if short: className = self.__class__.__name__
+        else: className = '.'.join([self.__class__.__module__, self.__class__.__name__])
+
+        return '<%s: %s>' % (className, repr_codeItem)
+
+    def __repr_codeItem__(self, short=False):
+        return self.item.__repr__(short)
+
     def __nonzero__(self):
         return self.isRequired() and self.isValidCodeItem()
 
@@ -78,8 +91,7 @@ class CodeItem(object):
     @property
     def file(self): return self.item.file
     @property
-    def loc(self):
-        return '"%s":%s' % (self.item.file.name, self.item.line)
+    def loc(self): return self.item.loc
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -87,9 +99,9 @@ class CodeItem(object):
         ci = asCodeItem(atom)
         return ci.typeRef()
     
-    def ptrTypeRefFor(self, atom):
+    def ptrTypeRefFor(self, atom, ciPtrType=None):
         ci = asCodeItem(atom)
         if ci is not None:
-            return ci.ptrTypeRef()
+            return ci.ptrTypeRefFrom(ciPtrType)
 
 

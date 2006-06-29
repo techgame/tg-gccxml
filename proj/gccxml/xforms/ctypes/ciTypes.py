@@ -24,7 +24,7 @@ class TypeCodeItem(CodeItem):
         if require: self.require()
         return self.typeRefTemplate % (self._typeDecl(),)
 
-    def ptrTypeRef(self):
+    def ptrTypeRefFrom(self, ciPtrType):
         typeRef = self.typeRef(False)
         if typeRef is None:
             return 'c_void_p'
@@ -92,7 +92,7 @@ class CIFundamentalType(TypeCodeItem):
     def _typeDeclFor(klass, typeName):
         return klass.typeMapping[typeName]
 
-    def ptrTypeRef(self):
+    def ptrTypeRefFrom(self, ciPtrType):
         typeName = self.item.name
         r = self._ptrTypeRefFor(typeName)
         if r is None:
@@ -112,11 +112,17 @@ class CIFundamentalType(TypeCodeItem):
 class CICvQualifiedType(TypeCodeItem):
     typeRefTemplate = '%s'
 
+    def isValidCodeItem(self):
+        return True
+
 class CIPointerType(TypeCodeItem):
     typeRefTemplate = '%s'
 
+    def isValidCodeItem(self):
+        return True
+
     def _typeDecl(self):
-        return self.ptrTypeRefFor(self.item.type)
+        return self.ptrTypeRefFor(self.item.type, self)
 
 # In case someone uses references in C code accidentally
 CIReferenceType = CIPointerType
@@ -169,8 +175,10 @@ class CITypedef(TypeCodeItem):
         return self.fundamentTypeTemplate % kw
 
     def typedefDeclMissingType(self, itemType):
-        basicItemType = itemType.resolveBasicType()
-        assert basicItemType is not itemType, repr(itemType)
+        basicItemType = itemType.basicType
+        if basicItemType is itemType:
+            kw = dict(name=self._typeDecl(), itemType=itemType)
+            return '# WARNING: typedef %(name)s for missing type %(itemType)r' % kw
             
         kw = dict(
                 origTypeRef=self.typeRefFor(itemType), 

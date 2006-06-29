@@ -26,7 +26,7 @@ class CIVariable(CodeItem):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIField(CodeItem):
-    tempalte = '("%(fieldName)s". %(fieldTypeRef)s),'
+    tempalte = '("%(fieldName)s", %(fieldTypeRef)s),'
     @property
     def name(self):
         return self.item.name
@@ -48,7 +48,7 @@ class CIField(CodeItem):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CompositeCodeItem(CodeItem):
-    _required = False
+    _required = True
     template = 'class %(name)s(%(bindClass)s):'
     fieldOpenTemplate = '_fields_ = ['
     fieldCloseTemplate = '    ]'
@@ -60,7 +60,22 @@ class CompositeCodeItem(CodeItem):
         if require: self.require()
         return self.name
 
-    def ptrTypeRef(self, require=True):
+    ptrsToMe = None
+    def ptrTypeRefFrom(self, ciPtrType):
+        return 'POINTER(%s)' % (self.name,)
+
+        # We currently have a problem with forward declaring pointers
+        # and resolving them to the correct type when we are done
+        print "FIXME:", self.name, self.loc
+
+        if self.ptrsToMe not in (None, ciPtrType):
+            print "Multiple pointers!"
+
+        self.ptrsToMe = ciPtrType
+
+        #for x in ciPtrType.item.referers:
+        #    print '    :', x, x.loc
+
         return 'POINTER(%s)' % (self.name,)
 
     @property

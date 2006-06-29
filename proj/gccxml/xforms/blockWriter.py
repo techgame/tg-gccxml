@@ -54,3 +54,5 @@ class BlockWriter(object):
         text = text[:-1].replace('\n', '\n'+self._indent) + text[-1]
         return self.file.write(text)
 
+    def close(self):
+        self.file.close()

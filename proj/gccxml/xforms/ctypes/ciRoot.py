@@ -24,6 +24,8 @@ class CIRoot(CodeItem):
 
     def __getitem__(self, key):
         return self.files[key]
+    def __iter__(self):
+        return self.files.itervalues()
 
     def add(self, ciFile):
         ciFile = asCodeItem(ciFile)

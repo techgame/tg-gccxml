@@ -1,11 +1,13 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ ImportStatements 
+#~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from ctypes import *
 from _glcommon import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Code generated from "OpenGL/gl.h"
+#~ Code generated from:
+#~   "OpenGL/gl.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class GLenum(c_ulong):
@@ -2901,7 +2903,9 @@ def glStencilOpSeparate(face, fail, zfail, zpass): pass
 @bind(None, [GLenum, GLuint])
 def glStencilMaskSeparate(face, mask): pass
 
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ End of code generated from "OpenGL/gl.h"
+#~ End of code generated from:
+#~   "OpenGL/gl.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -7,7 +7,7 @@
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ ImportStatements 
+#~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import os
@@ -20,26 +20,33 @@ from ciBase import CodeItem, asCodeItem
 
 fileHeader = '''\
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ ImportStatements 
+#~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %(importStmts)s
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ Code generated from "%(generatedFrom)s"
+#~ Code generated from:
+#~   "%(generatedFrom)s"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''
 
 fileFooter = '''\
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~ End of code generated from "%(generatedFrom)s"
+#~ End of code generated from:
+#~   "%(generatedFrom)s"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''
 
 class CIFile(CodeItem): 
     header = fileHeader
     footer = fileFooter
-    importStmts = [ ]
+    blockSeparator = '#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+
+    importStmts = [
+        'from ctypes import *',
+        ]
 
     def _initialize(self):
         # make a modifable copy of importStmts
@@ -101,7 +108,7 @@ class CIFile(CodeItem):
     _moduleName = None
     def getModuleName(self):
         if self._moduleName is None:
-            result = self.getFilename()
+            result = self.getBaseFilename()
             result = os.path.basename(result)
             result = os.path.splitext(result)[0]
             return result
@@ -110,21 +117,25 @@ class CIFile(CodeItem):
     def setModuleName(self, moduleName):
         self._moduleName = moduleName
         if self._filename is None:
-            self.setFilename(moduleName+'.py')
+            self.setBaseFilename(moduleName+'.py')
     moduleName = property(getModuleName, setModuleName)
 
     _filename = None
-    def getFilename(self):
+    def getBaseFilename(self):
         if self._filename is None:
             result = self.name
             result = os.path.basename(result)
             result = os.path.splitext(result)[0]
-            self.setFilename(result + '.py')
+            self.setBaseFilename(result + '.py')
 
         return self._filename
-    def setFilename(self, filename):
+    def setBaseFilename(self, filename):
         self._filename = filename
-    filename = property(getFilename, setFilename)
+    baseFilename = property(getBaseFilename, setBaseFilename)
+
+    def getFilename(self):
+        return self.context.getOutputFilename(self.getBaseFilename())
+    filename = property(getFilename)
 
     def getHostCI(self):
         return asCodeItem(self.item.root)
@@ -151,8 +162,11 @@ class CIFile(CodeItem):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def writeToFile(self):
-        stream = self.context.createStream(self.getFilename())
-        return self.writeTo(stream)
+        stream = self.context.createStream(self.getBaseFilename())
+        try:
+            self.writeTo(stream)
+        finally:
+            stream.close()
 
     def writeTo(self, stream):
         self.writeHeaderTo(stream)
@@ -186,9 +200,9 @@ class CIFile(CodeItem):
             return idx
 
         delta = idx-lastIdx
-        if delta > 3:
+        if self.blockSeparator and delta > 3:
             print >> stream
-            print >> stream, '#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+            print >> stream, self.blockSeparator
             print >> stream
         elif delta > 1:
             print >> stream
