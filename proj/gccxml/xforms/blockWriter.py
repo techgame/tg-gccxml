@@ -51,7 +51,7 @@ class BlockWriter(object):
             self.file.write(self._indent)
 
         self.indentNext = text.endswith('\n')
-        text = text[:-1].replace('\n', '\n'+self._indent) + text[-1]
+        text = text[:-1].replace('\n', '\n'+self._indent) + text[-1:]
         return self.file.write(text)
 
     def close(self):

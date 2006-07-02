@@ -19,12 +19,13 @@ from ciBase import CodeItem
 class TypeCodeItem(CodeItem):
     #_required = False
     typeRefTemplate = '%s'
-    ciTypedef = None
+    ciTypedefs = ()
 
     def typeRef(self, require=True):
         if require: self.require()
-        if self.ciTypedef is not None:
-            return self.ciTypedef.typeRef()
+
+        result = self.typeRefFromTypedef()
+        if result: return result
 
         return self.typeRefTemplate % (self._typeDecl(),)
 
@@ -40,6 +41,15 @@ class TypeCodeItem(CodeItem):
 
     def getCIBasicType(self):
         return self.item.basicType.codeItem
+
+    def typeRefFromTypedef(self):
+        if self.ciTypedefs:
+            return self.ciTypedefs[0].typeRef()
+    def addTypedef(self, ciTypedef):
+        if not self.ciTypedefs:
+            self.ciTypedefs = [ciTypedef]
+        else:
+            self.ciTypedefs.append(ciTypedef)
 
     def writeTo(self, stream):
         pass
@@ -112,6 +122,10 @@ class CIFundamentalType(TypeCodeItem):
     def _ptrTypeRefFor(klass, typeName):
         return klass.typeMapping.get(typeName+' *', None)
 
+    def typeRefFromTypedef(self):
+        # we might have multiple typedefs for fundamental types
+        return None
+
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def writeTo(self, stream):
@@ -163,7 +177,11 @@ class CITypedef(TypeCodeItem):
     def writeTo(self, stream):
         print >> stream, self.typedefDecl()
 
-        self.getCIBasicType().ciTypedef = self
+        ciBasicType = self.getCIBasicType()
+        if not ciBasicType.ciTypedefs:
+            ciBasicType.ciTypedefs = [self]
+        else:
+            ciBasicType.ciTypedefs.append(self)
 
     def typedefDecl(self, itemType=None):
         if itemType is None:

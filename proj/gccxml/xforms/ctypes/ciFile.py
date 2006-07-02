@@ -42,7 +42,8 @@ fileFooter = '''\
 class CIFile(CodeItem): 
     header = fileHeader
     footer = fileFooter
-    blockSeparator = '#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    blockSeparator = '\n#~ line: %(line)s, skipped: %(lineDelta)s ~~~~~~\n'
+    lineSeparator = ''
 
     importStmts = []
 
@@ -215,11 +216,9 @@ class CIFile(CodeItem):
 
         delta = idx-lastIdx
         if self.blockSeparator and delta > 3:
-            print >> stream
-            print >> stream, self.blockSeparator
-            print >> stream
+            print >> stream, self.blockSeparator % dict(line=idx, lastprev=lastIdx, lineDelta=delta)
         elif delta > 1:
-            print >> stream
+            print >> stream, self.lineSeparator % dict(line=idx, lastPrev=lastIdx, lineDelta=delta)
 
         return idx
 

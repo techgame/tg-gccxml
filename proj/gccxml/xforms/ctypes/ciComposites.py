@@ -11,6 +11,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 from ciBase import CodeItem
+from ciTypes import TypeCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -47,7 +48,7 @@ class CIField(CodeItem):
 #~ Composites
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CompositeCodeItem(CodeItem):
+class CompositeCodeItem(TypeCodeItem):
     _required = True
     template = 'class %(name)s(%(bindClass)s):'
     pointerTemplate = 'POINTER(%(name)s)'
@@ -107,8 +108,8 @@ class CompositeCodeItem(CodeItem):
 
     def writePointerDefTo(self, stream):
         for fwdPtr in self.forwardPtrs:
-            if fwdPtr.ciTypedef is not None:
-                ptrTypedefName = fwdPtr.ciTypedef.typeRef()
+            ptrTypedefName = fwdPtr.typeRefFromTypedef()
+            if ptrTypedefName:
                 print >> stream, self.forwardPtrTemplate % dict(
                                             ptrTypedefName=ptrTypedefName, 
                                             name=self.typeRef())

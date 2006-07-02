@@ -84,6 +84,9 @@ class FilterVisitor(AtomFilterVisitor):
 
         self.select(item)
 
+    def onPPInclude(self, item):
+        print '"%s" includes "%s"' % (item.file.name, item.filename)
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Main 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -133,6 +136,9 @@ def main():
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     context.outputPath = 'out'
+    print
+    print "Writing out ctypes code:"
+    print "========================"
     for ciFile in ciFilesByName.values():
         print 'Writing:', ciFile.filename
         ciFile.blockSeparator = ''

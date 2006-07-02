@@ -10,7 +10,7 @@ from fttypes import *
 #~   "/usr/local/include/freetype2/freetype/ftimage.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class FT_Pos(FT_Fixed):
+class FT_Pos(c_long):
     """typedef FT_Pos"""
 
 class FT_Vector_(Structure):
@@ -33,13 +33,13 @@ FT_BBox = FT_BBox_ # typedef FT_BBox
 
 class FT_Bitmap_(Structure):
     _fields_ = [
-        ("rows", FT_Error),
-        ("width", FT_Error),
-        ("pitch", FT_Error),
+        ("rows", c_int),
+        ("width", c_int),
+        ("pitch", c_int),
         ("buffer", POINTER(c_ubyte)),
-        ("num_grays", FT_Short),
-        ("pixel_mode", FT_String),
-        ("palette_mode", FT_String),
+        ("num_grays", c_short),
+        ("pixel_mode", c_char),
+        ("palette_mode", c_char),
         ("palette", FT_Pointer),
         ]
 
@@ -47,12 +47,12 @@ FT_Bitmap = FT_Bitmap_ # typedef FT_Bitmap
 
 class FT_Outline_(Structure):
     _fields_ = [
-        ("n_contours", FT_Short),
-        ("n_points", FT_Short),
+        ("n_contours", c_short),
+        ("n_points", c_short),
         ("points", POINTER(FT_Vector)),
         ("tags", POINTER(c_char)),
         ("contours", POINTER(c_short)),
-        ("flags", FT_Error),
+        ("flags", c_int),
         ]
 
 FT_Outline = FT_Outline_ # typedef FT_Outline

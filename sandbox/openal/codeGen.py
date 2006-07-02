@@ -20,7 +20,7 @@ from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 
 class FilterVisitor(AtomFilterVisitor):
     def onFunction(self, item):
-        if item.extern and item.name.startswith('gl'):
+        if item.extern and item.name.startswith('al'):
             self.select(item)
 
     def onPPInclude(self, item):
@@ -30,30 +30,24 @@ class FilterVisitor(AtomFilterVisitor):
         if item.ident in self.filterConditionals:
             return
 
-        if item.ident.startswith('GL'):
-            # Grab all GL defines
+        if item.ident.startswith('AL'):
+            # Grab all AL defines
             self.select(item)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     filterConditionals = set([
-        'GL_GLEXT_PROTOTYPES',
-        'GLAPI',
-        'GL_TYPEDEFS_2_0',
-        'GL_GLEXT_LEGACY',
-        'GL_GLEXT_FUNCTION_POINTERS',
+        'AL_NO_PROTOTYPES',
+        'ALC_NO_PROTOTYPES',
         ])
     def onPPConditional(self, item):
         if not item.isOpening():
             return 
         if item.body in self.filterConditionals:
             return
-        if item.body.startswith('GL_VERSION'):
-            return
 
-        if item.body.startswith('GL'):
-            # Grab all opening GL blocks to capture OpenGL Extension defines.
-            # Closing and continuation blocks will be linked with the opening blocks.
+        if item.body.startswith('AL'):
+            print repr(item), item.inOrder()
             self.select(item.inOrder())
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -74,12 +68,19 @@ def main():
     ciFilesByName = dict((os.path.basename(f.name), f) for f in context if f)
 
     for ciFile in ciFilesByName.itervalues():
-        ciFile.importAll('_ctypes_opengl')
+        ciFile.importAll('_ctypes_openal')
 
-    gl = context['OpenGL/gl.h']
+    altypes = ciFilesByName['altypes.h']
+    altypes.importAll()
 
-    glext = context['OpenGL/glext.h']
-    glext.importAll(gl)
+    al = ciFilesByName['al.h']
+    al.importAll(altypes)
+
+    alctypes = ciFilesByName['alctypes.h']
+    alctypes.importAll()
+
+    alc = ciFilesByName['alc.h']
+    alc.importAll(altypes, alctypes)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -87,7 +88,7 @@ def main():
     print
     print "Writing out ctypes code:"
     print "========================"
-    for ciFile in [gl, glext]:
+    for ciFile in ciFilesByName.values():
         print 'Writing:', ciFile.filename
         ciFile.writeToFile()
 

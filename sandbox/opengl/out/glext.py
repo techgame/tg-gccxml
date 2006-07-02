@@ -2,7 +2,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from _ctypes_gl import *
+from _ctypes_opengl import *
 from gl import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -12,7 +12,7 @@ from gl import *
 
 GL_GLEXT_VERSION = 29
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ line: 103, skipped: 46 ~~~~~~
 
 if 1: # ifndef GL_ARB_imaging ("OpenGL/glext.h":103)
     """GL_ARB_imaging"""
@@ -92,7 +92,7 @@ if 1: # ifndef GL_ARB_imaging ("OpenGL/glext.h":103)
     GL_REPLICATE_BORDER = 0x8153
     GL_CONVOLUTION_BORDER_COLOR = 0x8154
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ line: 462, skipped: 283 ~~~~~~
 
 if 1: # ifndef GL_ARB_multitexture ("OpenGL/glext.h":462)
     """GL_ARB_multitexture"""
@@ -1640,7 +1640,7 @@ if 1: # ifndef GL_NV_register_combiners ("OpenGL/glext.h":1954)
     GL_COMBINER6_NV = 0x8556
     GL_COMBINER7_NV = 0x8557
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 2011, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_NV_fog_distance ("OpenGL/glext.h":2013)
@@ -2670,20 +2670,20 @@ if 1: # ifndef GL_EXT_framebuffer_object ("OpenGL/glext.h":2983)
 if 1: # ifndef GL_GREMEDY_string_marker ("OpenGL/glext.h":3038)
     """GL_GREMEDY_string_marker"""
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ line: 3056, skipped: 17 ~~~~~~
 
 if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":3056)
     """GL_ARB_vertex_buffer_object"""
     
     class GLintptrARB(c_int):
         """typedef GLintptrARB as c_int for absent ptrdiff_t"""
-    class GLsizeiptrARB(GLintptrARB):
-        """typedef GLsizeiptrARB as GLintptrARB for absent ptrdiff_t"""
+    class GLsizeiptrARB(c_int):
+        """typedef GLsizeiptrARB as c_int for absent ptrdiff_t"""
 
 if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":3062)
     """GL_ARB_shader_objects"""
     
-    class GLcharARB(GLchar):
+    class GLcharARB(c_char):
         """typedef GLcharARB"""
     class GLhandleARB(c_uint):
         """typedef GLhandleARB"""
@@ -2694,146 +2694,146 @@ if 1: # ifndef GL_ARB_half_float_pixel ("OpenGL/glext.h":3069)
 
 if 1: # ifndef GL_NV_half_float ("OpenGL/glext.h":3073)
     """GL_NV_half_float"""
-    class GLhalfNV(GLushort):
+    class GLhalfNV(c_ushort):
         """typedef GLhalfNV"""
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ line: 3589, skipped: 514 ~~~~~~
 
 if 1: # ifndef GL_ARB_multitexture ("OpenGL/glext.h":3589)
     """GL_ARB_multitexture"""
     GL_ARB_multitexture = 1
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glActiveTextureARB(arg_0): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glClientActiveTextureARB(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLdouble])
+    @bind(None, [GLenum, GLdouble])
     def glMultiTexCoord1dARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glMultiTexCoord1dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glMultiTexCoord1fARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glMultiTexCoord1fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glMultiTexCoord1iARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glMultiTexCoord1ivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort])
+    @bind(None, [GLenum, GLshort])
     def glMultiTexCoord1sARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glMultiTexCoord1svARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLdouble, GLdouble])
     def glMultiTexCoord2dARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glMultiTexCoord2dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLfloat, GLfloat])
     def glMultiTexCoord2fARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glMultiTexCoord2fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint])
+    @bind(None, [GLenum, GLint, GLint])
     def glMultiTexCoord2iARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glMultiTexCoord2ivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort, GLshort])
+    @bind(None, [GLenum, GLshort, GLshort])
     def glMultiTexCoord2sARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glMultiTexCoord2svARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLdouble, GLdouble, GLdouble])
     def glMultiTexCoord3dARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glMultiTexCoord3dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLfloat, GLfloat, GLfloat])
     def glMultiTexCoord3fARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glMultiTexCoord3fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint])
+    @bind(None, [GLenum, GLint, GLint, GLint])
     def glMultiTexCoord3iARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glMultiTexCoord3ivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort, GLshort, GLshort])
+    @bind(None, [GLenum, GLshort, GLshort, GLshort])
     def glMultiTexCoord3sARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glMultiTexCoord3svARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLdouble, GLdouble, GLdouble, GLdouble])
     def glMultiTexCoord4dARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glMultiTexCoord4dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLfloat, GLfloat, GLfloat, GLfloat])
     def glMultiTexCoord4fARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glMultiTexCoord4fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint])
     def glMultiTexCoord4iARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glMultiTexCoord4ivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort, GLshort, GLshort, GLshort])
+    @bind(None, [GLenum, GLshort, GLshort, GLshort, GLshort])
     def glMultiTexCoord4sARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glMultiTexCoord4svARB(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3661, skipped: 36 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_transpose_matrix ("OpenGL/glext.h":3663)
     """GL_ARB_transpose_matrix"""
     GL_ARB_transpose_matrix = 1
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glLoadTransposeMatrixfARB(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glLoadTransposeMatrixdARB(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glMultTransposeMatrixfARB(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glMultTransposeMatrixdARB(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3675, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_multisample ("OpenGL/glext.h":3677)
     """GL_ARB_multisample"""
     GL_ARB_multisample = 1
     
-    @bind(GLvoid, [GLclampf, GLboolean])
+    @bind(None, [GLclampf, GLboolean])
     def glSampleCoverageARB(arg_0, arg_1): pass
     
     
@@ -2850,29 +2850,29 @@ if 1: # ifndef GL_ARB_texture_compression ("OpenGL/glext.h":3693)
     """GL_ARB_texture_compression"""
     GL_ARB_texture_compression = 1
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLsizei, GLint, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLsizei, GLint, GLsizei, POINTER(GLvoid)])
     def glCompressedTexImage3DARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLint, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLint, GLsizei, POINTER(GLvoid)])
     def glCompressedTexImage2DARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLsizei, GLint, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLenum, GLsizei, GLint, GLsizei, POINTER(GLvoid)])
     def glCompressedTexImage1DARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
     def glCompressedTexSubImage3DARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
     def glCompressedTexSubImage2DARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLint, GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
     def glCompressedTexSubImage1DARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLenum, GLint, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, POINTER(GLvoid)])
     def glGetCompressedTexImageARB(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3711, skipped: 9 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_texture_border_clamp ("OpenGL/glext.h":3713)
@@ -2883,75 +2883,75 @@ if 1: # ifndef GL_ARB_point_parameters ("OpenGL/glext.h":3717)
     """GL_ARB_point_parameters"""
     GL_ARB_point_parameters = 1
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glPointParameterfARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glPointParameterfvARB(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3725, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_vertex_blend ("OpenGL/glext.h":3727)
     """GL_ARB_vertex_blend"""
     GL_ARB_vertex_blend = 1
     
-    @bind(GLvoid, [GLint, POINTER(GLbyte)])
+    @bind(None, [GLint, POINTER(GLbyte)])
     def glWeightbvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLshort)])
+    @bind(None, [GLint, POINTER(GLshort)])
     def glWeightsvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLint)])
+    @bind(None, [GLint, POINTER(GLint)])
     def glWeightivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLfloat)])
+    @bind(None, [GLint, POINTER(GLfloat)])
     def glWeightfvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLdouble)])
+    @bind(None, [GLint, POINTER(GLdouble)])
     def glWeightdvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLubyte)])
+    @bind(None, [GLint, POINTER(GLubyte)])
     def glWeightubvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLushort)])
+    @bind(None, [GLint, POINTER(GLushort)])
     def glWeightusvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLuint)])
+    @bind(None, [GLint, POINTER(GLuint)])
     def glWeightuivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLint, GLenum, GLsizei, POINTER(GLvoid)])
     def glWeightPointerARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLint])
+    @bind(None, [GLint])
     def glVertexBlendARB(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3751, skipped: 12 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_matrix_palette ("OpenGL/glext.h":3753)
     """GL_ARB_matrix_palette"""
     GL_ARB_matrix_palette = 1
     
-    @bind(GLvoid, [GLint])
+    @bind(None, [GLint])
     def glCurrentPaletteMatrixARB(arg_0): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLubyte)])
+    @bind(None, [GLint, POINTER(GLubyte)])
     def glMatrixIndexubvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLushort)])
+    @bind(None, [GLint, POINTER(GLushort)])
     def glMatrixIndexusvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, POINTER(GLuint)])
+    @bind(None, [GLint, POINTER(GLuint)])
     def glMatrixIndexuivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLint, GLenum, GLsizei, POINTER(GLvoid)])
     def glMatrixIndexPointerARB(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3767, skipped: 7 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_texture_env_combine ("OpenGL/glext.h":3769)
@@ -2986,250 +2986,250 @@ if 1: # ifndef GL_ARB_window_pos ("OpenGL/glext.h":3797)
     """GL_ARB_window_pos"""
     GL_ARB_window_pos = 1
     
-    @bind(GLvoid, [GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble])
     def glWindowPos2dARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glWindowPos2dvARB(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat])
     def glWindowPos2fARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glWindowPos2fvARB(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint])
+    @bind(None, [GLint, GLint])
     def glWindowPos2iARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glWindowPos2ivARB(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort])
+    @bind(None, [GLshort, GLshort])
     def glWindowPos2sARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glWindowPos2svARB(arg_0): pass
     
-    @bind(GLvoid, [GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble, GLdouble])
     def glWindowPos3dARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glWindowPos3dvARB(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat])
     def glWindowPos3fARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glWindowPos3fvARB(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint])
     def glWindowPos3iARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glWindowPos3ivARB(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort, GLshort])
+    @bind(None, [GLshort, GLshort, GLshort])
     def glWindowPos3sARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glWindowPos3svARB(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3833, skipped: 18 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_vertex_program ("OpenGL/glext.h":3835)
     """GL_ARB_vertex_program"""
     GL_ARB_vertex_program = 1
     
-    @bind(GLvoid, [GLuint, GLdouble])
+    @bind(None, [GLuint, GLdouble])
     def glVertexAttrib1dARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib1dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat])
+    @bind(None, [GLuint, GLfloat])
     def glVertexAttrib1fARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib1fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort])
+    @bind(None, [GLuint, GLshort])
     def glVertexAttrib1sARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib1svARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLdouble, GLdouble])
+    @bind(None, [GLuint, GLdouble, GLdouble])
     def glVertexAttrib2dARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib2dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat])
     def glVertexAttrib2fARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib2fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort, GLshort])
+    @bind(None, [GLuint, GLshort, GLshort])
     def glVertexAttrib2sARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib2svARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLuint, GLdouble, GLdouble, GLdouble])
     def glVertexAttrib3dARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib3dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat])
     def glVertexAttrib3fARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib3fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort, GLshort, GLshort])
+    @bind(None, [GLuint, GLshort, GLshort, GLshort])
     def glVertexAttrib3sARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib3svARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLbyte)])
+    @bind(None, [GLuint, POINTER(GLbyte)])
     def glVertexAttrib4NbvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLint)])
+    @bind(None, [GLuint, POINTER(GLint)])
     def glVertexAttrib4NivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib4NsvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLubyte, GLubyte, GLubyte, GLubyte])
+    @bind(None, [GLuint, GLubyte, GLubyte, GLubyte, GLubyte])
     def glVertexAttrib4NubARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLubyte)])
+    @bind(None, [GLuint, POINTER(GLubyte)])
     def glVertexAttrib4NubvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLuint)])
+    @bind(None, [GLuint, POINTER(GLuint)])
     def glVertexAttrib4NuivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLushort)])
+    @bind(None, [GLuint, POINTER(GLushort)])
     def glVertexAttrib4NusvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLbyte)])
+    @bind(None, [GLuint, POINTER(GLbyte)])
     def glVertexAttrib4bvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
     def glVertexAttrib4dARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib4dvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
     def glVertexAttrib4fARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib4fvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLint)])
+    @bind(None, [GLuint, POINTER(GLint)])
     def glVertexAttrib4ivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort, GLshort, GLshort, GLshort])
+    @bind(None, [GLuint, GLshort, GLshort, GLshort, GLshort])
     def glVertexAttrib4sARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib4svARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLubyte)])
+    @bind(None, [GLuint, POINTER(GLubyte)])
     def glVertexAttrib4ubvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLuint)])
+    @bind(None, [GLuint, POINTER(GLuint)])
     def glVertexAttrib4uivARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLushort)])
+    @bind(None, [GLuint, POINTER(GLushort)])
     def glVertexAttrib4usvARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLint, GLenum, GLboolean, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLuint, GLint, GLenum, GLboolean, GLsizei, POINTER(GLvoid)])
     def glVertexAttribPointerARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glEnableVertexAttribArrayARB(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glDisableVertexAttribArrayARB(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLsizei, POINTER(GLvoid)])
     def glProgramStringARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLuint])
+    @bind(None, [GLenum, GLuint])
     def glBindProgramARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteProgramsARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenProgramsARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
     def glProgramEnvParameter4dARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLuint, POINTER(GLdouble)])
     def glProgramEnvParameter4dvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
     def glProgramEnvParameter4fARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, POINTER(GLfloat)])
     def glProgramEnvParameter4fvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
     def glProgramLocalParameter4dARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLuint, POINTER(GLdouble)])
     def glProgramLocalParameter4dvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
     def glProgramLocalParameter4fARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, POINTER(GLfloat)])
     def glProgramLocalParameter4fvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLuint, POINTER(GLdouble)])
     def glGetProgramEnvParameterdvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, POINTER(GLfloat)])
     def glGetProgramEnvParameterfvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLuint, POINTER(GLdouble)])
     def glGetProgramLocalParameterdvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, POINTER(GLfloat)])
     def glGetProgramLocalParameterfvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetProgramivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, POINTER(GLvoid)])
     def glGetProgramStringARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLdouble)])
+    @bind(None, [GLuint, GLenum, POINTER(GLdouble)])
     def glGetVertexAttribdvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetVertexAttribfvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetVertexAttribivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLuint, GLenum, POINTER(POINTER(GLvoid))])
     def glGetVertexAttribPointervARB(arg_0, arg_1, arg_2): pass
     
     @bind(GLboolean, [GLuint])
     def glIsProgramARB(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3963, skipped: 64 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_fragment_program ("OpenGL/glext.h":3965)
@@ -3241,25 +3241,25 @@ if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":3970)
     """GL_ARB_vertex_buffer_object"""
     GL_ARB_vertex_buffer_object = 1
     
-    @bind(GLvoid, [GLenum, GLuint])
+    @bind(None, [GLenum, GLuint])
     def glBindBufferARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteBuffersARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenBuffersARB(arg_0, arg_1): pass
     
     @bind(GLboolean, [GLuint])
     def glIsBufferARB(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLsizeiptrARB, POINTER(GLvoid), GLenum])
+    @bind(None, [GLenum, GLsizeiptrARB, POINTER(GLvoid), GLenum])
     def glBufferDataARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLintptrARB, GLsizeiptrARB, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLintptrARB, GLsizeiptrARB, POINTER(GLvoid)])
     def glBufferSubDataARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLintptrARB, GLsizeiptrARB, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLintptrARB, GLsizeiptrARB, POINTER(GLvoid)])
     def glGetBufferSubDataARB(arg_0, arg_1, arg_2, arg_3): pass
     
     @bind(POINTER(GLvoid), [GLenum, GLenum])
@@ -3268,188 +3268,188 @@ if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":3970)
     @bind(GLboolean, [GLenum])
     def glUnmapBufferARB(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetBufferParameterivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLenum, GLenum, POINTER(POINTER(GLvoid))])
     def glGetBufferPointervARB(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 3996, skipped: 13 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_occlusion_query ("OpenGL/glext.h":3998)
     """GL_ARB_occlusion_query"""
     GL_ARB_occlusion_query = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenQueriesARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteQueriesARB(arg_0, arg_1): pass
     
     @bind(GLboolean, [GLuint])
     def glIsQueryARB(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLuint])
+    @bind(None, [GLenum, GLuint])
     def glBeginQueryARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glEndQueryARB(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetQueryivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetQueryObjectivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLuint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLuint)])
     def glGetQueryObjectuivARB(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4018, skipped: 10 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":4020)
     """GL_ARB_shader_objects"""
     GL_ARB_shader_objects = 1
     
-    @bind(GLvoid, [GLhandleARB])
+    @bind(None, [GLhandleARB])
     def glDeleteObjectARB(arg_0): pass
     
     @bind(GLhandleARB, [GLenum])
     def glGetHandleARB(arg_0): pass
     
-    @bind(GLvoid, [GLhandleARB, GLhandleARB])
+    @bind(None, [GLhandleARB, GLhandleARB])
     def glDetachObjectARB(arg_0, arg_1): pass
     
     @bind(GLhandleARB, [GLenum])
     def glCreateShaderObjectARB(arg_0): pass
     
-    @bind(GLvoid, [GLhandleARB, GLsizei, POINTER(POINTER(GLcharARB)), POINTER(GLint)])
+    @bind(None, [GLhandleARB, GLsizei, POINTER(POINTER(GLcharARB)), POINTER(GLint)])
     def glShaderSourceARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLhandleARB])
+    @bind(None, [GLhandleARB])
     def glCompileShaderARB(arg_0): pass
     
     @bind(GLhandleARB, [])
     def glCreateProgramObjectARB(): pass
     
-    @bind(GLvoid, [GLhandleARB, GLhandleARB])
+    @bind(None, [GLhandleARB, GLhandleARB])
     def glAttachObjectARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLhandleARB])
+    @bind(None, [GLhandleARB])
     def glLinkProgramARB(arg_0): pass
     
-    @bind(GLvoid, [GLhandleARB])
+    @bind(None, [GLhandleARB])
     def glUseProgramObjectARB(arg_0): pass
     
-    @bind(GLvoid, [GLhandleARB])
+    @bind(None, [GLhandleARB])
     def glValidateProgramARB(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLfloat])
+    @bind(None, [GLint, GLfloat])
     def glUniform1fARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, GLfloat, GLfloat])
+    @bind(None, [GLint, GLfloat, GLfloat])
     def glUniform2fARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLint, GLfloat, GLfloat, GLfloat])
     def glUniform3fARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLint, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLint, GLfloat, GLfloat, GLfloat, GLfloat])
     def glUniform4fARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLint, GLint])
+    @bind(None, [GLint, GLint])
     def glUniform1iARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint])
     def glUniform2iARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint, GLint])
     def glUniform3iARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint, GLint, GLint])
     def glUniform4iARB(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLint, GLsizei, POINTER(GLfloat)])
     def glUniform1fvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLint, GLsizei, POINTER(GLfloat)])
     def glUniform2fvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLint, GLsizei, POINTER(GLfloat)])
     def glUniform3fvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLint, GLsizei, POINTER(GLfloat)])
     def glUniform4fvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLint)])
+    @bind(None, [GLint, GLsizei, POINTER(GLint)])
     def glUniform1ivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLint)])
+    @bind(None, [GLint, GLsizei, POINTER(GLint)])
     def glUniform2ivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLint)])
+    @bind(None, [GLint, GLsizei, POINTER(GLint)])
     def glUniform3ivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, POINTER(GLint)])
+    @bind(None, [GLint, GLsizei, POINTER(GLint)])
     def glUniform4ivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLsizei, GLboolean, POINTER(GLfloat)])
+    @bind(None, [GLint, GLsizei, GLboolean, POINTER(GLfloat)])
     def glUniformMatrix2fvARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLint, GLsizei, GLboolean, POINTER(GLfloat)])
+    @bind(None, [GLint, GLsizei, GLboolean, POINTER(GLfloat)])
     def glUniformMatrix3fvARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLint, GLsizei, GLboolean, POINTER(GLfloat)])
+    @bind(None, [GLint, GLsizei, GLboolean, POINTER(GLfloat)])
     def glUniformMatrix4fvARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLhandleARB, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLhandleARB, GLenum, POINTER(GLfloat)])
     def glGetObjectParameterfvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLhandleARB, GLenum, POINTER(GLint)])
+    @bind(None, [GLhandleARB, GLenum, POINTER(GLint)])
     def glGetObjectParameterivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLhandleARB, GLsizei, POINTER(GLsizei), POINTER(GLcharARB)])
+    @bind(None, [GLhandleARB, GLsizei, POINTER(GLsizei), POINTER(GLcharARB)])
     def glGetInfoLogARB(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLhandleARB, GLsizei, POINTER(GLsizei), POINTER(GLhandleARB)])
+    @bind(None, [GLhandleARB, GLsizei, POINTER(GLsizei), POINTER(GLhandleARB)])
     def glGetAttachedObjectsARB(arg_0, arg_1, arg_2, arg_3): pass
     
     @bind(GLint, [GLhandleARB, POINTER(GLcharARB)])
     def glGetUniformLocationARB(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLhandleARB, GLuint, GLsizei, POINTER(GLsizei), POINTER(GLint), POINTER(GLenum), POINTER(GLcharARB)])
+    @bind(None, [GLhandleARB, GLuint, GLsizei, POINTER(GLsizei), POINTER(GLint), POINTER(GLenum), POINTER(GLcharARB)])
     def glGetActiveUniformARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLhandleARB, GLint, POINTER(GLfloat)])
+    @bind(None, [GLhandleARB, GLint, POINTER(GLfloat)])
     def glGetUniformfvARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLhandleARB, GLint, POINTER(GLint)])
+    @bind(None, [GLhandleARB, GLint, POINTER(GLint)])
     def glGetUniformivARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLhandleARB, GLsizei, POINTER(GLsizei), POINTER(GLcharARB)])
+    @bind(None, [GLhandleARB, GLsizei, POINTER(GLsizei), POINTER(GLcharARB)])
     def glGetShaderSourceARB(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4102, skipped: 41 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_vertex_shader ("OpenGL/glext.h":4104)
     """GL_ARB_vertex_shader"""
     GL_ARB_vertex_shader = 1
     
-    @bind(GLvoid, [GLhandleARB, GLuint, POINTER(GLcharARB)])
+    @bind(None, [GLhandleARB, GLuint, POINTER(GLcharARB)])
     def glBindAttribLocationARB(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLhandleARB, GLuint, GLsizei, POINTER(GLsizei), POINTER(GLint), POINTER(GLenum), POINTER(GLcharARB)])
+    @bind(None, [GLhandleARB, GLuint, GLsizei, POINTER(GLsizei), POINTER(GLint), POINTER(GLenum), POINTER(GLcharARB)])
     def glGetActiveAttribARB(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
     @bind(GLint, [GLhandleARB, POINTER(GLcharARB)])
     def glGetAttribLocationARB(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4114, skipped: 5 ~~~~~~
     
 
 if 1: # ifndef GL_ARB_fragment_shader ("OpenGL/glext.h":4116)
@@ -3476,7 +3476,7 @@ if 1: # ifndef GL_ARB_draw_buffers ("OpenGL/glext.h":4136)
     """GL_ARB_draw_buffers"""
     GL_ARB_draw_buffers = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLenum)])
+    @bind(None, [GLsizei, POINTER(GLenum)])
     def glDrawBuffersARB(arg_0, arg_1): pass
     
     
@@ -3489,7 +3489,7 @@ if 1: # ifndef GL_ARB_color_buffer_float ("OpenGL/glext.h":4148)
     """GL_ARB_color_buffer_float"""
     GL_ARB_color_buffer_float = 1
     
-    @bind(GLvoid, [GLenum, GLenum])
+    @bind(None, [GLenum, GLenum])
     def glClampColorARB(arg_0, arg_1): pass
     
     
@@ -3514,7 +3514,7 @@ if 1: # ifndef GL_EXT_blend_color ("OpenGL/glext.h":4172)
     """GL_EXT_blend_color"""
     GL_EXT_blend_color = 1
     
-    @bind(GLvoid, [GLclampf, GLclampf, GLclampf, GLclampf])
+    @bind(None, [GLclampf, GLclampf, GLclampf, GLclampf])
     def glBlendColorEXT(arg_0, arg_1, arg_2, arg_3): pass
     
     
@@ -3523,7 +3523,7 @@ if 1: # ifndef GL_EXT_polygon_offset ("OpenGL/glext.h":4180)
     """GL_EXT_polygon_offset"""
     GL_EXT_polygon_offset = 1
     
-    @bind(GLvoid, [GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat])
     def glPolygonOffsetEXT(arg_0, arg_1): pass
     
     
@@ -3536,150 +3536,150 @@ if 1: # ifndef GL_EXT_texture3D ("OpenGL/glext.h":4192)
     """GL_EXT_texture3D"""
     GL_EXT_texture3D = 1
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, POINTER(GLvoid)])
     def glTexImage3DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glTexSubImage3DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4200, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGIS_texture_filter4 ("OpenGL/glext.h":4202)
     """GL_SGIS_texture_filter4"""
     GL_SGIS_texture_filter4 = 1
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetTexFilterFuncSGIS(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, GLsizei, POINTER(GLfloat)])
     def glTexFilterFuncSGIS(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4210, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_subtexture ("OpenGL/glext.h":4212)
     """GL_EXT_subtexture"""
     GL_EXT_subtexture = 1
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLint, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glTexSubImage1DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glTexSubImage2DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4220, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_copy_texture ("OpenGL/glext.h":4222)
     """GL_EXT_copy_texture"""
     GL_EXT_copy_texture = 1
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLint, GLint, GLsizei, GLint])
+    @bind(None, [GLenum, GLint, GLenum, GLint, GLint, GLsizei, GLint])
     def glCopyTexImage1DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLint, GLint, GLsizei, GLsizei, GLint])
+    @bind(None, [GLenum, GLint, GLenum, GLint, GLint, GLsizei, GLsizei, GLint])
     def glCopyTexImage2DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint, GLsizei])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint, GLsizei])
     def glCopyTexSubImage1DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei])
     def glCopyTexSubImage2DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei])
     def glCopyTexSubImage3DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4236, skipped: 7 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_histogram ("OpenGL/glext.h":4238)
     """GL_EXT_histogram"""
     GL_EXT_histogram = 1
     
-    @bind(GLvoid, [GLenum, GLboolean, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLboolean, GLenum, GLenum, POINTER(GLvoid)])
     def glGetHistogramEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetHistogramParameterfvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetHistogramParameterivEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLboolean, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLboolean, GLenum, GLenum, POINTER(GLvoid)])
     def glGetMinmaxEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetMinmaxParameterfvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetMinmaxParameterivEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, GLenum, GLboolean])
+    @bind(None, [GLenum, GLsizei, GLenum, GLboolean])
     def glHistogramEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLboolean])
+    @bind(None, [GLenum, GLenum, GLboolean])
     def glMinmaxEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glResetHistogramEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glResetMinmaxEXT(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4262, skipped: 12 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_convolution ("OpenGL/glext.h":4264)
     """GL_EXT_convolution"""
     GL_EXT_convolution = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glConvolutionFilter1DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glConvolutionFilter2DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLfloat])
+    @bind(None, [GLenum, GLenum, GLfloat])
     def glConvolutionParameterfEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glConvolutionParameterfvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLint])
+    @bind(None, [GLenum, GLenum, GLint])
     def glConvolutionParameteriEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glConvolutionParameterivEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLint, GLint, GLsizei])
+    @bind(None, [GLenum, GLenum, GLint, GLint, GLsizei])
     def glCopyConvolutionFilter1DEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLint, GLint, GLsizei, GLsizei])
+    @bind(None, [GLenum, GLenum, GLint, GLint, GLsizei, GLsizei])
     def glCopyConvolutionFilter2DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLenum, POINTER(GLvoid)])
     def glGetConvolutionFilterEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetConvolutionParameterfvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetConvolutionParameterivEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, POINTER(GLvoid), POINTER(GLvoid), POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLenum, POINTER(GLvoid), POINTER(GLvoid), POINTER(GLvoid)])
     def glGetSeparableFilterEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid), POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid), POINTER(GLvoid)])
     def glSeparableFilter2DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4294, skipped: 15 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_color_matrix ("OpenGL/glext.h":4296)
@@ -3690,36 +3690,36 @@ if 1: # ifndef GL_SGI_color_table ("OpenGL/glext.h":4300)
     """GL_SGI_color_table"""
     GL_SGI_color_table = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glColorTableSGI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glColorTableParameterfvSGI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glColorTableParameterivSGI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLint, GLint, GLsizei])
+    @bind(None, [GLenum, GLenum, GLint, GLint, GLsizei])
     def glCopyColorTableSGI(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLenum, POINTER(GLvoid)])
     def glGetColorTableSGI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetColorTableParameterfvSGI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetColorTableParameterivSGI(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4318, skipped: 9 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_pixel_texture ("OpenGL/glext.h":4320)
     """GL_SGIX_pixel_texture"""
     GL_SGIX_pixel_texture = 1
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glPixelTexGenSGIX(arg_0): pass
     
     
@@ -3728,40 +3728,40 @@ if 1: # ifndef GL_SGIS_pixel_texture ("OpenGL/glext.h":4328)
     """GL_SGIS_pixel_texture"""
     GL_SGIS_pixel_texture = 1
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glPixelTexGenParameteriSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glPixelTexGenParameterivSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glPixelTexGenParameterfSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glPixelTexGenParameterfvSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glGetPixelTexGenParameterivSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glGetPixelTexGenParameterfvSGIS(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4344, skipped: 8 ~~~~~~
     
 
 if 1: # ifndef GL_SGIS_texture4D ("OpenGL/glext.h":4346)
     """GL_SGIS_texture4D"""
     GL_SGIS_texture4D = 1
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLenum, GLsizei, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, POINTER(GLvoid)])
     def glTexImage4DSGIS(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glTexSubImage4DSGIS(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4354, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGI_texture_color_table ("OpenGL/glext.h":4356)
@@ -3779,51 +3779,51 @@ if 1: # ifndef GL_EXT_texture_object ("OpenGL/glext.h":4364)
     @bind(GLboolean, [GLsizei, POINTER(GLuint), POINTER(GLboolean)])
     def glAreTexturesResidentEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint])
+    @bind(None, [GLenum, GLuint])
     def glBindTextureEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteTexturesEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenTexturesEXT(arg_0, arg_1): pass
     
     @bind(GLboolean, [GLuint])
     def glIsTextureEXT(arg_0): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint), POINTER(GLclampf)])
+    @bind(None, [GLsizei, POINTER(GLuint), POINTER(GLclampf)])
     def glPrioritizeTexturesEXT(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4380, skipped: 8 ~~~~~~
     
 
 if 1: # ifndef GL_SGIS_detail_texture ("OpenGL/glext.h":4382)
     """GL_SGIS_detail_texture"""
     GL_SGIS_detail_texture = 1
     
-    @bind(GLvoid, [GLenum, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLsizei, POINTER(GLfloat)])
     def glDetailTexFuncSGIS(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glGetDetailTexFuncSGIS(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4390, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGIS_sharpen_texture ("OpenGL/glext.h":4392)
     """GL_SGIS_sharpen_texture"""
     GL_SGIS_sharpen_texture = 1
     
-    @bind(GLvoid, [GLenum, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLsizei, POINTER(GLfloat)])
     def glSharpenTexFuncSGIS(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glGetSharpenTexFuncSGIS(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4400, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_packed_pixels ("OpenGL/glext.h":4402)
@@ -3838,14 +3838,14 @@ if 1: # ifndef GL_SGIS_multisample ("OpenGL/glext.h":4410)
     """GL_SGIS_multisample"""
     GL_SGIS_multisample = 1
     
-    @bind(GLvoid, [GLclampf, GLboolean])
+    @bind(None, [GLclampf, GLboolean])
     def glSampleMaskSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glSamplePatternSGIS(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4418, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_rescale_normal ("OpenGL/glext.h":4420)
@@ -3856,35 +3856,35 @@ if 1: # ifndef GL_EXT_vertex_array ("OpenGL/glext.h":4424)
     """GL_EXT_vertex_array"""
     GL_EXT_vertex_array = 1
     
-    @bind(GLvoid, [GLint])
+    @bind(None, [GLint])
     def glArrayElementEXT(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLint, GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
     def glColorPointerEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLsizei])
+    @bind(None, [GLenum, GLint, GLsizei])
     def glDrawArraysEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLsizei, GLsizei, POINTER(GLboolean)])
+    @bind(None, [GLsizei, GLsizei, POINTER(GLboolean)])
     def glEdgeFlagPointerEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLenum, POINTER(POINTER(GLvoid))])
     def glGetPointervEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
     def glIndexPointerEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
     def glNormalPointerEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLint, GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
     def glTexCoordPointerEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLint, GLenum, GLsizei, GLsizei, POINTER(GLvoid)])
     def glVertexPointerEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4446, skipped: 11 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_misc_attribute ("OpenGL/glext.h":4448)
@@ -3915,7 +3915,7 @@ if 1: # ifndef GL_EXT_blend_minmax ("OpenGL/glext.h":4472)
     """GL_EXT_blend_minmax"""
     GL_EXT_blend_minmax = 1
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glBlendEquationEXT(arg_0): pass
     
     
@@ -3944,20 +3944,20 @@ if 1: # ifndef GL_SGIX_sprite ("OpenGL/glext.h":4500)
     """GL_SGIX_sprite"""
     GL_SGIX_sprite = 1
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glSpriteParameterfSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glSpriteParameterfvSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glSpriteParameteriSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glSpriteParameterivSGIX(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4512, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_texture_multi_buffer ("OpenGL/glext.h":4514)
@@ -3968,28 +3968,28 @@ if 1: # ifndef GL_EXT_point_parameters ("OpenGL/glext.h":4518)
     """GL_EXT_point_parameters"""
     GL_EXT_point_parameters = 1
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glPointParameterfEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glPointParameterfvEXT(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4526, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGIS_point_parameters ("OpenGL/glext.h":4528)
     """GL_SGIS_point_parameters"""
     GL_SGIS_point_parameters = 1
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glPointParameterfSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glPointParameterfvSGIS(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4536, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_instruments ("OpenGL/glext.h":4538)
@@ -3999,23 +3999,23 @@ if 1: # ifndef GL_SGIX_instruments ("OpenGL/glext.h":4538)
     @bind(GLint, [])
     def glGetInstrumentsSGIX(): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLint)])
+    @bind(None, [GLsizei, POINTER(GLint)])
     def glInstrumentsBufferSGIX(arg_0, arg_1): pass
     
     @bind(GLint, [POINTER(GLint)])
     def glPollInstrumentsSGIX(arg_0): pass
     
-    @bind(GLvoid, [GLint])
+    @bind(None, [GLint])
     def glReadInstrumentsSGIX(arg_0): pass
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glStartInstrumentsSGIX(): pass
     
-    @bind(GLvoid, [GLint])
+    @bind(None, [GLint])
     def glStopInstrumentsSGIX(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4554, skipped: 8 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_texture_scale_bias ("OpenGL/glext.h":4556)
@@ -4026,7 +4026,7 @@ if 1: # ifndef GL_SGIX_framezoom ("OpenGL/glext.h":4560)
     """GL_SGIX_framezoom"""
     GL_SGIX_framezoom = 1
     
-    @bind(GLvoid, [GLint])
+    @bind(None, [GLint])
     def glFrameZoomSGIX(arg_0): pass
     
     
@@ -4035,7 +4035,7 @@ if 1: # ifndef GL_SGIX_tag_sample_buffer ("OpenGL/glext.h":4568)
     """GL_SGIX_tag_sample_buffer"""
     GL_SGIX_tag_sample_buffer = 1
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glTagSampleBufferSGIX(): pass
     
     
@@ -4044,27 +4044,27 @@ if 1: # ifndef GL_SGIX_polynomial_ffd ("OpenGL/glext.h":4576)
     """GL_SGIX_polynomial_ffd"""
     GL_SGIX_polynomial_ffd = 1
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble, GLint, GLint, GLdouble, GLdouble, GLint, GLint, GLdouble, GLdouble, GLint, GLint, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLdouble, GLdouble, GLint, GLint, GLdouble, GLdouble, GLint, GLint, GLdouble, GLdouble, GLint, GLint, POINTER(GLdouble)])
     def glDeformationMap3dSGIX(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12, arg_13): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat, GLint, GLint, GLfloat, GLfloat, GLint, GLint, GLfloat, GLfloat, GLint, GLint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLfloat, GLfloat, GLint, GLint, GLfloat, GLfloat, GLint, GLint, GLfloat, GLfloat, GLint, GLint, POINTER(GLfloat)])
     def glDeformationMap3fSGIX(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12, arg_13): pass
     
-    @bind(GLvoid, [GLbitfield])
+    @bind(None, [GLbitfield])
     def glDeformSGIX(arg_0): pass
     
-    @bind(GLvoid, [GLbitfield])
+    @bind(None, [GLbitfield])
     def glLoadIdentityDeformationMapSGIX(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4588, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_reference_plane ("OpenGL/glext.h":4590)
     """GL_SGIX_reference_plane"""
     GL_SGIX_reference_plane = 1
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glReferencePlaneSGIX(arg_0): pass
     
     
@@ -4073,7 +4073,7 @@ if 1: # ifndef GL_SGIX_flush_raster ("OpenGL/glext.h":4598)
     """GL_SGIX_flush_raster"""
     GL_SGIX_flush_raster = 1
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glFlushRasterSGIX(): pass
     
     
@@ -4086,14 +4086,14 @@ if 1: # ifndef GL_SGIS_fog_function ("OpenGL/glext.h":4610)
     """GL_SGIS_fog_function"""
     GL_SGIS_fog_function = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLsizei, POINTER(GLfloat)])
     def glFogFuncSGIS(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glGetFogFuncSGIS(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4618, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_fog_offset ("OpenGL/glext.h":4620)
@@ -4104,26 +4104,26 @@ if 1: # ifndef GL_HP_image_transform ("OpenGL/glext.h":4624)
     """GL_HP_image_transform"""
     GL_HP_image_transform = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLint])
+    @bind(None, [GLenum, GLenum, GLint])
     def glImageTransformParameteriHP(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLfloat])
+    @bind(None, [GLenum, GLenum, GLfloat])
     def glImageTransformParameterfHP(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glImageTransformParameterivHP(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glImageTransformParameterfvHP(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetImageTransformParameterivHP(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetImageTransformParameterfvHP(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4640, skipped: 8 ~~~~~~
     
 
 if 1: # ifndef GL_HP_convolution_border_modes ("OpenGL/glext.h":4642)
@@ -4138,14 +4138,14 @@ if 1: # ifndef GL_EXT_color_subtable ("OpenGL/glext.h":4650)
     """GL_EXT_color_subtable"""
     GL_EXT_color_subtable = 1
     
-    @bind(GLvoid, [GLenum, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLsizei, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glColorSubTableEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, GLint, GLint, GLsizei])
+    @bind(None, [GLenum, GLsizei, GLint, GLint, GLsizei])
     def glCopyColorSubTableEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4658, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_PGI_vertex_hints ("OpenGL/glext.h":4660)
@@ -4156,7 +4156,7 @@ if 1: # ifndef GL_PGI_misc_hints ("OpenGL/glext.h":4664)
     """GL_PGI_misc_hints"""
     GL_PGI_misc_hints = 1
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glHintPGI(arg_0, arg_1): pass
     
     
@@ -4165,20 +4165,20 @@ if 1: # ifndef GL_EXT_paletted_texture ("OpenGL/glext.h":4672)
     """GL_EXT_paletted_texture"""
     GL_EXT_paletted_texture = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLsizei, GLenum, GLenum, POINTER(GLvoid)])
     def glColorTableEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLenum, GLenum, POINTER(GLvoid)])
     def glGetColorTableEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetColorTableParameterivEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetColorTableParameterfvEXT(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4684, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_clip_volume_hint ("OpenGL/glext.h":4686)
@@ -4189,26 +4189,26 @@ if 1: # ifndef GL_SGIX_list_priority ("OpenGL/glext.h":4690)
     """GL_SGIX_list_priority"""
     GL_SGIX_list_priority = 1
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetListParameterfvSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetListParameterivSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, GLfloat])
+    @bind(None, [GLuint, GLenum, GLfloat])
     def glListParameterfSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glListParameterfvSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, GLint])
+    @bind(None, [GLuint, GLenum, GLint])
     def glListParameteriSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glListParameterivSGIX(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4706, skipped: 8 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_ir_instrument1 ("OpenGL/glext.h":4708)
@@ -4235,7 +4235,7 @@ if 1: # ifndef GL_EXT_index_material ("OpenGL/glext.h":4728)
     """GL_EXT_index_material"""
     GL_EXT_index_material = 1
     
-    @bind(GLvoid, [GLenum, GLenum])
+    @bind(None, [GLenum, GLenum])
     def glIndexMaterialEXT(arg_0, arg_1): pass
     
     
@@ -4244,7 +4244,7 @@ if 1: # ifndef GL_EXT_index_func ("OpenGL/glext.h":4736)
     """GL_EXT_index_func"""
     GL_EXT_index_func = 1
     
-    @bind(GLvoid, [GLenum, GLclampf])
+    @bind(None, [GLenum, GLclampf])
     def glIndexFuncEXT(arg_0, arg_1): pass
     
     
@@ -4257,28 +4257,28 @@ if 1: # ifndef GL_EXT_compiled_vertex_array ("OpenGL/glext.h":4748)
     """GL_EXT_compiled_vertex_array"""
     GL_EXT_compiled_vertex_array = 1
     
-    @bind(GLvoid, [GLint, GLsizei])
+    @bind(None, [GLint, GLsizei])
     def glLockArraysEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glUnlockArraysEXT(): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4756, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_cull_vertex ("OpenGL/glext.h":4758)
     """GL_EXT_cull_vertex"""
     GL_EXT_cull_vertex = 1
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glCullParameterdvEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glCullParameterfvEXT(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4766, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_ycrcb ("OpenGL/glext.h":4768)
@@ -4289,62 +4289,62 @@ if 1: # ifndef GL_SGIX_fragment_lighting ("OpenGL/glext.h":4772)
     """GL_SGIX_fragment_lighting"""
     GL_SGIX_fragment_lighting = 1
     
-    @bind(GLvoid, [GLenum, GLenum])
+    @bind(None, [GLenum, GLenum])
     def glFragmentColorMaterialSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLfloat])
+    @bind(None, [GLenum, GLenum, GLfloat])
     def glFragmentLightfSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glFragmentLightfvSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLint])
+    @bind(None, [GLenum, GLenum, GLint])
     def glFragmentLightiSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glFragmentLightivSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glFragmentLightModelfSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glFragmentLightModelfvSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glFragmentLightModeliSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glFragmentLightModelivSGIX(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLfloat])
+    @bind(None, [GLenum, GLenum, GLfloat])
     def glFragmentMaterialfSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glFragmentMaterialfvSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLint])
+    @bind(None, [GLenum, GLenum, GLint])
     def glFragmentMaterialiSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glFragmentMaterialivSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetFragmentLightfvSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetFragmentLightivSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetFragmentMaterialfvSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetFragmentMaterialivSGIX(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glLightEnviSGIX(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4812, skipped: 20 ~~~~~~
     
 
 if 1: # ifndef GL_IBM_rasterpos_clip ("OpenGL/glext.h":4814)
@@ -4359,7 +4359,7 @@ if 1: # ifndef GL_EXT_draw_range_elements ("OpenGL/glext.h":4822)
     """GL_EXT_draw_range_elements"""
     GL_EXT_draw_range_elements = 1
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLsizei, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLuint, GLuint, GLsizei, GLenum, POINTER(GLvoid)])
     def glDrawRangeElementsEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
     
@@ -4376,17 +4376,17 @@ if 1: # ifndef GL_EXT_light_texture ("OpenGL/glext.h":4838)
     """GL_EXT_light_texture"""
     GL_EXT_light_texture = 1
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glApplyTextureEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glTextureLightEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLenum])
+    @bind(None, [GLenum, GLenum])
     def glTextureMaterialEXT(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4848, skipped: 5 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_blend_alpha_minmax ("OpenGL/glext.h":4850)
@@ -4401,7 +4401,7 @@ if 1: # ifndef GL_SGIX_async ("OpenGL/glext.h":4858)
     """GL_SGIX_async"""
     GL_SGIX_async = 1
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glAsyncMarkerSGIX(arg_0): pass
     
     @bind(GLint, [POINTER(GLuint)])
@@ -4413,14 +4413,14 @@ if 1: # ifndef GL_SGIX_async ("OpenGL/glext.h":4858)
     @bind(GLuint, [GLsizei])
     def glGenAsyncMarkersSGIX(arg_0): pass
     
-    @bind(GLvoid, [GLuint, GLsizei])
+    @bind(None, [GLuint, GLsizei])
     def glDeleteAsyncMarkersSGIX(arg_0, arg_1): pass
     
     @bind(GLboolean, [GLuint])
     def glIsAsyncMarkerSGIX(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4874, skipped: 8 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_async_pixel ("OpenGL/glext.h":4876)
@@ -4435,20 +4435,20 @@ if 1: # ifndef GL_INTEL_parallel_arrays ("OpenGL/glext.h":4884)
     """GL_INTEL_parallel_arrays"""
     GL_INTEL_parallel_arrays = 1
     
-    @bind(GLvoid, [GLint, GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLint, GLenum, POINTER(POINTER(GLvoid))])
     def glVertexPointervINTEL(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLenum, POINTER(POINTER(GLvoid))])
     def glNormalPointervINTEL(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLint, GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLint, GLenum, POINTER(POINTER(GLvoid))])
     def glColorPointervINTEL(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLint, GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLint, GLenum, POINTER(POINTER(GLvoid))])
     def glTexCoordPointervINTEL(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4896, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_HP_occlusion_test ("OpenGL/glext.h":4898)
@@ -4459,20 +4459,20 @@ if 1: # ifndef GL_EXT_pixel_transform ("OpenGL/glext.h":4902)
     """GL_EXT_pixel_transform"""
     GL_EXT_pixel_transform = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLint])
+    @bind(None, [GLenum, GLenum, GLint])
     def glPixelTransformParameteriEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLfloat])
+    @bind(None, [GLenum, GLenum, GLfloat])
     def glPixelTransformParameterfEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glPixelTransformParameterivEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glPixelTransformParameterfvEXT(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4914, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_pixel_transform_color_table ("OpenGL/glext.h":4916)
@@ -4491,66 +4491,66 @@ if 1: # ifndef GL_EXT_secondary_color ("OpenGL/glext.h":4928)
     """GL_EXT_secondary_color"""
     GL_EXT_secondary_color = 1
     
-    @bind(GLvoid, [GLbyte, GLbyte, GLbyte])
+    @bind(None, [GLbyte, GLbyte, GLbyte])
     def glSecondaryColor3bEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLbyte)])
+    @bind(None, [POINTER(GLbyte)])
     def glSecondaryColor3bvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble, GLdouble])
     def glSecondaryColor3dEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glSecondaryColor3dvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat])
     def glSecondaryColor3fEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glSecondaryColor3fvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint])
     def glSecondaryColor3iEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glSecondaryColor3ivEXT(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort, GLshort])
+    @bind(None, [GLshort, GLshort, GLshort])
     def glSecondaryColor3sEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glSecondaryColor3svEXT(arg_0): pass
     
-    @bind(GLvoid, [GLubyte, GLubyte, GLubyte])
+    @bind(None, [GLubyte, GLubyte, GLubyte])
     def glSecondaryColor3ubEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLubyte)])
+    @bind(None, [POINTER(GLubyte)])
     def glSecondaryColor3ubvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLuint])
+    @bind(None, [GLuint, GLuint, GLuint])
     def glSecondaryColor3uiEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLuint)])
+    @bind(None, [POINTER(GLuint)])
     def glSecondaryColor3uivEXT(arg_0): pass
     
-    @bind(GLvoid, [GLushort, GLushort, GLushort])
+    @bind(None, [GLushort, GLushort, GLushort])
     def glSecondaryColor3usEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLushort)])
+    @bind(None, [POINTER(GLushort)])
     def glSecondaryColor3usvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLint, GLenum, GLsizei, POINTER(GLvoid)])
     def glSecondaryColorPointerEXT(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4966, skipped: 19 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_texture_perturb_normal ("OpenGL/glext.h":4968)
     """GL_EXT_texture_perturb_normal"""
     GL_EXT_texture_perturb_normal = 1
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glTextureNormalEXT(arg_0): pass
     
     
@@ -4559,37 +4559,37 @@ if 1: # ifndef GL_EXT_multi_draw_arrays ("OpenGL/glext.h":4976)
     """GL_EXT_multi_draw_arrays"""
     GL_EXT_multi_draw_arrays = 1
     
-    @bind(GLvoid, [GLenum, POINTER(GLint), POINTER(GLsizei), GLsizei])
+    @bind(None, [GLenum, POINTER(GLint), POINTER(GLsizei), GLsizei])
     def glMultiDrawArraysEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLsizei), GLenum, POINTER(POINTER(GLvoid)), GLsizei])
+    @bind(None, [GLenum, POINTER(GLsizei), GLenum, POINTER(POINTER(GLvoid)), GLsizei])
     def glMultiDrawElementsEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 4984, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_fog_coord ("OpenGL/glext.h":4986)
     """GL_EXT_fog_coord"""
     GL_EXT_fog_coord = 1
     
-    @bind(GLvoid, [GLfloat])
+    @bind(None, [GLfloat])
     def glFogCoordfEXT(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glFogCoordfvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLdouble])
+    @bind(None, [GLdouble])
     def glFogCoorddEXT(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glFogCoorddvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLsizei, POINTER(GLvoid)])
     def glFogCoordPointerEXT(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5000, skipped: 7 ~~~~~~
     
 
 if 1: # ifndef GL_REND_screen_coordinates ("OpenGL/glext.h":5002)
@@ -4600,74 +4600,74 @@ if 1: # ifndef GL_EXT_coordinate_frame ("OpenGL/glext.h":5006)
     """GL_EXT_coordinate_frame"""
     GL_EXT_coordinate_frame = 1
     
-    @bind(GLvoid, [GLbyte, GLbyte, GLbyte])
+    @bind(None, [GLbyte, GLbyte, GLbyte])
     def glTangent3bEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLbyte)])
+    @bind(None, [POINTER(GLbyte)])
     def glTangent3bvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble, GLdouble])
     def glTangent3dEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glTangent3dvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat])
     def glTangent3fEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glTangent3fvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint])
     def glTangent3iEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glTangent3ivEXT(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort, GLshort])
+    @bind(None, [GLshort, GLshort, GLshort])
     def glTangent3sEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glTangent3svEXT(arg_0): pass
     
-    @bind(GLvoid, [GLbyte, GLbyte, GLbyte])
+    @bind(None, [GLbyte, GLbyte, GLbyte])
     def glBinormal3bEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLbyte)])
+    @bind(None, [POINTER(GLbyte)])
     def glBinormal3bvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble, GLdouble])
     def glBinormal3dEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glBinormal3dvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat])
     def glBinormal3fEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glBinormal3fvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint])
     def glBinormal3iEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glBinormal3ivEXT(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort, GLshort])
+    @bind(None, [GLshort, GLshort, GLshort])
     def glBinormal3sEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glBinormal3svEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLsizei, POINTER(GLvoid)])
     def glTangentPointerEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLsizei, POINTER(GLvoid)])
     def glBinormalPointerEXT(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5054, skipped: 24 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_texture_env_combine ("OpenGL/glext.h":5056)
@@ -4690,7 +4690,7 @@ if 1: # ifndef GL_SUNX_constant_data ("OpenGL/glext.h":5072)
     """GL_SUNX_constant_data"""
     GL_SUNX_constant_data = 1
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glFinishTextureSUNX(): pass
     
     
@@ -4699,196 +4699,196 @@ if 1: # ifndef GL_SUN_global_alpha ("OpenGL/glext.h":5080)
     """GL_SUN_global_alpha"""
     GL_SUN_global_alpha = 1
     
-    @bind(GLvoid, [GLbyte])
+    @bind(None, [GLbyte])
     def glGlobalAlphaFactorbSUN(arg_0): pass
     
-    @bind(GLvoid, [GLshort])
+    @bind(None, [GLshort])
     def glGlobalAlphaFactorsSUN(arg_0): pass
     
-    @bind(GLvoid, [GLint])
+    @bind(None, [GLint])
     def glGlobalAlphaFactoriSUN(arg_0): pass
     
-    @bind(GLvoid, [GLfloat])
+    @bind(None, [GLfloat])
     def glGlobalAlphaFactorfSUN(arg_0): pass
     
-    @bind(GLvoid, [GLdouble])
+    @bind(None, [GLdouble])
     def glGlobalAlphaFactordSUN(arg_0): pass
     
-    @bind(GLvoid, [GLubyte])
+    @bind(None, [GLubyte])
     def glGlobalAlphaFactorubSUN(arg_0): pass
     
-    @bind(GLvoid, [GLushort])
+    @bind(None, [GLushort])
     def glGlobalAlphaFactorusSUN(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glGlobalAlphaFactoruiSUN(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5100, skipped: 10 ~~~~~~
     
 
 if 1: # ifndef GL_SUN_triangle_list ("OpenGL/glext.h":5102)
     """GL_SUN_triangle_list"""
     GL_SUN_triangle_list = 1
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glReplacementCodeuiSUN(arg_0): pass
     
-    @bind(GLvoid, [GLushort])
+    @bind(None, [GLushort])
     def glReplacementCodeusSUN(arg_0): pass
     
-    @bind(GLvoid, [GLubyte])
+    @bind(None, [GLubyte])
     def glReplacementCodeubSUN(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLuint)])
+    @bind(None, [POINTER(GLuint)])
     def glReplacementCodeuivSUN(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLushort)])
+    @bind(None, [POINTER(GLushort)])
     def glReplacementCodeusvSUN(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLubyte)])
+    @bind(None, [POINTER(GLubyte)])
     def glReplacementCodeubvSUN(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLsizei, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLenum, GLsizei, POINTER(POINTER(GLvoid))])
     def glReplacementCodePointerSUN(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5120, skipped: 9 ~~~~~~
     
 
 if 1: # ifndef GL_SUN_vertex ("OpenGL/glext.h":5122)
     """GL_SUN_vertex"""
     GL_SUN_vertex = 1
     
-    @bind(GLvoid, [GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat])
+    @bind(None, [GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat])
     def glColor4ubVertex2fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [POINTER(GLubyte), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLubyte), POINTER(GLfloat)])
     def glColor4ubVertex2fvSUN(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat, GLfloat])
     def glColor4ubVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [POINTER(GLubyte), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLubyte), POINTER(GLfloat)])
     def glColor4ubVertex3fvSUN(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glColor3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat)])
     def glColor3fVertex3fvSUN(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat)])
     def glNormal3fVertex3fvSUN(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glColor4fNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glColor4fNormal3fVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glTexCoord2fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat)])
     def glTexCoord2fVertex3fvSUN(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glTexCoord4fVertex4fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat)])
     def glTexCoord4fVertex4fvSUN(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat, GLfloat])
     def glTexCoord2fColor4ubVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLubyte), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLubyte), POINTER(GLfloat)])
     def glTexCoord2fColor4ubVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glTexCoord2fColor3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glTexCoord2fColor3fVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glTexCoord2fNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glTexCoord2fNormal3fVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glTexCoord2fColor4fNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glTexCoord2fColor4fNormal3fVertex3fvSUN(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glTexCoord4fColor4fNormal3fVertex4fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12, arg_13, arg_14): pass
     
-    @bind(GLvoid, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glTexCoord4fColor4fNormal3fVertex4fvSUN(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiVertex3fSUN(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLfloat)])
     def glReplacementCodeuiVertex3fvSUN(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLubyte, GLubyte, GLubyte, GLubyte, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiColor4ubVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLubyte), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLubyte), POINTER(GLfloat)])
     def glReplacementCodeuiColor4ubVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiColor3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat)])
     def glReplacementCodeuiColor3fVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat)])
     def glReplacementCodeuiNormal3fVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiColor4fNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glReplacementCodeuiColor4fNormal3fVertex3fvSUN(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiTexCoord2fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat)])
     def glReplacementCodeuiTexCoord2fVertex3fvSUN(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat])
     def glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12): pass
     
-    @bind(GLvoid, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
+    @bind(None, [POINTER(GLuint), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat), POINTER(GLfloat)])
     def glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5206, skipped: 42 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_blend_func_separate ("OpenGL/glext.h":5208)
     """GL_EXT_blend_func_separate"""
     GL_EXT_blend_func_separate = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum])
     def glBlendFuncSeparateEXT(arg_0, arg_1, arg_2, arg_3): pass
     
     
@@ -4897,7 +4897,7 @@ if 1: # ifndef GL_INGR_blend_func_separate ("OpenGL/glext.h":5216)
     """GL_INGR_blend_func_separate"""
     GL_INGR_blend_func_separate = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum])
     def glBlendFuncSeparateINGR(arg_0, arg_1, arg_2, arg_3): pass
     
     
@@ -4942,17 +4942,17 @@ if 1: # ifndef GL_EXT_vertex_weighting ("OpenGL/glext.h":5260)
     """GL_EXT_vertex_weighting"""
     GL_EXT_vertex_weighting = 1
     
-    @bind(GLvoid, [GLfloat])
+    @bind(None, [GLfloat])
     def glVertexWeightfEXT(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glVertexWeightfvEXT(arg_0): pass
     
-    @bind(GLvoid, [GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLsizei, GLenum, GLsizei, POINTER(GLvoid)])
     def glVertexWeightPointerEXT(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5270, skipped: 5 ~~~~~~
     
 
 if 1: # ifndef GL_NV_light_max_exponent ("OpenGL/glext.h":5272)
@@ -4963,61 +4963,61 @@ if 1: # ifndef GL_NV_vertex_array_range ("OpenGL/glext.h":5276)
     """GL_NV_vertex_array_range"""
     GL_NV_vertex_array_range = 1
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glFlushVertexArrayRangeNV(): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLsizei, POINTER(GLvoid)])
     def glVertexArrayRangeNV(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5284, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_NV_register_combiners ("OpenGL/glext.h":5286)
     """GL_NV_register_combiners"""
     GL_NV_register_combiners = 1
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glCombinerParameterfvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glCombinerParameterfNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glCombinerParameterivNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glCombinerParameteriNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum, GLenum, GLenum])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum, GLenum, GLenum])
     def glCombinerInputNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum, GLenum, GLenum, GLenum, GLboolean, GLboolean, GLboolean])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum, GLenum, GLenum, GLenum, GLboolean, GLboolean, GLboolean])
     def glCombinerOutputNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum])
     def glFinalCombinerInputNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum, POINTER(GLfloat)])
     def glGetCombinerInputParameterfvNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum, POINTER(GLint)])
     def glGetCombinerInputParameterivNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, GLenum, POINTER(GLfloat)])
     def glGetCombinerOutputParameterfvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, GLenum, POINTER(GLint)])
     def glGetCombinerOutputParameterivNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetFinalCombinerInputParameterfvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetFinalCombinerInputParameterivNV(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5316, skipped: 15 ~~~~~~
     
 
 if 1: # ifndef GL_NV_fog_distance ("OpenGL/glext.h":5318)
@@ -5040,7 +5040,7 @@ if 1: # ifndef GL_MESA_resize_buffers ("OpenGL/glext.h":5334)
     """GL_MESA_resize_buffers"""
     GL_MESA_resize_buffers = 1
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glResizeBuffersMESA(): pass
     
     
@@ -5049,80 +5049,80 @@ if 1: # ifndef GL_MESA_window_pos ("OpenGL/glext.h":5342)
     """GL_MESA_window_pos"""
     GL_MESA_window_pos = 1
     
-    @bind(GLvoid, [GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble])
     def glWindowPos2dMESA(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glWindowPos2dvMESA(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat])
     def glWindowPos2fMESA(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glWindowPos2fvMESA(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint])
+    @bind(None, [GLint, GLint])
     def glWindowPos2iMESA(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glWindowPos2ivMESA(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort])
+    @bind(None, [GLshort, GLshort])
     def glWindowPos2sMESA(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glWindowPos2svMESA(arg_0): pass
     
-    @bind(GLvoid, [GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble, GLdouble])
     def glWindowPos3dMESA(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glWindowPos3dvMESA(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat])
     def glWindowPos3fMESA(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glWindowPos3fvMESA(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint])
     def glWindowPos3iMESA(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glWindowPos3ivMESA(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort, GLshort])
+    @bind(None, [GLshort, GLshort, GLshort])
     def glWindowPos3sMESA(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glWindowPos3svMESA(arg_0): pass
     
-    @bind(GLvoid, [GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLdouble, GLdouble, GLdouble, GLdouble])
     def glWindowPos4dMESA(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLdouble)])
+    @bind(None, [POINTER(GLdouble)])
     def glWindowPos4dvMESA(arg_0): pass
     
-    @bind(GLvoid, [GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLfloat, GLfloat, GLfloat, GLfloat])
     def glWindowPos4fMESA(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLfloat)])
+    @bind(None, [POINTER(GLfloat)])
     def glWindowPos4fvMESA(arg_0): pass
     
-    @bind(GLvoid, [GLint, GLint, GLint, GLint])
+    @bind(None, [GLint, GLint, GLint, GLint])
     def glWindowPos4iMESA(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLint)])
+    @bind(None, [POINTER(GLint)])
     def glWindowPos4ivMESA(arg_0): pass
     
-    @bind(GLvoid, [GLshort, GLshort, GLshort, GLshort])
+    @bind(None, [GLshort, GLshort, GLshort, GLshort])
     def glWindowPos4sMESA(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLshort)])
+    @bind(None, [POINTER(GLshort)])
     def glWindowPos4svMESA(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5394, skipped: 26 ~~~~~~
     
 
 if 1: # ifndef GL_IBM_cull_vertex ("OpenGL/glext.h":5396)
@@ -5133,46 +5133,46 @@ if 1: # ifndef GL_IBM_multimode_draw_arrays ("OpenGL/glext.h":5400)
     """GL_IBM_multimode_draw_arrays"""
     GL_IBM_multimode_draw_arrays = 1
     
-    @bind(GLvoid, [POINTER(GLenum), POINTER(GLint), POINTER(GLsizei), GLsizei, GLint])
+    @bind(None, [POINTER(GLenum), POINTER(GLint), POINTER(GLsizei), GLsizei, GLint])
     def glMultiModeDrawArraysIBM(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [POINTER(GLenum), POINTER(GLsizei), GLenum, POINTER(POINTER(GLvoid)), GLsizei, GLint])
+    @bind(None, [POINTER(GLenum), POINTER(GLsizei), GLenum, POINTER(POINTER(GLvoid)), GLsizei, GLint])
     def glMultiModeDrawElementsIBM(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5408, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_IBM_vertex_array_lists ("OpenGL/glext.h":5410)
     """GL_IBM_vertex_array_lists"""
     GL_IBM_vertex_array_lists = 1
     
-    @bind(GLvoid, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
+    @bind(None, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
     def glColorPointerListIBM(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
+    @bind(None, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
     def glSecondaryColorPointerListIBM(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLint, POINTER(POINTER(GLboolean)), GLint])
+    @bind(None, [GLint, POINTER(POINTER(GLboolean)), GLint])
     def glEdgeFlagPointerListIBM(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
+    @bind(None, [GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
     def glFogCoordPointerListIBM(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
+    @bind(None, [GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
     def glIndexPointerListIBM(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
+    @bind(None, [GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
     def glNormalPointerListIBM(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
+    @bind(None, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
     def glTexCoordPointerListIBM(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
+    @bind(None, [GLint, GLenum, GLint, POINTER(POINTER(GLvoid)), GLint])
     def glVertexPointerListIBM(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5430, skipped: 10 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_subsample ("OpenGL/glext.h":5432)
@@ -5203,7 +5203,7 @@ if 1: # ifndef GL_3DFX_tbuffer ("OpenGL/glext.h":5456)
     """GL_3DFX_tbuffer"""
     GL_3DFX_tbuffer = 1
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glTbufferMask3DFX(arg_0): pass
     
     
@@ -5212,14 +5212,14 @@ if 1: # ifndef GL_EXT_multisample ("OpenGL/glext.h":5464)
     """GL_EXT_multisample"""
     GL_EXT_multisample = 1
     
-    @bind(GLvoid, [GLclampf, GLboolean])
+    @bind(None, [GLclampf, GLboolean])
     def glSampleMaskEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glSamplePatternEXT(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5472, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_vertex_preclip ("OpenGL/glext.h":5474)
@@ -5242,7 +5242,7 @@ if 1: # ifndef GL_SGIS_texture_color_mask ("OpenGL/glext.h":5490)
     """GL_SGIS_texture_color_mask"""
     GL_SGIS_texture_color_mask = 1
     
-    @bind(GLvoid, [GLboolean, GLboolean, GLboolean, GLboolean])
+    @bind(None, [GLboolean, GLboolean, GLboolean, GLboolean])
     def glTextureColorMaskSGIS(arg_0, arg_1, arg_2, arg_3): pass
     
     
@@ -5251,7 +5251,7 @@ if 1: # ifndef GL_SGIX_igloo_interface ("OpenGL/glext.h":5498)
     """GL_SGIX_igloo_interface"""
     GL_SGIX_igloo_interface = 1
     
-    @bind(GLvoid, [GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, POINTER(GLvoid)])
     def glIglooInterfaceSGIX(arg_0, arg_1): pass
     
     
@@ -5268,10 +5268,10 @@ if 1: # ifndef GL_NV_fence ("OpenGL/glext.h":5514)
     """GL_NV_fence"""
     GL_NV_fence = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteFencesNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenFencesNV(arg_0, arg_1): pass
     
     @bind(GLboolean, [GLuint])
@@ -5280,52 +5280,52 @@ if 1: # ifndef GL_NV_fence ("OpenGL/glext.h":5514)
     @bind(GLboolean, [GLuint])
     def glTestFenceNV(arg_0): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetFenceivNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glFinishFenceNV(arg_0): pass
     
-    @bind(GLvoid, [GLuint, GLenum])
+    @bind(None, [GLuint, GLenum])
     def glSetFenceNV(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5532, skipped: 9 ~~~~~~
     
 
 if 1: # ifndef GL_NV_evaluators ("OpenGL/glext.h":5534)
     """GL_NV_evaluators"""
     GL_NV_evaluators = 1
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, GLsizei, GLsizei, GLint, GLint, GLboolean, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLuint, GLenum, GLsizei, GLsizei, GLint, GLint, GLboolean, POINTER(GLvoid)])
     def glMapControlPointsNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glMapParameterivNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glMapParameterfvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, GLsizei, GLsizei, GLboolean, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLuint, GLenum, GLsizei, GLsizei, GLboolean, POINTER(GLvoid)])
     def glGetMapControlPointsNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetMapParameterivNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetMapParameterfvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLuint, GLenum, POINTER(GLint)])
     def glGetMapAttribParameterivNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, GLenum, POINTER(GLfloat)])
     def glGetMapAttribParameterfvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum])
+    @bind(None, [GLenum, GLenum])
     def glEvalMapsNV(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5556, skipped: 11 ~~~~~~
     
 
 if 1: # ifndef GL_NV_packed_depth_stencil ("OpenGL/glext.h":5558)
@@ -5336,14 +5336,14 @@ if 1: # ifndef GL_NV_register_combiners2 ("OpenGL/glext.h":5562)
     """GL_NV_register_combiners2"""
     GL_NV_register_combiners2 = 1
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glCombinerStageParameterfvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetCombinerStageParameterfvNV(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5570, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_NV_texture_compression_vtc ("OpenGL/glext.h":5572)
@@ -5373,197 +5373,197 @@ if 1: # ifndef GL_NV_vertex_program ("OpenGL/glext.h":5592)
     @bind(GLboolean, [GLsizei, POINTER(GLuint), POINTER(GLboolean)])
     def glAreProgramsResidentNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint])
+    @bind(None, [GLenum, GLuint])
     def glBindProgramNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteProgramsNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, POINTER(GLfloat)])
     def glExecuteProgramNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenProgramsNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLuint, GLenum, POINTER(GLdouble)])
     def glGetProgramParameterdvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, GLenum, POINTER(GLfloat)])
     def glGetProgramParameterfvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetProgramivNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLubyte)])
+    @bind(None, [GLuint, GLenum, POINTER(GLubyte)])
     def glGetProgramStringNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLuint, GLenum, POINTER(GLint)])
     def glGetTrackMatrixivNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLdouble)])
+    @bind(None, [GLuint, GLenum, POINTER(GLdouble)])
     def glGetVertexAttribdvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetVertexAttribfvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetVertexAttribivNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLuint, GLenum, POINTER(POINTER(GLvoid))])
     def glGetVertexAttribPointervNV(arg_0, arg_1, arg_2): pass
     
     @bind(GLboolean, [GLuint])
     def glIsProgramNV(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLsizei, POINTER(GLubyte)])
+    @bind(None, [GLenum, GLuint, GLsizei, POINTER(GLubyte)])
     def glLoadProgramNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
     def glProgramParameter4dNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLuint, POINTER(GLdouble)])
     def glProgramParameter4dvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
     def glProgramParameter4fNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLuint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, POINTER(GLfloat)])
     def glProgramParameter4fvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, POINTER(GLdouble)])
+    @bind(None, [GLenum, GLuint, GLuint, POINTER(GLdouble)])
     def glProgramParameters4dvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLuint, GLuint, POINTER(GLfloat)])
     def glProgramParameters4fvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glRequestResidentProgramsNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLenum, GLenum])
+    @bind(None, [GLenum, GLuint, GLenum, GLenum])
     def glTrackMatrixNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLint, GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLuint, GLint, GLenum, GLsizei, POINTER(GLvoid)])
     def glVertexAttribPointerNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, GLdouble])
+    @bind(None, [GLuint, GLdouble])
     def glVertexAttrib1dNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib1dvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat])
+    @bind(None, [GLuint, GLfloat])
     def glVertexAttrib1fNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib1fvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort])
+    @bind(None, [GLuint, GLshort])
     def glVertexAttrib1sNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib1svNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLdouble, GLdouble])
+    @bind(None, [GLuint, GLdouble, GLdouble])
     def glVertexAttrib2dNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib2dvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat])
     def glVertexAttrib2fNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib2fvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort, GLshort])
+    @bind(None, [GLuint, GLshort, GLshort])
     def glVertexAttrib2sNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib2svNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLuint, GLdouble, GLdouble, GLdouble])
     def glVertexAttrib3dNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib3dvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat])
     def glVertexAttrib3fNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib3fvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort, GLshort, GLshort])
+    @bind(None, [GLuint, GLshort, GLshort, GLshort])
     def glVertexAttrib3sNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib3svNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLuint, GLdouble, GLdouble, GLdouble, GLdouble])
     def glVertexAttrib4dNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVertexAttrib4dvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLfloat, GLfloat, GLfloat, GLfloat])
     def glVertexAttrib4fNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVertexAttrib4fvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLshort, GLshort, GLshort, GLshort])
+    @bind(None, [GLuint, GLshort, GLshort, GLshort, GLshort])
     def glVertexAttrib4sNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVertexAttrib4svNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLubyte, GLubyte, GLubyte, GLubyte])
+    @bind(None, [GLuint, GLubyte, GLubyte, GLubyte, GLubyte])
     def glVertexAttrib4ubNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLubyte)])
+    @bind(None, [GLuint, POINTER(GLubyte)])
     def glVertexAttrib4ubvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLdouble)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLdouble)])
     def glVertexAttribs1dvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLfloat)])
     def glVertexAttribs1fvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLshort)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLshort)])
     def glVertexAttribs1svNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLdouble)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLdouble)])
     def glVertexAttribs2dvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLfloat)])
     def glVertexAttribs2fvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLshort)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLshort)])
     def glVertexAttribs2svNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLdouble)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLdouble)])
     def glVertexAttribs3dvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLfloat)])
     def glVertexAttribs3fvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLshort)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLshort)])
     def glVertexAttribs3svNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLdouble)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLdouble)])
     def glVertexAttribs4dvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLfloat)])
     def glVertexAttribs4fvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLshort)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLshort)])
     def glVertexAttribs4svNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLubyte)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLubyte)])
     def glVertexAttribs4ubvNV(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5724, skipped: 66 ~~~~~~
     
 
 if 1: # ifndef GL_SGIX_texture_coordinate_clamp ("OpenGL/glext.h":5726)
@@ -5594,20 +5594,20 @@ if 1: # ifndef GL_ATI_envmap_bumpmap ("OpenGL/glext.h":5750)
     """GL_ATI_envmap_bumpmap"""
     GL_ATI_envmap_bumpmap = 1
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glTexBumpParameterivATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glTexBumpParameterfvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glGetTexBumpParameterivATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glGetTexBumpParameterfvATI(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5762, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_fragment_shader ("OpenGL/glext.h":5764)
@@ -5617,61 +5617,61 @@ if 1: # ifndef GL_ATI_fragment_shader ("OpenGL/glext.h":5764)
     @bind(GLuint, [GLuint])
     def glGenFragmentShadersATI(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glBindFragmentShaderATI(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glDeleteFragmentShaderATI(arg_0): pass
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glBeginFragmentShaderATI(): pass
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glEndFragmentShaderATI(): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLenum])
+    @bind(None, [GLuint, GLuint, GLenum])
     def glPassTexCoordATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLenum])
+    @bind(None, [GLuint, GLuint, GLenum])
     def glSampleMapATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
     def glColorFragmentOp1ATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
     def glColorFragmentOp2ATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
     def glColorFragmentOp3ATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint])
     def glAlphaFragmentOp1ATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
     def glAlphaFragmentOp2ATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint, GLuint])
     def glAlphaFragmentOp3ATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glSetFragmentShaderConstantATI(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5796, skipped: 16 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_pn_triangles ("OpenGL/glext.h":5798)
     """GL_ATI_pn_triangles"""
     GL_ATI_pn_triangles = 1
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glPNTrianglesiATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glPNTrianglesfATI(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5806, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_vertex_array_object ("OpenGL/glext.h":5808)
@@ -5684,120 +5684,120 @@ if 1: # ifndef GL_ATI_vertex_array_object ("OpenGL/glext.h":5808)
     @bind(GLboolean, [GLuint])
     def glIsObjectBufferATI(arg_0): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLsizei, POINTER(GLvoid), GLenum])
+    @bind(None, [GLuint, GLuint, GLsizei, POINTER(GLvoid), GLenum])
     def glUpdateObjectBufferATI(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetObjectBufferfvATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetObjectBufferivATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glFreeObjectBufferATI(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLenum, GLsizei, GLuint, GLuint])
+    @bind(None, [GLenum, GLint, GLenum, GLsizei, GLuint, GLuint])
     def glArrayObjectATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, GLenum, POINTER(GLfloat)])
     def glGetArrayObjectfvATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetArrayObjectivATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, GLsizei, GLuint, GLuint])
+    @bind(None, [GLuint, GLenum, GLsizei, GLuint, GLuint])
     def glVariantArrayObjectATI(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetVariantArrayObjectfvATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetVariantArrayObjectivATI(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5836, skipped: 14 ~~~~~~
     
 
 if 1: # ifndef GL_EXT_vertex_shader ("OpenGL/glext.h":5838)
     """GL_EXT_vertex_shader"""
     GL_EXT_vertex_shader = 1
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glBeginVertexShaderEXT(): pass
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glEndVertexShaderEXT(): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glBindVertexShaderEXT(arg_0): pass
     
     @bind(GLuint, [GLuint])
     def glGenVertexShadersEXT(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glDeleteVertexShaderEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint])
     def glShaderOp1EXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint])
     def glShaderOp2EXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLuint, GLuint])
+    @bind(None, [GLenum, GLuint, GLuint, GLuint, GLuint])
     def glShaderOp3EXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLenum, GLenum, GLenum, GLenum])
+    @bind(None, [GLuint, GLuint, GLenum, GLenum, GLenum, GLenum])
     def glSwizzleEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLenum, GLenum, GLenum, GLenum])
+    @bind(None, [GLuint, GLuint, GLenum, GLenum, GLenum, GLenum])
     def glWriteMaskEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLuint])
+    @bind(None, [GLuint, GLuint, GLuint])
     def glInsertComponentEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLuint, GLuint])
+    @bind(None, [GLuint, GLuint, GLuint])
     def glExtractComponentEXT(arg_0, arg_1, arg_2): pass
     
     @bind(GLuint, [GLenum, GLenum, GLenum, GLuint])
     def glGenSymbolsEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLuint, GLenum, POINTER(GLvoid)])
     def glSetInvariantEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLvoid)])
+    @bind(None, [GLuint, GLenum, POINTER(GLvoid)])
     def glSetLocalConstantEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLbyte)])
+    @bind(None, [GLuint, POINTER(GLbyte)])
     def glVariantbvEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLshort)])
+    @bind(None, [GLuint, POINTER(GLshort)])
     def glVariantsvEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLint)])
+    @bind(None, [GLuint, POINTER(GLint)])
     def glVariantivEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLfloat)])
+    @bind(None, [GLuint, POINTER(GLfloat)])
     def glVariantfvEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLdouble)])
+    @bind(None, [GLuint, POINTER(GLdouble)])
     def glVariantdvEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLubyte)])
+    @bind(None, [GLuint, POINTER(GLubyte)])
     def glVariantubvEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLushort)])
+    @bind(None, [GLuint, POINTER(GLushort)])
     def glVariantusvEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLuint)])
+    @bind(None, [GLuint, POINTER(GLuint)])
     def glVariantuivEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLenum, GLuint, POINTER(GLvoid)])
+    @bind(None, [GLuint, GLenum, GLuint, POINTER(GLvoid)])
     def glVariantPointerEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glEnableVariantClientStateEXT(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glDisableVariantClientStateEXT(arg_0): pass
     
     @bind(GLuint, [GLenum, GLenum])
@@ -5818,205 +5818,205 @@ if 1: # ifndef GL_EXT_vertex_shader ("OpenGL/glext.h":5838)
     @bind(GLboolean, [GLuint, GLenum])
     def glIsVariantEnabledEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLboolean)])
+    @bind(None, [GLuint, GLenum, POINTER(GLboolean)])
     def glGetVariantBooleanvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetVariantIntegervEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetVariantFloatvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(POINTER(GLvoid))])
+    @bind(None, [GLuint, GLenum, POINTER(POINTER(GLvoid))])
     def glGetVariantPointervEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLboolean)])
+    @bind(None, [GLuint, GLenum, POINTER(GLboolean)])
     def glGetInvariantBooleanvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetInvariantIntegervEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetInvariantFloatvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLboolean)])
+    @bind(None, [GLuint, GLenum, POINTER(GLboolean)])
     def glGetLocalConstantBooleanvEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetLocalConstantIntegervEXT(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetLocalConstantFloatvEXT(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 5926, skipped: 44 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_vertex_streams ("OpenGL/glext.h":5928)
     """GL_ATI_vertex_streams"""
     GL_ATI_vertex_streams = 1
     
-    @bind(GLvoid, [GLenum, GLshort])
+    @bind(None, [GLenum, GLshort])
     def glVertexStream1sATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glVertexStream1svATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glVertexStream1iATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glVertexStream1ivATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glVertexStream1fATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glVertexStream1fvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble])
+    @bind(None, [GLenum, GLdouble])
     def glVertexStream1dATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glVertexStream1dvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort, GLshort])
+    @bind(None, [GLenum, GLshort, GLshort])
     def glVertexStream2sATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glVertexStream2svATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint])
+    @bind(None, [GLenum, GLint, GLint])
     def glVertexStream2iATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glVertexStream2ivATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLfloat, GLfloat])
     def glVertexStream2fATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glVertexStream2fvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLdouble, GLdouble])
     def glVertexStream2dATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glVertexStream2dvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort, GLshort, GLshort])
+    @bind(None, [GLenum, GLshort, GLshort, GLshort])
     def glVertexStream3sATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glVertexStream3svATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint])
+    @bind(None, [GLenum, GLint, GLint, GLint])
     def glVertexStream3iATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glVertexStream3ivATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLfloat, GLfloat, GLfloat])
     def glVertexStream3fATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glVertexStream3fvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLdouble, GLdouble, GLdouble])
     def glVertexStream3dATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glVertexStream3dvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort, GLshort, GLshort, GLshort])
+    @bind(None, [GLenum, GLshort, GLshort, GLshort, GLshort])
     def glVertexStream4sATI(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glVertexStream4svATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint, GLint])
+    @bind(None, [GLenum, GLint, GLint, GLint, GLint])
     def glVertexStream4iATI(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glVertexStream4ivATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLfloat, GLfloat, GLfloat, GLfloat])
     def glVertexStream4fATI(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glVertexStream4fvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLdouble, GLdouble, GLdouble, GLdouble])
     def glVertexStream4dATI(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glVertexStream4dvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLbyte, GLbyte, GLbyte])
+    @bind(None, [GLenum, GLbyte, GLbyte, GLbyte])
     def glNormalStream3bATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLbyte)])
+    @bind(None, [GLenum, POINTER(GLbyte)])
     def glNormalStream3bvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLshort, GLshort, GLshort])
+    @bind(None, [GLenum, GLshort, GLshort, GLshort])
     def glNormalStream3sATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLshort)])
+    @bind(None, [GLenum, POINTER(GLshort)])
     def glNormalStream3svATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLint, GLint])
+    @bind(None, [GLenum, GLint, GLint, GLint])
     def glNormalStream3iATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glNormalStream3ivATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLenum, GLfloat, GLfloat, GLfloat])
     def glNormalStream3fATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLfloat)])
+    @bind(None, [GLenum, POINTER(GLfloat)])
     def glNormalStream3fvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLenum, GLdouble, GLdouble, GLdouble])
     def glNormalStream3dATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLdouble)])
+    @bind(None, [GLenum, POINTER(GLdouble)])
     def glNormalStream3dvATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glClientActiveVertexStreamATI(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glVertexBlendEnviATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLfloat])
+    @bind(None, [GLenum, GLfloat])
     def glVertexBlendEnvfATI(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6022, skipped: 47 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_element_array ("OpenGL/glext.h":6024)
     """GL_ATI_element_array"""
     GL_ATI_element_array = 1
     
-    @bind(GLvoid, [GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, POINTER(GLvoid)])
     def glElementPointerATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLsizei])
+    @bind(None, [GLenum, GLsizei])
     def glDrawElementArrayATI(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLsizei])
+    @bind(None, [GLenum, GLuint, GLuint, GLsizei])
     def glDrawRangeElementArrayATI(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6034, skipped: 5 ~~~~~~
     
 
 if 1: # ifndef GL_SUN_mesh_array ("OpenGL/glext.h":6036)
     """GL_SUN_mesh_array"""
     GL_SUN_mesh_array = 1
     
-    @bind(GLvoid, [GLenum, GLint, GLsizei, GLsizei])
+    @bind(None, [GLenum, GLint, GLsizei, GLsizei])
     def glDrawMeshArraysSUN(arg_0, arg_1, arg_2, arg_3): pass
     
     
@@ -6037,43 +6037,43 @@ if 1: # ifndef GL_NV_occlusion_query ("OpenGL/glext.h":6056)
     """GL_NV_occlusion_query"""
     GL_NV_occlusion_query = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenOcclusionQueriesNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteOcclusionQueriesNV(arg_0, arg_1): pass
     
     @bind(GLboolean, [GLuint])
     def glIsOcclusionQueryNV(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glBeginOcclusionQueryNV(arg_0): pass
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glEndOcclusionQueryNV(): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetOcclusionQueryivNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLuint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLuint)])
     def glGetOcclusionQueryuivNV(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6074, skipped: 9 ~~~~~~
     
 
 if 1: # ifndef GL_NV_point_sprite ("OpenGL/glext.h":6076)
     """GL_NV_point_sprite"""
     GL_NV_point_sprite = 1
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glPointParameteriNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, POINTER(GLint)])
     def glPointParameterivNV(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6084, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_NV_texture_shader3 ("OpenGL/glext.h":6086)
@@ -6092,7 +6092,7 @@ if 1: # ifndef GL_EXT_stencil_two_side ("OpenGL/glext.h":6098)
     """GL_EXT_stencil_two_side"""
     GL_EXT_stencil_two_side = 1
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glActiveStencilFaceEXT(arg_0): pass
     
     
@@ -6109,36 +6109,36 @@ if 1: # ifndef GL_APPLE_element_array ("OpenGL/glext.h":6114)
     """GL_APPLE_element_array"""
     GL_APPLE_element_array = 1
     
-    @bind(GLvoid, [GLenum, POINTER(GLvoid)])
+    @bind(None, [GLenum, POINTER(GLvoid)])
     def glElementPointerAPPLE(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint, GLsizei])
+    @bind(None, [GLenum, GLint, GLsizei])
     def glDrawElementArrayAPPLE(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, GLint, GLsizei])
+    @bind(None, [GLenum, GLuint, GLuint, GLint, GLsizei])
     def glDrawRangeElementArrayAPPLE(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLint), POINTER(GLsizei), GLsizei])
+    @bind(None, [GLenum, POINTER(GLint), POINTER(GLsizei), GLsizei])
     def glMultiDrawElementArrayAPPLE(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLuint, GLuint, POINTER(GLint), POINTER(GLsizei), GLsizei])
+    @bind(None, [GLenum, GLuint, GLuint, POINTER(GLint), POINTER(GLsizei), GLsizei])
     def glMultiDrawRangeElementArrayAPPLE(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6128, skipped: 7 ~~~~~~
     
 
 if 1: # ifndef GL_APPLE_fence ("OpenGL/glext.h":6130)
     """GL_APPLE_fence"""
     GL_APPLE_fence = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenFencesAPPLE(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteFencesAPPLE(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glSetFenceAPPLE(arg_0): pass
     
     @bind(GLboolean, [GLuint])
@@ -6147,54 +6147,54 @@ if 1: # ifndef GL_APPLE_fence ("OpenGL/glext.h":6130)
     @bind(GLboolean, [GLuint])
     def glTestFenceAPPLE(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glFinishFenceAPPLE(arg_0): pass
     
     @bind(GLboolean, [GLenum, GLuint])
     def glTestObjectAPPLE(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glFinishObjectAPPLE(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6150, skipped: 10 ~~~~~~
     
 
 if 1: # ifndef GL_APPLE_vertex_array_object ("OpenGL/glext.h":6152)
     """GL_APPLE_vertex_array_object"""
     GL_APPLE_vertex_array_object = 1
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glBindVertexArrayAPPLE(arg_0): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteVertexArraysAPPLE(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenVertexArraysAPPLE(arg_0, arg_1): pass
     
     @bind(GLboolean, [GLuint])
     def glIsVertexArrayAPPLE(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6164, skipped: 6 ~~~~~~
     
 
 if 1: # ifndef GL_APPLE_vertex_array_range ("OpenGL/glext.h":6166)
     """GL_APPLE_vertex_array_range"""
     GL_APPLE_vertex_array_range = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLsizei, POINTER(GLvoid)])
     def glVertexArrayRangeAPPLE(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLsizei, POINTER(GLvoid)])
     def glFlushVertexArrayRangeAPPLE(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLint])
+    @bind(None, [GLenum, GLint])
     def glVertexArrayParameteriAPPLE(arg_0, arg_1): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6176, skipped: 5 ~~~~~~
     
 
 if 1: # ifndef GL_APPLE_ycbcr_422 ("OpenGL/glext.h":6178)
@@ -6209,7 +6209,7 @@ if 1: # ifndef GL_ATI_draw_buffers ("OpenGL/glext.h":6186)
     """GL_ATI_draw_buffers"""
     GL_ATI_draw_buffers = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLenum)])
+    @bind(None, [GLsizei, POINTER(GLenum)])
     def glDrawBuffersATI(arg_0, arg_1): pass
     
     
@@ -6218,7 +6218,7 @@ if 1: # ifndef GL_ATI_pixel_format_float ("OpenGL/glext.h":6194)
     """GL_ATI_pixel_format_float"""
     GL_ATI_pixel_format_float = 1
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6199, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_texture_env_combine3 ("OpenGL/glext.h":6201)
@@ -6237,200 +6237,200 @@ if 1: # ifndef GL_NV_fragment_program ("OpenGL/glext.h":6213)
     """GL_NV_fragment_program"""
     GL_NV_fragment_program = 1
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLubyte), GLfloat, GLfloat, GLfloat, GLfloat])
+    @bind(None, [GLuint, GLsizei, POINTER(GLubyte), GLfloat, GLfloat, GLfloat, GLfloat])
     def glProgramNamedParameter4fNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLubyte), GLdouble, GLdouble, GLdouble, GLdouble])
+    @bind(None, [GLuint, GLsizei, POINTER(GLubyte), GLdouble, GLdouble, GLdouble, GLdouble])
     def glProgramNamedParameter4dNV(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLfloat)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLfloat)])
     def glProgramNamedParameter4fvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLdouble)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLdouble)])
     def glProgramNamedParameter4dvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLfloat)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLfloat)])
     def glGetProgramNamedParameterfvNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLdouble)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLubyte), POINTER(GLdouble)])
     def glGetProgramNamedParameterdvNV(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6230, skipped: 8 ~~~~~~
     
 
 if 1: # ifndef GL_NV_half_float ("OpenGL/glext.h":6232)
     """GL_NV_half_float"""
     GL_NV_half_float = 1
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV])
     def glVertex2hNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glVertex2hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV])
     def glVertex3hNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glVertex3hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
     def glVertex4hNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glVertex4hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV])
     def glNormal3hNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glNormal3hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV])
     def glColor3hNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glColor3hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
     def glColor4hNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glColor4hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV])
+    @bind(None, [GLhalfNV])
     def glTexCoord1hNV(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glTexCoord1hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV])
     def glTexCoord2hNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glTexCoord2hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV])
     def glTexCoord3hNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glTexCoord3hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
     def glTexCoord4hNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glTexCoord4hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLhalfNV])
+    @bind(None, [GLenum, GLhalfNV])
     def glMultiTexCoord1hNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLhalfNV)])
+    @bind(None, [GLenum, POINTER(GLhalfNV)])
     def glMultiTexCoord1hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLhalfNV, GLhalfNV])
+    @bind(None, [GLenum, GLhalfNV, GLhalfNV])
     def glMultiTexCoord2hNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLhalfNV)])
+    @bind(None, [GLenum, POINTER(GLhalfNV)])
     def glMultiTexCoord2hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLenum, GLhalfNV, GLhalfNV, GLhalfNV])
     def glMultiTexCoord3hNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLhalfNV)])
+    @bind(None, [GLenum, POINTER(GLhalfNV)])
     def glMultiTexCoord3hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLenum, GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
     def glMultiTexCoord4hNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, POINTER(GLhalfNV)])
+    @bind(None, [GLenum, POINTER(GLhalfNV)])
     def glMultiTexCoord4hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLhalfNV])
+    @bind(None, [GLhalfNV])
     def glFogCoordhNV(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glFogCoordhvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLhalfNV, GLhalfNV, GLhalfNV])
     def glSecondaryColor3hNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glSecondaryColor3hvNV(arg_0): pass
     
-    @bind(GLvoid, [GLhalfNV])
+    @bind(None, [GLhalfNV])
     def glVertexWeighthNV(arg_0): pass
     
-    @bind(GLvoid, [POINTER(GLhalfNV)])
+    @bind(None, [POINTER(GLhalfNV)])
     def glVertexWeighthvNV(arg_0): pass
     
-    @bind(GLvoid, [GLuint, GLhalfNV])
+    @bind(None, [GLuint, GLhalfNV])
     def glVertexAttrib1hNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, POINTER(GLhalfNV)])
     def glVertexAttrib1hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLhalfNV, GLhalfNV])
+    @bind(None, [GLuint, GLhalfNV, GLhalfNV])
     def glVertexAttrib2hNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, POINTER(GLhalfNV)])
     def glVertexAttrib2hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLuint, GLhalfNV, GLhalfNV, GLhalfNV])
     def glVertexAttrib3hNV(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, POINTER(GLhalfNV)])
     def glVertexAttrib3hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
+    @bind(None, [GLuint, GLhalfNV, GLhalfNV, GLhalfNV, GLhalfNV])
     def glVertexAttrib4hNV(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLuint, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, POINTER(GLhalfNV)])
     def glVertexAttrib4hvNV(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLhalfNV)])
     def glVertexAttribs1hvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLhalfNV)])
     def glVertexAttribs2hvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLhalfNV)])
     def glVertexAttribs3hvNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLsizei, POINTER(GLhalfNV)])
+    @bind(None, [GLuint, GLsizei, POINTER(GLhalfNV)])
     def glVertexAttribs4hvNV(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6328, skipped: 48 ~~~~~~
     
 
 if 1: # ifndef GL_NV_pixel_data_range ("OpenGL/glext.h":6330)
     """GL_NV_pixel_data_range"""
     GL_NV_pixel_data_range = 1
     
-    @bind(GLvoid, [GLenum, GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLenum, GLsizei, POINTER(GLvoid)])
     def glPixelDataRangeNV(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glFlushPixelDataRangeNV(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6338, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_NV_primitive_restart ("OpenGL/glext.h":6340)
     """GL_NV_primitive_restart"""
     GL_NV_primitive_restart = 1
     
-    @bind(GLvoid, [])
+    @bind(None, [])
     def glPrimitiveRestartNV(): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glPrimitiveRestartIndexNV(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6348, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_NV_texture_expand_normal ("OpenGL/glext.h":6350)
@@ -6448,42 +6448,42 @@ if 1: # ifndef GL_ATI_map_object_buffer ("OpenGL/glext.h":6358)
     @bind(POINTER(GLvoid), [GLuint])
     def glMapObjectBufferATI(arg_0): pass
     
-    @bind(GLvoid, [GLuint])
+    @bind(None, [GLuint])
     def glUnmapObjectBufferATI(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6366, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_separate_stencil ("OpenGL/glext.h":6368)
     """GL_ATI_separate_stencil"""
     GL_ATI_separate_stencil = 1
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLenum])
+    @bind(None, [GLenum, GLenum, GLenum, GLenum])
     def glStencilOpSeparateATI(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLint, GLuint])
+    @bind(None, [GLenum, GLenum, GLint, GLuint])
     def glStencilFuncSeparateATI(arg_0, arg_1, arg_2, arg_3): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6376, skipped: 4 ~~~~~~
     
 
 if 1: # ifndef GL_ATI_vertex_attrib_array_object ("OpenGL/glext.h":6378)
     """GL_ATI_vertex_attrib_array_object"""
     GL_ATI_vertex_attrib_array_object = 1
     
-    @bind(GLvoid, [GLuint, GLint, GLenum, GLboolean, GLsizei, GLuint, GLuint])
+    @bind(None, [GLuint, GLint, GLenum, GLboolean, GLsizei, GLuint, GLuint])
     def glVertexAttribArrayObjectATI(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLfloat)])
+    @bind(None, [GLuint, GLenum, POINTER(GLfloat)])
     def glGetVertexAttribArrayObjectfvATI(arg_0, arg_1, arg_2): pass
     
-    @bind(GLvoid, [GLuint, GLenum, POINTER(GLint)])
+    @bind(None, [GLuint, GLenum, POINTER(GLint)])
     def glGetVertexAttribArrayObjectivATI(arg_0, arg_1, arg_2): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6388, skipped: 5 ~~~~~~
     
 
 if 1: # ifndef GL_OES_read_format ("OpenGL/glext.h":6390)
@@ -6494,7 +6494,7 @@ if 1: # ifndef GL_EXT_depth_bounds_test ("OpenGL/glext.h":6394)
     """GL_EXT_depth_bounds_test"""
     GL_EXT_depth_bounds_test = 1
     
-    @bind(GLvoid, [GLclampd, GLclampd])
+    @bind(None, [GLclampd, GLclampd])
     def glDepthBoundsEXT(arg_0, arg_1): pass
     
     
@@ -6507,7 +6507,7 @@ if 1: # ifndef GL_EXT_blend_equation_separate ("OpenGL/glext.h":6406)
     """GL_EXT_blend_equation_separate"""
     GL_EXT_blend_equation_separate = 1
     
-    @bind(GLvoid, [GLenum, GLenum])
+    @bind(None, [GLenum, GLenum])
     def glBlendEquationSeparateEXT(arg_0, arg_1): pass
     
     
@@ -6547,66 +6547,67 @@ if 1: # ifndef GL_EXT_framebuffer_object ("OpenGL/glext.h":6442)
     @bind(GLboolean, [GLuint])
     def glIsRenderbufferEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLuint])
+    @bind(None, [GLenum, GLuint])
     def glBindRenderbufferEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteRenderbuffersEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenRenderbuffersEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLsizei, GLsizei])
+    @bind(None, [GLenum, GLenum, GLsizei, GLsizei])
     def glRenderbufferStorageEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, POINTER(GLint)])
     def glGetRenderbufferParameterivEXT(arg_0, arg_1, arg_2): pass
     
     @bind(GLboolean, [GLuint])
     def glIsFramebufferEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLuint])
+    @bind(None, [GLenum, GLuint])
     def glBindFramebufferEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glDeleteFramebuffersEXT(arg_0, arg_1): pass
     
-    @bind(GLvoid, [GLsizei, POINTER(GLuint)])
+    @bind(None, [GLsizei, POINTER(GLuint)])
     def glGenFramebuffersEXT(arg_0, arg_1): pass
     
     @bind(GLenum, [GLenum])
     def glCheckFramebufferStatusEXT(arg_0): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLuint, GLint])
+    @bind(None, [GLenum, GLenum, GLenum, GLuint, GLint])
     def glFramebufferTexture1DEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLuint, GLint])
+    @bind(None, [GLenum, GLenum, GLenum, GLuint, GLint])
     def glFramebufferTexture2DEXT(arg_0, arg_1, arg_2, arg_3, arg_4): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLuint, GLint, GLint])
+    @bind(None, [GLenum, GLenum, GLenum, GLuint, GLint, GLint])
     def glFramebufferTexture3DEXT(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, GLuint])
+    @bind(None, [GLenum, GLenum, GLenum, GLuint])
     def glFramebufferRenderbufferEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum, GLenum, GLenum, POINTER(GLint)])
+    @bind(None, [GLenum, GLenum, GLenum, POINTER(GLint)])
     def glGetFramebufferAttachmentParameterivEXT(arg_0, arg_1, arg_2, arg_3): pass
     
-    @bind(GLvoid, [GLenum])
+    @bind(None, [GLenum])
     def glGenerateMipmapEXT(arg_0): pass
     
     
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~ line: 6480, skipped: 19 ~~~~~~
     
 
 if 1: # ifndef GL_GREMEDY_string_marker ("OpenGL/glext.h":6482)
     """GL_GREMEDY_string_marker"""
     GL_GREMEDY_string_marker = 1
     
-    @bind(GLvoid, [GLsizei, POINTER(GLvoid)])
+    @bind(None, [GLsizei, POINTER(GLvoid)])
     def glStringMarkerGREMEDY(arg_0, arg_1): pass
     
     
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:

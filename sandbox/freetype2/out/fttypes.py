@@ -18,7 +18,7 @@ class FT_Int32(c_int):
 
 FT_RENDER_POOL_SIZE = 16384L
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ line: 297, skipped: 10 ~~~~~~
 
 FT_MAX_MODULES = 32
 
@@ -36,7 +36,7 @@ class FT_Short(c_short):
 class FT_UShort(c_ushort):
     """typedef FT_UShort"""
 
-class FT_Int(FT_Int32):
+class FT_Int(c_int):
     """typedef FT_Int"""
 
 class FT_UInt(c_uint):
@@ -48,13 +48,13 @@ class FT_Long(c_long):
 class FT_ULong(c_ulong):
     """typedef FT_ULong"""
 
-class FT_F26Dot6(FT_Long):
+class FT_F26Dot6(c_long):
     """typedef FT_F26Dot6"""
 
-class FT_Fixed(FT_F26Dot6):
+class FT_Fixed(c_long):
     """typedef FT_Fixed"""
 
-class FT_Error(FT_Int):
+class FT_Error(c_int):
     """typedef FT_Error"""
 
 FT_Pointer = c_void_p # typedef FT_Pointer

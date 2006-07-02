@@ -24,11 +24,21 @@ class CIPPDefine(CodeItem):
                                 ident=self.item.ident, 
                                 body=self.getDefineBody())
 
-    def getDefineBody(self):
-        body = self.item.body
+    def getDefineBody(self, body=None):
+        if body is None:
+            body = self.item.body
+
+        if not body:
+            return 'None # empty'
 
         if not body[:1].isalpha():
             return body
+        else:
+            return self.getLookupDefineBody(body)
+
+    def getLookupDefineBody(self, body=None):
+        if body is None:
+            body = self.item.body
 
         derefList = []
         ppDefines = self.item.file.root.ppDefines
@@ -41,7 +51,10 @@ class CIPPDefine(CodeItem):
             else:
                 derefList.append(body)
                 body = nextDefine.body
+
         return body + ' # = ' + ' = '.join(derefList)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CIPPMacro(CodeItem): 
     template = (
