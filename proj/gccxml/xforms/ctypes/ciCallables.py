@@ -82,7 +82,8 @@ class CIFunctionType(CallableCodeItem, TypeCodeItem):
                     )
 
 class CIFunction(CallableCodeItem):
-    decoTemplate = '@bind(%(retTypeRef)s, [%(argTypeRefs)s])'
+    bind = 'bind'
+    decoTemplate = '@%(bind)s(%(retTypeRef)s, [%(argTypeRefs)s])'
     funcTemplate = 'def %(funcName)s(%(paramNames)s): pass\n'
 
     def writeTo(self, stream):
@@ -91,6 +92,7 @@ class CIFunction(CallableCodeItem):
 
     def decoDecl(self):
         return self.decoTemplate % dict(
+            bind=self.bind,
             retTypeRef=self.retTypeRef(),
             argTypeRefs=self.joinArgTypeRefs(),
             )
