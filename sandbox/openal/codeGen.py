@@ -20,8 +20,10 @@ from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 
 class FilterVisitor(AtomFilterVisitor):
     def onFunction(self, item):
-        if item.extern and item.name.startswith('al'):
+        if not item.extern: return
+        if item.name.startswith('al'):
             self.select(item)
+        else: print item
 
     def onPPInclude(self, item):
         print '"%s" includes "%s"' % (item.file.name, item.filename)
@@ -81,6 +83,9 @@ def main():
 
     alc = ciFilesByName['alc.h']
     alc.importAll(altypes, alctypes)
+
+    alut = ciFilesByName['alut.h']
+    alut.importAll(altypes, alctypes)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

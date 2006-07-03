@@ -12,7 +12,8 @@ from _ctypes_openal import *
 class ALboolean(c_char):
     """typedef ALboolean"""
 
-#~ line: 36, skipped: 6 ~~~~~~
+class ALbyte(c_char):
+    """typedef ALbyte"""
 
 class ALubyte(c_ubyte):
     """typedef ALubyte"""
