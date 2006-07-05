@@ -76,10 +76,13 @@ def main():
     for ciFile in ciFilesByName.itervalues():
         ciFile.importAll('_ctypes_opengl')
 
-    gl = context['OpenGL/gl.h']
+    gl = ciFilesByName['gl.h']
 
-    glext = context['OpenGL/glext.h']
+    glext = ciFilesByName['glext.h']
     glext.importAll(gl)
+
+    glu = ciFilesByName['glu.h']
+    glu.importAll(gl)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -87,7 +90,7 @@ def main():
     print
     print "Writing out ctypes code:"
     print "========================"
-    for ciFile in [gl, glext]:
+    for ciFile in ciFilesByName.values():
         print 'Writing:', ciFile.filename
         ciFile.writeToFile()
 
