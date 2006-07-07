@@ -125,7 +125,7 @@ xmlSkin = XMLSkin("""<?xml version='1.0'?>
                             gl.glPushMatrix()
                             gl.glRotatef((time.clock()*181) % 360.0, 0, 0, 1)
                             gl.glColor3f(1.0, 0.0, 1.0)
-                            for i in xrange(1,5):
+                            for i in xrange(1,100):
                                 wireCube(i)
                             gl.glPopMatrix()
                             gl.glFlush()

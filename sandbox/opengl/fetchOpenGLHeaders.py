@@ -36,10 +36,11 @@ def download(url, filename):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
-    baseurl = 'http://oss.sgi.com/projects/ogl-sample/ABI/'
+    baseurl = 'http://www.opengl.org/registry/ABI/'
     basedir = 'OpenGL'
     filenames = ('glext.h', 'glxext.h', 'wglext.h')
 
     for fn in filenames:
+        print 'Downloading %s from %s' % (fn, baseurl+fn)
         download(baseurl+fn, os.path.join(basedir, fn))
 
