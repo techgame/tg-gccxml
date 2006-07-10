@@ -5,6 +5,7 @@ Icon?
 *.pyo
 *~
 .*.swp
+\.svn/
 
 syntax: regexp
 ^sandbox/.*/build/.*
