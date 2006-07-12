@@ -12,10 +12,18 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import os
+from TG.gccxml.codeAnalyzer import CodeAnalyzer
 from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+analyzer = CodeAnalyzer(
+        inc=['/System/Library/Frameworks/OpenAL.framework/Headers/'],
+        src=['src/genOpenAL.c'], 
+        baseline=['src/baseline.c'])
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class FilterVisitor(AtomFilterVisitor):
@@ -57,17 +65,14 @@ class FilterVisitor(AtomFilterVisitor):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def main():
-    srcCodeModelFile = 'build/gccxml/srcCode.model'
-    if not os.path.exists(srcCodeModelFile):
-        import gen
-        root = gen.main().root
-        context = CCodeGenContext(root)
-    else:
-        context = CCodeGenContext.fromFileNamed(srcCodeModelFile)
-
+    root = analyzer.loadModel()
+    context = CCodeGenContext(root)
     context.atomFilter = FilterVisitor()
 
     ciFilesByName = dict((os.path.basename(f.name), f) for f in context if f)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # setup imports
 
     for ciFile in ciFilesByName.itervalues():
         ciFile.importAll('_ctypes_openal')
@@ -88,6 +93,7 @@ def main():
     alut.importAll(altypes, alctypes)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # write output files
 
     context.outputPath = 'out'
     print
@@ -96,6 +102,9 @@ def main():
     for ciFile in ciFilesByName.values():
         print 'Writing:', ciFile.filename
         ciFile.writeToFile()
+        print 'Done Writing:', ciFile.filename
+        print
+    print
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

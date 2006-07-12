@@ -7,7 +7,7 @@ from gl import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "OpenGL/glu.h"
+#~   "inc/OpenGL/glu.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 GLU_EXT_object_space_tess = 1
@@ -381,6 +381,6 @@ def gluUnProject4(winX, winY, winZ, clipW, model, proj, view, near, far, objX, o
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "OpenGL/glu.h"
+#~   "inc/OpenGL/glu.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

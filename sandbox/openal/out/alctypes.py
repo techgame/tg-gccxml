@@ -6,7 +6,7 @@ from _ctypes_openal import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/alctypes.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/alctypes.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ALCboolean(c_char):
@@ -100,6 +100,6 @@ ALC_RENDER_CHANNEL_COUNT_MULTICHANNEL = 'rcmc'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/alctypes.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/alctypes.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

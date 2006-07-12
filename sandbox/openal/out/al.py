@@ -7,7 +7,7 @@ from altypes import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/al.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/al.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ALAPI = None # empty
@@ -250,6 +250,6 @@ def alDopplerVelocity(value): pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/al.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/al.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

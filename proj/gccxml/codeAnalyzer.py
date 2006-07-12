@@ -10,6 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import os.path
 from model.elements import RootElement
 from analyzer.stepProcessor import StepProcessorBase
 from analyzer import dependency, includes, defines, ifdef, code
@@ -21,8 +22,8 @@ from analyzer import dependency, includes, defines, ifdef, code
 class CodeAnalyzer(StepProcessorBase):
     RootElementFactory = RootElement
 
-    def setup(self):
-        StepProcessorBase.setup(self)
+    def setupSteps(self):
+        StepProcessorBase.setupSteps(self)
         self.steps += [
             dependency.DependencyProcessorStep(),
             includes.IncludesProcessorStep(),
@@ -31,12 +32,28 @@ class CodeAnalyzer(StepProcessorBase):
             code.CodeProcessorStep(),
             ]
 
-    def start(self):
+    def startVisitSteps(self):
         self.root = self.RootElementFactory()
     
     def visitStep(self, step):
         step.findElements(self.root)
 
-    def end(self):
-        pass
+    def endVisitSteps(self):
+        modelFile = self.cfg.modelFile
+        if modelFile:
+            self.root.storeToFileNamed(modelFile)
+
+    def loadModel(self, runIfNotFound=True):
+        modelFile = self.cfg.modelFile
+        if os.path.exists(modelFile):
+            self.root = self.RootElementFactory.loadFromFileNamed(modelFile)
+        elif runIfNotFound:
+            self.run()
+        else:
+            self.root = None
+        return self.root
+
+    def run(self):
+        self.visitAllSteps()
+        return self.root
 

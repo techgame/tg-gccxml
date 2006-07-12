@@ -12,10 +12,18 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import os
+from TG.gccxml.codeAnalyzer import CodeAnalyzer
 from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+analyzer = CodeAnalyzer(
+        inc=['/usr/local/include/freetype2'], 
+        src=['src/genFreeType2.c'], 
+        baseline=['src/baseline.c'])
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class FilterVisitor(AtomFilterVisitor):
@@ -92,17 +100,14 @@ class FilterVisitor(AtomFilterVisitor):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def main():
-    srcCodeModelFile = 'build/gccxml/srcCode.model'
-    if not os.path.exists(srcCodeModelFile):
-        import gen
-        root = gen.main().root
-        context = CCodeGenContext(root)
-    else:
-        context = CCodeGenContext.fromFileNamed(srcCodeModelFile)
-
+    root = analyzer.loadModel()
+    context = CCodeGenContext(root)
     context.atomFilter = FilterVisitor()
 
     ciFilesByName = dict((os.path.basename(f.name), f) for f in context if f)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # remove these files because we don't need what they have
 
     ciFilesByName.pop('ftheader.h', None)
     ciFilesByName.pop('fterror.h', None)
@@ -110,6 +115,7 @@ def main():
     ciFilesByName.pop('internal.h', None)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # collapse ftconfig and ftoption into one file
 
     ftconfig = ciFilesByName.pop('ftconfig.h')
     ftconfig.lines.insert(0, (0, '#~ Code block from "%s" ~~~\n' % (ftconfig.name,)))
@@ -117,12 +123,15 @@ def main():
     ftoption = ciFilesByName.pop('ftoption.h')
     ftoption.lines.insert(0, (0, '#~ Code block from "%s" ~~~\n' % (ftoption.name,)))
 
+    fttypes = ciFilesByName['fttypes.h']
+    fttypes.lines.insert(0, (0, '#~ Code block from "%s" ~~~\n' % (fttypes.name,)))
+    fttypes.prependFiles = [ftconfig, ftoption]
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # setup imports
+
     for ciFile in ciFilesByName.itervalues():
         ciFile.importAll('_ctypes_freetype')
-
-    fttypes = ciFilesByName['fttypes.h']
-    fttypes.prependFiles = [ftconfig, ftoption]
-    fttypes.lines.insert(0, (0, '#~ Code block from "%s" ~~~\n' % (fttypes.name,)))
 
     ftimage = ciFilesByName['ftimage.h']
     ftimage.importAll(fttypes)
@@ -134,6 +143,7 @@ def main():
     freetype.importAll(fttypes, ftimage, ftsystem)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # write output files
 
     context.outputPath = 'out'
     print
@@ -143,6 +153,9 @@ def main():
         print 'Writing:', ciFile.filename
         ciFile.blockSeparator = ''
         ciFile.writeToFile()
+        print 'Done Writing:', ciFile.filename
+        print
+    print
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

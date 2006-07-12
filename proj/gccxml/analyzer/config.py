@@ -22,8 +22,14 @@ class StepConfig(object):
 
     def __init__(self):
         self.files = {}
+
+    def setup(self):
         if not os.path.isdir(self.outputDir):
             os.makedirs(self.outputDir)
+
+    def configure(self, **cfgkw):
+        for name, value in cfgkw.iteritems():
+            setattr(self, name, value)
 
     def getOutFile(self, outfile):
         if outfile:
@@ -51,6 +57,16 @@ class StepConfig(object):
         existing.extend(f for f in files if f not in existing)
     inc = property(getIncludeDirs, addIncludeDirs)
 
+    def getModelFile(self):
+        if 'model' not in self.files:
+            self.setModelFile('srcCode.model', True)
+        return self.files['model']
+    def setModelFile(self, modelFile, bAsOutFile=True):
+        if bAsOutFile:
+            modelFile = self.getOutFile(modelFile)
+        self.files['model'] = modelFile
+    modelFile = property(getModelFile, setModelFile)
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class StepConfigVisitorMixin(object):
@@ -67,4 +83,7 @@ class StepConfigVisitorMixin(object):
 
     def createConfig(self):
         self.setConfig(self.ConfigFactory())
+
+    def configure(self, **cfgkw):
+        self.config.configure(**cfgkw)
 

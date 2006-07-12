@@ -6,7 +6,7 @@ from _ctypes_openal import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/altypes.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/altypes.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ALboolean(c_char):
@@ -195,6 +195,6 @@ AL_INVERSE_DISTANCE_CLAMPED = 0xD002
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/altypes.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/altypes.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

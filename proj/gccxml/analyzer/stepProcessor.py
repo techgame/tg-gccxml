@@ -17,22 +17,32 @@ from config import StepConfigVisitorMixin
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class StepProcessorBase(StepConfigVisitorMixin):
-    def __init__(self):
-        self.setup()
+    def __init__(self, **cfgkw):
+        self.configure(**cfgkw)
 
-    def setup(self):
+    def setupProcess(self):
+        self.config.setup()
+        self.setupSteps()
+
+    steps = None
+    def setupSteps(self):
         self.steps = []
 
     def __call__(self):
         self.run()
-    def run(self):
-        self.start()
+
+    def visitAllSteps(self):
+        if self.steps is None:
+            self.setupProcess()
+        self.startVisitSteps()
         for step in self.steps:
             step.visit(self)
-        self.end()
+        self.endVisitSteps()
 
-    def start(self): pass
-    def end(self): pass
+    def startVisitSteps(self): 
+        pass
+    def endVisitSteps(self): 
+        pass
 
     def visitStep(self, step):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))

@@ -7,14 +7,14 @@ from gl import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "OpenGL/glext.h"
+#~   "inc/OpenGL/glext.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 GL_GLEXT_VERSION = 29
 
 #~ line: 103, skipped: 46 ~~~~~~
 
-if 1: # ifndef GL_ARB_imaging ("OpenGL/glext.h":103)
+if 1: # ifndef GL_ARB_imaging ("inc/OpenGL/glext.h":103)
     """GL_ARB_imaging"""
     GL_CONSTANT_COLOR = 0x8001
     GL_ONE_MINUS_CONSTANT_COLOR = 0x8002
@@ -94,7 +94,7 @@ if 1: # ifndef GL_ARB_imaging ("OpenGL/glext.h":103)
 
 #~ line: 462, skipped: 283 ~~~~~~
 
-if 1: # ifndef GL_ARB_multitexture ("OpenGL/glext.h":462)
+if 1: # ifndef GL_ARB_multitexture ("inc/OpenGL/glext.h":462)
     """GL_ARB_multitexture"""
     GL_TEXTURE0_ARB = 0x84C0
     GL_TEXTURE1_ARB = 0x84C1
@@ -132,14 +132,14 @@ if 1: # ifndef GL_ARB_multitexture ("OpenGL/glext.h":462)
     GL_CLIENT_ACTIVE_TEXTURE_ARB = 0x84E1
     GL_MAX_TEXTURE_UNITS_ARB = 0x84E2
 
-if 1: # ifndef GL_ARB_transpose_matrix ("OpenGL/glext.h":500)
+if 1: # ifndef GL_ARB_transpose_matrix ("inc/OpenGL/glext.h":500)
     """GL_ARB_transpose_matrix"""
     GL_TRANSPOSE_MODELVIEW_MATRIX_ARB = 0x84E3
     GL_TRANSPOSE_PROJECTION_MATRIX_ARB = 0x84E4
     GL_TRANSPOSE_TEXTURE_MATRIX_ARB = 0x84E5
     GL_TRANSPOSE_COLOR_MATRIX_ARB = 0x84E6
 
-if 1: # ifndef GL_ARB_multisample ("OpenGL/glext.h":507)
+if 1: # ifndef GL_ARB_multisample ("inc/OpenGL/glext.h":507)
     """GL_ARB_multisample"""
     GL_MULTISAMPLE_ARB = 0x809D
     GL_SAMPLE_ALPHA_TO_COVERAGE_ARB = 0x809E
@@ -151,10 +151,10 @@ if 1: # ifndef GL_ARB_multisample ("OpenGL/glext.h":507)
     GL_SAMPLE_COVERAGE_INVERT_ARB = 0x80AB
     GL_MULTISAMPLE_BIT_ARB = 0x20000000
 
-if 1: # ifndef GL_ARB_texture_env_add ("OpenGL/glext.h":519)
+if 1: # ifndef GL_ARB_texture_env_add ("inc/OpenGL/glext.h":519)
     """GL_ARB_texture_env_add"""
 
-if 1: # ifndef GL_ARB_texture_cube_map ("OpenGL/glext.h":522)
+if 1: # ifndef GL_ARB_texture_cube_map ("inc/OpenGL/glext.h":522)
     """GL_ARB_texture_cube_map"""
     GL_NORMAL_MAP_ARB = 0x8511
     GL_REFLECTION_MAP_ARB = 0x8512
@@ -169,7 +169,7 @@ if 1: # ifndef GL_ARB_texture_cube_map ("OpenGL/glext.h":522)
     GL_PROXY_TEXTURE_CUBE_MAP_ARB = 0x851B
     GL_MAX_CUBE_MAP_TEXTURE_SIZE_ARB = 0x851C
 
-if 1: # ifndef GL_ARB_texture_compression ("OpenGL/glext.h":537)
+if 1: # ifndef GL_ARB_texture_compression ("inc/OpenGL/glext.h":537)
     """GL_ARB_texture_compression"""
     GL_COMPRESSED_ALPHA_ARB = 0x84E9
     GL_COMPRESSED_LUMINANCE_ARB = 0x84EA
@@ -183,18 +183,18 @@ if 1: # ifndef GL_ARB_texture_compression ("OpenGL/glext.h":537)
     GL_NUM_COMPRESSED_TEXTURE_FORMATS_ARB = 0x86A2
     GL_COMPRESSED_TEXTURE_FORMATS_ARB = 0x86A3
 
-if 1: # ifndef GL_ARB_texture_border_clamp ("OpenGL/glext.h":551)
+if 1: # ifndef GL_ARB_texture_border_clamp ("inc/OpenGL/glext.h":551)
     """GL_ARB_texture_border_clamp"""
     GL_CLAMP_TO_BORDER_ARB = 0x812D
 
-if 1: # ifndef GL_ARB_point_parameters ("OpenGL/glext.h":555)
+if 1: # ifndef GL_ARB_point_parameters ("inc/OpenGL/glext.h":555)
     """GL_ARB_point_parameters"""
     GL_POINT_SIZE_MIN_ARB = 0x8126
     GL_POINT_SIZE_MAX_ARB = 0x8127
     GL_POINT_FADE_THRESHOLD_SIZE_ARB = 0x8128
     GL_POINT_DISTANCE_ATTENUATION_ARB = 0x8129
 
-if 1: # ifndef GL_ARB_vertex_blend ("OpenGL/glext.h":562)
+if 1: # ifndef GL_ARB_vertex_blend ("inc/OpenGL/glext.h":562)
     """GL_ARB_vertex_blend"""
     GL_MAX_VERTEX_UNITS_ARB = 0x86A4
     GL_ACTIVE_VERTEX_UNITS_ARB = 0x86A5
@@ -239,7 +239,7 @@ if 1: # ifndef GL_ARB_vertex_blend ("OpenGL/glext.h":562)
     GL_MODELVIEW30_ARB = 0x873E
     GL_MODELVIEW31_ARB = 0x873F
 
-if 1: # ifndef GL_ARB_matrix_palette ("OpenGL/glext.h":607)
+if 1: # ifndef GL_ARB_matrix_palette ("inc/OpenGL/glext.h":607)
     """GL_ARB_matrix_palette"""
     GL_MATRIX_PALETTE_ARB = 0x8840
     GL_MAX_MATRIX_PALETTE_STACK_DEPTH_ARB = 0x8841
@@ -252,7 +252,7 @@ if 1: # ifndef GL_ARB_matrix_palette ("OpenGL/glext.h":607)
     GL_MATRIX_INDEX_ARRAY_STRIDE_ARB = 0x8848
     GL_MATRIX_INDEX_ARRAY_POINTER_ARB = 0x8849
 
-if 1: # ifndef GL_ARB_texture_env_combine ("OpenGL/glext.h":620)
+if 1: # ifndef GL_ARB_texture_env_combine ("inc/OpenGL/glext.h":620)
     """GL_ARB_texture_env_combine"""
     GL_COMBINE_ARB = 0x8570
     GL_COMBINE_RGB_ARB = 0x8571
@@ -277,19 +277,19 @@ if 1: # ifndef GL_ARB_texture_env_combine ("OpenGL/glext.h":620)
     GL_PRIMARY_COLOR_ARB = 0x8577
     GL_PREVIOUS_ARB = 0x8578
 
-if 1: # ifndef GL_ARB_texture_env_crossbar ("OpenGL/glext.h":645)
+if 1: # ifndef GL_ARB_texture_env_crossbar ("inc/OpenGL/glext.h":645)
     """GL_ARB_texture_env_crossbar"""
 
-if 1: # ifndef GL_ARB_texture_env_dot3 ("OpenGL/glext.h":648)
+if 1: # ifndef GL_ARB_texture_env_dot3 ("inc/OpenGL/glext.h":648)
     """GL_ARB_texture_env_dot3"""
     GL_DOT3_RGB_ARB = 0x86AE
     GL_DOT3_RGBA_ARB = 0x86AF
 
-if 1: # ifndef GL_ARB_texture_mirrored_repeat ("OpenGL/glext.h":653)
+if 1: # ifndef GL_ARB_texture_mirrored_repeat ("inc/OpenGL/glext.h":653)
     """GL_ARB_texture_mirrored_repeat"""
     GL_MIRRORED_REPEAT_ARB = 0x8370
 
-if 1: # ifndef GL_ARB_depth_texture ("OpenGL/glext.h":657)
+if 1: # ifndef GL_ARB_depth_texture ("inc/OpenGL/glext.h":657)
     """GL_ARB_depth_texture"""
     GL_DEPTH_COMPONENT16_ARB = 0x81A5
     GL_DEPTH_COMPONENT24_ARB = 0x81A6
@@ -297,20 +297,20 @@ if 1: # ifndef GL_ARB_depth_texture ("OpenGL/glext.h":657)
     GL_TEXTURE_DEPTH_SIZE_ARB = 0x884A
     GL_DEPTH_TEXTURE_MODE_ARB = 0x884B
 
-if 1: # ifndef GL_ARB_shadow ("OpenGL/glext.h":665)
+if 1: # ifndef GL_ARB_shadow ("inc/OpenGL/glext.h":665)
     """GL_ARB_shadow"""
     GL_TEXTURE_COMPARE_MODE_ARB = 0x884C
     GL_TEXTURE_COMPARE_FUNC_ARB = 0x884D
     GL_COMPARE_R_TO_TEXTURE_ARB = 0x884E
 
-if 1: # ifndef GL_ARB_shadow_ambient ("OpenGL/glext.h":671)
+if 1: # ifndef GL_ARB_shadow_ambient ("inc/OpenGL/glext.h":671)
     """GL_ARB_shadow_ambient"""
     GL_TEXTURE_COMPARE_FAIL_VALUE_ARB = 0x80BF
 
-if 1: # ifndef GL_ARB_window_pos ("OpenGL/glext.h":675)
+if 1: # ifndef GL_ARB_window_pos ("inc/OpenGL/glext.h":675)
     """GL_ARB_window_pos"""
 
-if 1: # ifndef GL_ARB_vertex_program ("OpenGL/glext.h":678)
+if 1: # ifndef GL_ARB_vertex_program ("inc/OpenGL/glext.h":678)
     """GL_ARB_vertex_program"""
     GL_COLOR_SUM_ARB = 0x8458
     GL_VERTEX_PROGRAM_ARB = 0x8620
@@ -392,7 +392,7 @@ if 1: # ifndef GL_ARB_vertex_program ("OpenGL/glext.h":678)
     GL_MATRIX30_ARB = 0x88DE
     GL_MATRIX31_ARB = 0x88DF
 
-if 1: # ifndef GL_ARB_fragment_program ("OpenGL/glext.h":760)
+if 1: # ifndef GL_ARB_fragment_program ("inc/OpenGL/glext.h":760)
     """GL_ARB_fragment_program"""
     GL_FRAGMENT_PROGRAM_ARB = 0x8804
     GL_PROGRAM_ALU_INSTRUCTIONS_ARB = 0x8805
@@ -410,7 +410,7 @@ if 1: # ifndef GL_ARB_fragment_program ("OpenGL/glext.h":760)
     GL_MAX_TEXTURE_COORDS_ARB = 0x8871
     GL_MAX_TEXTURE_IMAGE_UNITS_ARB = 0x8872
 
-if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":778)
+if 1: # ifndef GL_ARB_vertex_buffer_object ("inc/OpenGL/glext.h":778)
     """GL_ARB_vertex_buffer_object"""
     GL_BUFFER_SIZE_ARB = 0x8764
     GL_BUFFER_USAGE_ARB = 0x8765
@@ -444,7 +444,7 @@ if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":778)
     GL_DYNAMIC_READ_ARB = 0x88E9
     GL_DYNAMIC_COPY_ARB = 0x88EA
 
-if 1: # ifndef GL_ARB_occlusion_query ("OpenGL/glext.h":812)
+if 1: # ifndef GL_ARB_occlusion_query ("inc/OpenGL/glext.h":812)
     """GL_ARB_occlusion_query"""
     GL_QUERY_COUNTER_BITS_ARB = 0x8864
     GL_CURRENT_QUERY_ARB = 0x8865
@@ -452,7 +452,7 @@ if 1: # ifndef GL_ARB_occlusion_query ("OpenGL/glext.h":812)
     GL_QUERY_RESULT_AVAILABLE_ARB = 0x8867
     GL_SAMPLES_PASSED_ARB = 0x8914
 
-if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":820)
+if 1: # ifndef GL_ARB_shader_objects ("inc/OpenGL/glext.h":820)
     """GL_ARB_shader_objects"""
     GL_PROGRAM_OBJECT_ARB = 0x8B40
     GL_SHADER_OBJECT_ARB = 0x8B48
@@ -489,7 +489,7 @@ if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":820)
     GL_OBJECT_ACTIVE_UNIFORM_MAX_LENGTH_ARB = 0x8B87
     GL_OBJECT_SHADER_SOURCE_LENGTH_ARB = 0x8B88
 
-if 1: # ifndef GL_ARB_vertex_shader ("OpenGL/glext.h":857)
+if 1: # ifndef GL_ARB_vertex_shader ("inc/OpenGL/glext.h":857)
     """GL_ARB_vertex_shader"""
     GL_VERTEX_SHADER_ARB = 0x8B31
     GL_MAX_VERTEX_UNIFORM_COMPONENTS_ARB = 0x8B4A
@@ -499,28 +499,28 @@ if 1: # ifndef GL_ARB_vertex_shader ("OpenGL/glext.h":857)
     GL_OBJECT_ACTIVE_ATTRIBUTES_ARB = 0x8B89
     GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB = 0x8B8A
 
-if 1: # ifndef GL_ARB_fragment_shader ("OpenGL/glext.h":867)
+if 1: # ifndef GL_ARB_fragment_shader ("inc/OpenGL/glext.h":867)
     """GL_ARB_fragment_shader"""
     GL_FRAGMENT_SHADER_ARB = 0x8B30
     GL_MAX_FRAGMENT_UNIFORM_COMPONENTS_ARB = 0x8B49
     GL_FRAGMENT_SHADER_DERIVATIVE_HINT_ARB = 0x8B8B
 
-if 1: # ifndef GL_ARB_shading_language_100 ("OpenGL/glext.h":873)
+if 1: # ifndef GL_ARB_shading_language_100 ("inc/OpenGL/glext.h":873)
     """GL_ARB_shading_language_100"""
     GL_SHADING_LANGUAGE_VERSION_ARB = 0x8B8C
 
-if 1: # ifndef GL_ARB_texture_non_power_of_two ("OpenGL/glext.h":877)
+if 1: # ifndef GL_ARB_texture_non_power_of_two ("inc/OpenGL/glext.h":877)
     """GL_ARB_texture_non_power_of_two"""
 
-if 1: # ifndef GL_ARB_point_sprite ("OpenGL/glext.h":880)
+if 1: # ifndef GL_ARB_point_sprite ("inc/OpenGL/glext.h":880)
     """GL_ARB_point_sprite"""
     GL_POINT_SPRITE_ARB = 0x8861
     GL_COORD_REPLACE_ARB = 0x8862
 
-if 1: # ifndef GL_ARB_fragment_program_shadow ("OpenGL/glext.h":885)
+if 1: # ifndef GL_ARB_fragment_program_shadow ("inc/OpenGL/glext.h":885)
     """GL_ARB_fragment_program_shadow"""
 
-if 1: # ifndef GL_ARB_draw_buffers ("OpenGL/glext.h":888)
+if 1: # ifndef GL_ARB_draw_buffers ("inc/OpenGL/glext.h":888)
     """GL_ARB_draw_buffers"""
     GL_MAX_DRAW_BUFFERS_ARB = 0x8824
     GL_DRAW_BUFFER0_ARB = 0x8825
@@ -540,14 +540,14 @@ if 1: # ifndef GL_ARB_draw_buffers ("OpenGL/glext.h":888)
     GL_DRAW_BUFFER14_ARB = 0x8833
     GL_DRAW_BUFFER15_ARB = 0x8834
 
-if 1: # ifndef GL_ARB_texture_rectangle ("OpenGL/glext.h":908)
+if 1: # ifndef GL_ARB_texture_rectangle ("inc/OpenGL/glext.h":908)
     """GL_ARB_texture_rectangle"""
     GL_TEXTURE_RECTANGLE_ARB = 0x84F5
     GL_TEXTURE_BINDING_RECTANGLE_ARB = 0x84F6
     GL_PROXY_TEXTURE_RECTANGLE_ARB = 0x84F7
     GL_MAX_RECTANGLE_TEXTURE_SIZE_ARB = 0x84F8
 
-if 1: # ifndef GL_ARB_color_buffer_float ("OpenGL/glext.h":915)
+if 1: # ifndef GL_ARB_color_buffer_float ("inc/OpenGL/glext.h":915)
     """GL_ARB_color_buffer_float"""
     GL_RGBA_FLOAT_MODE_ARB = 0x8820
     GL_CLAMP_VERTEX_COLOR_ARB = 0x891A
@@ -555,11 +555,11 @@ if 1: # ifndef GL_ARB_color_buffer_float ("OpenGL/glext.h":915)
     GL_CLAMP_READ_COLOR_ARB = 0x891C
     GL_FIXED_ONLY_ARB = 0x891D
 
-if 1: # ifndef GL_ARB_half_float_pixel ("OpenGL/glext.h":923)
+if 1: # ifndef GL_ARB_half_float_pixel ("inc/OpenGL/glext.h":923)
     """GL_ARB_half_float_pixel"""
     GL_HALF_FLOAT_ARB = 0x140B
 
-if 1: # ifndef GL_ARB_texture_float ("OpenGL/glext.h":927)
+if 1: # ifndef GL_ARB_texture_float ("inc/OpenGL/glext.h":927)
     """GL_ARB_texture_float"""
     GL_TEXTURE_RED_TYPE_ARB = 0x8C10
     GL_TEXTURE_GREEN_TYPE_ARB = 0x8C11
@@ -582,18 +582,18 @@ if 1: # ifndef GL_ARB_texture_float ("OpenGL/glext.h":927)
     GL_LUMINANCE16F_ARB = 0x881E
     GL_LUMINANCE_ALPHA16F_ARB = 0x881F
 
-if 1: # ifndef GL_ARB_pixel_buffer_object ("OpenGL/glext.h":950)
+if 1: # ifndef GL_ARB_pixel_buffer_object ("inc/OpenGL/glext.h":950)
     """GL_ARB_pixel_buffer_object"""
     GL_PIXEL_PACK_BUFFER_ARB = 0x88EB
     GL_PIXEL_UNPACK_BUFFER_ARB = 0x88EC
     GL_PIXEL_PACK_BUFFER_BINDING_ARB = 0x88ED
     GL_PIXEL_UNPACK_BUFFER_BINDING_ARB = 0x88EF
 
-if 1: # ifndef GL_EXT_abgr ("OpenGL/glext.h":957)
+if 1: # ifndef GL_EXT_abgr ("inc/OpenGL/glext.h":957)
     """GL_EXT_abgr"""
     GL_ABGR_EXT = 0x8000
 
-if 1: # ifndef GL_EXT_blend_color ("OpenGL/glext.h":961)
+if 1: # ifndef GL_EXT_blend_color ("inc/OpenGL/glext.h":961)
     """GL_EXT_blend_color"""
     GL_CONSTANT_COLOR_EXT = 0x8001
     GL_ONE_MINUS_CONSTANT_COLOR_EXT = 0x8002
@@ -601,13 +601,13 @@ if 1: # ifndef GL_EXT_blend_color ("OpenGL/glext.h":961)
     GL_ONE_MINUS_CONSTANT_ALPHA_EXT = 0x8004
     GL_BLEND_COLOR_EXT = 0x8005
 
-if 1: # ifndef GL_EXT_polygon_offset ("OpenGL/glext.h":969)
+if 1: # ifndef GL_EXT_polygon_offset ("inc/OpenGL/glext.h":969)
     """GL_EXT_polygon_offset"""
     GL_POLYGON_OFFSET_EXT = 0x8037
     GL_POLYGON_OFFSET_FACTOR_EXT = 0x8038
     GL_POLYGON_OFFSET_BIAS_EXT = 0x8039
 
-if 1: # ifndef GL_EXT_texture ("OpenGL/glext.h":975)
+if 1: # ifndef GL_EXT_texture ("inc/OpenGL/glext.h":975)
     """GL_EXT_texture"""
     GL_ALPHA4_EXT = 0x803B
     GL_ALPHA8_EXT = 0x803C
@@ -653,7 +653,7 @@ if 1: # ifndef GL_EXT_texture ("OpenGL/glext.h":975)
     GL_PROXY_TEXTURE_2D_EXT = 0x8064
     GL_TEXTURE_TOO_LARGE_EXT = 0x8065
 
-if 1: # ifndef GL_EXT_texture3D ("OpenGL/glext.h":1021)
+if 1: # ifndef GL_EXT_texture3D ("inc/OpenGL/glext.h":1021)
     """GL_EXT_texture3D"""
     GL_PACK_SKIP_IMAGES_EXT = 0x806B
     GL_PACK_IMAGE_HEIGHT_EXT = 0x806C
@@ -665,18 +665,18 @@ if 1: # ifndef GL_EXT_texture3D ("OpenGL/glext.h":1021)
     GL_TEXTURE_WRAP_R_EXT = 0x8072
     GL_MAX_3D_TEXTURE_SIZE_EXT = 0x8073
 
-if 1: # ifndef GL_SGIS_texture_filter4 ("OpenGL/glext.h":1033)
+if 1: # ifndef GL_SGIS_texture_filter4 ("inc/OpenGL/glext.h":1033)
     """GL_SGIS_texture_filter4"""
     GL_FILTER4_SGIS = 0x8146
     GL_TEXTURE_FILTER4_SIZE_SGIS = 0x8147
 
-if 1: # ifndef GL_EXT_subtexture ("OpenGL/glext.h":1038)
+if 1: # ifndef GL_EXT_subtexture ("inc/OpenGL/glext.h":1038)
     """GL_EXT_subtexture"""
 
-if 1: # ifndef GL_EXT_copy_texture ("OpenGL/glext.h":1041)
+if 1: # ifndef GL_EXT_copy_texture ("inc/OpenGL/glext.h":1041)
     """GL_EXT_copy_texture"""
 
-if 1: # ifndef GL_EXT_histogram ("OpenGL/glext.h":1044)
+if 1: # ifndef GL_EXT_histogram ("inc/OpenGL/glext.h":1044)
     """GL_EXT_histogram"""
     GL_HISTOGRAM_EXT = 0x8024
     GL_PROXY_HISTOGRAM_EXT = 0x8025
@@ -693,7 +693,7 @@ if 1: # ifndef GL_EXT_histogram ("OpenGL/glext.h":1044)
     GL_MINMAX_SINK_EXT = 0x8030
     GL_TABLE_TOO_LARGE_EXT = 0x8031
 
-if 1: # ifndef GL_EXT_convolution ("OpenGL/glext.h":1061)
+if 1: # ifndef GL_EXT_convolution ("inc/OpenGL/glext.h":1061)
     """GL_EXT_convolution"""
     GL_CONVOLUTION_1D_EXT = 0x8010
     GL_CONVOLUTION_2D_EXT = 0x8011
@@ -716,7 +716,7 @@ if 1: # ifndef GL_EXT_convolution ("OpenGL/glext.h":1061)
     GL_POST_CONVOLUTION_BLUE_BIAS_EXT = 0x8022
     GL_POST_CONVOLUTION_ALPHA_BIAS_EXT = 0x8023
 
-if 1: # ifndef GL_SGI_color_matrix ("OpenGL/glext.h":1084)
+if 1: # ifndef GL_SGI_color_matrix ("inc/OpenGL/glext.h":1084)
     """GL_SGI_color_matrix"""
     GL_COLOR_MATRIX_SGI = 0x80B1
     GL_COLOR_MATRIX_STACK_DEPTH_SGI = 0x80B2
@@ -730,7 +730,7 @@ if 1: # ifndef GL_SGI_color_matrix ("OpenGL/glext.h":1084)
     GL_POST_COLOR_MATRIX_BLUE_BIAS_SGI = 0x80BA
     GL_POST_COLOR_MATRIX_ALPHA_BIAS_SGI = 0x80BB
 
-if 1: # ifndef GL_SGI_color_table ("OpenGL/glext.h":1098)
+if 1: # ifndef GL_SGI_color_table ("inc/OpenGL/glext.h":1098)
     """GL_SGI_color_table"""
     GL_COLOR_TABLE_SGI = 0x80D0
     GL_POST_CONVOLUTION_COLOR_TABLE_SGI = 0x80D1
@@ -749,19 +749,19 @@ if 1: # ifndef GL_SGI_color_table ("OpenGL/glext.h":1098)
     GL_COLOR_TABLE_LUMINANCE_SIZE_SGI = 0x80DE
     GL_COLOR_TABLE_INTENSITY_SIZE_SGI = 0x80DF
 
-if 1: # ifndef GL_SGIS_pixel_texture ("OpenGL/glext.h":1117)
+if 1: # ifndef GL_SGIS_pixel_texture ("inc/OpenGL/glext.h":1117)
     """GL_SGIS_pixel_texture"""
     GL_PIXEL_TEXTURE_SGIS = 0x8353
     GL_PIXEL_FRAGMENT_RGB_SOURCE_SGIS = 0x8354
     GL_PIXEL_FRAGMENT_ALPHA_SOURCE_SGIS = 0x8355
     GL_PIXEL_GROUP_COLOR_SGIS = 0x8356
 
-if 1: # ifndef GL_SGIX_pixel_texture ("OpenGL/glext.h":1124)
+if 1: # ifndef GL_SGIX_pixel_texture ("inc/OpenGL/glext.h":1124)
     """GL_SGIX_pixel_texture"""
     GL_PIXEL_TEX_GEN_SGIX = 0x8139
     GL_PIXEL_TEX_GEN_MODE_SGIX = 0x832B
 
-if 1: # ifndef GL_SGIS_texture4D ("OpenGL/glext.h":1129)
+if 1: # ifndef GL_SGIS_texture4D ("inc/OpenGL/glext.h":1129)
     """GL_SGIS_texture4D"""
     GL_PACK_SKIP_VOLUMES_SGIS = 0x8130
     GL_PACK_IMAGE_DEPTH_SGIS = 0x8131
@@ -774,19 +774,19 @@ if 1: # ifndef GL_SGIS_texture4D ("OpenGL/glext.h":1129)
     GL_MAX_4D_TEXTURE_SIZE_SGIS = 0x8138
     GL_TEXTURE_4D_BINDING_SGIS = 0x814F
 
-if 1: # ifndef GL_SGI_texture_color_table ("OpenGL/glext.h":1142)
+if 1: # ifndef GL_SGI_texture_color_table ("inc/OpenGL/glext.h":1142)
     """GL_SGI_texture_color_table"""
     GL_TEXTURE_COLOR_TABLE_SGI = 0x80BC
     GL_PROXY_TEXTURE_COLOR_TABLE_SGI = 0x80BD
 
-if 1: # ifndef GL_EXT_cmyka ("OpenGL/glext.h":1147)
+if 1: # ifndef GL_EXT_cmyka ("inc/OpenGL/glext.h":1147)
     """GL_EXT_cmyka"""
     GL_CMYK_EXT = 0x800C
     GL_CMYKA_EXT = 0x800D
     GL_PACK_CMYK_HINT_EXT = 0x800E
     GL_UNPACK_CMYK_HINT_EXT = 0x800F
 
-if 1: # ifndef GL_EXT_texture_object ("OpenGL/glext.h":1154)
+if 1: # ifndef GL_EXT_texture_object ("inc/OpenGL/glext.h":1154)
     """GL_EXT_texture_object"""
     GL_TEXTURE_PRIORITY_EXT = 0x8066
     GL_TEXTURE_RESIDENT_EXT = 0x8067
@@ -794,7 +794,7 @@ if 1: # ifndef GL_EXT_texture_object ("OpenGL/glext.h":1154)
     GL_TEXTURE_2D_BINDING_EXT = 0x8069
     GL_TEXTURE_3D_BINDING_EXT = 0x806A
 
-if 1: # ifndef GL_SGIS_detail_texture ("OpenGL/glext.h":1162)
+if 1: # ifndef GL_SGIS_detail_texture ("inc/OpenGL/glext.h":1162)
     """GL_SGIS_detail_texture"""
     GL_DETAIL_TEXTURE_2D_SGIS = 0x8095
     GL_DETAIL_TEXTURE_2D_BINDING_SGIS = 0x8096
@@ -805,14 +805,14 @@ if 1: # ifndef GL_SGIS_detail_texture ("OpenGL/glext.h":1162)
     GL_DETAIL_TEXTURE_MODE_SGIS = 0x809B
     GL_DETAIL_TEXTURE_FUNC_POINTS_SGIS = 0x809C
 
-if 1: # ifndef GL_SGIS_sharpen_texture ("OpenGL/glext.h":1173)
+if 1: # ifndef GL_SGIS_sharpen_texture ("inc/OpenGL/glext.h":1173)
     """GL_SGIS_sharpen_texture"""
     GL_LINEAR_SHARPEN_SGIS = 0x80AD
     GL_LINEAR_SHARPEN_ALPHA_SGIS = 0x80AE
     GL_LINEAR_SHARPEN_COLOR_SGIS = 0x80AF
     GL_SHARPEN_TEXTURE_FUNC_POINTS_SGIS = 0x80B0
 
-if 1: # ifndef GL_EXT_packed_pixels ("OpenGL/glext.h":1180)
+if 1: # ifndef GL_EXT_packed_pixels ("inc/OpenGL/glext.h":1180)
     """GL_EXT_packed_pixels"""
     GL_UNSIGNED_BYTE_3_3_2_EXT = 0x8032
     GL_UNSIGNED_SHORT_4_4_4_4_EXT = 0x8033
@@ -820,14 +820,14 @@ if 1: # ifndef GL_EXT_packed_pixels ("OpenGL/glext.h":1180)
     GL_UNSIGNED_INT_8_8_8_8_EXT = 0x8035
     GL_UNSIGNED_INT_10_10_10_2_EXT = 0x8036
 
-if 1: # ifndef GL_SGIS_texture_lod ("OpenGL/glext.h":1188)
+if 1: # ifndef GL_SGIS_texture_lod ("inc/OpenGL/glext.h":1188)
     """GL_SGIS_texture_lod"""
     GL_TEXTURE_MIN_LOD_SGIS = 0x813A
     GL_TEXTURE_MAX_LOD_SGIS = 0x813B
     GL_TEXTURE_BASE_LEVEL_SGIS = 0x813C
     GL_TEXTURE_MAX_LEVEL_SGIS = 0x813D
 
-if 1: # ifndef GL_SGIS_multisample ("OpenGL/glext.h":1195)
+if 1: # ifndef GL_SGIS_multisample ("inc/OpenGL/glext.h":1195)
     """GL_SGIS_multisample"""
     GL_MULTISAMPLE_SGIS = 0x809D
     GL_SAMPLE_ALPHA_TO_MASK_SGIS = 0x809E
@@ -846,11 +846,11 @@ if 1: # ifndef GL_SGIS_multisample ("OpenGL/glext.h":1195)
     GL_SAMPLE_MASK_INVERT_SGIS = 0x80AB
     GL_SAMPLE_PATTERN_SGIS = 0x80AC
 
-if 1: # ifndef GL_EXT_rescale_normal ("OpenGL/glext.h":1214)
+if 1: # ifndef GL_EXT_rescale_normal ("inc/OpenGL/glext.h":1214)
     """GL_EXT_rescale_normal"""
     GL_RESCALE_NORMAL_EXT = 0x803A
 
-if 1: # ifndef GL_EXT_vertex_array ("OpenGL/glext.h":1218)
+if 1: # ifndef GL_EXT_vertex_array ("inc/OpenGL/glext.h":1218)
     """GL_EXT_vertex_array"""
     GL_VERTEX_ARRAY_EXT = 0x8074
     GL_NORMAL_ARRAY_EXT = 0x8075
@@ -885,15 +885,15 @@ if 1: # ifndef GL_EXT_vertex_array ("OpenGL/glext.h":1218)
     GL_TEXTURE_COORD_ARRAY_POINTER_EXT = 0x8092
     GL_EDGE_FLAG_ARRAY_POINTER_EXT = 0x8093
 
-if 1: # ifndef GL_EXT_misc_attribute ("OpenGL/glext.h":1253)
+if 1: # ifndef GL_EXT_misc_attribute ("inc/OpenGL/glext.h":1253)
     """GL_EXT_misc_attribute"""
 
-if 1: # ifndef GL_SGIS_generate_mipmap ("OpenGL/glext.h":1256)
+if 1: # ifndef GL_SGIS_generate_mipmap ("inc/OpenGL/glext.h":1256)
     """GL_SGIS_generate_mipmap"""
     GL_GENERATE_MIPMAP_SGIS = 0x8191
     GL_GENERATE_MIPMAP_HINT_SGIS = 0x8192
 
-if 1: # ifndef GL_SGIX_clipmap ("OpenGL/glext.h":1261)
+if 1: # ifndef GL_SGIX_clipmap ("inc/OpenGL/glext.h":1261)
     """GL_SGIX_clipmap"""
     GL_LINEAR_CLIPMAP_LINEAR_SGIX = 0x8170
     GL_TEXTURE_CLIPMAP_CENTER_SGIX = 0x8171
@@ -908,41 +908,41 @@ if 1: # ifndef GL_SGIX_clipmap ("OpenGL/glext.h":1261)
     GL_NEAREST_CLIPMAP_LINEAR_SGIX = 0x844E
     GL_LINEAR_CLIPMAP_NEAREST_SGIX = 0x844F
 
-if 1: # ifndef GL_SGIX_shadow ("OpenGL/glext.h":1276)
+if 1: # ifndef GL_SGIX_shadow ("inc/OpenGL/glext.h":1276)
     """GL_SGIX_shadow"""
     GL_TEXTURE_COMPARE_SGIX = 0x819A
     GL_TEXTURE_COMPARE_OPERATOR_SGIX = 0x819B
     GL_TEXTURE_LEQUAL_R_SGIX = 0x819C
     GL_TEXTURE_GEQUAL_R_SGIX = 0x819D
 
-if 1: # ifndef GL_SGIS_texture_edge_clamp ("OpenGL/glext.h":1283)
+if 1: # ifndef GL_SGIS_texture_edge_clamp ("inc/OpenGL/glext.h":1283)
     """GL_SGIS_texture_edge_clamp"""
     GL_CLAMP_TO_EDGE_SGIS = 0x812F
 
-if 1: # ifndef GL_SGIS_texture_border_clamp ("OpenGL/glext.h":1287)
+if 1: # ifndef GL_SGIS_texture_border_clamp ("inc/OpenGL/glext.h":1287)
     """GL_SGIS_texture_border_clamp"""
     GL_CLAMP_TO_BORDER_SGIS = 0x812D
 
-if 1: # ifndef GL_EXT_blend_minmax ("OpenGL/glext.h":1291)
+if 1: # ifndef GL_EXT_blend_minmax ("inc/OpenGL/glext.h":1291)
     """GL_EXT_blend_minmax"""
     GL_FUNC_ADD_EXT = 0x8006
     GL_MIN_EXT = 0x8007
     GL_MAX_EXT = 0x8008
     GL_BLEND_EQUATION_EXT = 0x8009
 
-if 1: # ifndef GL_EXT_blend_subtract ("OpenGL/glext.h":1298)
+if 1: # ifndef GL_EXT_blend_subtract ("inc/OpenGL/glext.h":1298)
     """GL_EXT_blend_subtract"""
     GL_FUNC_SUBTRACT_EXT = 0x800A
     GL_FUNC_REVERSE_SUBTRACT_EXT = 0x800B
 
-if 1: # ifndef GL_EXT_blend_logic_op ("OpenGL/glext.h":1303)
+if 1: # ifndef GL_EXT_blend_logic_op ("inc/OpenGL/glext.h":1303)
     """GL_EXT_blend_logic_op"""
 
-if 1: # ifndef GL_SGIX_interlace ("OpenGL/glext.h":1306)
+if 1: # ifndef GL_SGIX_interlace ("inc/OpenGL/glext.h":1306)
     """GL_SGIX_interlace"""
     GL_INTERLACE_SGIX = 0x8094
 
-if 1: # ifndef GL_SGIX_pixel_tiles ("OpenGL/glext.h":1310)
+if 1: # ifndef GL_SGIX_pixel_tiles ("inc/OpenGL/glext.h":1310)
     """GL_SGIX_pixel_tiles"""
     GL_PIXEL_TILE_BEST_ALIGNMENT_SGIX = 0x813E
     GL_PIXEL_TILE_CACHE_INCREMENT_SGIX = 0x813F
@@ -953,7 +953,7 @@ if 1: # ifndef GL_SGIX_pixel_tiles ("OpenGL/glext.h":1310)
     GL_PIXEL_TILE_GRID_DEPTH_SGIX = 0x8144
     GL_PIXEL_TILE_CACHE_SIZE_SGIX = 0x8145
 
-if 1: # ifndef GL_SGIS_texture_select ("OpenGL/glext.h":1321)
+if 1: # ifndef GL_SGIS_texture_select ("inc/OpenGL/glext.h":1321)
     """GL_SGIS_texture_select"""
     GL_DUAL_ALPHA4_SGIS = 0x8110
     GL_DUAL_ALPHA8_SGIS = 0x8111
@@ -978,7 +978,7 @@ if 1: # ifndef GL_SGIS_texture_select ("OpenGL/glext.h":1321)
     GL_DUAL_TEXTURE_SELECT_SGIS = 0x8124
     GL_QUAD_TEXTURE_SELECT_SGIS = 0x8125
 
-if 1: # ifndef GL_SGIX_sprite ("OpenGL/glext.h":1346)
+if 1: # ifndef GL_SGIX_sprite ("inc/OpenGL/glext.h":1346)
     """GL_SGIX_sprite"""
     GL_SPRITE_SGIX = 0x8148
     GL_SPRITE_MODE_SGIX = 0x8149
@@ -988,83 +988,83 @@ if 1: # ifndef GL_SGIX_sprite ("OpenGL/glext.h":1346)
     GL_SPRITE_OBJECT_ALIGNED_SGIX = 0x814D
     GL_SPRITE_EYE_ALIGNED_SGIX = 0x814E
 
-if 1: # ifndef GL_SGIX_texture_multi_buffer ("OpenGL/glext.h":1356)
+if 1: # ifndef GL_SGIX_texture_multi_buffer ("inc/OpenGL/glext.h":1356)
     """GL_SGIX_texture_multi_buffer"""
     GL_TEXTURE_MULTI_BUFFER_HINT_SGIX = 0x812E
 
-if 1: # ifndef GL_EXT_point_parameters ("OpenGL/glext.h":1360)
+if 1: # ifndef GL_EXT_point_parameters ("inc/OpenGL/glext.h":1360)
     """GL_EXT_point_parameters"""
     GL_POINT_SIZE_MIN_EXT = 0x8126
     GL_POINT_SIZE_MAX_EXT = 0x8127
     GL_POINT_FADE_THRESHOLD_SIZE_EXT = 0x8128
     GL_DISTANCE_ATTENUATION_EXT = 0x8129
 
-if 1: # ifndef GL_SGIS_point_parameters ("OpenGL/glext.h":1367)
+if 1: # ifndef GL_SGIS_point_parameters ("inc/OpenGL/glext.h":1367)
     """GL_SGIS_point_parameters"""
     GL_POINT_SIZE_MIN_SGIS = 0x8126
     GL_POINT_SIZE_MAX_SGIS = 0x8127
     GL_POINT_FADE_THRESHOLD_SIZE_SGIS = 0x8128
     GL_DISTANCE_ATTENUATION_SGIS = 0x8129
 
-if 1: # ifndef GL_SGIX_instruments ("OpenGL/glext.h":1374)
+if 1: # ifndef GL_SGIX_instruments ("inc/OpenGL/glext.h":1374)
     """GL_SGIX_instruments"""
     GL_INSTRUMENT_BUFFER_POINTER_SGIX = 0x8180
     GL_INSTRUMENT_MEASUREMENTS_SGIX = 0x8181
 
-if 1: # ifndef GL_SGIX_texture_scale_bias ("OpenGL/glext.h":1379)
+if 1: # ifndef GL_SGIX_texture_scale_bias ("inc/OpenGL/glext.h":1379)
     """GL_SGIX_texture_scale_bias"""
     GL_POST_TEXTURE_FILTER_BIAS_SGIX = 0x8179
     GL_POST_TEXTURE_FILTER_SCALE_SGIX = 0x817A
     GL_POST_TEXTURE_FILTER_BIAS_RANGE_SGIX = 0x817B
     GL_POST_TEXTURE_FILTER_SCALE_RANGE_SGIX = 0x817C
 
-if 1: # ifndef GL_SGIX_framezoom ("OpenGL/glext.h":1386)
+if 1: # ifndef GL_SGIX_framezoom ("inc/OpenGL/glext.h":1386)
     """GL_SGIX_framezoom"""
     GL_FRAMEZOOM_SGIX = 0x818B
     GL_FRAMEZOOM_FACTOR_SGIX = 0x818C
     GL_MAX_FRAMEZOOM_FACTOR_SGIX = 0x818D
 
-if 1: # ifndef GL_SGIX_tag_sample_buffer ("OpenGL/glext.h":1392)
+if 1: # ifndef GL_SGIX_tag_sample_buffer ("inc/OpenGL/glext.h":1392)
     """GL_SGIX_tag_sample_buffer"""
 
-if 1: # ifndef GL_FfdMaskSGIX ("OpenGL/glext.h":1395)
+if 1: # ifndef GL_FfdMaskSGIX ("inc/OpenGL/glext.h":1395)
     """GL_FfdMaskSGIX"""
     GL_TEXTURE_DEFORMATION_BIT_SGIX = 0x00000001
     GL_GEOMETRY_DEFORMATION_BIT_SGIX = 0x00000002
 
-if 1: # ifndef GL_SGIX_polynomial_ffd ("OpenGL/glext.h":1400)
+if 1: # ifndef GL_SGIX_polynomial_ffd ("inc/OpenGL/glext.h":1400)
     """GL_SGIX_polynomial_ffd"""
     GL_GEOMETRY_DEFORMATION_SGIX = 0x8194
     GL_TEXTURE_DEFORMATION_SGIX = 0x8195
     GL_DEFORMATIONS_MASK_SGIX = 0x8196
     GL_MAX_DEFORMATION_ORDER_SGIX = 0x8197
 
-if 1: # ifndef GL_SGIX_reference_plane ("OpenGL/glext.h":1407)
+if 1: # ifndef GL_SGIX_reference_plane ("inc/OpenGL/glext.h":1407)
     """GL_SGIX_reference_plane"""
     GL_REFERENCE_PLANE_SGIX = 0x817D
     GL_REFERENCE_PLANE_EQUATION_SGIX = 0x817E
 
-if 1: # ifndef GL_SGIX_flush_raster ("OpenGL/glext.h":1412)
+if 1: # ifndef GL_SGIX_flush_raster ("inc/OpenGL/glext.h":1412)
     """GL_SGIX_flush_raster"""
 
-if 1: # ifndef GL_SGIX_depth_texture ("OpenGL/glext.h":1415)
+if 1: # ifndef GL_SGIX_depth_texture ("inc/OpenGL/glext.h":1415)
     """GL_SGIX_depth_texture"""
     GL_DEPTH_COMPONENT16_SGIX = 0x81A5
     GL_DEPTH_COMPONENT24_SGIX = 0x81A6
     GL_DEPTH_COMPONENT32_SGIX = 0x81A7
 
-if 1: # ifndef GL_SGIS_fog_function ("OpenGL/glext.h":1421)
+if 1: # ifndef GL_SGIS_fog_function ("inc/OpenGL/glext.h":1421)
     """GL_SGIS_fog_function"""
     GL_FOG_FUNC_SGIS = 0x812A
     GL_FOG_FUNC_POINTS_SGIS = 0x812B
     GL_MAX_FOG_FUNC_POINTS_SGIS = 0x812C
 
-if 1: # ifndef GL_SGIX_fog_offset ("OpenGL/glext.h":1427)
+if 1: # ifndef GL_SGIX_fog_offset ("inc/OpenGL/glext.h":1427)
     """GL_SGIX_fog_offset"""
     GL_FOG_OFFSET_SGIX = 0x8198
     GL_FOG_OFFSET_VALUE_SGIX = 0x8199
 
-if 1: # ifndef GL_HP_image_transform ("OpenGL/glext.h":1432)
+if 1: # ifndef GL_HP_image_transform ("inc/OpenGL/glext.h":1432)
     """GL_HP_image_transform"""
     GL_IMAGE_SCALE_X_HP = 0x8155
     GL_IMAGE_SCALE_Y_HP = 0x8156
@@ -1082,24 +1082,24 @@ if 1: # ifndef GL_HP_image_transform ("OpenGL/glext.h":1432)
     GL_POST_IMAGE_TRANSFORM_COLOR_TABLE_HP = 0x8162
     GL_PROXY_POST_IMAGE_TRANSFORM_COLOR_TABLE_HP = 0x8163
 
-if 1: # ifndef GL_HP_convolution_border_modes ("OpenGL/glext.h":1450)
+if 1: # ifndef GL_HP_convolution_border_modes ("inc/OpenGL/glext.h":1450)
     """GL_HP_convolution_border_modes"""
     GL_IGNORE_BORDER_HP = 0x8150
     GL_CONSTANT_BORDER_HP = 0x8151
     GL_REPLICATE_BORDER_HP = 0x8153
     GL_CONVOLUTION_BORDER_COLOR_HP = 0x8154
 
-if 1: # ifndef GL_INGR_palette_buffer ("OpenGL/glext.h":1457)
+if 1: # ifndef GL_INGR_palette_buffer ("inc/OpenGL/glext.h":1457)
     """GL_INGR_palette_buffer"""
 
-if 1: # ifndef GL_SGIX_texture_add_env ("OpenGL/glext.h":1460)
+if 1: # ifndef GL_SGIX_texture_add_env ("inc/OpenGL/glext.h":1460)
     """GL_SGIX_texture_add_env"""
     GL_TEXTURE_ENV_BIAS_SGIX = 0x80BE
 
-if 1: # ifndef GL_EXT_color_subtable ("OpenGL/glext.h":1464)
+if 1: # ifndef GL_EXT_color_subtable ("inc/OpenGL/glext.h":1464)
     """GL_EXT_color_subtable"""
 
-if 1: # ifndef GL_PGI_vertex_hints ("OpenGL/glext.h":1467)
+if 1: # ifndef GL_PGI_vertex_hints ("inc/OpenGL/glext.h":1467)
     """GL_PGI_vertex_hints"""
     GL_VERTEX_DATA_HINT_PGI = 0x1A22A
     GL_VERTEX_CONSISTENT_HINT_PGI = 0x1A22B
@@ -1124,7 +1124,7 @@ if 1: # ifndef GL_PGI_vertex_hints ("OpenGL/glext.h":1467)
     GL_VERTEX23_BIT_PGI = 0x00000004
     GL_VERTEX4_BIT_PGI = 0x00000008
 
-if 1: # ifndef GL_PGI_misc_hints ("OpenGL/glext.h":1492)
+if 1: # ifndef GL_PGI_misc_hints ("inc/OpenGL/glext.h":1492)
     """GL_PGI_misc_hints"""
     GL_PREFER_DOUBLEBUFFER_HINT_PGI = 0x1A1F8
     GL_CONSERVE_MEMORY_HINT_PGI = 0x1A1FD
@@ -1147,7 +1147,7 @@ if 1: # ifndef GL_PGI_misc_hints ("OpenGL/glext.h":1492)
     GL_WIDE_LINE_HINT_PGI = 0x1A222
     GL_BACK_NORMALS_HINT_PGI = 0x1A223
 
-if 1: # ifndef GL_EXT_paletted_texture ("OpenGL/glext.h":1515)
+if 1: # ifndef GL_EXT_paletted_texture ("inc/OpenGL/glext.h":1515)
     """GL_EXT_paletted_texture"""
     GL_COLOR_INDEX1_EXT = 0x80E2
     GL_COLOR_INDEX2_EXT = 0x80E3
@@ -1157,48 +1157,48 @@ if 1: # ifndef GL_EXT_paletted_texture ("OpenGL/glext.h":1515)
     GL_COLOR_INDEX16_EXT = 0x80E7
     GL_TEXTURE_INDEX_SIZE_EXT = 0x80ED
 
-if 1: # ifndef GL_EXT_clip_volume_hint ("OpenGL/glext.h":1525)
+if 1: # ifndef GL_EXT_clip_volume_hint ("inc/OpenGL/glext.h":1525)
     """GL_EXT_clip_volume_hint"""
     GL_CLIP_VOLUME_CLIPPING_HINT_EXT = 0x80F0
 
-if 1: # ifndef GL_SGIX_list_priority ("OpenGL/glext.h":1529)
+if 1: # ifndef GL_SGIX_list_priority ("inc/OpenGL/glext.h":1529)
     """GL_SGIX_list_priority"""
     GL_LIST_PRIORITY_SGIX = 0x8182
 
-if 1: # ifndef GL_SGIX_ir_instrument1 ("OpenGL/glext.h":1533)
+if 1: # ifndef GL_SGIX_ir_instrument1 ("inc/OpenGL/glext.h":1533)
     """GL_SGIX_ir_instrument1"""
     GL_IR_INSTRUMENT1_SGIX = 0x817F
 
-if 1: # ifndef GL_SGIX_calligraphic_fragment ("OpenGL/glext.h":1537)
+if 1: # ifndef GL_SGIX_calligraphic_fragment ("inc/OpenGL/glext.h":1537)
     """GL_SGIX_calligraphic_fragment"""
     GL_CALLIGRAPHIC_FRAGMENT_SGIX = 0x8183
 
-if 1: # ifndef GL_SGIX_texture_lod_bias ("OpenGL/glext.h":1541)
+if 1: # ifndef GL_SGIX_texture_lod_bias ("inc/OpenGL/glext.h":1541)
     """GL_SGIX_texture_lod_bias"""
     GL_TEXTURE_LOD_BIAS_S_SGIX = 0x818E
     GL_TEXTURE_LOD_BIAS_T_SGIX = 0x818F
     GL_TEXTURE_LOD_BIAS_R_SGIX = 0x8190
 
-if 1: # ifndef GL_SGIX_shadow_ambient ("OpenGL/glext.h":1547)
+if 1: # ifndef GL_SGIX_shadow_ambient ("inc/OpenGL/glext.h":1547)
     """GL_SGIX_shadow_ambient"""
     GL_SHADOW_AMBIENT_SGIX = 0x80BF
 
-if 1: # ifndef GL_EXT_index_texture ("OpenGL/glext.h":1551)
+if 1: # ifndef GL_EXT_index_texture ("inc/OpenGL/glext.h":1551)
     """GL_EXT_index_texture"""
 
-if 1: # ifndef GL_EXT_index_material ("OpenGL/glext.h":1554)
+if 1: # ifndef GL_EXT_index_material ("inc/OpenGL/glext.h":1554)
     """GL_EXT_index_material"""
     GL_INDEX_MATERIAL_EXT = 0x81B8
     GL_INDEX_MATERIAL_PARAMETER_EXT = 0x81B9
     GL_INDEX_MATERIAL_FACE_EXT = 0x81BA
 
-if 1: # ifndef GL_EXT_index_func ("OpenGL/glext.h":1560)
+if 1: # ifndef GL_EXT_index_func ("inc/OpenGL/glext.h":1560)
     """GL_EXT_index_func"""
     GL_INDEX_TEST_EXT = 0x81B5
     GL_INDEX_TEST_FUNC_EXT = 0x81B6
     GL_INDEX_TEST_REF_EXT = 0x81B7
 
-if 1: # ifndef GL_EXT_index_array_formats ("OpenGL/glext.h":1566)
+if 1: # ifndef GL_EXT_index_array_formats ("inc/OpenGL/glext.h":1566)
     """GL_EXT_index_array_formats"""
     GL_IUI_V2F_EXT = 0x81AD
     GL_IUI_V3F_EXT = 0x81AE
@@ -1209,23 +1209,23 @@ if 1: # ifndef GL_EXT_index_array_formats ("OpenGL/glext.h":1566)
     GL_T2F_IUI_N3F_V2F_EXT = 0x81B3
     GL_T2F_IUI_N3F_V3F_EXT = 0x81B4
 
-if 1: # ifndef GL_EXT_compiled_vertex_array ("OpenGL/glext.h":1577)
+if 1: # ifndef GL_EXT_compiled_vertex_array ("inc/OpenGL/glext.h":1577)
     """GL_EXT_compiled_vertex_array"""
     GL_ARRAY_ELEMENT_LOCK_FIRST_EXT = 0x81A8
     GL_ARRAY_ELEMENT_LOCK_COUNT_EXT = 0x81A9
 
-if 1: # ifndef GL_EXT_cull_vertex ("OpenGL/glext.h":1582)
+if 1: # ifndef GL_EXT_cull_vertex ("inc/OpenGL/glext.h":1582)
     """GL_EXT_cull_vertex"""
     GL_CULL_VERTEX_EXT = 0x81AA
     GL_CULL_VERTEX_EYE_POSITION_EXT = 0x81AB
     GL_CULL_VERTEX_OBJECT_POSITION_EXT = 0x81AC
 
-if 1: # ifndef GL_SGIX_ycrcb ("OpenGL/glext.h":1588)
+if 1: # ifndef GL_SGIX_ycrcb ("inc/OpenGL/glext.h":1588)
     """GL_SGIX_ycrcb"""
     GL_YCRCB_422_SGIX = 0x81BB
     GL_YCRCB_444_SGIX = 0x81BC
 
-if 1: # ifndef GL_SGIX_fragment_lighting ("OpenGL/glext.h":1593)
+if 1: # ifndef GL_SGIX_fragment_lighting ("inc/OpenGL/glext.h":1593)
     """GL_SGIX_fragment_lighting"""
     GL_FRAGMENT_LIGHTING_SGIX = 0x8400
     GL_FRAGMENT_COLOR_MATERIAL_SGIX = 0x8401
@@ -1248,31 +1248,31 @@ if 1: # ifndef GL_SGIX_fragment_lighting ("OpenGL/glext.h":1593)
     GL_FRAGMENT_LIGHT6_SGIX = 0x8412
     GL_FRAGMENT_LIGHT7_SGIX = 0x8413
 
-if 1: # ifndef GL_IBM_rasterpos_clip ("OpenGL/glext.h":1616)
+if 1: # ifndef GL_IBM_rasterpos_clip ("inc/OpenGL/glext.h":1616)
     """GL_IBM_rasterpos_clip"""
     GL_RASTER_POSITION_UNCLIPPED_IBM = 0x19262
 
-if 1: # ifndef GL_HP_texture_lighting ("OpenGL/glext.h":1620)
+if 1: # ifndef GL_HP_texture_lighting ("inc/OpenGL/glext.h":1620)
     """GL_HP_texture_lighting"""
     GL_TEXTURE_LIGHTING_MODE_HP = 0x8167
     GL_TEXTURE_POST_SPECULAR_HP = 0x8168
     GL_TEXTURE_PRE_SPECULAR_HP = 0x8169
 
-if 1: # ifndef GL_EXT_draw_range_elements ("OpenGL/glext.h":1626)
+if 1: # ifndef GL_EXT_draw_range_elements ("inc/OpenGL/glext.h":1626)
     """GL_EXT_draw_range_elements"""
     GL_MAX_ELEMENTS_VERTICES_EXT = 0x80E8
     GL_MAX_ELEMENTS_INDICES_EXT = 0x80E9
 
-if 1: # ifndef GL_WIN_phong_shading ("OpenGL/glext.h":1631)
+if 1: # ifndef GL_WIN_phong_shading ("inc/OpenGL/glext.h":1631)
     """GL_WIN_phong_shading"""
     GL_PHONG_WIN = 0x80EA
     GL_PHONG_HINT_WIN = 0x80EB
 
-if 1: # ifndef GL_WIN_specular_fog ("OpenGL/glext.h":1636)
+if 1: # ifndef GL_WIN_specular_fog ("inc/OpenGL/glext.h":1636)
     """GL_WIN_specular_fog"""
     GL_FOG_SPECULAR_TEXTURE_WIN = 0x80EC
 
-if 1: # ifndef GL_EXT_light_texture ("OpenGL/glext.h":1640)
+if 1: # ifndef GL_EXT_light_texture ("inc/OpenGL/glext.h":1640)
     """GL_EXT_light_texture"""
     GL_FRAGMENT_MATERIAL_EXT = 0x8349
     GL_FRAGMENT_NORMAL_EXT = 0x834A
@@ -1285,12 +1285,12 @@ if 1: # ifndef GL_EXT_light_texture ("OpenGL/glext.h":1640)
     GL_TEXTURE_MATERIAL_PARAMETER_EXT = 0x8352
     
 
-if 1: # ifndef GL_SGIX_blend_alpha_minmax ("OpenGL/glext.h":1653)
+if 1: # ifndef GL_SGIX_blend_alpha_minmax ("inc/OpenGL/glext.h":1653)
     """GL_SGIX_blend_alpha_minmax"""
     GL_ALPHA_MIN_SGIX = 0x8320
     GL_ALPHA_MAX_SGIX = 0x8321
 
-if 1: # ifndef GL_SGIX_impact_pixel_texture ("OpenGL/glext.h":1658)
+if 1: # ifndef GL_SGIX_impact_pixel_texture ("inc/OpenGL/glext.h":1658)
     """GL_SGIX_impact_pixel_texture"""
     GL_PIXEL_TEX_GEN_Q_CEILING_SGIX = 0x8184
     GL_PIXEL_TEX_GEN_Q_ROUND_SGIX = 0x8185
@@ -1300,16 +1300,16 @@ if 1: # ifndef GL_SGIX_impact_pixel_texture ("OpenGL/glext.h":1658)
     GL_PIXEL_TEX_GEN_ALPHA_LS_SGIX = 0x8189
     GL_PIXEL_TEX_GEN_ALPHA_MS_SGIX = 0x818A
 
-if 1: # ifndef GL_EXT_bgra ("OpenGL/glext.h":1668)
+if 1: # ifndef GL_EXT_bgra ("inc/OpenGL/glext.h":1668)
     """GL_EXT_bgra"""
     GL_BGR_EXT = 0x80E0
     GL_BGRA_EXT = 0x80E1
 
-if 1: # ifndef GL_SGIX_async ("OpenGL/glext.h":1673)
+if 1: # ifndef GL_SGIX_async ("inc/OpenGL/glext.h":1673)
     """GL_SGIX_async"""
     GL_ASYNC_MARKER_SGIX = 0x8329
 
-if 1: # ifndef GL_SGIX_async_pixel ("OpenGL/glext.h":1677)
+if 1: # ifndef GL_SGIX_async_pixel ("inc/OpenGL/glext.h":1677)
     """GL_SGIX_async_pixel"""
     GL_ASYNC_TEX_IMAGE_SGIX = 0x835C
     GL_ASYNC_DRAW_PIXELS_SGIX = 0x835D
@@ -1318,15 +1318,15 @@ if 1: # ifndef GL_SGIX_async_pixel ("OpenGL/glext.h":1677)
     GL_MAX_ASYNC_DRAW_PIXELS_SGIX = 0x8360
     GL_MAX_ASYNC_READ_PIXELS_SGIX = 0x8361
 
-if 1: # ifndef GL_SGIX_async_histogram ("OpenGL/glext.h":1686)
+if 1: # ifndef GL_SGIX_async_histogram ("inc/OpenGL/glext.h":1686)
     """GL_SGIX_async_histogram"""
     GL_ASYNC_HISTOGRAM_SGIX = 0x832C
     GL_MAX_ASYNC_HISTOGRAM_SGIX = 0x832D
 
-if 1: # ifndef GL_INTEL_texture_scissor ("OpenGL/glext.h":1691)
+if 1: # ifndef GL_INTEL_texture_scissor ("inc/OpenGL/glext.h":1691)
     """GL_INTEL_texture_scissor"""
 
-if 1: # ifndef GL_INTEL_parallel_arrays ("OpenGL/glext.h":1694)
+if 1: # ifndef GL_INTEL_parallel_arrays ("inc/OpenGL/glext.h":1694)
     """GL_INTEL_parallel_arrays"""
     GL_PARALLEL_ARRAYS_INTEL = 0x83F4
     GL_VERTEX_ARRAY_PARALLEL_POINTERS_INTEL = 0x83F5
@@ -1334,12 +1334,12 @@ if 1: # ifndef GL_INTEL_parallel_arrays ("OpenGL/glext.h":1694)
     GL_COLOR_ARRAY_PARALLEL_POINTERS_INTEL = 0x83F7
     GL_TEXTURE_COORD_ARRAY_PARALLEL_POINTERS_INTEL = 0x83F8
 
-if 1: # ifndef GL_HP_occlusion_test ("OpenGL/glext.h":1702)
+if 1: # ifndef GL_HP_occlusion_test ("inc/OpenGL/glext.h":1702)
     """GL_HP_occlusion_test"""
     GL_OCCLUSION_TEST_HP = 0x8165
     GL_OCCLUSION_TEST_RESULT_HP = 0x8166
 
-if 1: # ifndef GL_EXT_pixel_transform ("OpenGL/glext.h":1707)
+if 1: # ifndef GL_EXT_pixel_transform ("inc/OpenGL/glext.h":1707)
     """GL_EXT_pixel_transform"""
     GL_PIXEL_TRANSFORM_2D_EXT = 0x8330
     GL_PIXEL_MAG_FILTER_EXT = 0x8331
@@ -1351,20 +1351,20 @@ if 1: # ifndef GL_EXT_pixel_transform ("OpenGL/glext.h":1707)
     GL_MAX_PIXEL_TRANSFORM_2D_STACK_DEPTH_EXT = 0x8337
     GL_PIXEL_TRANSFORM_2D_MATRIX_EXT = 0x8338
 
-if 1: # ifndef GL_EXT_pixel_transform_color_table ("OpenGL/glext.h":1719)
+if 1: # ifndef GL_EXT_pixel_transform_color_table ("inc/OpenGL/glext.h":1719)
     """GL_EXT_pixel_transform_color_table"""
 
-if 1: # ifndef GL_EXT_shared_texture_palette ("OpenGL/glext.h":1722)
+if 1: # ifndef GL_EXT_shared_texture_palette ("inc/OpenGL/glext.h":1722)
     """GL_EXT_shared_texture_palette"""
     GL_SHARED_TEXTURE_PALETTE_EXT = 0x81FB
 
-if 1: # ifndef GL_EXT_separate_specular_color ("OpenGL/glext.h":1726)
+if 1: # ifndef GL_EXT_separate_specular_color ("inc/OpenGL/glext.h":1726)
     """GL_EXT_separate_specular_color"""
     GL_LIGHT_MODEL_COLOR_CONTROL_EXT = 0x81F8
     GL_SINGLE_COLOR_EXT = 0x81F9
     GL_SEPARATE_SPECULAR_COLOR_EXT = 0x81FA
 
-if 1: # ifndef GL_EXT_secondary_color ("OpenGL/glext.h":1732)
+if 1: # ifndef GL_EXT_secondary_color ("inc/OpenGL/glext.h":1732)
     """GL_EXT_secondary_color"""
     GL_COLOR_SUM_EXT = 0x8458
     GL_CURRENT_SECONDARY_COLOR_EXT = 0x8459
@@ -1374,15 +1374,15 @@ if 1: # ifndef GL_EXT_secondary_color ("OpenGL/glext.h":1732)
     GL_SECONDARY_COLOR_ARRAY_POINTER_EXT = 0x845D
     GL_SECONDARY_COLOR_ARRAY_EXT = 0x845E
 
-if 1: # ifndef GL_EXT_texture_perturb_normal ("OpenGL/glext.h":1742)
+if 1: # ifndef GL_EXT_texture_perturb_normal ("inc/OpenGL/glext.h":1742)
     """GL_EXT_texture_perturb_normal"""
     GL_PERTURB_EXT = 0x85AE
     GL_TEXTURE_NORMAL_EXT = 0x85AF
 
-if 1: # ifndef GL_EXT_multi_draw_arrays ("OpenGL/glext.h":1747)
+if 1: # ifndef GL_EXT_multi_draw_arrays ("inc/OpenGL/glext.h":1747)
     """GL_EXT_multi_draw_arrays"""
 
-if 1: # ifndef GL_EXT_fog_coord ("OpenGL/glext.h":1750)
+if 1: # ifndef GL_EXT_fog_coord ("inc/OpenGL/glext.h":1750)
     """GL_EXT_fog_coord"""
     GL_FOG_COORDINATE_SOURCE_EXT = 0x8450
     GL_FOG_COORDINATE_EXT = 0x8451
@@ -1393,12 +1393,12 @@ if 1: # ifndef GL_EXT_fog_coord ("OpenGL/glext.h":1750)
     GL_FOG_COORDINATE_ARRAY_POINTER_EXT = 0x8456
     GL_FOG_COORDINATE_ARRAY_EXT = 0x8457
 
-if 1: # ifndef GL_REND_screen_coordinates ("OpenGL/glext.h":1761)
+if 1: # ifndef GL_REND_screen_coordinates ("inc/OpenGL/glext.h":1761)
     """GL_REND_screen_coordinates"""
     GL_SCREEN_COORDINATES_REND = 0x8490
     GL_INVERTED_SCREEN_W_REND = 0x8491
 
-if 1: # ifndef GL_EXT_coordinate_frame ("OpenGL/glext.h":1766)
+if 1: # ifndef GL_EXT_coordinate_frame ("inc/OpenGL/glext.h":1766)
     """GL_EXT_coordinate_frame"""
     GL_TANGENT_ARRAY_EXT = 0x8439
     GL_BINORMAL_ARRAY_EXT = 0x843A
@@ -1415,7 +1415,7 @@ if 1: # ifndef GL_EXT_coordinate_frame ("OpenGL/glext.h":1766)
     GL_MAP1_BINORMAL_EXT = 0x8446
     GL_MAP2_BINORMAL_EXT = 0x8447
 
-if 1: # ifndef GL_EXT_texture_env_combine ("OpenGL/glext.h":1783)
+if 1: # ifndef GL_EXT_texture_env_combine ("inc/OpenGL/glext.h":1783)
     """GL_EXT_texture_env_combine"""
     GL_COMBINE_EXT = 0x8570
     GL_COMBINE_RGB_EXT = 0x8571
@@ -1439,30 +1439,30 @@ if 1: # ifndef GL_EXT_texture_env_combine ("OpenGL/glext.h":1783)
     GL_OPERAND1_ALPHA_EXT = 0x8599
     GL_OPERAND2_ALPHA_EXT = 0x859A
 
-if 1: # ifndef GL_APPLE_specular_vector ("OpenGL/glext.h":1807)
+if 1: # ifndef GL_APPLE_specular_vector ("inc/OpenGL/glext.h":1807)
     """GL_APPLE_specular_vector"""
     GL_LIGHT_MODEL_SPECULAR_VECTOR_APPLE = 0x85B0
 
-if 1: # ifndef GL_APPLE_transform_hint ("OpenGL/glext.h":1811)
+if 1: # ifndef GL_APPLE_transform_hint ("inc/OpenGL/glext.h":1811)
     """GL_APPLE_transform_hint"""
     GL_TRANSFORM_HINT_APPLE = 0x85B1
 
-if 1: # ifndef GL_SGIX_fog_scale ("OpenGL/glext.h":1815)
+if 1: # ifndef GL_SGIX_fog_scale ("inc/OpenGL/glext.h":1815)
     """GL_SGIX_fog_scale"""
     GL_FOG_SCALE_SGIX = 0x81FC
     GL_FOG_SCALE_VALUE_SGIX = 0x81FD
 
-if 1: # ifndef GL_SUNX_constant_data ("OpenGL/glext.h":1820)
+if 1: # ifndef GL_SUNX_constant_data ("inc/OpenGL/glext.h":1820)
     """GL_SUNX_constant_data"""
     GL_UNPACK_CONSTANT_DATA_SUNX = 0x81D5
     GL_TEXTURE_CONSTANT_DATA_SUNX = 0x81D6
 
-if 1: # ifndef GL_SUN_global_alpha ("OpenGL/glext.h":1825)
+if 1: # ifndef GL_SUN_global_alpha ("inc/OpenGL/glext.h":1825)
     """GL_SUN_global_alpha"""
     GL_GLOBAL_ALPHA_SUN = 0x81D9
     GL_GLOBAL_ALPHA_FACTOR_SUN = 0x81DA
 
-if 1: # ifndef GL_SUN_triangle_list ("OpenGL/glext.h":1830)
+if 1: # ifndef GL_SUN_triangle_list ("inc/OpenGL/glext.h":1830)
     """GL_SUN_triangle_list"""
     GL_RESTART_SUN = 0x0001
     GL_REPLACE_MIDDLE_SUN = 0x0002
@@ -1482,17 +1482,17 @@ if 1: # ifndef GL_SUN_triangle_list ("OpenGL/glext.h":1830)
     GL_R1UI_T2F_N3F_V3F_SUN = 0x85CA
     GL_R1UI_T2F_C4F_N3F_V3F_SUN = 0x85CB
 
-if 1: # ifndef GL_SUN_vertex ("OpenGL/glext.h":1850)
+if 1: # ifndef GL_SUN_vertex ("inc/OpenGL/glext.h":1850)
     """GL_SUN_vertex"""
 
-if 1: # ifndef GL_EXT_blend_func_separate ("OpenGL/glext.h":1853)
+if 1: # ifndef GL_EXT_blend_func_separate ("inc/OpenGL/glext.h":1853)
     """GL_EXT_blend_func_separate"""
     GL_BLEND_DST_RGB_EXT = 0x80C8
     GL_BLEND_SRC_RGB_EXT = 0x80C9
     GL_BLEND_DST_ALPHA_EXT = 0x80CA
     GL_BLEND_SRC_ALPHA_EXT = 0x80CB
 
-if 1: # ifndef GL_INGR_color_clamp ("OpenGL/glext.h":1860)
+if 1: # ifndef GL_INGR_color_clamp ("inc/OpenGL/glext.h":1860)
     """GL_INGR_color_clamp"""
     GL_RED_MIN_CLAMP_INGR = 0x8560
     GL_GREEN_MIN_CLAMP_INGR = 0x8561
@@ -1503,28 +1503,28 @@ if 1: # ifndef GL_INGR_color_clamp ("OpenGL/glext.h":1860)
     GL_BLUE_MAX_CLAMP_INGR = 0x8566
     GL_ALPHA_MAX_CLAMP_INGR = 0x8567
 
-if 1: # ifndef GL_INGR_interlace_read ("OpenGL/glext.h":1871)
+if 1: # ifndef GL_INGR_interlace_read ("inc/OpenGL/glext.h":1871)
     """GL_INGR_interlace_read"""
     GL_INTERLACE_READ_INGR = 0x8568
 
-if 1: # ifndef GL_EXT_stencil_wrap ("OpenGL/glext.h":1875)
+if 1: # ifndef GL_EXT_stencil_wrap ("inc/OpenGL/glext.h":1875)
     """GL_EXT_stencil_wrap"""
     GL_INCR_WRAP_EXT = 0x8507
     GL_DECR_WRAP_EXT = 0x8508
 
-if 1: # ifndef GL_EXT_422_pixels ("OpenGL/glext.h":1880)
+if 1: # ifndef GL_EXT_422_pixels ("inc/OpenGL/glext.h":1880)
     """GL_EXT_422_pixels"""
     GL_422_EXT = 0x80CC
     GL_422_REV_EXT = 0x80CD
     GL_422_AVERAGE_EXT = 0x80CE
     GL_422_REV_AVERAGE_EXT = 0x80CF
 
-if 1: # ifndef GL_NV_texgen_reflection ("OpenGL/glext.h":1887)
+if 1: # ifndef GL_NV_texgen_reflection ("inc/OpenGL/glext.h":1887)
     """GL_NV_texgen_reflection"""
     GL_NORMAL_MAP_NV = 0x8511
     GL_REFLECTION_MAP_NV = 0x8512
 
-if 1: # ifndef GL_EXT_texture_cube_map ("OpenGL/glext.h":1892)
+if 1: # ifndef GL_EXT_texture_cube_map ("inc/OpenGL/glext.h":1892)
     """GL_EXT_texture_cube_map"""
     GL_NORMAL_MAP_EXT = 0x8511
     GL_REFLECTION_MAP_EXT = 0x8512
@@ -1539,25 +1539,25 @@ if 1: # ifndef GL_EXT_texture_cube_map ("OpenGL/glext.h":1892)
     GL_PROXY_TEXTURE_CUBE_MAP_EXT = 0x851B
     GL_MAX_CUBE_MAP_TEXTURE_SIZE_EXT = 0x851C
 
-if 1: # ifndef GL_SUN_convolution_border_modes ("OpenGL/glext.h":1907)
+if 1: # ifndef GL_SUN_convolution_border_modes ("inc/OpenGL/glext.h":1907)
     """GL_SUN_convolution_border_modes"""
     GL_WRAP_BORDER_SUN = 0x81D4
 
-if 1: # ifndef GL_EXT_texture_env_add ("OpenGL/glext.h":1911)
+if 1: # ifndef GL_EXT_texture_env_add ("inc/OpenGL/glext.h":1911)
     """GL_EXT_texture_env_add"""
 
-if 1: # ifndef GL_EXT_texture_lod_bias ("OpenGL/glext.h":1914)
+if 1: # ifndef GL_EXT_texture_lod_bias ("inc/OpenGL/glext.h":1914)
     """GL_EXT_texture_lod_bias"""
     GL_MAX_TEXTURE_LOD_BIAS_EXT = 0x84FD
     GL_TEXTURE_FILTER_CONTROL_EXT = 0x8500
     GL_TEXTURE_LOD_BIAS_EXT = 0x8501
 
-if 1: # ifndef GL_EXT_texture_filter_anisotropic ("OpenGL/glext.h":1920)
+if 1: # ifndef GL_EXT_texture_filter_anisotropic ("inc/OpenGL/glext.h":1920)
     """GL_EXT_texture_filter_anisotropic"""
     GL_TEXTURE_MAX_ANISOTROPY_EXT = 0x84FE
     GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT = 0x84FF
 
-if 1: # ifndef GL_EXT_vertex_weighting ("OpenGL/glext.h":1925)
+if 1: # ifndef GL_EXT_vertex_weighting ("inc/OpenGL/glext.h":1925)
     """GL_EXT_vertex_weighting"""
     GL_MODELVIEW0_STACK_DEPTH_EXT = 0x0BA3 # = GL_MODELVIEW_STACK_DEPTH
     GL_MODELVIEW1_STACK_DEPTH_EXT = 0x8502
@@ -1573,12 +1573,12 @@ if 1: # ifndef GL_EXT_vertex_weighting ("OpenGL/glext.h":1925)
     GL_VERTEX_WEIGHT_ARRAY_STRIDE_EXT = 0x850F
     GL_VERTEX_WEIGHT_ARRAY_POINTER_EXT = 0x8510
 
-if 1: # ifndef GL_NV_light_max_exponent ("OpenGL/glext.h":1941)
+if 1: # ifndef GL_NV_light_max_exponent ("inc/OpenGL/glext.h":1941)
     """GL_NV_light_max_exponent"""
     GL_MAX_SHININESS_NV = 0x8504
     GL_MAX_SPOT_EXPONENT_NV = 0x8505
 
-if 1: # ifndef GL_NV_vertex_array_range ("OpenGL/glext.h":1946)
+if 1: # ifndef GL_NV_vertex_array_range ("inc/OpenGL/glext.h":1946)
     """GL_NV_vertex_array_range"""
     GL_VERTEX_ARRAY_RANGE_NV = 0x851D
     GL_VERTEX_ARRAY_RANGE_LENGTH_NV = 0x851E
@@ -1586,7 +1586,7 @@ if 1: # ifndef GL_NV_vertex_array_range ("OpenGL/glext.h":1946)
     GL_MAX_VERTEX_ARRAY_RANGE_ELEMENT_NV = 0x8520
     GL_VERTEX_ARRAY_RANGE_POINTER_NV = 0x8521
 
-if 1: # ifndef GL_NV_register_combiners ("OpenGL/glext.h":1954)
+if 1: # ifndef GL_NV_register_combiners ("inc/OpenGL/glext.h":1954)
     """GL_NV_register_combiners"""
     GL_REGISTER_COMBINERS_NV = 0x8522
     GL_VARIABLE_A_NV = 0x8523
@@ -1643,23 +1643,23 @@ if 1: # ifndef GL_NV_register_combiners ("OpenGL/glext.h":1954)
     #~ line: 2011, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_NV_fog_distance ("OpenGL/glext.h":2013)
+if 1: # ifndef GL_NV_fog_distance ("inc/OpenGL/glext.h":2013)
     """GL_NV_fog_distance"""
     GL_FOG_DISTANCE_MODE_NV = 0x855A
     GL_EYE_RADIAL_NV = 0x855B
     GL_EYE_PLANE_ABSOLUTE_NV = 0x855C
     
 
-if 1: # ifndef GL_NV_texgen_emboss ("OpenGL/glext.h":2020)
+if 1: # ifndef GL_NV_texgen_emboss ("inc/OpenGL/glext.h":2020)
     """GL_NV_texgen_emboss"""
     GL_EMBOSS_LIGHT_NV = 0x855D
     GL_EMBOSS_CONSTANT_NV = 0x855E
     GL_EMBOSS_MAP_NV = 0x855F
 
-if 1: # ifndef GL_NV_blend_square ("OpenGL/glext.h":2026)
+if 1: # ifndef GL_NV_blend_square ("inc/OpenGL/glext.h":2026)
     """GL_NV_blend_square"""
 
-if 1: # ifndef GL_NV_texture_env_combine4 ("OpenGL/glext.h":2029)
+if 1: # ifndef GL_NV_texture_env_combine4 ("inc/OpenGL/glext.h":2029)
     """GL_NV_texture_env_combine4"""
     GL_COMBINE4_NV = 0x8503
     GL_SOURCE3_RGB_NV = 0x8583
@@ -1667,27 +1667,27 @@ if 1: # ifndef GL_NV_texture_env_combine4 ("OpenGL/glext.h":2029)
     GL_OPERAND3_RGB_NV = 0x8593
     GL_OPERAND3_ALPHA_NV = 0x859B
 
-if 1: # ifndef GL_MESA_resize_buffers ("OpenGL/glext.h":2037)
+if 1: # ifndef GL_MESA_resize_buffers ("inc/OpenGL/glext.h":2037)
     """GL_MESA_resize_buffers"""
 
-if 1: # ifndef GL_MESA_window_pos ("OpenGL/glext.h":2040)
+if 1: # ifndef GL_MESA_window_pos ("inc/OpenGL/glext.h":2040)
     """GL_MESA_window_pos"""
 
-if 1: # ifndef GL_EXT_texture_compression_s3tc ("OpenGL/glext.h":2043)
+if 1: # ifndef GL_EXT_texture_compression_s3tc ("inc/OpenGL/glext.h":2043)
     """GL_EXT_texture_compression_s3tc"""
     GL_COMPRESSED_RGB_S3TC_DXT1_EXT = 0x83F0
     GL_COMPRESSED_RGBA_S3TC_DXT1_EXT = 0x83F1
     GL_COMPRESSED_RGBA_S3TC_DXT3_EXT = 0x83F2
     GL_COMPRESSED_RGBA_S3TC_DXT5_EXT = 0x83F3
 
-if 1: # ifndef GL_IBM_cull_vertex ("OpenGL/glext.h":2050)
+if 1: # ifndef GL_IBM_cull_vertex ("inc/OpenGL/glext.h":2050)
     """GL_IBM_cull_vertex"""
     GL_CULL_VERTEX_IBM = 103050
 
-if 1: # ifndef GL_IBM_multimode_draw_arrays ("OpenGL/glext.h":2054)
+if 1: # ifndef GL_IBM_multimode_draw_arrays ("inc/OpenGL/glext.h":2054)
     """GL_IBM_multimode_draw_arrays"""
 
-if 1: # ifndef GL_IBM_vertex_array_lists ("OpenGL/glext.h":2057)
+if 1: # ifndef GL_IBM_vertex_array_lists ("inc/OpenGL/glext.h":2057)
     """GL_IBM_vertex_array_lists"""
     GL_VERTEX_ARRAY_LIST_IBM = 103070
     GL_NORMAL_ARRAY_LIST_IBM = 103071
@@ -1706,7 +1706,7 @@ if 1: # ifndef GL_IBM_vertex_array_lists ("OpenGL/glext.h":2057)
     GL_FOG_COORDINATE_ARRAY_LIST_STRIDE_IBM = 103086
     GL_SECONDARY_COLOR_ARRAY_LIST_STRIDE_IBM = 103087
 
-if 1: # ifndef GL_SGIX_subsample ("OpenGL/glext.h":2076)
+if 1: # ifndef GL_SGIX_subsample ("inc/OpenGL/glext.h":2076)
     """GL_SGIX_subsample"""
     GL_PACK_SUBSAMPLE_RATE_SGIX = 0x85A0
     GL_UNPACK_SUBSAMPLE_RATE_SGIX = 0x85A1
@@ -1714,36 +1714,36 @@ if 1: # ifndef GL_SGIX_subsample ("OpenGL/glext.h":2076)
     GL_PIXEL_SUBSAMPLE_2424_SGIX = 0x85A3
     GL_PIXEL_SUBSAMPLE_4242_SGIX = 0x85A4
 
-if 1: # ifndef GL_SGIX_ycrcb_subsample ("OpenGL/glext.h":2084)
+if 1: # ifndef GL_SGIX_ycrcb_subsample ("inc/OpenGL/glext.h":2084)
     """GL_SGIX_ycrcb_subsample"""
 
-if 1: # ifndef GL_SGIX_ycrcba ("OpenGL/glext.h":2087)
+if 1: # ifndef GL_SGIX_ycrcba ("inc/OpenGL/glext.h":2087)
     """GL_SGIX_ycrcba"""
     GL_YCRCB_SGIX = 0x8318
     GL_YCRCBA_SGIX = 0x8319
 
-if 1: # ifndef GL_SGI_depth_pass_instrument ("OpenGL/glext.h":2092)
+if 1: # ifndef GL_SGI_depth_pass_instrument ("inc/OpenGL/glext.h":2092)
     """GL_SGI_depth_pass_instrument"""
     GL_DEPTH_PASS_INSTRUMENT_SGIX = 0x8310
     GL_DEPTH_PASS_INSTRUMENT_COUNTERS_SGIX = 0x8311
     GL_DEPTH_PASS_INSTRUMENT_MAX_SGIX = 0x8312
 
-if 1: # ifndef GL_3DFX_texture_compression_FXT1 ("OpenGL/glext.h":2098)
+if 1: # ifndef GL_3DFX_texture_compression_FXT1 ("inc/OpenGL/glext.h":2098)
     """GL_3DFX_texture_compression_FXT1"""
     GL_COMPRESSED_RGB_FXT1_3DFX = 0x86B0
     GL_COMPRESSED_RGBA_FXT1_3DFX = 0x86B1
 
-if 1: # ifndef GL_3DFX_multisample ("OpenGL/glext.h":2103)
+if 1: # ifndef GL_3DFX_multisample ("inc/OpenGL/glext.h":2103)
     """GL_3DFX_multisample"""
     GL_MULTISAMPLE_3DFX = 0x86B2
     GL_SAMPLE_BUFFERS_3DFX = 0x86B3
     GL_SAMPLES_3DFX = 0x86B4
     GL_MULTISAMPLE_BIT_3DFX = 0x20000000
 
-if 1: # ifndef GL_3DFX_tbuffer ("OpenGL/glext.h":2110)
+if 1: # ifndef GL_3DFX_tbuffer ("inc/OpenGL/glext.h":2110)
     """GL_3DFX_tbuffer"""
 
-if 1: # ifndef GL_EXT_multisample ("OpenGL/glext.h":2113)
+if 1: # ifndef GL_EXT_multisample ("inc/OpenGL/glext.h":2113)
     """GL_EXT_multisample"""
     GL_MULTISAMPLE_EXT = 0x809D
     GL_SAMPLE_ALPHA_TO_MASK_EXT = 0x809E
@@ -1763,16 +1763,16 @@ if 1: # ifndef GL_EXT_multisample ("OpenGL/glext.h":2113)
     GL_SAMPLE_PATTERN_EXT = 0x80AC
     GL_MULTISAMPLE_BIT_EXT = 0x20000000
 
-if 1: # ifndef GL_SGIX_vertex_preclip ("OpenGL/glext.h":2133)
+if 1: # ifndef GL_SGIX_vertex_preclip ("inc/OpenGL/glext.h":2133)
     """GL_SGIX_vertex_preclip"""
     GL_VERTEX_PRECLIP_SGIX = 0x83EE
     GL_VERTEX_PRECLIP_HINT_SGIX = 0x83EF
 
-if 1: # ifndef GL_SGIX_convolution_accuracy ("OpenGL/glext.h":2138)
+if 1: # ifndef GL_SGIX_convolution_accuracy ("inc/OpenGL/glext.h":2138)
     """GL_SGIX_convolution_accuracy"""
     GL_CONVOLUTION_HINT_SGIX = 0x8316
 
-if 1: # ifndef GL_SGIX_resample ("OpenGL/glext.h":2142)
+if 1: # ifndef GL_SGIX_resample ("inc/OpenGL/glext.h":2142)
     """GL_SGIX_resample"""
     GL_PACK_RESAMPLE_SGIX = 0x842C
     GL_UNPACK_RESAMPLE_SGIX = 0x842D
@@ -1780,7 +1780,7 @@ if 1: # ifndef GL_SGIX_resample ("OpenGL/glext.h":2142)
     GL_RESAMPLE_ZERO_FILL_SGIX = 0x842F
     GL_RESAMPLE_DECIMATE_SGIX = 0x8430
 
-if 1: # ifndef GL_SGIS_point_line_texgen ("OpenGL/glext.h":2150)
+if 1: # ifndef GL_SGIS_point_line_texgen ("inc/OpenGL/glext.h":2150)
     """GL_SGIS_point_line_texgen"""
     GL_EYE_DISTANCE_TO_POINT_SGIS = 0x81F0
     GL_OBJECT_DISTANCE_TO_POINT_SGIS = 0x81F1
@@ -1791,31 +1791,31 @@ if 1: # ifndef GL_SGIS_point_line_texgen ("OpenGL/glext.h":2150)
     GL_EYE_LINE_SGIS = 0x81F6
     GL_OBJECT_LINE_SGIS = 0x81F7
 
-if 1: # ifndef GL_SGIS_texture_color_mask ("OpenGL/glext.h":2161)
+if 1: # ifndef GL_SGIS_texture_color_mask ("inc/OpenGL/glext.h":2161)
     """GL_SGIS_texture_color_mask"""
     GL_TEXTURE_COLOR_WRITEMASK_SGIS = 0x81EF
 
-if 1: # ifndef GL_EXT_texture_env_dot3 ("OpenGL/glext.h":2165)
+if 1: # ifndef GL_EXT_texture_env_dot3 ("inc/OpenGL/glext.h":2165)
     """GL_EXT_texture_env_dot3"""
     GL_DOT3_RGB_EXT = 0x8740
     GL_DOT3_RGBA_EXT = 0x8741
 
-if 1: # ifndef GL_ATI_texture_mirror_once ("OpenGL/glext.h":2170)
+if 1: # ifndef GL_ATI_texture_mirror_once ("inc/OpenGL/glext.h":2170)
     """GL_ATI_texture_mirror_once"""
     GL_MIRROR_CLAMP_ATI = 0x8742
     GL_MIRROR_CLAMP_TO_EDGE_ATI = 0x8743
 
-if 1: # ifndef GL_NV_fence ("OpenGL/glext.h":2175)
+if 1: # ifndef GL_NV_fence ("inc/OpenGL/glext.h":2175)
     """GL_NV_fence"""
     GL_ALL_COMPLETED_NV = 0x84F2
     GL_FENCE_STATUS_NV = 0x84F3
     GL_FENCE_CONDITION_NV = 0x84F4
 
-if 1: # ifndef GL_IBM_texture_mirrored_repeat ("OpenGL/glext.h":2181)
+if 1: # ifndef GL_IBM_texture_mirrored_repeat ("inc/OpenGL/glext.h":2181)
     """GL_IBM_texture_mirrored_repeat"""
     GL_MIRRORED_REPEAT_IBM = 0x8370
 
-if 1: # ifndef GL_NV_evaluators ("OpenGL/glext.h":2185)
+if 1: # ifndef GL_NV_evaluators ("inc/OpenGL/glext.h":2185)
     """GL_NV_evaluators"""
     GL_EVAL_2D_NV = 0x86C0
     GL_EVAL_TRIANGULAR_2D_NV = 0x86C1
@@ -1842,26 +1842,26 @@ if 1: # ifndef GL_NV_evaluators ("OpenGL/glext.h":2185)
     GL_MAX_MAP_TESSELLATION_NV = 0x86D6
     GL_MAX_RATIONAL_EVAL_ORDER_NV = 0x86D7
 
-if 1: # ifndef GL_NV_packed_depth_stencil ("OpenGL/glext.h":2212)
+if 1: # ifndef GL_NV_packed_depth_stencil ("inc/OpenGL/glext.h":2212)
     """GL_NV_packed_depth_stencil"""
     GL_DEPTH_STENCIL_NV = 0x84F9
     GL_UNSIGNED_INT_24_8_NV = 0x84FA
 
-if 1: # ifndef GL_NV_register_combiners2 ("OpenGL/glext.h":2217)
+if 1: # ifndef GL_NV_register_combiners2 ("inc/OpenGL/glext.h":2217)
     """GL_NV_register_combiners2"""
     GL_PER_STAGE_CONSTANTS_NV = 0x8535
 
-if 1: # ifndef GL_NV_texture_compression_vtc ("OpenGL/glext.h":2221)
+if 1: # ifndef GL_NV_texture_compression_vtc ("inc/OpenGL/glext.h":2221)
     """GL_NV_texture_compression_vtc"""
 
-if 1: # ifndef GL_NV_texture_rectangle ("OpenGL/glext.h":2224)
+if 1: # ifndef GL_NV_texture_rectangle ("inc/OpenGL/glext.h":2224)
     """GL_NV_texture_rectangle"""
     GL_TEXTURE_RECTANGLE_NV = 0x84F5
     GL_TEXTURE_BINDING_RECTANGLE_NV = 0x84F6
     GL_PROXY_TEXTURE_RECTANGLE_NV = 0x84F7
     GL_MAX_RECTANGLE_TEXTURE_SIZE_NV = 0x84F8
 
-if 1: # ifndef GL_NV_texture_shader ("OpenGL/glext.h":2231)
+if 1: # ifndef GL_NV_texture_shader ("inc/OpenGL/glext.h":2231)
     """GL_NV_texture_shader"""
     GL_OFFSET_TEXTURE_RECTANGLE_NV = 0x864C
     GL_OFFSET_TEXTURE_RECTANGLE_SCALE_NV = 0x864D
@@ -1937,15 +1937,15 @@ if 1: # ifndef GL_NV_texture_shader ("OpenGL/glext.h":2231)
     GL_TEXTURE_DT_SIZE_NV = 0x871E
     GL_TEXTURE_MAG_SIZE_NV = 0x871F
 
-if 1: # ifndef GL_NV_texture_shader2 ("OpenGL/glext.h":2307)
+if 1: # ifndef GL_NV_texture_shader2 ("inc/OpenGL/glext.h":2307)
     """GL_NV_texture_shader2"""
     GL_DOT_PRODUCT_TEXTURE_3D_NV = 0x86EF
 
-if 1: # ifndef GL_NV_vertex_array_range2 ("OpenGL/glext.h":2311)
+if 1: # ifndef GL_NV_vertex_array_range2 ("inc/OpenGL/glext.h":2311)
     """GL_NV_vertex_array_range2"""
     GL_VERTEX_ARRAY_RANGE_WITHOUT_FLUSH_NV = 0x8533
 
-if 1: # ifndef GL_NV_vertex_program ("OpenGL/glext.h":2315)
+if 1: # ifndef GL_NV_vertex_program ("inc/OpenGL/glext.h":2315)
     """GL_NV_vertex_program"""
     GL_VERTEX_PROGRAM_NV = 0x8620
     GL_VERTEX_STATE_PROGRAM_NV = 0x8621
@@ -2031,27 +2031,27 @@ if 1: # ifndef GL_NV_vertex_program ("OpenGL/glext.h":2315)
     GL_MAP2_VERTEX_ATTRIB14_4_NV = 0x867E
     GL_MAP2_VERTEX_ATTRIB15_4_NV = 0x867F
 
-if 1: # ifndef GL_SGIX_texture_coordinate_clamp ("OpenGL/glext.h":2401)
+if 1: # ifndef GL_SGIX_texture_coordinate_clamp ("inc/OpenGL/glext.h":2401)
     """GL_SGIX_texture_coordinate_clamp"""
     GL_TEXTURE_MAX_CLAMP_S_SGIX = 0x8369
     GL_TEXTURE_MAX_CLAMP_T_SGIX = 0x836A
     GL_TEXTURE_MAX_CLAMP_R_SGIX = 0x836B
 
-if 1: # ifndef GL_SGIX_scalebias_hint ("OpenGL/glext.h":2407)
+if 1: # ifndef GL_SGIX_scalebias_hint ("inc/OpenGL/glext.h":2407)
     """GL_SGIX_scalebias_hint"""
     GL_SCALEBIAS_HINT_SGIX = 0x8322
 
-if 1: # ifndef GL_OML_interlace ("OpenGL/glext.h":2411)
+if 1: # ifndef GL_OML_interlace ("inc/OpenGL/glext.h":2411)
     """GL_OML_interlace"""
     GL_INTERLACE_OML = 0x8980
     GL_INTERLACE_READ_OML = 0x8981
 
-if 1: # ifndef GL_OML_subsample ("OpenGL/glext.h":2416)
+if 1: # ifndef GL_OML_subsample ("inc/OpenGL/glext.h":2416)
     """GL_OML_subsample"""
     GL_FORMAT_SUBSAMPLE_24_24_OML = 0x8982
     GL_FORMAT_SUBSAMPLE_244_244_OML = 0x8983
 
-if 1: # ifndef GL_OML_resample ("OpenGL/glext.h":2421)
+if 1: # ifndef GL_OML_resample ("inc/OpenGL/glext.h":2421)
     """GL_OML_resample"""
     GL_PACK_RESAMPLE_OML = 0x8984
     GL_UNPACK_RESAMPLE_OML = 0x8985
@@ -2060,12 +2060,12 @@ if 1: # ifndef GL_OML_resample ("OpenGL/glext.h":2421)
     GL_RESAMPLE_AVERAGE_OML = 0x8988
     GL_RESAMPLE_DECIMATE_OML = 0x8989
 
-if 1: # ifndef GL_NV_copy_depth_to_color ("OpenGL/glext.h":2430)
+if 1: # ifndef GL_NV_copy_depth_to_color ("inc/OpenGL/glext.h":2430)
     """GL_NV_copy_depth_to_color"""
     GL_DEPTH_STENCIL_TO_RGBA_NV = 0x886E
     GL_DEPTH_STENCIL_TO_BGRA_NV = 0x886F
 
-if 1: # ifndef GL_ATI_envmap_bumpmap ("OpenGL/glext.h":2435)
+if 1: # ifndef GL_ATI_envmap_bumpmap ("inc/OpenGL/glext.h":2435)
     """GL_ATI_envmap_bumpmap"""
     GL_BUMP_ROT_MATRIX_ATI = 0x8775
     GL_BUMP_ROT_MATRIX_SIZE_ATI = 0x8776
@@ -2076,7 +2076,7 @@ if 1: # ifndef GL_ATI_envmap_bumpmap ("OpenGL/glext.h":2435)
     GL_BUMP_ENVMAP_ATI = 0x877B
     GL_BUMP_TARGET_ATI = 0x877C
 
-if 1: # ifndef GL_ATI_fragment_shader ("OpenGL/glext.h":2446)
+if 1: # ifndef GL_ATI_fragment_shader ("inc/OpenGL/glext.h":2446)
     """GL_ATI_fragment_shader"""
     GL_FRAGMENT_SHADER_ATI = 0x8920
     GL_REG_0_ATI = 0x8921
@@ -2183,7 +2183,7 @@ if 1: # ifndef GL_ATI_fragment_shader ("OpenGL/glext.h":2446)
     GL_NEGATE_BIT_ATI = 0x00000004
     GL_BIAS_BIT_ATI = 0x00000008
 
-if 1: # ifndef GL_ATI_pn_triangles ("OpenGL/glext.h":2553)
+if 1: # ifndef GL_ATI_pn_triangles ("inc/OpenGL/glext.h":2553)
     """GL_ATI_pn_triangles"""
     GL_PN_TRIANGLES_ATI = 0x87F0
     GL_MAX_PN_TRIANGLES_TESSELATION_LEVEL_ATI = 0x87F1
@@ -2195,7 +2195,7 @@ if 1: # ifndef GL_ATI_pn_triangles ("OpenGL/glext.h":2553)
     GL_PN_TRIANGLES_NORMAL_MODE_LINEAR_ATI = 0x87F7
     GL_PN_TRIANGLES_NORMAL_MODE_QUADRATIC_ATI = 0x87F8
 
-if 1: # ifndef GL_ATI_vertex_array_object ("OpenGL/glext.h":2565)
+if 1: # ifndef GL_ATI_vertex_array_object ("inc/OpenGL/glext.h":2565)
     """GL_ATI_vertex_array_object"""
     GL_STATIC_ATI = 0x8760
     GL_DYNAMIC_ATI = 0x8761
@@ -2206,7 +2206,7 @@ if 1: # ifndef GL_ATI_vertex_array_object ("OpenGL/glext.h":2565)
     GL_ARRAY_OBJECT_BUFFER_ATI = 0x8766
     GL_ARRAY_OBJECT_OFFSET_ATI = 0x8767
 
-if 1: # ifndef GL_EXT_vertex_shader ("OpenGL/glext.h":2576)
+if 1: # ifndef GL_EXT_vertex_shader ("inc/OpenGL/glext.h":2576)
     """GL_EXT_vertex_shader"""
     GL_VERTEX_SHADER_EXT = 0x8780
     GL_VERTEX_SHADER_BINDING_EXT = 0x8781
@@ -2319,7 +2319,7 @@ if 1: # ifndef GL_EXT_vertex_shader ("OpenGL/glext.h":2576)
     GL_LOCAL_CONSTANT_VALUE_EXT = 0x87EC
     GL_LOCAL_CONSTANT_DATATYPE_EXT = 0x87ED
 
-if 1: # ifndef GL_ATI_vertex_streams ("OpenGL/glext.h":2689)
+if 1: # ifndef GL_ATI_vertex_streams ("inc/OpenGL/glext.h":2689)
     """GL_ATI_vertex_streams"""
     GL_MAX_VERTEX_STREAMS_ATI = 0x876B
     GL_VERTEX_STREAM0_ATI = 0x876C
@@ -2332,43 +2332,43 @@ if 1: # ifndef GL_ATI_vertex_streams ("OpenGL/glext.h":2689)
     GL_VERTEX_STREAM7_ATI = 0x8773
     GL_VERTEX_SOURCE_ATI = 0x8774
 
-if 1: # ifndef GL_ATI_element_array ("OpenGL/glext.h":2702)
+if 1: # ifndef GL_ATI_element_array ("inc/OpenGL/glext.h":2702)
     """GL_ATI_element_array"""
     GL_ELEMENT_ARRAY_ATI = 0x8768
     GL_ELEMENT_ARRAY_TYPE_ATI = 0x8769
     GL_ELEMENT_ARRAY_POINTER_ATI = 0x876A
 
-if 1: # ifndef GL_SUN_mesh_array ("OpenGL/glext.h":2708)
+if 1: # ifndef GL_SUN_mesh_array ("inc/OpenGL/glext.h":2708)
     """GL_SUN_mesh_array"""
     GL_QUAD_MESH_SUN = 0x8614
     GL_TRIANGLE_MESH_SUN = 0x8615
 
-if 1: # ifndef GL_SUN_slice_accum ("OpenGL/glext.h":2713)
+if 1: # ifndef GL_SUN_slice_accum ("inc/OpenGL/glext.h":2713)
     """GL_SUN_slice_accum"""
     GL_SLICE_ACCUM_SUN = 0x85CC
 
-if 1: # ifndef GL_NV_multisample_filter_hint ("OpenGL/glext.h":2717)
+if 1: # ifndef GL_NV_multisample_filter_hint ("inc/OpenGL/glext.h":2717)
     """GL_NV_multisample_filter_hint"""
     GL_MULTISAMPLE_FILTER_HINT_NV = 0x8534
 
-if 1: # ifndef GL_NV_depth_clamp ("OpenGL/glext.h":2721)
+if 1: # ifndef GL_NV_depth_clamp ("inc/OpenGL/glext.h":2721)
     """GL_NV_depth_clamp"""
     GL_DEPTH_CLAMP_NV = 0x864F
 
-if 1: # ifndef GL_NV_occlusion_query ("OpenGL/glext.h":2725)
+if 1: # ifndef GL_NV_occlusion_query ("inc/OpenGL/glext.h":2725)
     """GL_NV_occlusion_query"""
     GL_PIXEL_COUNTER_BITS_NV = 0x8864
     GL_CURRENT_OCCLUSION_QUERY_ID_NV = 0x8865
     GL_PIXEL_COUNT_NV = 0x8866
     GL_PIXEL_COUNT_AVAILABLE_NV = 0x8867
 
-if 1: # ifndef GL_NV_point_sprite ("OpenGL/glext.h":2732)
+if 1: # ifndef GL_NV_point_sprite ("inc/OpenGL/glext.h":2732)
     """GL_NV_point_sprite"""
     GL_POINT_SPRITE_NV = 0x8861
     GL_COORD_REPLACE_NV = 0x8862
     GL_POINT_SPRITE_R_MODE_NV = 0x8863
 
-if 1: # ifndef GL_NV_texture_shader3 ("OpenGL/glext.h":2738)
+if 1: # ifndef GL_NV_texture_shader3 ("inc/OpenGL/glext.h":2738)
     """GL_NV_texture_shader3"""
     GL_OFFSET_PROJECTIVE_TEXTURE_2D_NV = 0x8850
     GL_OFFSET_PROJECTIVE_TEXTURE_2D_SCALE_NV = 0x8851
@@ -2388,41 +2388,41 @@ if 1: # ifndef GL_NV_texture_shader3 ("OpenGL/glext.h":2738)
     GL_SIGNED_HILO8_NV = 0x885F
     GL_FORCE_BLUE_TO_ONE_NV = 0x8860
 
-if 1: # ifndef GL_NV_vertex_program1_1 ("OpenGL/glext.h":2758)
+if 1: # ifndef GL_NV_vertex_program1_1 ("inc/OpenGL/glext.h":2758)
     """GL_NV_vertex_program1_1"""
 
-if 1: # ifndef GL_EXT_shadow_funcs ("OpenGL/glext.h":2761)
+if 1: # ifndef GL_EXT_shadow_funcs ("inc/OpenGL/glext.h":2761)
     """GL_EXT_shadow_funcs"""
 
-if 1: # ifndef GL_EXT_stencil_two_side ("OpenGL/glext.h":2764)
+if 1: # ifndef GL_EXT_stencil_two_side ("inc/OpenGL/glext.h":2764)
     """GL_EXT_stencil_two_side"""
     GL_STENCIL_TEST_TWO_SIDE_EXT = 0x8910
     GL_ACTIVE_STENCIL_FACE_EXT = 0x8911
 
-if 1: # ifndef GL_ATI_text_fragment_shader ("OpenGL/glext.h":2769)
+if 1: # ifndef GL_ATI_text_fragment_shader ("inc/OpenGL/glext.h":2769)
     """GL_ATI_text_fragment_shader"""
     GL_TEXT_FRAGMENT_SHADER_ATI = 0x8200
 
-if 1: # ifndef GL_APPLE_client_storage ("OpenGL/glext.h":2773)
+if 1: # ifndef GL_APPLE_client_storage ("inc/OpenGL/glext.h":2773)
     """GL_APPLE_client_storage"""
     GL_UNPACK_CLIENT_STORAGE_APPLE = 0x85B2
 
-if 1: # ifndef GL_APPLE_element_array ("OpenGL/glext.h":2777)
+if 1: # ifndef GL_APPLE_element_array ("inc/OpenGL/glext.h":2777)
     """GL_APPLE_element_array"""
     GL_ELEMENT_ARRAY_APPLE = 0x8768
     GL_ELEMENT_ARRAY_TYPE_APPLE = 0x8769
     GL_ELEMENT_ARRAY_POINTER_APPLE = 0x876A
 
-if 1: # ifndef GL_APPLE_fence ("OpenGL/glext.h":2783)
+if 1: # ifndef GL_APPLE_fence ("inc/OpenGL/glext.h":2783)
     """GL_APPLE_fence"""
     GL_DRAW_PIXELS_APPLE = 0x8A0A
     GL_FENCE_APPLE = 0x8A0B
 
-if 1: # ifndef GL_APPLE_vertex_array_object ("OpenGL/glext.h":2788)
+if 1: # ifndef GL_APPLE_vertex_array_object ("inc/OpenGL/glext.h":2788)
     """GL_APPLE_vertex_array_object"""
     GL_VERTEX_ARRAY_BINDING_APPLE = 0x85B5
 
-if 1: # ifndef GL_APPLE_vertex_array_range ("OpenGL/glext.h":2792)
+if 1: # ifndef GL_APPLE_vertex_array_range ("inc/OpenGL/glext.h":2792)
     """GL_APPLE_vertex_array_range"""
     GL_VERTEX_ARRAY_RANGE_APPLE = 0x851D
     GL_VERTEX_ARRAY_RANGE_LENGTH_APPLE = 0x851E
@@ -2431,20 +2431,20 @@ if 1: # ifndef GL_APPLE_vertex_array_range ("OpenGL/glext.h":2792)
     GL_STORAGE_CACHED_APPLE = 0x85BE
     GL_STORAGE_SHARED_APPLE = 0x85BF
 
-if 1: # ifndef GL_APPLE_ycbcr_422 ("OpenGL/glext.h":2801)
+if 1: # ifndef GL_APPLE_ycbcr_422 ("inc/OpenGL/glext.h":2801)
     """GL_APPLE_ycbcr_422"""
     GL_YCBCR_422_APPLE = 0x85B9
     GL_UNSIGNED_SHORT_8_8_APPLE = 0x85BA
     GL_UNSIGNED_SHORT_8_8_REV_APPLE = 0x85BB
 
-if 1: # ifndef GL_S3_s3tc ("OpenGL/glext.h":2807)
+if 1: # ifndef GL_S3_s3tc ("inc/OpenGL/glext.h":2807)
     """GL_S3_s3tc"""
     GL_RGB_S3TC = 0x83A0
     GL_RGB4_S3TC = 0x83A1
     GL_RGBA_S3TC = 0x83A2
     GL_RGBA4_S3TC = 0x83A3
 
-if 1: # ifndef GL_ATI_draw_buffers ("OpenGL/glext.h":2814)
+if 1: # ifndef GL_ATI_draw_buffers ("inc/OpenGL/glext.h":2814)
     """GL_ATI_draw_buffers"""
     GL_MAX_DRAW_BUFFERS_ATI = 0x8824
     GL_DRAW_BUFFER0_ATI = 0x8825
@@ -2464,18 +2464,18 @@ if 1: # ifndef GL_ATI_draw_buffers ("OpenGL/glext.h":2814)
     GL_DRAW_BUFFER14_ATI = 0x8833
     GL_DRAW_BUFFER15_ATI = 0x8834
 
-if 1: # ifndef GL_ATI_pixel_format_float ("OpenGL/glext.h":2834)
+if 1: # ifndef GL_ATI_pixel_format_float ("inc/OpenGL/glext.h":2834)
     """GL_ATI_pixel_format_float"""
     GL_TYPE_RGBA_FLOAT_ATI = 0x8820
     GL_COLOR_CLEAR_UNCLAMPED_VALUE_ATI = 0x8835
 
-if 1: # ifndef GL_ATI_texture_env_combine3 ("OpenGL/glext.h":2839)
+if 1: # ifndef GL_ATI_texture_env_combine3 ("inc/OpenGL/glext.h":2839)
     """GL_ATI_texture_env_combine3"""
     GL_MODULATE_ADD_ATI = 0x8744
     GL_MODULATE_SIGNED_ADD_ATI = 0x8745
     GL_MODULATE_SUBTRACT_ATI = 0x8746
 
-if 1: # ifndef GL_ATI_texture_float ("OpenGL/glext.h":2845)
+if 1: # ifndef GL_ATI_texture_float ("inc/OpenGL/glext.h":2845)
     """GL_ATI_texture_float"""
     GL_RGBA_FLOAT32_ATI = 0x8814
     GL_RGB_FLOAT32_ATI = 0x8815
@@ -2490,7 +2490,7 @@ if 1: # ifndef GL_ATI_texture_float ("OpenGL/glext.h":2845)
     GL_LUMINANCE_FLOAT16_ATI = 0x881E
     GL_LUMINANCE_ALPHA_FLOAT16_ATI = 0x881F
 
-if 1: # ifndef GL_NV_float_buffer ("OpenGL/glext.h":2860)
+if 1: # ifndef GL_NV_float_buffer ("inc/OpenGL/glext.h":2860)
     """GL_NV_float_buffer"""
     GL_FLOAT_R_NV = 0x8880
     GL_FLOAT_RG_NV = 0x8881
@@ -2508,7 +2508,7 @@ if 1: # ifndef GL_NV_float_buffer ("OpenGL/glext.h":2860)
     GL_FLOAT_CLEAR_COLOR_VALUE_NV = 0x888D
     GL_FLOAT_RGBA_MODE_NV = 0x888E
 
-if 1: # ifndef GL_NV_fragment_program ("OpenGL/glext.h":2878)
+if 1: # ifndef GL_NV_fragment_program ("inc/OpenGL/glext.h":2878)
     """GL_NV_fragment_program"""
     GL_MAX_FRAGMENT_PROGRAM_LOCAL_PARAMETERS_NV = 0x8868
     GL_FRAGMENT_PROGRAM_NV = 0x8870
@@ -2517,11 +2517,11 @@ if 1: # ifndef GL_NV_fragment_program ("OpenGL/glext.h":2878)
     GL_FRAGMENT_PROGRAM_BINDING_NV = 0x8873
     GL_PROGRAM_ERROR_STRING_NV = 0x8874
 
-if 1: # ifndef GL_NV_half_float ("OpenGL/glext.h":2887)
+if 1: # ifndef GL_NV_half_float ("inc/OpenGL/glext.h":2887)
     """GL_NV_half_float"""
     GL_HALF_FLOAT_NV = 0x140B
 
-if 1: # ifndef GL_NV_pixel_data_range ("OpenGL/glext.h":2891)
+if 1: # ifndef GL_NV_pixel_data_range ("inc/OpenGL/glext.h":2891)
     """GL_NV_pixel_data_range"""
     GL_WRITE_PIXEL_DATA_RANGE_NV = 0x8878
     GL_READ_PIXEL_DATA_RANGE_NV = 0x8879
@@ -2530,73 +2530,73 @@ if 1: # ifndef GL_NV_pixel_data_range ("OpenGL/glext.h":2891)
     GL_WRITE_PIXEL_DATA_RANGE_POINTER_NV = 0x887C
     GL_READ_PIXEL_DATA_RANGE_POINTER_NV = 0x887D
 
-if 1: # ifndef GL_NV_primitive_restart ("OpenGL/glext.h":2900)
+if 1: # ifndef GL_NV_primitive_restart ("inc/OpenGL/glext.h":2900)
     """GL_NV_primitive_restart"""
     GL_PRIMITIVE_RESTART_NV = 0x8558
     GL_PRIMITIVE_RESTART_INDEX_NV = 0x8559
 
-if 1: # ifndef GL_NV_texture_expand_normal ("OpenGL/glext.h":2905)
+if 1: # ifndef GL_NV_texture_expand_normal ("inc/OpenGL/glext.h":2905)
     """GL_NV_texture_expand_normal"""
     GL_TEXTURE_UNSIGNED_REMAP_MODE_NV = 0x888F
 
-if 1: # ifndef GL_NV_vertex_program2 ("OpenGL/glext.h":2909)
+if 1: # ifndef GL_NV_vertex_program2 ("inc/OpenGL/glext.h":2909)
     """GL_NV_vertex_program2"""
 
-if 1: # ifndef GL_ATI_map_object_buffer ("OpenGL/glext.h":2912)
+if 1: # ifndef GL_ATI_map_object_buffer ("inc/OpenGL/glext.h":2912)
     """GL_ATI_map_object_buffer"""
 
-if 1: # ifndef GL_ATI_separate_stencil ("OpenGL/glext.h":2915)
+if 1: # ifndef GL_ATI_separate_stencil ("inc/OpenGL/glext.h":2915)
     """GL_ATI_separate_stencil"""
     GL_STENCIL_BACK_FUNC_ATI = 0x8800
     GL_STENCIL_BACK_FAIL_ATI = 0x8801
     GL_STENCIL_BACK_PASS_DEPTH_FAIL_ATI = 0x8802
     GL_STENCIL_BACK_PASS_DEPTH_PASS_ATI = 0x8803
 
-if 1: # ifndef GL_ATI_vertex_attrib_array_object ("OpenGL/glext.h":2922)
+if 1: # ifndef GL_ATI_vertex_attrib_array_object ("inc/OpenGL/glext.h":2922)
     """GL_ATI_vertex_attrib_array_object"""
 
-if 1: # ifndef GL_OES_read_format ("OpenGL/glext.h":2925)
+if 1: # ifndef GL_OES_read_format ("inc/OpenGL/glext.h":2925)
     """GL_OES_read_format"""
     GL_IMPLEMENTATION_COLOR_READ_TYPE_OES = 0x8B9A
     GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES = 0x8B9B
 
-if 1: # ifndef GL_EXT_depth_bounds_test ("OpenGL/glext.h":2930)
+if 1: # ifndef GL_EXT_depth_bounds_test ("inc/OpenGL/glext.h":2930)
     """GL_EXT_depth_bounds_test"""
     GL_DEPTH_BOUNDS_TEST_EXT = 0x8890
     GL_DEPTH_BOUNDS_EXT = 0x8891
 
-if 1: # ifndef GL_EXT_texture_mirror_clamp ("OpenGL/glext.h":2935)
+if 1: # ifndef GL_EXT_texture_mirror_clamp ("inc/OpenGL/glext.h":2935)
     """GL_EXT_texture_mirror_clamp"""
     GL_MIRROR_CLAMP_EXT = 0x8742
     GL_MIRROR_CLAMP_TO_EDGE_EXT = 0x8743
     GL_MIRROR_CLAMP_TO_BORDER_EXT = 0x8912
 
-if 1: # ifndef GL_EXT_blend_equation_separate ("OpenGL/glext.h":2941)
+if 1: # ifndef GL_EXT_blend_equation_separate ("inc/OpenGL/glext.h":2941)
     """GL_EXT_blend_equation_separate"""
     GL_BLEND_EQUATION_RGB_EXT = 0x8009 # = GL_BLEND_EQUATION
     GL_BLEND_EQUATION_ALPHA_EXT = 0x883D
 
-if 1: # ifndef GL_MESA_pack_invert ("OpenGL/glext.h":2946)
+if 1: # ifndef GL_MESA_pack_invert ("inc/OpenGL/glext.h":2946)
     """GL_MESA_pack_invert"""
     GL_PACK_INVERT_MESA = 0x8758
 
-if 1: # ifndef GL_MESA_ycbcr_texture ("OpenGL/glext.h":2950)
+if 1: # ifndef GL_MESA_ycbcr_texture ("inc/OpenGL/glext.h":2950)
     """GL_MESA_ycbcr_texture"""
     GL_UNSIGNED_SHORT_8_8_MESA = 0x85BA
     GL_UNSIGNED_SHORT_8_8_REV_MESA = 0x85BB
     GL_YCBCR_MESA = 0x8757
 
-if 1: # ifndef GL_EXT_pixel_buffer_object ("OpenGL/glext.h":2956)
+if 1: # ifndef GL_EXT_pixel_buffer_object ("inc/OpenGL/glext.h":2956)
     """GL_EXT_pixel_buffer_object"""
     GL_PIXEL_PACK_BUFFER_EXT = 0x88EB
     GL_PIXEL_UNPACK_BUFFER_EXT = 0x88EC
     GL_PIXEL_PACK_BUFFER_BINDING_EXT = 0x88ED
     GL_PIXEL_UNPACK_BUFFER_BINDING_EXT = 0x88EF
 
-if 1: # ifndef GL_NV_fragment_program_option ("OpenGL/glext.h":2963)
+if 1: # ifndef GL_NV_fragment_program_option ("inc/OpenGL/glext.h":2963)
     """GL_NV_fragment_program_option"""
 
-if 1: # ifndef GL_NV_fragment_program2 ("OpenGL/glext.h":2966)
+if 1: # ifndef GL_NV_fragment_program2 ("inc/OpenGL/glext.h":2966)
     """GL_NV_fragment_program2"""
     GL_MAX_PROGRAM_EXEC_INSTRUCTIONS_NV = 0x88F4
     GL_MAX_PROGRAM_CALL_DEPTH_NV = 0x88F5
@@ -2604,15 +2604,15 @@ if 1: # ifndef GL_NV_fragment_program2 ("OpenGL/glext.h":2966)
     GL_MAX_PROGRAM_LOOP_DEPTH_NV = 0x88F7
     GL_MAX_PROGRAM_LOOP_COUNT_NV = 0x88F8
 
-if 1: # ifndef GL_NV_vertex_program2_option ("OpenGL/glext.h":2974)
+if 1: # ifndef GL_NV_vertex_program2_option ("inc/OpenGL/glext.h":2974)
     """GL_NV_vertex_program2_option"""
     
 
-if 1: # ifndef GL_NV_vertex_program3 ("OpenGL/glext.h":2979)
+if 1: # ifndef GL_NV_vertex_program3 ("inc/OpenGL/glext.h":2979)
     """GL_NV_vertex_program3"""
     
 
-if 1: # ifndef GL_EXT_framebuffer_object ("OpenGL/glext.h":2983)
+if 1: # ifndef GL_EXT_framebuffer_object ("inc/OpenGL/glext.h":2983)
     """GL_EXT_framebuffer_object"""
     GL_INVALID_FRAMEBUFFER_OPERATION_EXT = 0x0506
     GL_MAX_RENDERBUFFER_SIZE_EXT = 0x84E8
@@ -2667,12 +2667,12 @@ if 1: # ifndef GL_EXT_framebuffer_object ("OpenGL/glext.h":2983)
     GL_RENDERBUFFER_DEPTH_SIZE_EXT = 0x8D54
     GL_RENDERBUFFER_STENCIL_SIZE_EXT = 0x8D55
 
-if 1: # ifndef GL_GREMEDY_string_marker ("OpenGL/glext.h":3038)
+if 1: # ifndef GL_GREMEDY_string_marker ("inc/OpenGL/glext.h":3038)
     """GL_GREMEDY_string_marker"""
 
 #~ line: 3056, skipped: 17 ~~~~~~
 
-if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":3056)
+if 1: # ifndef GL_ARB_vertex_buffer_object ("inc/OpenGL/glext.h":3056)
     """GL_ARB_vertex_buffer_object"""
     
     class GLintptrARB(c_int):
@@ -2680,7 +2680,7 @@ if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":3056)
     class GLsizeiptrARB(c_int):
         """typedef GLsizeiptrARB as c_int for absent ptrdiff_t"""
 
-if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":3062)
+if 1: # ifndef GL_ARB_shader_objects ("inc/OpenGL/glext.h":3062)
     """GL_ARB_shader_objects"""
     
     class GLcharARB(c_char):
@@ -2688,18 +2688,18 @@ if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":3062)
     class GLhandleARB(c_uint):
         """typedef GLhandleARB"""
 
-if 1: # ifndef GL_ARB_half_float_pixel ("OpenGL/glext.h":3069)
+if 1: # ifndef GL_ARB_half_float_pixel ("inc/OpenGL/glext.h":3069)
     """GL_ARB_half_float_pixel"""
     
 
-if 1: # ifndef GL_NV_half_float ("OpenGL/glext.h":3073)
+if 1: # ifndef GL_NV_half_float ("inc/OpenGL/glext.h":3073)
     """GL_NV_half_float"""
     class GLhalfNV(c_ushort):
         """typedef GLhalfNV"""
 
 #~ line: 3589, skipped: 514 ~~~~~~
 
-if 1: # ifndef GL_ARB_multitexture ("OpenGL/glext.h":3589)
+if 1: # ifndef GL_ARB_multitexture ("inc/OpenGL/glext.h":3589)
     """GL_ARB_multitexture"""
     GL_ARB_multitexture = 1
     
@@ -2809,7 +2809,7 @@ if 1: # ifndef GL_ARB_multitexture ("OpenGL/glext.h":3589)
     #~ line: 3661, skipped: 36 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_transpose_matrix ("OpenGL/glext.h":3663)
+if 1: # ifndef GL_ARB_transpose_matrix ("inc/OpenGL/glext.h":3663)
     """GL_ARB_transpose_matrix"""
     GL_ARB_transpose_matrix = 1
     
@@ -2829,7 +2829,7 @@ if 1: # ifndef GL_ARB_transpose_matrix ("OpenGL/glext.h":3663)
     #~ line: 3675, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_multisample ("OpenGL/glext.h":3677)
+if 1: # ifndef GL_ARB_multisample ("inc/OpenGL/glext.h":3677)
     """GL_ARB_multisample"""
     GL_ARB_multisample = 1
     
@@ -2838,15 +2838,15 @@ if 1: # ifndef GL_ARB_multisample ("OpenGL/glext.h":3677)
     
     
 
-if 1: # ifndef GL_ARB_texture_env_add ("OpenGL/glext.h":3685)
+if 1: # ifndef GL_ARB_texture_env_add ("inc/OpenGL/glext.h":3685)
     """GL_ARB_texture_env_add"""
     GL_ARB_texture_env_add = 1
 
-if 1: # ifndef GL_ARB_texture_cube_map ("OpenGL/glext.h":3689)
+if 1: # ifndef GL_ARB_texture_cube_map ("inc/OpenGL/glext.h":3689)
     """GL_ARB_texture_cube_map"""
     GL_ARB_texture_cube_map = 1
 
-if 1: # ifndef GL_ARB_texture_compression ("OpenGL/glext.h":3693)
+if 1: # ifndef GL_ARB_texture_compression ("inc/OpenGL/glext.h":3693)
     """GL_ARB_texture_compression"""
     GL_ARB_texture_compression = 1
     
@@ -2875,11 +2875,11 @@ if 1: # ifndef GL_ARB_texture_compression ("OpenGL/glext.h":3693)
     #~ line: 3711, skipped: 9 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_texture_border_clamp ("OpenGL/glext.h":3713)
+if 1: # ifndef GL_ARB_texture_border_clamp ("inc/OpenGL/glext.h":3713)
     """GL_ARB_texture_border_clamp"""
     GL_ARB_texture_border_clamp = 1
 
-if 1: # ifndef GL_ARB_point_parameters ("OpenGL/glext.h":3717)
+if 1: # ifndef GL_ARB_point_parameters ("inc/OpenGL/glext.h":3717)
     """GL_ARB_point_parameters"""
     GL_ARB_point_parameters = 1
     
@@ -2893,7 +2893,7 @@ if 1: # ifndef GL_ARB_point_parameters ("OpenGL/glext.h":3717)
     #~ line: 3725, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_vertex_blend ("OpenGL/glext.h":3727)
+if 1: # ifndef GL_ARB_vertex_blend ("inc/OpenGL/glext.h":3727)
     """GL_ARB_vertex_blend"""
     GL_ARB_vertex_blend = 1
     
@@ -2931,7 +2931,7 @@ if 1: # ifndef GL_ARB_vertex_blend ("OpenGL/glext.h":3727)
     #~ line: 3751, skipped: 12 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_matrix_palette ("OpenGL/glext.h":3753)
+if 1: # ifndef GL_ARB_matrix_palette ("inc/OpenGL/glext.h":3753)
     """GL_ARB_matrix_palette"""
     GL_ARB_matrix_palette = 1
     
@@ -2954,35 +2954,35 @@ if 1: # ifndef GL_ARB_matrix_palette ("OpenGL/glext.h":3753)
     #~ line: 3767, skipped: 7 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_texture_env_combine ("OpenGL/glext.h":3769)
+if 1: # ifndef GL_ARB_texture_env_combine ("inc/OpenGL/glext.h":3769)
     """GL_ARB_texture_env_combine"""
     GL_ARB_texture_env_combine = 1
 
-if 1: # ifndef GL_ARB_texture_env_crossbar ("OpenGL/glext.h":3773)
+if 1: # ifndef GL_ARB_texture_env_crossbar ("inc/OpenGL/glext.h":3773)
     """GL_ARB_texture_env_crossbar"""
     GL_ARB_texture_env_crossbar = 1
 
-if 1: # ifndef GL_ARB_texture_env_dot3 ("OpenGL/glext.h":3777)
+if 1: # ifndef GL_ARB_texture_env_dot3 ("inc/OpenGL/glext.h":3777)
     """GL_ARB_texture_env_dot3"""
     GL_ARB_texture_env_dot3 = 1
 
-if 1: # ifndef GL_ARB_texture_mirrored_repeat ("OpenGL/glext.h":3781)
+if 1: # ifndef GL_ARB_texture_mirrored_repeat ("inc/OpenGL/glext.h":3781)
     """GL_ARB_texture_mirrored_repeat"""
     GL_ARB_texture_mirrored_repeat = 1
 
-if 1: # ifndef GL_ARB_depth_texture ("OpenGL/glext.h":3785)
+if 1: # ifndef GL_ARB_depth_texture ("inc/OpenGL/glext.h":3785)
     """GL_ARB_depth_texture"""
     GL_ARB_depth_texture = 1
 
-if 1: # ifndef GL_ARB_shadow ("OpenGL/glext.h":3789)
+if 1: # ifndef GL_ARB_shadow ("inc/OpenGL/glext.h":3789)
     """GL_ARB_shadow"""
     GL_ARB_shadow = 1
 
-if 1: # ifndef GL_ARB_shadow_ambient ("OpenGL/glext.h":3793)
+if 1: # ifndef GL_ARB_shadow_ambient ("inc/OpenGL/glext.h":3793)
     """GL_ARB_shadow_ambient"""
     GL_ARB_shadow_ambient = 1
 
-if 1: # ifndef GL_ARB_window_pos ("OpenGL/glext.h":3797)
+if 1: # ifndef GL_ARB_window_pos ("inc/OpenGL/glext.h":3797)
     """GL_ARB_window_pos"""
     GL_ARB_window_pos = 1
     
@@ -3038,7 +3038,7 @@ if 1: # ifndef GL_ARB_window_pos ("OpenGL/glext.h":3797)
     #~ line: 3833, skipped: 18 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_vertex_program ("OpenGL/glext.h":3835)
+if 1: # ifndef GL_ARB_vertex_program ("inc/OpenGL/glext.h":3835)
     """GL_ARB_vertex_program"""
     GL_ARB_vertex_program = 1
     
@@ -3232,12 +3232,12 @@ if 1: # ifndef GL_ARB_vertex_program ("OpenGL/glext.h":3835)
     #~ line: 3963, skipped: 64 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_fragment_program ("OpenGL/glext.h":3965)
+if 1: # ifndef GL_ARB_fragment_program ("inc/OpenGL/glext.h":3965)
     """GL_ARB_fragment_program"""
     GL_ARB_fragment_program = 1
     
 
-if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":3970)
+if 1: # ifndef GL_ARB_vertex_buffer_object ("inc/OpenGL/glext.h":3970)
     """GL_ARB_vertex_buffer_object"""
     GL_ARB_vertex_buffer_object = 1
     
@@ -3278,7 +3278,7 @@ if 1: # ifndef GL_ARB_vertex_buffer_object ("OpenGL/glext.h":3970)
     #~ line: 3996, skipped: 13 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_occlusion_query ("OpenGL/glext.h":3998)
+if 1: # ifndef GL_ARB_occlusion_query ("inc/OpenGL/glext.h":3998)
     """GL_ARB_occlusion_query"""
     GL_ARB_occlusion_query = 1
     
@@ -3310,7 +3310,7 @@ if 1: # ifndef GL_ARB_occlusion_query ("OpenGL/glext.h":3998)
     #~ line: 4018, skipped: 10 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":4020)
+if 1: # ifndef GL_ARB_shader_objects ("inc/OpenGL/glext.h":4020)
     """GL_ARB_shader_objects"""
     GL_ARB_shader_objects = 1
     
@@ -3435,7 +3435,7 @@ if 1: # ifndef GL_ARB_shader_objects ("OpenGL/glext.h":4020)
     #~ line: 4102, skipped: 41 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_vertex_shader ("OpenGL/glext.h":4104)
+if 1: # ifndef GL_ARB_vertex_shader ("inc/OpenGL/glext.h":4104)
     """GL_ARB_vertex_shader"""
     GL_ARB_vertex_shader = 1
     
@@ -3452,27 +3452,27 @@ if 1: # ifndef GL_ARB_vertex_shader ("OpenGL/glext.h":4104)
     #~ line: 4114, skipped: 5 ~~~~~~
     
 
-if 1: # ifndef GL_ARB_fragment_shader ("OpenGL/glext.h":4116)
+if 1: # ifndef GL_ARB_fragment_shader ("inc/OpenGL/glext.h":4116)
     """GL_ARB_fragment_shader"""
     GL_ARB_fragment_shader = 1
 
-if 1: # ifndef GL_ARB_shading_language_100 ("OpenGL/glext.h":4120)
+if 1: # ifndef GL_ARB_shading_language_100 ("inc/OpenGL/glext.h":4120)
     """GL_ARB_shading_language_100"""
     GL_ARB_shading_language_100 = 1
 
-if 1: # ifndef GL_ARB_texture_non_power_of_two ("OpenGL/glext.h":4124)
+if 1: # ifndef GL_ARB_texture_non_power_of_two ("inc/OpenGL/glext.h":4124)
     """GL_ARB_texture_non_power_of_two"""
     GL_ARB_texture_non_power_of_two = 1
 
-if 1: # ifndef GL_ARB_point_sprite ("OpenGL/glext.h":4128)
+if 1: # ifndef GL_ARB_point_sprite ("inc/OpenGL/glext.h":4128)
     """GL_ARB_point_sprite"""
     GL_ARB_point_sprite = 1
 
-if 1: # ifndef GL_ARB_fragment_program_shadow ("OpenGL/glext.h":4132)
+if 1: # ifndef GL_ARB_fragment_program_shadow ("inc/OpenGL/glext.h":4132)
     """GL_ARB_fragment_program_shadow"""
     GL_ARB_fragment_program_shadow = 1
 
-if 1: # ifndef GL_ARB_draw_buffers ("OpenGL/glext.h":4136)
+if 1: # ifndef GL_ARB_draw_buffers ("inc/OpenGL/glext.h":4136)
     """GL_ARB_draw_buffers"""
     GL_ARB_draw_buffers = 1
     
@@ -3481,11 +3481,11 @@ if 1: # ifndef GL_ARB_draw_buffers ("OpenGL/glext.h":4136)
     
     
 
-if 1: # ifndef GL_ARB_texture_rectangle ("OpenGL/glext.h":4144)
+if 1: # ifndef GL_ARB_texture_rectangle ("inc/OpenGL/glext.h":4144)
     """GL_ARB_texture_rectangle"""
     GL_ARB_texture_rectangle = 1
 
-if 1: # ifndef GL_ARB_color_buffer_float ("OpenGL/glext.h":4148)
+if 1: # ifndef GL_ARB_color_buffer_float ("inc/OpenGL/glext.h":4148)
     """GL_ARB_color_buffer_float"""
     GL_ARB_color_buffer_float = 1
     
@@ -3494,23 +3494,23 @@ if 1: # ifndef GL_ARB_color_buffer_float ("OpenGL/glext.h":4148)
     
     
 
-if 1: # ifndef GL_ARB_half_float_pixel ("OpenGL/glext.h":4156)
+if 1: # ifndef GL_ARB_half_float_pixel ("inc/OpenGL/glext.h":4156)
     """GL_ARB_half_float_pixel"""
     GL_ARB_half_float_pixel = 1
 
-if 1: # ifndef GL_ARB_texture_float ("OpenGL/glext.h":4160)
+if 1: # ifndef GL_ARB_texture_float ("inc/OpenGL/glext.h":4160)
     """GL_ARB_texture_float"""
     GL_ARB_texture_float = 1
 
-if 1: # ifndef GL_ARB_pixel_buffer_object ("OpenGL/glext.h":4164)
+if 1: # ifndef GL_ARB_pixel_buffer_object ("inc/OpenGL/glext.h":4164)
     """GL_ARB_pixel_buffer_object"""
     GL_ARB_pixel_buffer_object = 1
 
-if 1: # ifndef GL_EXT_abgr ("OpenGL/glext.h":4168)
+if 1: # ifndef GL_EXT_abgr ("inc/OpenGL/glext.h":4168)
     """GL_EXT_abgr"""
     GL_EXT_abgr = 1
 
-if 1: # ifndef GL_EXT_blend_color ("OpenGL/glext.h":4172)
+if 1: # ifndef GL_EXT_blend_color ("inc/OpenGL/glext.h":4172)
     """GL_EXT_blend_color"""
     GL_EXT_blend_color = 1
     
@@ -3519,7 +3519,7 @@ if 1: # ifndef GL_EXT_blend_color ("OpenGL/glext.h":4172)
     
     
 
-if 1: # ifndef GL_EXT_polygon_offset ("OpenGL/glext.h":4180)
+if 1: # ifndef GL_EXT_polygon_offset ("inc/OpenGL/glext.h":4180)
     """GL_EXT_polygon_offset"""
     GL_EXT_polygon_offset = 1
     
@@ -3528,11 +3528,11 @@ if 1: # ifndef GL_EXT_polygon_offset ("OpenGL/glext.h":4180)
     
     
 
-if 1: # ifndef GL_EXT_texture ("OpenGL/glext.h":4188)
+if 1: # ifndef GL_EXT_texture ("inc/OpenGL/glext.h":4188)
     """GL_EXT_texture"""
     GL_EXT_texture = 1
 
-if 1: # ifndef GL_EXT_texture3D ("OpenGL/glext.h":4192)
+if 1: # ifndef GL_EXT_texture3D ("inc/OpenGL/glext.h":4192)
     """GL_EXT_texture3D"""
     GL_EXT_texture3D = 1
     
@@ -3546,7 +3546,7 @@ if 1: # ifndef GL_EXT_texture3D ("OpenGL/glext.h":4192)
     #~ line: 4200, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGIS_texture_filter4 ("OpenGL/glext.h":4202)
+if 1: # ifndef GL_SGIS_texture_filter4 ("inc/OpenGL/glext.h":4202)
     """GL_SGIS_texture_filter4"""
     GL_SGIS_texture_filter4 = 1
     
@@ -3560,7 +3560,7 @@ if 1: # ifndef GL_SGIS_texture_filter4 ("OpenGL/glext.h":4202)
     #~ line: 4210, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_subtexture ("OpenGL/glext.h":4212)
+if 1: # ifndef GL_EXT_subtexture ("inc/OpenGL/glext.h":4212)
     """GL_EXT_subtexture"""
     GL_EXT_subtexture = 1
     
@@ -3574,7 +3574,7 @@ if 1: # ifndef GL_EXT_subtexture ("OpenGL/glext.h":4212)
     #~ line: 4220, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_copy_texture ("OpenGL/glext.h":4222)
+if 1: # ifndef GL_EXT_copy_texture ("inc/OpenGL/glext.h":4222)
     """GL_EXT_copy_texture"""
     GL_EXT_copy_texture = 1
     
@@ -3597,7 +3597,7 @@ if 1: # ifndef GL_EXT_copy_texture ("OpenGL/glext.h":4222)
     #~ line: 4236, skipped: 7 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_histogram ("OpenGL/glext.h":4238)
+if 1: # ifndef GL_EXT_histogram ("inc/OpenGL/glext.h":4238)
     """GL_EXT_histogram"""
     GL_EXT_histogram = 1
     
@@ -3635,7 +3635,7 @@ if 1: # ifndef GL_EXT_histogram ("OpenGL/glext.h":4238)
     #~ line: 4262, skipped: 12 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_convolution ("OpenGL/glext.h":4264)
+if 1: # ifndef GL_EXT_convolution ("inc/OpenGL/glext.h":4264)
     """GL_EXT_convolution"""
     GL_EXT_convolution = 1
     
@@ -3682,11 +3682,11 @@ if 1: # ifndef GL_EXT_convolution ("OpenGL/glext.h":4264)
     #~ line: 4294, skipped: 15 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_color_matrix ("OpenGL/glext.h":4296)
+if 1: # ifndef GL_EXT_color_matrix ("inc/OpenGL/glext.h":4296)
     """GL_EXT_color_matrix"""
     GL_EXT_color_matrix = 1
 
-if 1: # ifndef GL_SGI_color_table ("OpenGL/glext.h":4300)
+if 1: # ifndef GL_SGI_color_table ("inc/OpenGL/glext.h":4300)
     """GL_SGI_color_table"""
     GL_SGI_color_table = 1
     
@@ -3715,7 +3715,7 @@ if 1: # ifndef GL_SGI_color_table ("OpenGL/glext.h":4300)
     #~ line: 4318, skipped: 9 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_pixel_texture ("OpenGL/glext.h":4320)
+if 1: # ifndef GL_SGIX_pixel_texture ("inc/OpenGL/glext.h":4320)
     """GL_SGIX_pixel_texture"""
     GL_SGIX_pixel_texture = 1
     
@@ -3724,7 +3724,7 @@ if 1: # ifndef GL_SGIX_pixel_texture ("OpenGL/glext.h":4320)
     
     
 
-if 1: # ifndef GL_SGIS_pixel_texture ("OpenGL/glext.h":4328)
+if 1: # ifndef GL_SGIS_pixel_texture ("inc/OpenGL/glext.h":4328)
     """GL_SGIS_pixel_texture"""
     GL_SGIS_pixel_texture = 1
     
@@ -3750,7 +3750,7 @@ if 1: # ifndef GL_SGIS_pixel_texture ("OpenGL/glext.h":4328)
     #~ line: 4344, skipped: 8 ~~~~~~
     
 
-if 1: # ifndef GL_SGIS_texture4D ("OpenGL/glext.h":4346)
+if 1: # ifndef GL_SGIS_texture4D ("inc/OpenGL/glext.h":4346)
     """GL_SGIS_texture4D"""
     GL_SGIS_texture4D = 1
     
@@ -3764,15 +3764,15 @@ if 1: # ifndef GL_SGIS_texture4D ("OpenGL/glext.h":4346)
     #~ line: 4354, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGI_texture_color_table ("OpenGL/glext.h":4356)
+if 1: # ifndef GL_SGI_texture_color_table ("inc/OpenGL/glext.h":4356)
     """GL_SGI_texture_color_table"""
     GL_SGI_texture_color_table = 1
 
-if 1: # ifndef GL_EXT_cmyka ("OpenGL/glext.h":4360)
+if 1: # ifndef GL_EXT_cmyka ("inc/OpenGL/glext.h":4360)
     """GL_EXT_cmyka"""
     GL_EXT_cmyka = 1
 
-if 1: # ifndef GL_EXT_texture_object ("OpenGL/glext.h":4364)
+if 1: # ifndef GL_EXT_texture_object ("inc/OpenGL/glext.h":4364)
     """GL_EXT_texture_object"""
     GL_EXT_texture_object = 1
     
@@ -3798,7 +3798,7 @@ if 1: # ifndef GL_EXT_texture_object ("OpenGL/glext.h":4364)
     #~ line: 4380, skipped: 8 ~~~~~~
     
 
-if 1: # ifndef GL_SGIS_detail_texture ("OpenGL/glext.h":4382)
+if 1: # ifndef GL_SGIS_detail_texture ("inc/OpenGL/glext.h":4382)
     """GL_SGIS_detail_texture"""
     GL_SGIS_detail_texture = 1
     
@@ -3812,7 +3812,7 @@ if 1: # ifndef GL_SGIS_detail_texture ("OpenGL/glext.h":4382)
     #~ line: 4390, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGIS_sharpen_texture ("OpenGL/glext.h":4392)
+if 1: # ifndef GL_SGIS_sharpen_texture ("inc/OpenGL/glext.h":4392)
     """GL_SGIS_sharpen_texture"""
     GL_SGIS_sharpen_texture = 1
     
@@ -3826,15 +3826,15 @@ if 1: # ifndef GL_SGIS_sharpen_texture ("OpenGL/glext.h":4392)
     #~ line: 4400, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_packed_pixels ("OpenGL/glext.h":4402)
+if 1: # ifndef GL_EXT_packed_pixels ("inc/OpenGL/glext.h":4402)
     """GL_EXT_packed_pixels"""
     GL_EXT_packed_pixels = 1
 
-if 1: # ifndef GL_SGIS_texture_lod ("OpenGL/glext.h":4406)
+if 1: # ifndef GL_SGIS_texture_lod ("inc/OpenGL/glext.h":4406)
     """GL_SGIS_texture_lod"""
     GL_SGIS_texture_lod = 1
 
-if 1: # ifndef GL_SGIS_multisample ("OpenGL/glext.h":4410)
+if 1: # ifndef GL_SGIS_multisample ("inc/OpenGL/glext.h":4410)
     """GL_SGIS_multisample"""
     GL_SGIS_multisample = 1
     
@@ -3848,11 +3848,11 @@ if 1: # ifndef GL_SGIS_multisample ("OpenGL/glext.h":4410)
     #~ line: 4418, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_rescale_normal ("OpenGL/glext.h":4420)
+if 1: # ifndef GL_EXT_rescale_normal ("inc/OpenGL/glext.h":4420)
     """GL_EXT_rescale_normal"""
     GL_EXT_rescale_normal = 1
 
-if 1: # ifndef GL_EXT_vertex_array ("OpenGL/glext.h":4424)
+if 1: # ifndef GL_EXT_vertex_array ("inc/OpenGL/glext.h":4424)
     """GL_EXT_vertex_array"""
     GL_EXT_vertex_array = 1
     
@@ -3887,31 +3887,31 @@ if 1: # ifndef GL_EXT_vertex_array ("OpenGL/glext.h":4424)
     #~ line: 4446, skipped: 11 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_misc_attribute ("OpenGL/glext.h":4448)
+if 1: # ifndef GL_EXT_misc_attribute ("inc/OpenGL/glext.h":4448)
     """GL_EXT_misc_attribute"""
     GL_EXT_misc_attribute = 1
 
-if 1: # ifndef GL_SGIS_generate_mipmap ("OpenGL/glext.h":4452)
+if 1: # ifndef GL_SGIS_generate_mipmap ("inc/OpenGL/glext.h":4452)
     """GL_SGIS_generate_mipmap"""
     GL_SGIS_generate_mipmap = 1
 
-if 1: # ifndef GL_SGIX_clipmap ("OpenGL/glext.h":4456)
+if 1: # ifndef GL_SGIX_clipmap ("inc/OpenGL/glext.h":4456)
     """GL_SGIX_clipmap"""
     GL_SGIX_clipmap = 1
 
-if 1: # ifndef GL_SGIX_shadow ("OpenGL/glext.h":4460)
+if 1: # ifndef GL_SGIX_shadow ("inc/OpenGL/glext.h":4460)
     """GL_SGIX_shadow"""
     GL_SGIX_shadow = 1
 
-if 1: # ifndef GL_SGIS_texture_edge_clamp ("OpenGL/glext.h":4464)
+if 1: # ifndef GL_SGIS_texture_edge_clamp ("inc/OpenGL/glext.h":4464)
     """GL_SGIS_texture_edge_clamp"""
     GL_SGIS_texture_edge_clamp = 1
 
-if 1: # ifndef GL_SGIS_texture_border_clamp ("OpenGL/glext.h":4468)
+if 1: # ifndef GL_SGIS_texture_border_clamp ("inc/OpenGL/glext.h":4468)
     """GL_SGIS_texture_border_clamp"""
     GL_SGIS_texture_border_clamp = 1
 
-if 1: # ifndef GL_EXT_blend_minmax ("OpenGL/glext.h":4472)
+if 1: # ifndef GL_EXT_blend_minmax ("inc/OpenGL/glext.h":4472)
     """GL_EXT_blend_minmax"""
     GL_EXT_blend_minmax = 1
     
@@ -3920,27 +3920,27 @@ if 1: # ifndef GL_EXT_blend_minmax ("OpenGL/glext.h":4472)
     
     
 
-if 1: # ifndef GL_EXT_blend_subtract ("OpenGL/glext.h":4480)
+if 1: # ifndef GL_EXT_blend_subtract ("inc/OpenGL/glext.h":4480)
     """GL_EXT_blend_subtract"""
     GL_EXT_blend_subtract = 1
 
-if 1: # ifndef GL_EXT_blend_logic_op ("OpenGL/glext.h":4484)
+if 1: # ifndef GL_EXT_blend_logic_op ("inc/OpenGL/glext.h":4484)
     """GL_EXT_blend_logic_op"""
     GL_EXT_blend_logic_op = 1
 
-if 1: # ifndef GL_SGIX_interlace ("OpenGL/glext.h":4488)
+if 1: # ifndef GL_SGIX_interlace ("inc/OpenGL/glext.h":4488)
     """GL_SGIX_interlace"""
     GL_SGIX_interlace = 1
 
-if 1: # ifndef GL_SGIX_pixel_tiles ("OpenGL/glext.h":4492)
+if 1: # ifndef GL_SGIX_pixel_tiles ("inc/OpenGL/glext.h":4492)
     """GL_SGIX_pixel_tiles"""
     GL_SGIX_pixel_tiles = 1
 
-if 1: # ifndef GL_SGIX_texture_select ("OpenGL/glext.h":4496)
+if 1: # ifndef GL_SGIX_texture_select ("inc/OpenGL/glext.h":4496)
     """GL_SGIX_texture_select"""
     GL_SGIX_texture_select = 1
 
-if 1: # ifndef GL_SGIX_sprite ("OpenGL/glext.h":4500)
+if 1: # ifndef GL_SGIX_sprite ("inc/OpenGL/glext.h":4500)
     """GL_SGIX_sprite"""
     GL_SGIX_sprite = 1
     
@@ -3960,11 +3960,11 @@ if 1: # ifndef GL_SGIX_sprite ("OpenGL/glext.h":4500)
     #~ line: 4512, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_texture_multi_buffer ("OpenGL/glext.h":4514)
+if 1: # ifndef GL_SGIX_texture_multi_buffer ("inc/OpenGL/glext.h":4514)
     """GL_SGIX_texture_multi_buffer"""
     GL_SGIX_texture_multi_buffer = 1
 
-if 1: # ifndef GL_EXT_point_parameters ("OpenGL/glext.h":4518)
+if 1: # ifndef GL_EXT_point_parameters ("inc/OpenGL/glext.h":4518)
     """GL_EXT_point_parameters"""
     GL_EXT_point_parameters = 1
     
@@ -3978,7 +3978,7 @@ if 1: # ifndef GL_EXT_point_parameters ("OpenGL/glext.h":4518)
     #~ line: 4526, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGIS_point_parameters ("OpenGL/glext.h":4528)
+if 1: # ifndef GL_SGIS_point_parameters ("inc/OpenGL/glext.h":4528)
     """GL_SGIS_point_parameters"""
     GL_SGIS_point_parameters = 1
     
@@ -3992,7 +3992,7 @@ if 1: # ifndef GL_SGIS_point_parameters ("OpenGL/glext.h":4528)
     #~ line: 4536, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_instruments ("OpenGL/glext.h":4538)
+if 1: # ifndef GL_SGIX_instruments ("inc/OpenGL/glext.h":4538)
     """GL_SGIX_instruments"""
     GL_SGIX_instruments = 1
     
@@ -4018,11 +4018,11 @@ if 1: # ifndef GL_SGIX_instruments ("OpenGL/glext.h":4538)
     #~ line: 4554, skipped: 8 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_texture_scale_bias ("OpenGL/glext.h":4556)
+if 1: # ifndef GL_SGIX_texture_scale_bias ("inc/OpenGL/glext.h":4556)
     """GL_SGIX_texture_scale_bias"""
     GL_SGIX_texture_scale_bias = 1
 
-if 1: # ifndef GL_SGIX_framezoom ("OpenGL/glext.h":4560)
+if 1: # ifndef GL_SGIX_framezoom ("inc/OpenGL/glext.h":4560)
     """GL_SGIX_framezoom"""
     GL_SGIX_framezoom = 1
     
@@ -4031,7 +4031,7 @@ if 1: # ifndef GL_SGIX_framezoom ("OpenGL/glext.h":4560)
     
     
 
-if 1: # ifndef GL_SGIX_tag_sample_buffer ("OpenGL/glext.h":4568)
+if 1: # ifndef GL_SGIX_tag_sample_buffer ("inc/OpenGL/glext.h":4568)
     """GL_SGIX_tag_sample_buffer"""
     GL_SGIX_tag_sample_buffer = 1
     
@@ -4040,7 +4040,7 @@ if 1: # ifndef GL_SGIX_tag_sample_buffer ("OpenGL/glext.h":4568)
     
     
 
-if 1: # ifndef GL_SGIX_polynomial_ffd ("OpenGL/glext.h":4576)
+if 1: # ifndef GL_SGIX_polynomial_ffd ("inc/OpenGL/glext.h":4576)
     """GL_SGIX_polynomial_ffd"""
     GL_SGIX_polynomial_ffd = 1
     
@@ -4060,7 +4060,7 @@ if 1: # ifndef GL_SGIX_polynomial_ffd ("OpenGL/glext.h":4576)
     #~ line: 4588, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_reference_plane ("OpenGL/glext.h":4590)
+if 1: # ifndef GL_SGIX_reference_plane ("inc/OpenGL/glext.h":4590)
     """GL_SGIX_reference_plane"""
     GL_SGIX_reference_plane = 1
     
@@ -4069,7 +4069,7 @@ if 1: # ifndef GL_SGIX_reference_plane ("OpenGL/glext.h":4590)
     
     
 
-if 1: # ifndef GL_SGIX_flush_raster ("OpenGL/glext.h":4598)
+if 1: # ifndef GL_SGIX_flush_raster ("inc/OpenGL/glext.h":4598)
     """GL_SGIX_flush_raster"""
     GL_SGIX_flush_raster = 1
     
@@ -4078,11 +4078,11 @@ if 1: # ifndef GL_SGIX_flush_raster ("OpenGL/glext.h":4598)
     
     
 
-if 1: # ifndef GL_SGIX_depth_texture ("OpenGL/glext.h":4606)
+if 1: # ifndef GL_SGIX_depth_texture ("inc/OpenGL/glext.h":4606)
     """GL_SGIX_depth_texture"""
     GL_SGIX_depth_texture = 1
 
-if 1: # ifndef GL_SGIS_fog_function ("OpenGL/glext.h":4610)
+if 1: # ifndef GL_SGIS_fog_function ("inc/OpenGL/glext.h":4610)
     """GL_SGIS_fog_function"""
     GL_SGIS_fog_function = 1
     
@@ -4096,11 +4096,11 @@ if 1: # ifndef GL_SGIS_fog_function ("OpenGL/glext.h":4610)
     #~ line: 4618, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_fog_offset ("OpenGL/glext.h":4620)
+if 1: # ifndef GL_SGIX_fog_offset ("inc/OpenGL/glext.h":4620)
     """GL_SGIX_fog_offset"""
     GL_SGIX_fog_offset = 1
 
-if 1: # ifndef GL_HP_image_transform ("OpenGL/glext.h":4624)
+if 1: # ifndef GL_HP_image_transform ("inc/OpenGL/glext.h":4624)
     """GL_HP_image_transform"""
     GL_HP_image_transform = 1
     
@@ -4126,15 +4126,15 @@ if 1: # ifndef GL_HP_image_transform ("OpenGL/glext.h":4624)
     #~ line: 4640, skipped: 8 ~~~~~~
     
 
-if 1: # ifndef GL_HP_convolution_border_modes ("OpenGL/glext.h":4642)
+if 1: # ifndef GL_HP_convolution_border_modes ("inc/OpenGL/glext.h":4642)
     """GL_HP_convolution_border_modes"""
     GL_HP_convolution_border_modes = 1
 
-if 1: # ifndef GL_SGIX_texture_add_env ("OpenGL/glext.h":4646)
+if 1: # ifndef GL_SGIX_texture_add_env ("inc/OpenGL/glext.h":4646)
     """GL_SGIX_texture_add_env"""
     GL_SGIX_texture_add_env = 1
 
-if 1: # ifndef GL_EXT_color_subtable ("OpenGL/glext.h":4650)
+if 1: # ifndef GL_EXT_color_subtable ("inc/OpenGL/glext.h":4650)
     """GL_EXT_color_subtable"""
     GL_EXT_color_subtable = 1
     
@@ -4148,11 +4148,11 @@ if 1: # ifndef GL_EXT_color_subtable ("OpenGL/glext.h":4650)
     #~ line: 4658, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_PGI_vertex_hints ("OpenGL/glext.h":4660)
+if 1: # ifndef GL_PGI_vertex_hints ("inc/OpenGL/glext.h":4660)
     """GL_PGI_vertex_hints"""
     GL_PGI_vertex_hints = 1
 
-if 1: # ifndef GL_PGI_misc_hints ("OpenGL/glext.h":4664)
+if 1: # ifndef GL_PGI_misc_hints ("inc/OpenGL/glext.h":4664)
     """GL_PGI_misc_hints"""
     GL_PGI_misc_hints = 1
     
@@ -4161,7 +4161,7 @@ if 1: # ifndef GL_PGI_misc_hints ("OpenGL/glext.h":4664)
     
     
 
-if 1: # ifndef GL_EXT_paletted_texture ("OpenGL/glext.h":4672)
+if 1: # ifndef GL_EXT_paletted_texture ("inc/OpenGL/glext.h":4672)
     """GL_EXT_paletted_texture"""
     GL_EXT_paletted_texture = 1
     
@@ -4181,11 +4181,11 @@ if 1: # ifndef GL_EXT_paletted_texture ("OpenGL/glext.h":4672)
     #~ line: 4684, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_clip_volume_hint ("OpenGL/glext.h":4686)
+if 1: # ifndef GL_EXT_clip_volume_hint ("inc/OpenGL/glext.h":4686)
     """GL_EXT_clip_volume_hint"""
     GL_EXT_clip_volume_hint = 1
 
-if 1: # ifndef GL_SGIX_list_priority ("OpenGL/glext.h":4690)
+if 1: # ifndef GL_SGIX_list_priority ("inc/OpenGL/glext.h":4690)
     """GL_SGIX_list_priority"""
     GL_SGIX_list_priority = 1
     
@@ -4211,27 +4211,27 @@ if 1: # ifndef GL_SGIX_list_priority ("OpenGL/glext.h":4690)
     #~ line: 4706, skipped: 8 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_ir_instrument1 ("OpenGL/glext.h":4708)
+if 1: # ifndef GL_SGIX_ir_instrument1 ("inc/OpenGL/glext.h":4708)
     """GL_SGIX_ir_instrument1"""
     GL_SGIX_ir_instrument1 = 1
 
-if 1: # ifndef GL_SGIX_calligraphic_fragment ("OpenGL/glext.h":4712)
+if 1: # ifndef GL_SGIX_calligraphic_fragment ("inc/OpenGL/glext.h":4712)
     """GL_SGIX_calligraphic_fragment"""
     GL_SGIX_calligraphic_fragment = 1
 
-if 1: # ifndef GL_SGIX_texture_lod_bias ("OpenGL/glext.h":4716)
+if 1: # ifndef GL_SGIX_texture_lod_bias ("inc/OpenGL/glext.h":4716)
     """GL_SGIX_texture_lod_bias"""
     GL_SGIX_texture_lod_bias = 1
 
-if 1: # ifndef GL_SGIX_shadow_ambient ("OpenGL/glext.h":4720)
+if 1: # ifndef GL_SGIX_shadow_ambient ("inc/OpenGL/glext.h":4720)
     """GL_SGIX_shadow_ambient"""
     GL_SGIX_shadow_ambient = 1
 
-if 1: # ifndef GL_EXT_index_texture ("OpenGL/glext.h":4724)
+if 1: # ifndef GL_EXT_index_texture ("inc/OpenGL/glext.h":4724)
     """GL_EXT_index_texture"""
     GL_EXT_index_texture = 1
 
-if 1: # ifndef GL_EXT_index_material ("OpenGL/glext.h":4728)
+if 1: # ifndef GL_EXT_index_material ("inc/OpenGL/glext.h":4728)
     """GL_EXT_index_material"""
     GL_EXT_index_material = 1
     
@@ -4240,7 +4240,7 @@ if 1: # ifndef GL_EXT_index_material ("OpenGL/glext.h":4728)
     
     
 
-if 1: # ifndef GL_EXT_index_func ("OpenGL/glext.h":4736)
+if 1: # ifndef GL_EXT_index_func ("inc/OpenGL/glext.h":4736)
     """GL_EXT_index_func"""
     GL_EXT_index_func = 1
     
@@ -4249,11 +4249,11 @@ if 1: # ifndef GL_EXT_index_func ("OpenGL/glext.h":4736)
     
     
 
-if 1: # ifndef GL_EXT_index_array_formats ("OpenGL/glext.h":4744)
+if 1: # ifndef GL_EXT_index_array_formats ("inc/OpenGL/glext.h":4744)
     """GL_EXT_index_array_formats"""
     GL_EXT_index_array_formats = 1
 
-if 1: # ifndef GL_EXT_compiled_vertex_array ("OpenGL/glext.h":4748)
+if 1: # ifndef GL_EXT_compiled_vertex_array ("inc/OpenGL/glext.h":4748)
     """GL_EXT_compiled_vertex_array"""
     GL_EXT_compiled_vertex_array = 1
     
@@ -4267,7 +4267,7 @@ if 1: # ifndef GL_EXT_compiled_vertex_array ("OpenGL/glext.h":4748)
     #~ line: 4756, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_cull_vertex ("OpenGL/glext.h":4758)
+if 1: # ifndef GL_EXT_cull_vertex ("inc/OpenGL/glext.h":4758)
     """GL_EXT_cull_vertex"""
     GL_EXT_cull_vertex = 1
     
@@ -4281,11 +4281,11 @@ if 1: # ifndef GL_EXT_cull_vertex ("OpenGL/glext.h":4758)
     #~ line: 4766, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_ycrcb ("OpenGL/glext.h":4768)
+if 1: # ifndef GL_SGIX_ycrcb ("inc/OpenGL/glext.h":4768)
     """GL_SGIX_ycrcb"""
     GL_SGIX_ycrcb = 1
 
-if 1: # ifndef GL_SGIX_fragment_lighting ("OpenGL/glext.h":4772)
+if 1: # ifndef GL_SGIX_fragment_lighting ("inc/OpenGL/glext.h":4772)
     """GL_SGIX_fragment_lighting"""
     GL_SGIX_fragment_lighting = 1
     
@@ -4347,15 +4347,15 @@ if 1: # ifndef GL_SGIX_fragment_lighting ("OpenGL/glext.h":4772)
     #~ line: 4812, skipped: 20 ~~~~~~
     
 
-if 1: # ifndef GL_IBM_rasterpos_clip ("OpenGL/glext.h":4814)
+if 1: # ifndef GL_IBM_rasterpos_clip ("inc/OpenGL/glext.h":4814)
     """GL_IBM_rasterpos_clip"""
     GL_IBM_rasterpos_clip = 1
 
-if 1: # ifndef GL_HP_texture_lighting ("OpenGL/glext.h":4818)
+if 1: # ifndef GL_HP_texture_lighting ("inc/OpenGL/glext.h":4818)
     """GL_HP_texture_lighting"""
     GL_HP_texture_lighting = 1
 
-if 1: # ifndef GL_EXT_draw_range_elements ("OpenGL/glext.h":4822)
+if 1: # ifndef GL_EXT_draw_range_elements ("inc/OpenGL/glext.h":4822)
     """GL_EXT_draw_range_elements"""
     GL_EXT_draw_range_elements = 1
     
@@ -4364,15 +4364,15 @@ if 1: # ifndef GL_EXT_draw_range_elements ("OpenGL/glext.h":4822)
     
     
 
-if 1: # ifndef GL_WIN_phong_shading ("OpenGL/glext.h":4830)
+if 1: # ifndef GL_WIN_phong_shading ("inc/OpenGL/glext.h":4830)
     """GL_WIN_phong_shading"""
     GL_WIN_phong_shading = 1
 
-if 1: # ifndef GL_WIN_specular_fog ("OpenGL/glext.h":4834)
+if 1: # ifndef GL_WIN_specular_fog ("inc/OpenGL/glext.h":4834)
     """GL_WIN_specular_fog"""
     GL_WIN_specular_fog = 1
 
-if 1: # ifndef GL_EXT_light_texture ("OpenGL/glext.h":4838)
+if 1: # ifndef GL_EXT_light_texture ("inc/OpenGL/glext.h":4838)
     """GL_EXT_light_texture"""
     GL_EXT_light_texture = 1
     
@@ -4389,15 +4389,15 @@ if 1: # ifndef GL_EXT_light_texture ("OpenGL/glext.h":4838)
     #~ line: 4848, skipped: 5 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_blend_alpha_minmax ("OpenGL/glext.h":4850)
+if 1: # ifndef GL_SGIX_blend_alpha_minmax ("inc/OpenGL/glext.h":4850)
     """GL_SGIX_blend_alpha_minmax"""
     GL_SGIX_blend_alpha_minmax = 1
 
-if 1: # ifndef GL_EXT_bgra ("OpenGL/glext.h":4854)
+if 1: # ifndef GL_EXT_bgra ("inc/OpenGL/glext.h":4854)
     """GL_EXT_bgra"""
     GL_EXT_bgra = 1
 
-if 1: # ifndef GL_SGIX_async ("OpenGL/glext.h":4858)
+if 1: # ifndef GL_SGIX_async ("inc/OpenGL/glext.h":4858)
     """GL_SGIX_async"""
     GL_SGIX_async = 1
     
@@ -4423,15 +4423,15 @@ if 1: # ifndef GL_SGIX_async ("OpenGL/glext.h":4858)
     #~ line: 4874, skipped: 8 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_async_pixel ("OpenGL/glext.h":4876)
+if 1: # ifndef GL_SGIX_async_pixel ("inc/OpenGL/glext.h":4876)
     """GL_SGIX_async_pixel"""
     GL_SGIX_async_pixel = 1
 
-if 1: # ifndef GL_SGIX_async_histogram ("OpenGL/glext.h":4880)
+if 1: # ifndef GL_SGIX_async_histogram ("inc/OpenGL/glext.h":4880)
     """GL_SGIX_async_histogram"""
     GL_SGIX_async_histogram = 1
 
-if 1: # ifndef GL_INTEL_parallel_arrays ("OpenGL/glext.h":4884)
+if 1: # ifndef GL_INTEL_parallel_arrays ("inc/OpenGL/glext.h":4884)
     """GL_INTEL_parallel_arrays"""
     GL_INTEL_parallel_arrays = 1
     
@@ -4451,11 +4451,11 @@ if 1: # ifndef GL_INTEL_parallel_arrays ("OpenGL/glext.h":4884)
     #~ line: 4896, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_HP_occlusion_test ("OpenGL/glext.h":4898)
+if 1: # ifndef GL_HP_occlusion_test ("inc/OpenGL/glext.h":4898)
     """GL_HP_occlusion_test"""
     GL_HP_occlusion_test = 1
 
-if 1: # ifndef GL_EXT_pixel_transform ("OpenGL/glext.h":4902)
+if 1: # ifndef GL_EXT_pixel_transform ("inc/OpenGL/glext.h":4902)
     """GL_EXT_pixel_transform"""
     GL_EXT_pixel_transform = 1
     
@@ -4475,19 +4475,19 @@ if 1: # ifndef GL_EXT_pixel_transform ("OpenGL/glext.h":4902)
     #~ line: 4914, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_pixel_transform_color_table ("OpenGL/glext.h":4916)
+if 1: # ifndef GL_EXT_pixel_transform_color_table ("inc/OpenGL/glext.h":4916)
     """GL_EXT_pixel_transform_color_table"""
     GL_EXT_pixel_transform_color_table = 1
 
-if 1: # ifndef GL_EXT_shared_texture_palette ("OpenGL/glext.h":4920)
+if 1: # ifndef GL_EXT_shared_texture_palette ("inc/OpenGL/glext.h":4920)
     """GL_EXT_shared_texture_palette"""
     GL_EXT_shared_texture_palette = 1
 
-if 1: # ifndef GL_EXT_separate_specular_color ("OpenGL/glext.h":4924)
+if 1: # ifndef GL_EXT_separate_specular_color ("inc/OpenGL/glext.h":4924)
     """GL_EXT_separate_specular_color"""
     GL_EXT_separate_specular_color = 1
 
-if 1: # ifndef GL_EXT_secondary_color ("OpenGL/glext.h":4928)
+if 1: # ifndef GL_EXT_secondary_color ("inc/OpenGL/glext.h":4928)
     """GL_EXT_secondary_color"""
     GL_EXT_secondary_color = 1
     
@@ -4546,7 +4546,7 @@ if 1: # ifndef GL_EXT_secondary_color ("OpenGL/glext.h":4928)
     #~ line: 4966, skipped: 19 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_texture_perturb_normal ("OpenGL/glext.h":4968)
+if 1: # ifndef GL_EXT_texture_perturb_normal ("inc/OpenGL/glext.h":4968)
     """GL_EXT_texture_perturb_normal"""
     GL_EXT_texture_perturb_normal = 1
     
@@ -4555,7 +4555,7 @@ if 1: # ifndef GL_EXT_texture_perturb_normal ("OpenGL/glext.h":4968)
     
     
 
-if 1: # ifndef GL_EXT_multi_draw_arrays ("OpenGL/glext.h":4976)
+if 1: # ifndef GL_EXT_multi_draw_arrays ("inc/OpenGL/glext.h":4976)
     """GL_EXT_multi_draw_arrays"""
     GL_EXT_multi_draw_arrays = 1
     
@@ -4569,7 +4569,7 @@ if 1: # ifndef GL_EXT_multi_draw_arrays ("OpenGL/glext.h":4976)
     #~ line: 4984, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_fog_coord ("OpenGL/glext.h":4986)
+if 1: # ifndef GL_EXT_fog_coord ("inc/OpenGL/glext.h":4986)
     """GL_EXT_fog_coord"""
     GL_EXT_fog_coord = 1
     
@@ -4592,11 +4592,11 @@ if 1: # ifndef GL_EXT_fog_coord ("OpenGL/glext.h":4986)
     #~ line: 5000, skipped: 7 ~~~~~~
     
 
-if 1: # ifndef GL_REND_screen_coordinates ("OpenGL/glext.h":5002)
+if 1: # ifndef GL_REND_screen_coordinates ("inc/OpenGL/glext.h":5002)
     """GL_REND_screen_coordinates"""
     GL_REND_screen_coordinates = 1
 
-if 1: # ifndef GL_EXT_coordinate_frame ("OpenGL/glext.h":5006)
+if 1: # ifndef GL_EXT_coordinate_frame ("inc/OpenGL/glext.h":5006)
     """GL_EXT_coordinate_frame"""
     GL_EXT_coordinate_frame = 1
     
@@ -4670,23 +4670,23 @@ if 1: # ifndef GL_EXT_coordinate_frame ("OpenGL/glext.h":5006)
     #~ line: 5054, skipped: 24 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_texture_env_combine ("OpenGL/glext.h":5056)
+if 1: # ifndef GL_EXT_texture_env_combine ("inc/OpenGL/glext.h":5056)
     """GL_EXT_texture_env_combine"""
     GL_EXT_texture_env_combine = 1
 
-if 1: # ifndef GL_APPLE_specular_vector ("OpenGL/glext.h":5060)
+if 1: # ifndef GL_APPLE_specular_vector ("inc/OpenGL/glext.h":5060)
     """GL_APPLE_specular_vector"""
     GL_APPLE_specular_vector = 1
 
-if 1: # ifndef GL_APPLE_transform_hint ("OpenGL/glext.h":5064)
+if 1: # ifndef GL_APPLE_transform_hint ("inc/OpenGL/glext.h":5064)
     """GL_APPLE_transform_hint"""
     GL_APPLE_transform_hint = 1
 
-if 1: # ifndef GL_SGIX_fog_scale ("OpenGL/glext.h":5068)
+if 1: # ifndef GL_SGIX_fog_scale ("inc/OpenGL/glext.h":5068)
     """GL_SGIX_fog_scale"""
     GL_SGIX_fog_scale = 1
 
-if 1: # ifndef GL_SUNX_constant_data ("OpenGL/glext.h":5072)
+if 1: # ifndef GL_SUNX_constant_data ("inc/OpenGL/glext.h":5072)
     """GL_SUNX_constant_data"""
     GL_SUNX_constant_data = 1
     
@@ -4695,7 +4695,7 @@ if 1: # ifndef GL_SUNX_constant_data ("OpenGL/glext.h":5072)
     
     
 
-if 1: # ifndef GL_SUN_global_alpha ("OpenGL/glext.h":5080)
+if 1: # ifndef GL_SUN_global_alpha ("inc/OpenGL/glext.h":5080)
     """GL_SUN_global_alpha"""
     GL_SUN_global_alpha = 1
     
@@ -4727,7 +4727,7 @@ if 1: # ifndef GL_SUN_global_alpha ("OpenGL/glext.h":5080)
     #~ line: 5100, skipped: 10 ~~~~~~
     
 
-if 1: # ifndef GL_SUN_triangle_list ("OpenGL/glext.h":5102)
+if 1: # ifndef GL_SUN_triangle_list ("inc/OpenGL/glext.h":5102)
     """GL_SUN_triangle_list"""
     GL_SUN_triangle_list = 1
     
@@ -4756,7 +4756,7 @@ if 1: # ifndef GL_SUN_triangle_list ("OpenGL/glext.h":5102)
     #~ line: 5120, skipped: 9 ~~~~~~
     
 
-if 1: # ifndef GL_SUN_vertex ("OpenGL/glext.h":5122)
+if 1: # ifndef GL_SUN_vertex ("inc/OpenGL/glext.h":5122)
     """GL_SUN_vertex"""
     GL_SUN_vertex = 1
     
@@ -4884,7 +4884,7 @@ if 1: # ifndef GL_SUN_vertex ("OpenGL/glext.h":5122)
     #~ line: 5206, skipped: 42 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_blend_func_separate ("OpenGL/glext.h":5208)
+if 1: # ifndef GL_EXT_blend_func_separate ("inc/OpenGL/glext.h":5208)
     """GL_EXT_blend_func_separate"""
     GL_EXT_blend_func_separate = 1
     
@@ -4893,7 +4893,7 @@ if 1: # ifndef GL_EXT_blend_func_separate ("OpenGL/glext.h":5208)
     
     
 
-if 1: # ifndef GL_INGR_blend_func_separate ("OpenGL/glext.h":5216)
+if 1: # ifndef GL_INGR_blend_func_separate ("inc/OpenGL/glext.h":5216)
     """GL_INGR_blend_func_separate"""
     GL_INGR_blend_func_separate = 1
     
@@ -4902,43 +4902,43 @@ if 1: # ifndef GL_INGR_blend_func_separate ("OpenGL/glext.h":5216)
     
     
 
-if 1: # ifndef GL_INGR_color_clamp ("OpenGL/glext.h":5224)
+if 1: # ifndef GL_INGR_color_clamp ("inc/OpenGL/glext.h":5224)
     """GL_INGR_color_clamp"""
     GL_INGR_color_clamp = 1
 
-if 1: # ifndef GL_INGR_interlace_read ("OpenGL/glext.h":5228)
+if 1: # ifndef GL_INGR_interlace_read ("inc/OpenGL/glext.h":5228)
     """GL_INGR_interlace_read"""
     GL_INGR_interlace_read = 1
 
-if 1: # ifndef GL_EXT_stencil_wrap ("OpenGL/glext.h":5232)
+if 1: # ifndef GL_EXT_stencil_wrap ("inc/OpenGL/glext.h":5232)
     """GL_EXT_stencil_wrap"""
     GL_EXT_stencil_wrap = 1
 
-if 1: # ifndef GL_EXT_422_pixels ("OpenGL/glext.h":5236)
+if 1: # ifndef GL_EXT_422_pixels ("inc/OpenGL/glext.h":5236)
     """GL_EXT_422_pixels"""
     GL_EXT_422_pixels = 1
 
-if 1: # ifndef GL_NV_texgen_reflection ("OpenGL/glext.h":5240)
+if 1: # ifndef GL_NV_texgen_reflection ("inc/OpenGL/glext.h":5240)
     """GL_NV_texgen_reflection"""
     GL_NV_texgen_reflection = 1
 
-if 1: # ifndef GL_SUN_convolution_border_modes ("OpenGL/glext.h":5244)
+if 1: # ifndef GL_SUN_convolution_border_modes ("inc/OpenGL/glext.h":5244)
     """GL_SUN_convolution_border_modes"""
     GL_SUN_convolution_border_modes = 1
 
-if 1: # ifndef GL_EXT_texture_env_add ("OpenGL/glext.h":5248)
+if 1: # ifndef GL_EXT_texture_env_add ("inc/OpenGL/glext.h":5248)
     """GL_EXT_texture_env_add"""
     GL_EXT_texture_env_add = 1
 
-if 1: # ifndef GL_EXT_texture_lod_bias ("OpenGL/glext.h":5252)
+if 1: # ifndef GL_EXT_texture_lod_bias ("inc/OpenGL/glext.h":5252)
     """GL_EXT_texture_lod_bias"""
     GL_EXT_texture_lod_bias = 1
 
-if 1: # ifndef GL_EXT_texture_filter_anisotropic ("OpenGL/glext.h":5256)
+if 1: # ifndef GL_EXT_texture_filter_anisotropic ("inc/OpenGL/glext.h":5256)
     """GL_EXT_texture_filter_anisotropic"""
     GL_EXT_texture_filter_anisotropic = 1
 
-if 1: # ifndef GL_EXT_vertex_weighting ("OpenGL/glext.h":5260)
+if 1: # ifndef GL_EXT_vertex_weighting ("inc/OpenGL/glext.h":5260)
     """GL_EXT_vertex_weighting"""
     GL_EXT_vertex_weighting = 1
     
@@ -4955,11 +4955,11 @@ if 1: # ifndef GL_EXT_vertex_weighting ("OpenGL/glext.h":5260)
     #~ line: 5270, skipped: 5 ~~~~~~
     
 
-if 1: # ifndef GL_NV_light_max_exponent ("OpenGL/glext.h":5272)
+if 1: # ifndef GL_NV_light_max_exponent ("inc/OpenGL/glext.h":5272)
     """GL_NV_light_max_exponent"""
     GL_NV_light_max_exponent = 1
 
-if 1: # ifndef GL_NV_vertex_array_range ("OpenGL/glext.h":5276)
+if 1: # ifndef GL_NV_vertex_array_range ("inc/OpenGL/glext.h":5276)
     """GL_NV_vertex_array_range"""
     GL_NV_vertex_array_range = 1
     
@@ -4973,7 +4973,7 @@ if 1: # ifndef GL_NV_vertex_array_range ("OpenGL/glext.h":5276)
     #~ line: 5284, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_NV_register_combiners ("OpenGL/glext.h":5286)
+if 1: # ifndef GL_NV_register_combiners ("inc/OpenGL/glext.h":5286)
     """GL_NV_register_combiners"""
     GL_NV_register_combiners = 1
     
@@ -5020,23 +5020,23 @@ if 1: # ifndef GL_NV_register_combiners ("OpenGL/glext.h":5286)
     #~ line: 5316, skipped: 15 ~~~~~~
     
 
-if 1: # ifndef GL_NV_fog_distance ("OpenGL/glext.h":5318)
+if 1: # ifndef GL_NV_fog_distance ("inc/OpenGL/glext.h":5318)
     """GL_NV_fog_distance"""
     GL_NV_fog_distance = 1
 
-if 1: # ifndef GL_NV_texgen_emboss ("OpenGL/glext.h":5322)
+if 1: # ifndef GL_NV_texgen_emboss ("inc/OpenGL/glext.h":5322)
     """GL_NV_texgen_emboss"""
     GL_NV_texgen_emboss = 1
 
-if 1: # ifndef GL_NV_blend_square ("OpenGL/glext.h":5326)
+if 1: # ifndef GL_NV_blend_square ("inc/OpenGL/glext.h":5326)
     """GL_NV_blend_square"""
     GL_NV_blend_square = 1
 
-if 1: # ifndef GL_NV_texture_env_combine4 ("OpenGL/glext.h":5330)
+if 1: # ifndef GL_NV_texture_env_combine4 ("inc/OpenGL/glext.h":5330)
     """GL_NV_texture_env_combine4"""
     GL_NV_texture_env_combine4 = 1
 
-if 1: # ifndef GL_MESA_resize_buffers ("OpenGL/glext.h":5334)
+if 1: # ifndef GL_MESA_resize_buffers ("inc/OpenGL/glext.h":5334)
     """GL_MESA_resize_buffers"""
     GL_MESA_resize_buffers = 1
     
@@ -5045,7 +5045,7 @@ if 1: # ifndef GL_MESA_resize_buffers ("OpenGL/glext.h":5334)
     
     
 
-if 1: # ifndef GL_MESA_window_pos ("OpenGL/glext.h":5342)
+if 1: # ifndef GL_MESA_window_pos ("inc/OpenGL/glext.h":5342)
     """GL_MESA_window_pos"""
     GL_MESA_window_pos = 1
     
@@ -5125,11 +5125,11 @@ if 1: # ifndef GL_MESA_window_pos ("OpenGL/glext.h":5342)
     #~ line: 5394, skipped: 26 ~~~~~~
     
 
-if 1: # ifndef GL_IBM_cull_vertex ("OpenGL/glext.h":5396)
+if 1: # ifndef GL_IBM_cull_vertex ("inc/OpenGL/glext.h":5396)
     """GL_IBM_cull_vertex"""
     GL_IBM_cull_vertex = 1
 
-if 1: # ifndef GL_IBM_multimode_draw_arrays ("OpenGL/glext.h":5400)
+if 1: # ifndef GL_IBM_multimode_draw_arrays ("inc/OpenGL/glext.h":5400)
     """GL_IBM_multimode_draw_arrays"""
     GL_IBM_multimode_draw_arrays = 1
     
@@ -5143,7 +5143,7 @@ if 1: # ifndef GL_IBM_multimode_draw_arrays ("OpenGL/glext.h":5400)
     #~ line: 5408, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_IBM_vertex_array_lists ("OpenGL/glext.h":5410)
+if 1: # ifndef GL_IBM_vertex_array_lists ("inc/OpenGL/glext.h":5410)
     """GL_IBM_vertex_array_lists"""
     GL_IBM_vertex_array_lists = 1
     
@@ -5175,31 +5175,31 @@ if 1: # ifndef GL_IBM_vertex_array_lists ("OpenGL/glext.h":5410)
     #~ line: 5430, skipped: 10 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_subsample ("OpenGL/glext.h":5432)
+if 1: # ifndef GL_SGIX_subsample ("inc/OpenGL/glext.h":5432)
     """GL_SGIX_subsample"""
     GL_SGIX_subsample = 1
 
-if 1: # ifndef GL_SGIX_ycrcba ("OpenGL/glext.h":5436)
+if 1: # ifndef GL_SGIX_ycrcba ("inc/OpenGL/glext.h":5436)
     """GL_SGIX_ycrcba"""
     GL_SGIX_ycrcba = 1
 
-if 1: # ifndef GL_SGIX_ycrcb_subsample ("OpenGL/glext.h":5440)
+if 1: # ifndef GL_SGIX_ycrcb_subsample ("inc/OpenGL/glext.h":5440)
     """GL_SGIX_ycrcb_subsample"""
     GL_SGIX_ycrcb_subsample = 1
 
-if 1: # ifndef GL_SGIX_depth_pass_instrument ("OpenGL/glext.h":5444)
+if 1: # ifndef GL_SGIX_depth_pass_instrument ("inc/OpenGL/glext.h":5444)
     """GL_SGIX_depth_pass_instrument"""
     GL_SGIX_depth_pass_instrument = 1
 
-if 1: # ifndef GL_3DFX_texture_compression_FXT1 ("OpenGL/glext.h":5448)
+if 1: # ifndef GL_3DFX_texture_compression_FXT1 ("inc/OpenGL/glext.h":5448)
     """GL_3DFX_texture_compression_FXT1"""
     GL_3DFX_texture_compression_FXT1 = 1
 
-if 1: # ifndef GL_3DFX_multisample ("OpenGL/glext.h":5452)
+if 1: # ifndef GL_3DFX_multisample ("inc/OpenGL/glext.h":5452)
     """GL_3DFX_multisample"""
     GL_3DFX_multisample = 1
 
-if 1: # ifndef GL_3DFX_tbuffer ("OpenGL/glext.h":5456)
+if 1: # ifndef GL_3DFX_tbuffer ("inc/OpenGL/glext.h":5456)
     """GL_3DFX_tbuffer"""
     GL_3DFX_tbuffer = 1
     
@@ -5208,7 +5208,7 @@ if 1: # ifndef GL_3DFX_tbuffer ("OpenGL/glext.h":5456)
     
     
 
-if 1: # ifndef GL_EXT_multisample ("OpenGL/glext.h":5464)
+if 1: # ifndef GL_EXT_multisample ("inc/OpenGL/glext.h":5464)
     """GL_EXT_multisample"""
     GL_EXT_multisample = 1
     
@@ -5222,23 +5222,23 @@ if 1: # ifndef GL_EXT_multisample ("OpenGL/glext.h":5464)
     #~ line: 5472, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_vertex_preclip ("OpenGL/glext.h":5474)
+if 1: # ifndef GL_SGIX_vertex_preclip ("inc/OpenGL/glext.h":5474)
     """GL_SGIX_vertex_preclip"""
     GL_SGIX_vertex_preclip = 1
 
-if 1: # ifndef GL_SGIX_convolution_accuracy ("OpenGL/glext.h":5478)
+if 1: # ifndef GL_SGIX_convolution_accuracy ("inc/OpenGL/glext.h":5478)
     """GL_SGIX_convolution_accuracy"""
     GL_SGIX_convolution_accuracy = 1
 
-if 1: # ifndef GL_SGIX_resample ("OpenGL/glext.h":5482)
+if 1: # ifndef GL_SGIX_resample ("inc/OpenGL/glext.h":5482)
     """GL_SGIX_resample"""
     GL_SGIX_resample = 1
 
-if 1: # ifndef GL_SGIS_point_line_texgen ("OpenGL/glext.h":5486)
+if 1: # ifndef GL_SGIS_point_line_texgen ("inc/OpenGL/glext.h":5486)
     """GL_SGIS_point_line_texgen"""
     GL_SGIS_point_line_texgen = 1
 
-if 1: # ifndef GL_SGIS_texture_color_mask ("OpenGL/glext.h":5490)
+if 1: # ifndef GL_SGIS_texture_color_mask ("inc/OpenGL/glext.h":5490)
     """GL_SGIS_texture_color_mask"""
     GL_SGIS_texture_color_mask = 1
     
@@ -5247,7 +5247,7 @@ if 1: # ifndef GL_SGIS_texture_color_mask ("OpenGL/glext.h":5490)
     
     
 
-if 1: # ifndef GL_SGIX_igloo_interface ("OpenGL/glext.h":5498)
+if 1: # ifndef GL_SGIX_igloo_interface ("inc/OpenGL/glext.h":5498)
     """GL_SGIX_igloo_interface"""
     GL_SGIX_igloo_interface = 1
     
@@ -5256,15 +5256,15 @@ if 1: # ifndef GL_SGIX_igloo_interface ("OpenGL/glext.h":5498)
     
     
 
-if 1: # ifndef GL_EXT_texture_env_dot3 ("OpenGL/glext.h":5506)
+if 1: # ifndef GL_EXT_texture_env_dot3 ("inc/OpenGL/glext.h":5506)
     """GL_EXT_texture_env_dot3"""
     GL_EXT_texture_env_dot3 = 1
 
-if 1: # ifndef GL_ATI_texture_mirror_once ("OpenGL/glext.h":5510)
+if 1: # ifndef GL_ATI_texture_mirror_once ("inc/OpenGL/glext.h":5510)
     """GL_ATI_texture_mirror_once"""
     GL_ATI_texture_mirror_once = 1
 
-if 1: # ifndef GL_NV_fence ("OpenGL/glext.h":5514)
+if 1: # ifndef GL_NV_fence ("inc/OpenGL/glext.h":5514)
     """GL_NV_fence"""
     GL_NV_fence = 1
     
@@ -5293,7 +5293,7 @@ if 1: # ifndef GL_NV_fence ("OpenGL/glext.h":5514)
     #~ line: 5532, skipped: 9 ~~~~~~
     
 
-if 1: # ifndef GL_NV_evaluators ("OpenGL/glext.h":5534)
+if 1: # ifndef GL_NV_evaluators ("inc/OpenGL/glext.h":5534)
     """GL_NV_evaluators"""
     GL_NV_evaluators = 1
     
@@ -5328,11 +5328,11 @@ if 1: # ifndef GL_NV_evaluators ("OpenGL/glext.h":5534)
     #~ line: 5556, skipped: 11 ~~~~~~
     
 
-if 1: # ifndef GL_NV_packed_depth_stencil ("OpenGL/glext.h":5558)
+if 1: # ifndef GL_NV_packed_depth_stencil ("inc/OpenGL/glext.h":5558)
     """GL_NV_packed_depth_stencil"""
     GL_NV_packed_depth_stencil = 1
 
-if 1: # ifndef GL_NV_register_combiners2 ("OpenGL/glext.h":5562)
+if 1: # ifndef GL_NV_register_combiners2 ("inc/OpenGL/glext.h":5562)
     """GL_NV_register_combiners2"""
     GL_NV_register_combiners2 = 1
     
@@ -5346,27 +5346,27 @@ if 1: # ifndef GL_NV_register_combiners2 ("OpenGL/glext.h":5562)
     #~ line: 5570, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_NV_texture_compression_vtc ("OpenGL/glext.h":5572)
+if 1: # ifndef GL_NV_texture_compression_vtc ("inc/OpenGL/glext.h":5572)
     """GL_NV_texture_compression_vtc"""
     GL_NV_texture_compression_vtc = 1
 
-if 1: # ifndef GL_NV_texture_rectangle ("OpenGL/glext.h":5576)
+if 1: # ifndef GL_NV_texture_rectangle ("inc/OpenGL/glext.h":5576)
     """GL_NV_texture_rectangle"""
     GL_NV_texture_rectangle = 1
 
-if 1: # ifndef GL_NV_texture_shader ("OpenGL/glext.h":5580)
+if 1: # ifndef GL_NV_texture_shader ("inc/OpenGL/glext.h":5580)
     """GL_NV_texture_shader"""
     GL_NV_texture_shader = 1
 
-if 1: # ifndef GL_NV_texture_shader2 ("OpenGL/glext.h":5584)
+if 1: # ifndef GL_NV_texture_shader2 ("inc/OpenGL/glext.h":5584)
     """GL_NV_texture_shader2"""
     GL_NV_texture_shader2 = 1
 
-if 1: # ifndef GL_NV_vertex_array_range2 ("OpenGL/glext.h":5588)
+if 1: # ifndef GL_NV_vertex_array_range2 ("inc/OpenGL/glext.h":5588)
     """GL_NV_vertex_array_range2"""
     GL_NV_vertex_array_range2 = 1
 
-if 1: # ifndef GL_NV_vertex_program ("OpenGL/glext.h":5592)
+if 1: # ifndef GL_NV_vertex_program ("inc/OpenGL/glext.h":5592)
     """GL_NV_vertex_program"""
     GL_NV_vertex_program = 1
     
@@ -5566,31 +5566,31 @@ if 1: # ifndef GL_NV_vertex_program ("OpenGL/glext.h":5592)
     #~ line: 5724, skipped: 66 ~~~~~~
     
 
-if 1: # ifndef GL_SGIX_texture_coordinate_clamp ("OpenGL/glext.h":5726)
+if 1: # ifndef GL_SGIX_texture_coordinate_clamp ("inc/OpenGL/glext.h":5726)
     """GL_SGIX_texture_coordinate_clamp"""
     GL_SGIX_texture_coordinate_clamp = 1
 
-if 1: # ifndef GL_SGIX_scalebias_hint ("OpenGL/glext.h":5730)
+if 1: # ifndef GL_SGIX_scalebias_hint ("inc/OpenGL/glext.h":5730)
     """GL_SGIX_scalebias_hint"""
     GL_SGIX_scalebias_hint = 1
 
-if 1: # ifndef GL_OML_interlace ("OpenGL/glext.h":5734)
+if 1: # ifndef GL_OML_interlace ("inc/OpenGL/glext.h":5734)
     """GL_OML_interlace"""
     GL_OML_interlace = 1
 
-if 1: # ifndef GL_OML_subsample ("OpenGL/glext.h":5738)
+if 1: # ifndef GL_OML_subsample ("inc/OpenGL/glext.h":5738)
     """GL_OML_subsample"""
     GL_OML_subsample = 1
 
-if 1: # ifndef GL_OML_resample ("OpenGL/glext.h":5742)
+if 1: # ifndef GL_OML_resample ("inc/OpenGL/glext.h":5742)
     """GL_OML_resample"""
     GL_OML_resample = 1
 
-if 1: # ifndef GL_NV_copy_depth_to_color ("OpenGL/glext.h":5746)
+if 1: # ifndef GL_NV_copy_depth_to_color ("inc/OpenGL/glext.h":5746)
     """GL_NV_copy_depth_to_color"""
     GL_NV_copy_depth_to_color = 1
 
-if 1: # ifndef GL_ATI_envmap_bumpmap ("OpenGL/glext.h":5750)
+if 1: # ifndef GL_ATI_envmap_bumpmap ("inc/OpenGL/glext.h":5750)
     """GL_ATI_envmap_bumpmap"""
     GL_ATI_envmap_bumpmap = 1
     
@@ -5610,7 +5610,7 @@ if 1: # ifndef GL_ATI_envmap_bumpmap ("OpenGL/glext.h":5750)
     #~ line: 5762, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_fragment_shader ("OpenGL/glext.h":5764)
+if 1: # ifndef GL_ATI_fragment_shader ("inc/OpenGL/glext.h":5764)
     """GL_ATI_fragment_shader"""
     GL_ATI_fragment_shader = 1
     
@@ -5660,7 +5660,7 @@ if 1: # ifndef GL_ATI_fragment_shader ("OpenGL/glext.h":5764)
     #~ line: 5796, skipped: 16 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_pn_triangles ("OpenGL/glext.h":5798)
+if 1: # ifndef GL_ATI_pn_triangles ("inc/OpenGL/glext.h":5798)
     """GL_ATI_pn_triangles"""
     GL_ATI_pn_triangles = 1
     
@@ -5674,7 +5674,7 @@ if 1: # ifndef GL_ATI_pn_triangles ("OpenGL/glext.h":5798)
     #~ line: 5806, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_vertex_array_object ("OpenGL/glext.h":5808)
+if 1: # ifndef GL_ATI_vertex_array_object ("inc/OpenGL/glext.h":5808)
     """GL_ATI_vertex_array_object"""
     GL_ATI_vertex_array_object = 1
     
@@ -5718,7 +5718,7 @@ if 1: # ifndef GL_ATI_vertex_array_object ("OpenGL/glext.h":5808)
     #~ line: 5836, skipped: 14 ~~~~~~
     
 
-if 1: # ifndef GL_EXT_vertex_shader ("OpenGL/glext.h":5838)
+if 1: # ifndef GL_EXT_vertex_shader ("inc/OpenGL/glext.h":5838)
     """GL_EXT_vertex_shader"""
     GL_EXT_vertex_shader = 1
     
@@ -5852,7 +5852,7 @@ if 1: # ifndef GL_EXT_vertex_shader ("OpenGL/glext.h":5838)
     #~ line: 5926, skipped: 44 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_vertex_streams ("OpenGL/glext.h":5928)
+if 1: # ifndef GL_ATI_vertex_streams ("inc/OpenGL/glext.h":5928)
     """GL_ATI_vertex_streams"""
     GL_ATI_vertex_streams = 1
     
@@ -5995,7 +5995,7 @@ if 1: # ifndef GL_ATI_vertex_streams ("OpenGL/glext.h":5928)
     #~ line: 6022, skipped: 47 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_element_array ("OpenGL/glext.h":6024)
+if 1: # ifndef GL_ATI_element_array ("inc/OpenGL/glext.h":6024)
     """GL_ATI_element_array"""
     GL_ATI_element_array = 1
     
@@ -6012,7 +6012,7 @@ if 1: # ifndef GL_ATI_element_array ("OpenGL/glext.h":6024)
     #~ line: 6034, skipped: 5 ~~~~~~
     
 
-if 1: # ifndef GL_SUN_mesh_array ("OpenGL/glext.h":6036)
+if 1: # ifndef GL_SUN_mesh_array ("inc/OpenGL/glext.h":6036)
     """GL_SUN_mesh_array"""
     GL_SUN_mesh_array = 1
     
@@ -6021,19 +6021,19 @@ if 1: # ifndef GL_SUN_mesh_array ("OpenGL/glext.h":6036)
     
     
 
-if 1: # ifndef GL_SUN_slice_accum ("OpenGL/glext.h":6044)
+if 1: # ifndef GL_SUN_slice_accum ("inc/OpenGL/glext.h":6044)
     """GL_SUN_slice_accum"""
     GL_SUN_slice_accum = 1
 
-if 1: # ifndef GL_NV_multisample_filter_hint ("OpenGL/glext.h":6048)
+if 1: # ifndef GL_NV_multisample_filter_hint ("inc/OpenGL/glext.h":6048)
     """GL_NV_multisample_filter_hint"""
     GL_NV_multisample_filter_hint = 1
 
-if 1: # ifndef GL_NV_depth_clamp ("OpenGL/glext.h":6052)
+if 1: # ifndef GL_NV_depth_clamp ("inc/OpenGL/glext.h":6052)
     """GL_NV_depth_clamp"""
     GL_NV_depth_clamp = 1
 
-if 1: # ifndef GL_NV_occlusion_query ("OpenGL/glext.h":6056)
+if 1: # ifndef GL_NV_occlusion_query ("inc/OpenGL/glext.h":6056)
     """GL_NV_occlusion_query"""
     GL_NV_occlusion_query = 1
     
@@ -6062,7 +6062,7 @@ if 1: # ifndef GL_NV_occlusion_query ("OpenGL/glext.h":6056)
     #~ line: 6074, skipped: 9 ~~~~~~
     
 
-if 1: # ifndef GL_NV_point_sprite ("OpenGL/glext.h":6076)
+if 1: # ifndef GL_NV_point_sprite ("inc/OpenGL/glext.h":6076)
     """GL_NV_point_sprite"""
     GL_NV_point_sprite = 1
     
@@ -6076,19 +6076,19 @@ if 1: # ifndef GL_NV_point_sprite ("OpenGL/glext.h":6076)
     #~ line: 6084, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_NV_texture_shader3 ("OpenGL/glext.h":6086)
+if 1: # ifndef GL_NV_texture_shader3 ("inc/OpenGL/glext.h":6086)
     """GL_NV_texture_shader3"""
     GL_NV_texture_shader3 = 1
 
-if 1: # ifndef GL_NV_vertex_program1_1 ("OpenGL/glext.h":6090)
+if 1: # ifndef GL_NV_vertex_program1_1 ("inc/OpenGL/glext.h":6090)
     """GL_NV_vertex_program1_1"""
     GL_NV_vertex_program1_1 = 1
 
-if 1: # ifndef GL_EXT_shadow_funcs ("OpenGL/glext.h":6094)
+if 1: # ifndef GL_EXT_shadow_funcs ("inc/OpenGL/glext.h":6094)
     """GL_EXT_shadow_funcs"""
     GL_EXT_shadow_funcs = 1
 
-if 1: # ifndef GL_EXT_stencil_two_side ("OpenGL/glext.h":6098)
+if 1: # ifndef GL_EXT_stencil_two_side ("inc/OpenGL/glext.h":6098)
     """GL_EXT_stencil_two_side"""
     GL_EXT_stencil_two_side = 1
     
@@ -6097,15 +6097,15 @@ if 1: # ifndef GL_EXT_stencil_two_side ("OpenGL/glext.h":6098)
     
     
 
-if 1: # ifndef GL_ATI_text_fragment_shader ("OpenGL/glext.h":6106)
+if 1: # ifndef GL_ATI_text_fragment_shader ("inc/OpenGL/glext.h":6106)
     """GL_ATI_text_fragment_shader"""
     GL_ATI_text_fragment_shader = 1
 
-if 1: # ifndef GL_APPLE_client_storage ("OpenGL/glext.h":6110)
+if 1: # ifndef GL_APPLE_client_storage ("inc/OpenGL/glext.h":6110)
     """GL_APPLE_client_storage"""
     GL_APPLE_client_storage = 1
 
-if 1: # ifndef GL_APPLE_element_array ("OpenGL/glext.h":6114)
+if 1: # ifndef GL_APPLE_element_array ("inc/OpenGL/glext.h":6114)
     """GL_APPLE_element_array"""
     GL_APPLE_element_array = 1
     
@@ -6128,7 +6128,7 @@ if 1: # ifndef GL_APPLE_element_array ("OpenGL/glext.h":6114)
     #~ line: 6128, skipped: 7 ~~~~~~
     
 
-if 1: # ifndef GL_APPLE_fence ("OpenGL/glext.h":6130)
+if 1: # ifndef GL_APPLE_fence ("inc/OpenGL/glext.h":6130)
     """GL_APPLE_fence"""
     GL_APPLE_fence = 1
     
@@ -6160,7 +6160,7 @@ if 1: # ifndef GL_APPLE_fence ("OpenGL/glext.h":6130)
     #~ line: 6150, skipped: 10 ~~~~~~
     
 
-if 1: # ifndef GL_APPLE_vertex_array_object ("OpenGL/glext.h":6152)
+if 1: # ifndef GL_APPLE_vertex_array_object ("inc/OpenGL/glext.h":6152)
     """GL_APPLE_vertex_array_object"""
     GL_APPLE_vertex_array_object = 1
     
@@ -6180,7 +6180,7 @@ if 1: # ifndef GL_APPLE_vertex_array_object ("OpenGL/glext.h":6152)
     #~ line: 6164, skipped: 6 ~~~~~~
     
 
-if 1: # ifndef GL_APPLE_vertex_array_range ("OpenGL/glext.h":6166)
+if 1: # ifndef GL_APPLE_vertex_array_range ("inc/OpenGL/glext.h":6166)
     """GL_APPLE_vertex_array_range"""
     GL_APPLE_vertex_array_range = 1
     
@@ -6197,15 +6197,15 @@ if 1: # ifndef GL_APPLE_vertex_array_range ("OpenGL/glext.h":6166)
     #~ line: 6176, skipped: 5 ~~~~~~
     
 
-if 1: # ifndef GL_APPLE_ycbcr_422 ("OpenGL/glext.h":6178)
+if 1: # ifndef GL_APPLE_ycbcr_422 ("inc/OpenGL/glext.h":6178)
     """GL_APPLE_ycbcr_422"""
     GL_APPLE_ycbcr_422 = 1
 
-if 1: # ifndef GL_S3_s3tc ("OpenGL/glext.h":6182)
+if 1: # ifndef GL_S3_s3tc ("inc/OpenGL/glext.h":6182)
     """GL_S3_s3tc"""
     GL_S3_s3tc = 1
 
-if 1: # ifndef GL_ATI_draw_buffers ("OpenGL/glext.h":6186)
+if 1: # ifndef GL_ATI_draw_buffers ("inc/OpenGL/glext.h":6186)
     """GL_ATI_draw_buffers"""
     GL_ATI_draw_buffers = 1
     
@@ -6214,26 +6214,26 @@ if 1: # ifndef GL_ATI_draw_buffers ("OpenGL/glext.h":6186)
     
     
 
-if 1: # ifndef GL_ATI_pixel_format_float ("OpenGL/glext.h":6194)
+if 1: # ifndef GL_ATI_pixel_format_float ("inc/OpenGL/glext.h":6194)
     """GL_ATI_pixel_format_float"""
     GL_ATI_pixel_format_float = 1
     
     #~ line: 6199, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_texture_env_combine3 ("OpenGL/glext.h":6201)
+if 1: # ifndef GL_ATI_texture_env_combine3 ("inc/OpenGL/glext.h":6201)
     """GL_ATI_texture_env_combine3"""
     GL_ATI_texture_env_combine3 = 1
 
-if 1: # ifndef GL_ATI_texture_float ("OpenGL/glext.h":6205)
+if 1: # ifndef GL_ATI_texture_float ("inc/OpenGL/glext.h":6205)
     """GL_ATI_texture_float"""
     GL_ATI_texture_float = 1
 
-if 1: # ifndef GL_NV_float_buffer ("OpenGL/glext.h":6209)
+if 1: # ifndef GL_NV_float_buffer ("inc/OpenGL/glext.h":6209)
     """GL_NV_float_buffer"""
     GL_NV_float_buffer = 1
 
-if 1: # ifndef GL_NV_fragment_program ("OpenGL/glext.h":6213)
+if 1: # ifndef GL_NV_fragment_program ("inc/OpenGL/glext.h":6213)
     """GL_NV_fragment_program"""
     GL_NV_fragment_program = 1
     
@@ -6259,7 +6259,7 @@ if 1: # ifndef GL_NV_fragment_program ("OpenGL/glext.h":6213)
     #~ line: 6230, skipped: 8 ~~~~~~
     
 
-if 1: # ifndef GL_NV_half_float ("OpenGL/glext.h":6232)
+if 1: # ifndef GL_NV_half_float ("inc/OpenGL/glext.h":6232)
     """GL_NV_half_float"""
     GL_NV_half_float = 1
     
@@ -6405,7 +6405,7 @@ if 1: # ifndef GL_NV_half_float ("OpenGL/glext.h":6232)
     #~ line: 6328, skipped: 48 ~~~~~~
     
 
-if 1: # ifndef GL_NV_pixel_data_range ("OpenGL/glext.h":6330)
+if 1: # ifndef GL_NV_pixel_data_range ("inc/OpenGL/glext.h":6330)
     """GL_NV_pixel_data_range"""
     GL_NV_pixel_data_range = 1
     
@@ -6419,7 +6419,7 @@ if 1: # ifndef GL_NV_pixel_data_range ("OpenGL/glext.h":6330)
     #~ line: 6338, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_NV_primitive_restart ("OpenGL/glext.h":6340)
+if 1: # ifndef GL_NV_primitive_restart ("inc/OpenGL/glext.h":6340)
     """GL_NV_primitive_restart"""
     GL_NV_primitive_restart = 1
     
@@ -6433,15 +6433,15 @@ if 1: # ifndef GL_NV_primitive_restart ("OpenGL/glext.h":6340)
     #~ line: 6348, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_NV_texture_expand_normal ("OpenGL/glext.h":6350)
+if 1: # ifndef GL_NV_texture_expand_normal ("inc/OpenGL/glext.h":6350)
     """GL_NV_texture_expand_normal"""
     GL_NV_texture_expand_normal = 1
 
-if 1: # ifndef GL_NV_vertex_program2 ("OpenGL/glext.h":6354)
+if 1: # ifndef GL_NV_vertex_program2 ("inc/OpenGL/glext.h":6354)
     """GL_NV_vertex_program2"""
     GL_NV_vertex_program2 = 1
 
-if 1: # ifndef GL_ATI_map_object_buffer ("OpenGL/glext.h":6358)
+if 1: # ifndef GL_ATI_map_object_buffer ("inc/OpenGL/glext.h":6358)
     """GL_ATI_map_object_buffer"""
     GL_ATI_map_object_buffer = 1
     
@@ -6455,7 +6455,7 @@ if 1: # ifndef GL_ATI_map_object_buffer ("OpenGL/glext.h":6358)
     #~ line: 6366, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_separate_stencil ("OpenGL/glext.h":6368)
+if 1: # ifndef GL_ATI_separate_stencil ("inc/OpenGL/glext.h":6368)
     """GL_ATI_separate_stencil"""
     GL_ATI_separate_stencil = 1
     
@@ -6469,7 +6469,7 @@ if 1: # ifndef GL_ATI_separate_stencil ("OpenGL/glext.h":6368)
     #~ line: 6376, skipped: 4 ~~~~~~
     
 
-if 1: # ifndef GL_ATI_vertex_attrib_array_object ("OpenGL/glext.h":6378)
+if 1: # ifndef GL_ATI_vertex_attrib_array_object ("inc/OpenGL/glext.h":6378)
     """GL_ATI_vertex_attrib_array_object"""
     GL_ATI_vertex_attrib_array_object = 1
     
@@ -6486,11 +6486,11 @@ if 1: # ifndef GL_ATI_vertex_attrib_array_object ("OpenGL/glext.h":6378)
     #~ line: 6388, skipped: 5 ~~~~~~
     
 
-if 1: # ifndef GL_OES_read_format ("OpenGL/glext.h":6390)
+if 1: # ifndef GL_OES_read_format ("inc/OpenGL/glext.h":6390)
     """GL_OES_read_format"""
     GL_OES_read_format = 1
 
-if 1: # ifndef GL_EXT_depth_bounds_test ("OpenGL/glext.h":6394)
+if 1: # ifndef GL_EXT_depth_bounds_test ("inc/OpenGL/glext.h":6394)
     """GL_EXT_depth_bounds_test"""
     GL_EXT_depth_bounds_test = 1
     
@@ -6499,11 +6499,11 @@ if 1: # ifndef GL_EXT_depth_bounds_test ("OpenGL/glext.h":6394)
     
     
 
-if 1: # ifndef GL_EXT_texture_mirror_clamp ("OpenGL/glext.h":6402)
+if 1: # ifndef GL_EXT_texture_mirror_clamp ("inc/OpenGL/glext.h":6402)
     """GL_EXT_texture_mirror_clamp"""
     GL_EXT_texture_mirror_clamp = 1
 
-if 1: # ifndef GL_EXT_blend_equation_separate ("OpenGL/glext.h":6406)
+if 1: # ifndef GL_EXT_blend_equation_separate ("inc/OpenGL/glext.h":6406)
     """GL_EXT_blend_equation_separate"""
     GL_EXT_blend_equation_separate = 1
     
@@ -6512,35 +6512,35 @@ if 1: # ifndef GL_EXT_blend_equation_separate ("OpenGL/glext.h":6406)
     
     
 
-if 1: # ifndef GL_MESA_pack_invert ("OpenGL/glext.h":6414)
+if 1: # ifndef GL_MESA_pack_invert ("inc/OpenGL/glext.h":6414)
     """GL_MESA_pack_invert"""
     GL_MESA_pack_invert = 1
 
-if 1: # ifndef GL_MESA_ycbcr_texture ("OpenGL/glext.h":6418)
+if 1: # ifndef GL_MESA_ycbcr_texture ("inc/OpenGL/glext.h":6418)
     """GL_MESA_ycbcr_texture"""
     GL_MESA_ycbcr_texture = 1
 
-if 1: # ifndef GL_EXT_pixel_buffer_object ("OpenGL/glext.h":6422)
+if 1: # ifndef GL_EXT_pixel_buffer_object ("inc/OpenGL/glext.h":6422)
     """GL_EXT_pixel_buffer_object"""
     GL_EXT_pixel_buffer_object = 1
 
-if 1: # ifndef GL_NV_fragment_program_option ("OpenGL/glext.h":6426)
+if 1: # ifndef GL_NV_fragment_program_option ("inc/OpenGL/glext.h":6426)
     """GL_NV_fragment_program_option"""
     GL_NV_fragment_program_option = 1
 
-if 1: # ifndef GL_NV_fragment_program2 ("OpenGL/glext.h":6430)
+if 1: # ifndef GL_NV_fragment_program2 ("inc/OpenGL/glext.h":6430)
     """GL_NV_fragment_program2"""
     GL_NV_fragment_program2 = 1
 
-if 1: # ifndef GL_NV_vertex_program2_option ("OpenGL/glext.h":6434)
+if 1: # ifndef GL_NV_vertex_program2_option ("inc/OpenGL/glext.h":6434)
     """GL_NV_vertex_program2_option"""
     GL_NV_vertex_program2_option = 1
 
-if 1: # ifndef GL_NV_vertex_program3 ("OpenGL/glext.h":6438)
+if 1: # ifndef GL_NV_vertex_program3 ("inc/OpenGL/glext.h":6438)
     """GL_NV_vertex_program3"""
     GL_NV_vertex_program3 = 1
 
-if 1: # ifndef GL_EXT_framebuffer_object ("OpenGL/glext.h":6442)
+if 1: # ifndef GL_EXT_framebuffer_object ("inc/OpenGL/glext.h":6442)
     """GL_EXT_framebuffer_object"""
     GL_EXT_framebuffer_object = 1
     
@@ -6599,7 +6599,7 @@ if 1: # ifndef GL_EXT_framebuffer_object ("OpenGL/glext.h":6442)
     #~ line: 6480, skipped: 19 ~~~~~~
     
 
-if 1: # ifndef GL_GREMEDY_string_marker ("OpenGL/glext.h":6482)
+if 1: # ifndef GL_GREMEDY_string_marker ("inc/OpenGL/glext.h":6482)
     """GL_GREMEDY_string_marker"""
     GL_GREMEDY_string_marker = 1
     
@@ -6611,6 +6611,6 @@ if 1: # ifndef GL_GREMEDY_string_marker ("OpenGL/glext.h":6482)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "OpenGL/glext.h"
+#~   "inc/OpenGL/glext.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

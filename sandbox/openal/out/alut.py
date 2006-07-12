@@ -8,7 +8,7 @@ from alctypes import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/alut.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/alut.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ALUTAPI = None # empty
@@ -35,6 +35,6 @@ def alutUnloadWAV(format, data, size, freq): pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/alut.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/alut.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -8,7 +8,7 @@ from alctypes import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/alc.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/alc.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ALCAPI = None # empty
@@ -71,6 +71,6 @@ def alcGetEnumValue(device, enumName): pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "/System/Library/Frameworks/OpenAL.framework/Versions/A/Headers/alc.h"
+#~   "/System/Library/Frameworks/OpenAL.framework/Headers/alc.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

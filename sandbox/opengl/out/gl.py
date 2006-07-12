@@ -6,7 +6,7 @@ from _ctypes_opengl import *
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Code generated from:
-#~   "OpenGL/gl.h"
+#~   "inc/OpenGL/gl.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class GLenum(c_ulong):
@@ -2906,6 +2906,6 @@ def glStencilMaskSeparate(face, mask): pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ End of code generated from:
-#~   "OpenGL/gl.h"
+#~   "inc/OpenGL/gl.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
