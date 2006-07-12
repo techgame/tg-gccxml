@@ -47,7 +47,7 @@ def replaceFunctionApi(fn, api):
     result.func_dict = fn.func_dict
     return result
 
-def scubNamespace(namespace, hostNamespace):
+def scrubNamespace(namespace, hostNamespace):
     names = set(namespace.iterkeys()) & set(hostNamespace.iterkeys())
     for n in names:
         if namespace[n] is hostNamespace[n]:
