@@ -9,36 +9,37 @@ from _ctypes_openal import *
 #~   "/System/Library/Frameworks/OpenAL.framework/Headers/altypes.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class ALboolean(c_char):
-    """typedef ALboolean"""
+# typedef ALboolean
+ALboolean = c_char
 
-class ALbyte(c_char):
-    """typedef ALbyte"""
+# typedef ALbyte
+ALbyte = c_char
 
-class ALubyte(c_ubyte):
-    """typedef ALubyte"""
+# typedef ALubyte
+ALubyte = c_ubyte
 
 #~ line: 45, skipped: 9 ~~~~~~
 
-class ALuint(c_uint):
-    """typedef ALuint"""
+# typedef ALuint
+ALuint = c_uint
 
-class ALint(c_int):
-    """typedef ALint"""
+# typedef ALint
+ALint = c_int
 
-class ALfloat(c_float):
-    """typedef ALfloat"""
+# typedef ALfloat
+ALfloat = c_float
 
-class ALdouble(c_double):
-    """typedef ALdouble"""
+# typedef ALdouble
+ALdouble = c_double
 
-class ALsizei(c_uint):
-    """typedef ALsizei"""
+# typedef ALsizei
+ALsizei = c_uint
 
-ALvoid = None # typedef ALvoid
+# typedef ALvoid
+ALvoid = None
 
-class ALenum(c_int):
-    """typedef ALenum"""
+# typedef ALenum
+ALenum = c_int
 
 AL_INVALID = (-1)
 

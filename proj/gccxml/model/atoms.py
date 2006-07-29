@@ -37,6 +37,8 @@ class ModelAtom(object):
     def isPointerType(self): return False
     def isReferenceType(self): return False
     def isArrayType(self): return False
+    def isEnumeration(self): return False
+    def isEnumValue(self): return False
     def isTypedef(self): return False
     def isVariable(self): return False
     def isContext(self): return False
@@ -398,6 +400,9 @@ class Enumeration(CType):
     size = 0
     artificial = False
     context = None # a Context Atom
+
+    def isEnumeration(self):
+        return True
 
     _enumValues = None
     def getEnumValues(self):

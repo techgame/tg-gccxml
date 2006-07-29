@@ -66,7 +66,7 @@ class CompositeCodeItem(TypeCodeItem):
         return self.name
 
     def ptrTypeRefFrom(self, ciPtrType):
-        if ciPtrType.isForwardType:
+        if ciPtrType and ciPtrType.isForwardType:
             name = '"' + self.name + '"'
 
             if not self.forwardPtrs:

@@ -27,17 +27,23 @@ class TypeCodeItem(CodeItem):
         result = self.typeRefFromTypedef()
         if result: return result
 
+        return self.typeRefNoTypedef()
+
+    def typeRefNoTypedef(self):
         return self.typeRefTemplate % (self._typeDecl(),)
 
-    def ptrTypeRefFrom(self, ciPtrType):
-        typeRef = self.typeRef(False)
-        if typeRef is None:
-            return 'c_void_p'
-        else:
-            return 'POINTER(%s)' % (typeRef,)
+    #def ptrTypeRefFrom(self, ciPtrType):
+    #    typeRef = self.typeRef(False)
+    #    if typeRef is None:
+    #        return 'c_void_p'
+    #    else:
+    #        return 'POINTER(%s)' % (typeRef,)
 
     def _typeDecl(self):
         return self.typeRefFor(self.item.type)
+
+    def ptrTypeRefFrom(self, ciPtrType):
+        return self.ptrTypeRefFor(self.item.type)
 
     def getCIBasicType(self):
         return self.item.basicType.codeItem
@@ -69,6 +75,7 @@ class CIFundamentalType(TypeCodeItem):
 
         # char
         'char': 'c_char',
+        'char *': 'c_char_p',
 
         'signed char': 'c_byte',
         'unsigned char': 'c_ubyte',
@@ -139,6 +146,13 @@ class CICvQualifiedType(TypeCodeItem):
     def isValidCodeItem(self):
         return True
 
+    def _typeDecl(self):
+        return self.typeRefFor(self.item.type)
+
+    def ptrTypeRefFrom(self, ciPtrType):
+        return self.ptrTypeRefFor(self.item.type)
+        
+
 class CIPointerType(TypeCodeItem):
     typeRefTemplate = '%s'
 
@@ -160,13 +174,17 @@ class CIPointerType(TypeCodeItem):
 CIReferenceType = CIPointerType
 
 class CIArrayType(TypeCodeItem):
-    typeRefTemplate = 'ARRAY(%s)'
-    # TODO: Implement CIArrayType
+    typeRefTemplate = '%s'
+
+    def _typeDecl(self):
+        itype = TypeCodeItem._typeDecl(self)
+        return '(%d*%s)' % (self.item.size, itype)
 
 class CITypedef(TypeCodeItem):
     typeRefTemplate = '%s'
-    fundamentTypeTemplate = 'class %(name)s(%(typeRef)s):\n    """%(comment)s"""'
-    typedefTemplate = '%(name)s = %(typeRef)s # %(comment)s'
+    typedefTemplate = '# %(comment)s\n%(name)s = %(typeRef)s'
+    fundamentTypeTemplate = typedefTemplate
+    #fundamentTypeTemplate = 'class %(name)s(%(typeRef)s):\n    """%(comment)s"""'
     
     comment = 'typedef %(name)s'
     missingComment = ' as %(basicTypeRef)s for absent %(origTypeRef)s'

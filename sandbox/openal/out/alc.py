@@ -13,60 +13,145 @@ from alctypes import *
 
 ALCAPI = None # empty
 ALCAPIENTRY = None # empty
-ALCdevice = ALCvoid # typedef ALCdevice
-ALCcontext = ALCvoid # typedef ALCcontext
+# typedef ALCdevice
+ALCdevice = ALCvoid
+# typedef ALCcontext
+ALCcontext = ALCvoid
 
 #~ line: 34, skipped: 5 ~~~~~~
 
-@bind(POINTER(ALCubyte), [POINTER(ALCdevice), ALCenum])
-def alcGetString(device, param): pass
+@bind(POINTER(c_ubyte), [c_void_p, ALCenum])
+def alcGetString(device, param, _api_=None): 
+    """alcGetString(device, param)
+    
+        device : c_void_p
+        param : ALCenum
+    """
+    return _api_(device, param)
+    
+@bind(ALCvoid, [c_void_p, ALCenum, ALCsizei, POINTER(c_int)])
+def alcGetIntegerv(device, param, size, data, _api_=None): 
+    """alcGetIntegerv(device, param, size, data)
+    
+        device : c_void_p
+        param : ALCenum
+        size : ALCsizei
+        data : POINTER(c_int)
+    """
+    return _api_(device, param, size, data)
+    
 
-@bind(ALCvoid, [POINTER(ALCdevice), ALCenum, ALCsizei, POINTER(ALCint)])
-def alcGetIntegerv(device, param, size, data): pass
+@bind(c_void_p, [POINTER(c_ubyte)])
+def alcOpenDevice(deviceName, _api_=None): 
+    """alcOpenDevice(deviceName)
+    
+        deviceName : POINTER(c_ubyte)
+    """
+    return _api_(deviceName)
+    
+@bind(ALCvoid, [c_void_p])
+def alcCloseDevice(device, _api_=None): 
+    """alcCloseDevice(device)
+    
+        device : c_void_p
+    """
+    return _api_(device)
+    
 
+@bind(c_void_p, [c_void_p, POINTER(c_int)])
+def alcCreateContext(device, attrList, _api_=None): 
+    """alcCreateContext(device, attrList)
+    
+        device : c_void_p
+        attrList : POINTER(c_int)
+    """
+    return _api_(device, attrList)
+    
+@bind(ALCboolean, [c_void_p])
+def alcMakeContextCurrent(context, _api_=None): 
+    """alcMakeContextCurrent(context)
+    
+        context : c_void_p
+    """
+    return _api_(context)
+    
+@bind(ALCvoid, [c_void_p])
+def alcProcessContext(context, _api_=None): 
+    """alcProcessContext(context)
+    
+        context : c_void_p
+    """
+    return _api_(context)
+    
+@bind(c_void_p, [])
+def alcGetCurrentContext(_api_=None): 
+    """alcGetCurrentContext()
+    
+        
+    """
+    return _api_()
+    
+@bind(c_void_p, [c_void_p])
+def alcGetContextsDevice(context, _api_=None): 
+    """alcGetContextsDevice(context)
+    
+        context : c_void_p
+    """
+    return _api_(context)
+    
+@bind(ALCvoid, [c_void_p])
+def alcSuspendContext(context, _api_=None): 
+    """alcSuspendContext(context)
+    
+        context : c_void_p
+    """
+    return _api_(context)
+    
+@bind(ALCvoid, [c_void_p])
+def alcDestroyContext(context, _api_=None): 
+    """alcDestroyContext(context)
+    
+        context : c_void_p
+    """
+    return _api_(context)
+    
 
-@bind(POINTER(ALCdevice), [POINTER(ALCubyte)])
-def alcOpenDevice(deviceName): pass
+@bind(ALCenum, [c_void_p])
+def alcGetError(device, _api_=None): 
+    """alcGetError(device)
+    
+        device : c_void_p
+    """
+    return _api_(device)
+    
 
-@bind(ALCvoid, [POINTER(ALCdevice)])
-def alcCloseDevice(device): pass
-
-
-@bind(POINTER(ALCcontext), [POINTER(ALCdevice), POINTER(ALCint)])
-def alcCreateContext(device, attrList): pass
-
-@bind(ALCboolean, [POINTER(ALCcontext)])
-def alcMakeContextCurrent(context): pass
-
-@bind(ALCvoid, [POINTER(ALCcontext)])
-def alcProcessContext(context): pass
-
-@bind(POINTER(ALCcontext), [])
-def alcGetCurrentContext(): pass
-
-@bind(POINTER(ALCdevice), [POINTER(ALCcontext)])
-def alcGetContextsDevice(context): pass
-
-@bind(ALCvoid, [POINTER(ALCcontext)])
-def alcSuspendContext(context): pass
-
-@bind(ALCvoid, [POINTER(ALCcontext)])
-def alcDestroyContext(context): pass
-
-
-@bind(ALCenum, [POINTER(ALCdevice)])
-def alcGetError(device): pass
-
-
-@bind(ALCboolean, [POINTER(ALCdevice), POINTER(ALCubyte)])
-def alcIsExtensionPresent(device, extName): pass
-
-@bind(POINTER(ALCvoid), [POINTER(ALCdevice), POINTER(ALCubyte)])
-def alcGetProcAddress(device, funcName): pass
-
-@bind(ALCenum, [POINTER(ALCdevice), POINTER(ALCubyte)])
-def alcGetEnumValue(device, enumName): pass
-
+@bind(ALCboolean, [c_void_p, POINTER(c_ubyte)])
+def alcIsExtensionPresent(device, extName, _api_=None): 
+    """alcIsExtensionPresent(device, extName)
+    
+        device : c_void_p
+        extName : POINTER(c_ubyte)
+    """
+    return _api_(device, extName)
+    
+@bind(c_void_p, [c_void_p, POINTER(c_ubyte)])
+def alcGetProcAddress(device, funcName, _api_=None): 
+    """alcGetProcAddress(device, funcName)
+    
+        device : c_void_p
+        funcName : POINTER(c_ubyte)
+    """
+    return _api_(device, funcName)
+    
+@bind(ALCenum, [c_void_p, POINTER(c_ubyte)])
+def alcGetEnumValue(device, enumName, _api_=None): 
+    """alcGetEnumValue(device, enumName)
+    
+        device : c_void_p
+        enumName : POINTER(c_ubyte)
+    """
+    return _api_(device, enumName)
+    
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

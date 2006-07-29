@@ -9,28 +9,29 @@ from _ctypes_openal import *
 #~   "/System/Library/Frameworks/OpenAL.framework/Headers/alctypes.h"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class ALCboolean(c_char):
-    """typedef ALCboolean"""
+# typedef ALCboolean
+ALCboolean = c_char
 
 #~ line: 37, skipped: 6 ~~~~~~
 
-class ALCubyte(c_ubyte):
-    """typedef ALCubyte"""
+# typedef ALCubyte
+ALCubyte = c_ubyte
 
 #~ line: 49, skipped: 12 ~~~~~~
 
-class ALCint(c_int):
-    """typedef ALCint"""
+# typedef ALCint
+ALCint = c_int
 
 #~ line: 58, skipped: 9 ~~~~~~
 
-class ALCsizei(c_uint):
-    """typedef ALCsizei"""
+# typedef ALCsizei
+ALCsizei = c_uint
 
-ALCvoid = None # typedef ALCvoid
+# typedef ALCvoid
+ALCvoid = None
 
-class ALCenum(c_int):
-    """typedef ALCenum"""
+# typedef ALCenum
+ALCenum = c_int
 
 ALC_INVALID = (-1)
 

@@ -1,5 +1,10 @@
+#define GL_GLEXT_FUNCTION_POINTERS
 #define GL_GLEXT_LEGACY
-#define GL_GLEXT_PROTOTYPES
 #include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
+#undef GL_GLEXT_LEGACY
+
 #include <OpenGL/glu.h>
+
+#define GL_GLEXT_PROTOTYPES
+#include <OpenGL/glext.h>
+

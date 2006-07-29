@@ -11,6 +11,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import os
+import keyword
 from bisect import insort, bisect_left, bisect_right
 from ciBase import CodeItem, asCodeItem
 
@@ -125,6 +126,9 @@ class CIFile(CodeItem):
             result = self.name
             result = os.path.basename(result)
             result = os.path.splitext(result)[0]
+            if keyword.iskeyword(result):
+                # mangle the name so we can import it
+                result += '_'
             self.setBaseFilename(result + '.py')
 
         return self._filename
