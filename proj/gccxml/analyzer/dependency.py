@@ -22,7 +22,8 @@ from handlers.makefileRule import MakefileRuleScanner
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class DependencyProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
-    command = r"gccxml -E -MT TARGET -M %(srcfile)s %(includes)s > %(outfile)s"
+    command = r"gcc -E -MT TARGET -M %(srcfile)s %(includes)s > %(outfile)s"
+    #allowFrameworkInclude = True
 
     def _getEmitterForStep(self, elements):
         return elements.getEmitterFor('dependency', 'makefile')
@@ -32,8 +33,8 @@ class DependencyProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
     def fileToElements(self, elements, emitter, srcfile):
         scanner = self.getScanner(elements, emitter)
 
-        cruncher = self._processSrcFile(srcfile, 'depends-'+os.path.basename(srcfile)+'.mak')
-        scanner(emitter, cruncher.outfile)
+        cruncher, outfile = self._processSrcFile(srcfile, 'depends-'+os.path.basename(srcfile)+'.mak')
+        scanner(emitter, outfile)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

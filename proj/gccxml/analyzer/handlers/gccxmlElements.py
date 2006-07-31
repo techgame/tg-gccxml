@@ -52,6 +52,11 @@ def intOr0(v):
 def intOrNone(v):
     if v: return int(v)
     else: return None
+def hexOr0(v):
+    return int(v or 0, 16)
+def hexOrNone(v):
+    if v: return int(v, 16)
+    else: return None
 def boolOr0(v):
     return bool(int(v or 0))
 
@@ -330,8 +335,8 @@ class ArrayType(SizedType):
     attrValueMap = SizedType.attrValueMap.copy()
     attrValueMap.update(
         type=reference,
-        min=intOr0,
-        max=intOrNone,
+        min=hexOr0,
+        max=hexOrNone,
         )
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -364,6 +369,7 @@ class CompositeType(SizedType):
         align=intOr0,
         artificial=boolOr0,
         access=passThrough,
+        incomplete=boolOr0,
 
         context=reference,
 
@@ -403,7 +409,6 @@ class Struct(CompositeType):
 
     attrValueMap = CompositeType.attrValueMap.copy()
     attrValueMap.update(
-        incomplete=boolOr0,
         )
 
     _baseReferences = None
@@ -494,6 +499,7 @@ class Argument(LocatedElement):
     attrValueMap.update(
         name=passThrough,
         type=reference,
+        default=passThrough,
         )
 
 class Ellipsis(XMLElement):
@@ -562,6 +568,17 @@ class Method(Function):
     attrValueMap.update(
         access=acccessStr,
         virtual=boolOr0,
+        const=boolOr0,
+        static=boolOr0,
+        artificial=boolOr0,
+        explicit=boolOr0,
+        )
+
+class OperatorMethod(Method):
+    itemKind = 'OperatorMethod'
+
+    attrValueMap = Method.attrValueMap.copy()
+    attrValueMap.update(
         )
 
 class Constructor(Method):
@@ -569,8 +586,6 @@ class Constructor(Method):
 
     attrValueMap = Method.attrValueMap.copy()
     attrValueMap.update(
-        artificial=boolOr0,
-        explicit=boolOr0,
         )
 
 class Destructor(Method):
@@ -611,7 +626,9 @@ class GCC_XML(XMLElement):
             elem.createModel(emitters, idMap)
 
         def linkToId(fromItem, toItemId):
-            toItem = idMap[toItemId]
+            toItem = idMap.get(toItemId)
+            if toItem is None:
+                print "Missing Link Id:", toItemId, 'from:', repr(fromItem)
             emitters.emit('link-from-to', fromItem, toItem)
             return toItem
 
@@ -633,7 +650,7 @@ GCC_XML.setChildTypes([
         FundamentalType, CvQualifiedType, Enumeration, 
         PointerType, ReferenceType, ArrayType, 
         Typedef, Union, Struct, Class,
-        FunctionType, Function, Method, Constructor, Destructor, 
+        FunctionType, Function, Method, OperatorMethod, Constructor, Destructor, 
         Variable, Field,
         ])
 

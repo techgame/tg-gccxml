@@ -60,6 +60,7 @@ class AtomVisitorInterface(ModelAtomVisitorInterface):
     def onFunction(self, atom, *args, **kw): pass
     def onFunctionType(self, atom, *args, **kw): pass
     def onMethod(self, atom, *args, **kw): pass
+    def onOperatorMethod(self, atom, *args, **kw): pass
     def onConstructor(self, atom, *args, **kw): pass
     def onDestructor(self, atom, *args, **kw): pass
 

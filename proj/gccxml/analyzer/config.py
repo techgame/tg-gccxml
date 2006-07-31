@@ -57,6 +57,13 @@ class StepConfig(object):
         existing.extend(f for f in files if f not in existing)
     inc = property(getIncludeDirs, addIncludeDirs)
 
+    def getFrameworks(self):
+        return self.files.setdefault('frameworks', [])
+    def addFramework(self, files):
+        existing = self.getFrameworks()
+        existing.extend(f for f in files if f not in existing)
+    frameworks = property(getFrameworks, addFramework)
+
     def getModelFile(self):
         if 'model' not in self.files:
             self.setModelFile('srcCode.model', True)

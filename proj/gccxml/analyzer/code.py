@@ -32,8 +32,8 @@ class CodeProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
     def fileToElements(self, elements, emitter, srcfile):
         scanner = self.getScanner(elements, emitter)
 
-        cruncher = self._processSrcFile(srcfile, 'code-'+os.path.basename(srcfile)+'.xml')
-        scanner(emitter, cruncher.outfile)
+        cruncher, outfile = self._processSrcFile(srcfile, 'code-'+os.path.basename(srcfile)+'.xml')
+        scanner(emitter, outfile)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

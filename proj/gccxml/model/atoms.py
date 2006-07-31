@@ -548,6 +548,7 @@ class CompositeType(CType):
     size = 0
     align = 0
     artificial = False
+    incomplete = False
     access = ''
 
     context = None # a Context Atom
@@ -587,7 +588,6 @@ class Union(CompositeType):
         return visitor.onUnion(self, *args, **kw)
 
 class Struct(CompositeType):
-    incomplete = False
     baseRefs = () # list of base references
 
     def __init__(self):
@@ -701,6 +701,7 @@ class Field(LocatedElement):
 class Argument(LocatedElement):
     host = None # a Callable instance
     name = ''
+    default = ''
     type = None # a Type Atom
 
     def __repr_atom__(self):
@@ -827,6 +828,10 @@ class Function(Callable):
 class Method(Function):
     access = ''
     virtual = False
+    const = False
+    static = False
+    explicit = False
+    artificial = False
 
     def isMethod(self): 
         return True
@@ -834,9 +839,11 @@ class Method(Function):
     def _visit(self, visitor, *args, **kw):
         return visitor.onMethod(self, *args, **kw)
 
+class OperatorMethod(Method):
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onOperatorMethod(self, *args, **kw)
+
 class Constructor(Method):
-    explicit = False
-    artificial = False
 
     def isConstructor(self): 
         return True

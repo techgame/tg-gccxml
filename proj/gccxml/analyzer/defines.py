@@ -32,6 +32,6 @@ class DefinesProcessorStep(PreprocessorStep, GCCXMLProcessStep):
     def fileToElements(self, elements, emitter, srcfile):
         scanner = self.getScanner(elements, emitter)
 
-        subproc = self._processSrcFile(srcfile, 'defines-' + os.path.basename(srcfile))
-        scanner(emitter, subproc.outfile)
+        subproc, outfile = self._processSrcFile(srcfile, 'defines-' + os.path.basename(srcfile))
+        scanner(emitter, outfile)
 

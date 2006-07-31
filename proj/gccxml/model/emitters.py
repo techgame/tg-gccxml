@@ -199,6 +199,7 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
         FunctionType=atoms.FunctionType,
         Function=atoms.Function,
         Method=atoms.Method,
+        OperatorMethod=atoms.OperatorMethod,
         Constructor=atoms.Constructor,
         Destructor=atoms.Destructor,
         )
@@ -206,23 +207,29 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
     @emitKind(emitKindMap, 'create')
     def onCreate(self, kind, itemKind, topLevel, staticAttrs):
         # return item model to link
+        item = None
         if itemKind == 'File':
             filename = staticAttrs['name']
             item = self.root.getFile(filename)
             if item is None:
                 item = atoms.File(filename)
         else:
-            factory = self.itemKindToAtoms[itemKind]
-            item = factory()
+            factory = self.itemKindToAtoms.get(itemKind, None)
+            if factory is not None:
+                item = factory()
         item = self.setItemAttrs(item, staticAttrs)
         return item
 
     @emitKind(emitKindMap, 'add-child')
     def onAddChild(self, kind, model, childModel):
+        if model is None: return
+        if childModel is None: return
         model.addAtom(childModel)
 
     @emitKind(emitKindMap, 'link-from-to')
     def onLinkFromTo(self, kind, fromModel, toModel):
+        if fromModel is None: return
+        if toModel is None: return
         fromModel.linkTo(toModel)
         toModel.linkFrom(fromModel)
 
@@ -239,10 +246,13 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
 
     @emitKind(emitKindMap, 'link-child')
     def onLinkChild(self, kind, model, childModel):
+        if model is None: return
+        if childModel is None: return
         model.linkChild(childModel)
 
     def setItemAttrs(self, item, attrs):
-        item._updateAttrs(attrs)
+        if item is not None:
+            item._updateAttrs(attrs)
         return item
 
 registerEmitter(GCCXMLCodeEmitter, 'code', 'gccxml')

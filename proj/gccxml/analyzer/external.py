@@ -10,6 +10,8 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import os
+import sys
 import subprocess
 
 from base import ProcessStep
@@ -40,6 +42,7 @@ class GCCXMLProcessStep(ExternalProcessStep):
     # an example command
     command = r"gccxml <options> %(srcfile)s %(includes)s > '%(outfile)s'"
     command = None
+    allowFrameworkInclude = False
 
     def getCmdLine(self, srcfile, outfile=None):
         kwargs = dict(srcfile=srcfile, includes=self._getIncludeList())
@@ -49,6 +52,10 @@ class GCCXMLProcessStep(ExternalProcessStep):
 
     def _processSrcFile(self, srcfile, outfile=None, **kw):
         outfile = self._getOutFile(outfile)
+        if os.path.exists(outfile):
+            print 'Using existing:', outfile
+            return None, open(outfile, 'rb')
+
         cmdline = self.getCmdLine(srcfile, outfile)
         process = self._subprocess(cmdline, **kw)
         if outfile:
@@ -59,14 +66,22 @@ class GCCXMLProcessStep(ExternalProcessStep):
             process.outfile = open(outfile, 'rb')
         else:
             process.outfile = process.stdout
-        return process
+        return process, process.outfile
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def _getIncludeList(self):
-        return ' '.join('-I ' + d for d in self._getIncludeDirs())
+        result = []
+        result.extend('-I ' + d for d in self._getIncludeDirs())
+        if self.allowFrameworkInclude:
+            result.extend('-framework ' + f for f in self._getFrameworkDirs())
+        return ' '.join(result)
     def _getIncludeDirs(self):
         return self.config.inc
+    def _getFrameworkDirs(self):
+        if sys.platform == 'darwin':
+            return self.config.frameworks
+        else: return []
     def _getSourceFiles(self):
         return self.config.src
     def _getBaselineFiles(self):
