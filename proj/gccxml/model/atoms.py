@@ -228,6 +228,7 @@ class File(ModelAtom):
         return iter([])
 
     def addAtom(self, atom):
+        atom.file = self
         insort(self.lines, (atom.line, atom))
 
     def getAtomsBetween(self, fromAtom, toAtom=None):
@@ -242,6 +243,23 @@ class File(ModelAtom):
         else: idx1 = None
 
         return self.lines[idx0:idx1]
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    patches = None
+    def addPatch(self, patchAtom):
+        if self.patches is None:
+            self.patches = {}
+        subPatches = self.patches.setdefault(patchAtom.kind, {})
+        subPatches.setdefault(patchAtom.key, []).append(patchAtom)
+    
+    def getPatchFor(self, featureKey, itemKey=NotImplemented):
+        if self.patches:
+            subPatches = self.patches[featureKey]
+            if itemKey is NotImplemented:
+                return subPatches
+            else:
+                return subPatches.get(itemKey)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -453,20 +471,41 @@ class EnumValue(ModelAtom):
 
 class Typedef(CDelgateType):
     name = ''
-    type = None # a Type Atom
+    _type = None # a Type Atom
     context = None # a Context Atom
+
+    def __init__(self):
+        CDelgateType.__init__(self)
 
     def __repr_atom__(self):
         return '%s %s' % (self.name, getTypeString(self.type, True))
-
-    def __repr_atom__(self):
-        return self.getTypeString(True)
 
     def getTypeString(self, descriptive=False):
         return self.name
 
     def isTypedef(self):
         return True
+
+    def getType(self):
+        return self._type
+    def setType(self, aType):
+        if self._type is not None:
+            raise Exception("Typedef type already set")
+
+        self._type = aType
+        self._updateBacklinks(aType)
+    type = property(getType, setType)
+
+    def isPointerTypedef(self):
+        return aType.isPointerType()
+    def isFunctionPointerTypedef(self):
+        return aType.isPointerType() and aType.type.isFunctionType()
+
+    def _updateBacklinks(self, aType):
+        if aType is not None:
+            backrefs = getattr(aType, 'typedefs', set())
+            backrefs.add(self)
+            aType.typedefs = backrefs
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onTypedef(self, *args, **kw)
@@ -767,7 +806,7 @@ class Callable(LocatedElement):
 
 class FunctionType(Callable):
     def __repr_atom__(self):
-        return 'returns:' + repr(self.returns)
+        return 'returns: %s' % (repr(self.returns),)
 
     def isType(self):
         return True
@@ -978,4 +1017,17 @@ class PPMacro(PreprocessorAtom):
 
     def _visit(self, visitor, *args, **kw):
         return visitor.onPPMacro(self, *args, **kw)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~ Patch Items
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class PatchAtom(LocatedElement):
+    kind = None # Major index - usually string
+    key = None  # Minor index - usually a reference to the item the patch is associated with
+
+class FunctionTypeNamesPatch(PatchAtom):
+    kind = "FunctionType"
+    typeName = "" # the name of the typedef to the pointer to the function type
+    argNames = "" # a list of names that are being patched into the function type
 

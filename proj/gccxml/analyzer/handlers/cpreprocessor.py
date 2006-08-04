@@ -60,21 +60,17 @@ class IncludesScanner(CPreprocessorScanner):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class DefinesScanner(CPreprocessorScanner):
-    def dispatchDirective(self, emitter, directive, body):
-        if directive.isdigit():
-            self.onFilePosition(emitter, directive, body)
-        elif directive == "define":
-            self.onDefine(emitter, directive, body)
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+class DefinesScannerBase(CPreprocessorScanner):
     commonDefs = dict(
             REST=r'(?:\s*(.*)\s*)', 
             IDENT=r'(?:[A-Za-z_][A-Za-z0-9_]*)',
             ARGS=r'(?:\(\s*(%(IDENT)s(?:\s*,\s*%(IDENT)s)*)(?:\s*,)?\s*\)\s*)',
             )
     commonDefs['ARGS'] %= commonDefs
+
+    def dispatchDirective(self, emitter, directive, body):
+        if directive.isdigit():
+            self.onFilePosition(emitter, directive, body)
 
     filePositionMatcher = re.compile(r'''["'](.*?)["']\s*(\d*)''' % commonDefs).match
     def onFilePosition(self, emitter, lineno, body):
@@ -88,6 +84,19 @@ class DefinesScanner(CPreprocessorScanner):
         else:
             emitter.emit('position-load', filename, lineno, flags)
         emitter.emit('position', filename, lineno, flags)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class DefinesScanner(DefinesScannerBase):
+    def dispatchDirective(self, emitter, directive, body):
+        if directive.isdigit():
+            self.onFilePosition(emitter, directive, body)
+        elif directive == "define":
+            self.onDefine(emitter, directive, body)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    commonDefs = DefinesScannerBase.commonDefs
 
     identMatcher = re.compile(r'(%(IDENT)s)%(REST)s' % commonDefs).match
     macroMatcher = re.compile(r'%(ARGS)s%(REST)s' % commonDefs).match

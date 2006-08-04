@@ -204,6 +204,8 @@ class CITypedef(TypeCodeItem):
     def typedefDecl(self, itemType=None):
         if itemType is None:
             itemType = self.item.type
+            if itemType is None:
+                print self.item.name
 
         if itemType.isFundamentalType():
             return self.typedefDeclFundamentalType(itemType)

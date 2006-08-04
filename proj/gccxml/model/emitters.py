@@ -105,7 +105,7 @@ registerEmitter(DependencyEmitter, 'dependency')
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class PreprocessorEmitter(FileBasedEmitter):
+class PreprocessorEmitterBase(FileBasedEmitter):
     emitKindMap = FileBasedEmitter.emitKindMap.copy()
 
     @emitKind(emitKindMap, 'position')
@@ -126,6 +126,17 @@ class PreprocessorEmitter(FileBasedEmitter):
     def onPositionPop(self, kind, filename, lineno, flags=None):
         """This is generated after a #include is complete"""
 
+    def setItemAttrs(self, item, **attrs):
+        fileAtom = self.fileAtom
+        attrs.update(file=fileAtom, line=self.lineno)
+        item._updateAttrs(attrs)
+        return item
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class PreprocessorEmitter(PreprocessorEmitterBase):
+    emitKindMap = PreprocessorEmitterBase.emitKindMap.copy()
+
     @emitKind(emitKindMap, 'conditional')
     def onCondition(self, kind, directive, body):
         return self.setItemAttrs(atoms.PPConditional(), directive=directive, body=body)
@@ -144,13 +155,12 @@ class PreprocessorEmitter(FileBasedEmitter):
         return self.setItemAttrs(atoms.PPMacro(), ident=ident, args=args, body=body)
 
     def setItemAttrs(self, item, **attrs):
-        file = self.fileAtom
-        attrs.update(file=file, line=self.lineno)
+        PreprocessorEmitterBase.setItemAttrs(self, item, **attrs)
 
-        item._updateAttrs(attrs)
-        if file is not None:
-            self.linkConditional(item, file)
-            file.addAtom(item)
+        fileAtom = self.fileAtom
+        if fileAtom is not None:
+            self.linkConditional(item, fileAtom)
+            fileAtom.addAtom(item)
         self.root.addPPAtom(item)
         return item
 
@@ -256,4 +266,19 @@ class GCCXMLCodeEmitter(FileBasedEmitter):
         return item
 
 registerEmitter(GCCXMLCodeEmitter, 'code', 'gccxml')
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class FuncTypedefPatchEmitter(PreprocessorEmitterBase):
+    emitKindMap = PreprocessorEmitterBase.emitKindMap.copy()
+
+    @emitKind(emitKindMap, 'function-type-name')
+    def onFunctionTypeName(self, kind, typeName, argNames):
+        patch = atoms.FunctionTypeNamesPatch()
+        self.setItemAttrs(patch, typeName=typeName, argNames=argNames)
+        self.fileAtom.addPatch(patch)
+
+registerEmitter(FuncTypedefPatchEmitter, 'patch', 'function-type-name')
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

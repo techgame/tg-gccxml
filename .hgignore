@@ -10,3 +10,4 @@ Icon?
 syntax: regexp
 ^sandbox/.*/build/.*
 ^sandbox/.*/srcCode\.model
+^sandbox/ctypes-playground

@@ -15,6 +15,7 @@ import os
 from base import PreprocessorStep
 from external import GCCXMLProcessStep
 from handlers.cpreprocessor import DefinesScanner
+from handlers.funcTypedefScanner import FuncTypedefScanner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
@@ -32,6 +33,30 @@ class DefinesProcessorStep(PreprocessorStep, GCCXMLProcessStep):
     def fileToElements(self, elements, emitter, srcfile):
         scanner = self.getScanner(elements, emitter)
 
-        subproc, outfile = self._processSrcFile(srcfile, 'defines-' + os.path.basename(srcfile))
-        scanner(emitter, outfile)
+        filename = 'pp-' + os.path.basename(srcfile)
+        subproc, outfile = self._processSrcFile(srcfile, filename)
+        try:
+            scanner(emitter, outfile)
+        finally:
+            outfile.close()
+
+        # HACK: run through the preprocessed elements and grab the func typedef
+        # argument names
+        self.scanFuncTypedefArgNames(elements, filename)
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def _getFuncTypedefEmitter(self, elements):
+        return elements.getEmitterFor('patch', 'function-type-name')
+    def _getFuncTypedefScanner(self, elements, emitter):
+        return FuncTypedefScanner()
+    def scanFuncTypedefArgNames(self, elements, filename):
+        emitter = self._getFuncTypedefEmitter(elements)
+        scanner = self._getFuncTypedefScanner(elements, emitter)
+
+        outfile = open(self._getOutFile(filename), 'rb')
+        try:
+            scanner(emitter, outfile)
+        finally:
+            outfile.close()
 
