@@ -275,8 +275,9 @@ class FuncTypedefPatchEmitter(PreprocessorEmitterBase):
     @emitKind(emitKindMap, 'function-type-name')
     def onFunctionTypeName(self, kind, typeName, argNames):
         patch = atoms.FunctionTypeNamesPatch()
-        self.setItemAttrs(patch, typeName=typeName, argNames=argNames)
-        self.fileAtom.addPatch(patch)
+        if self.fileAtom:
+            self.setItemAttrs(patch, typeName=typeName, argNames=argNames)
+            self.fileAtom.addPatch(patch)
 
 registerEmitter(FuncTypedefPatchEmitter, 'patch', 'function-type-name')
 

@@ -1031,3 +1031,7 @@ class FunctionTypeNamesPatch(PatchAtom):
     typeName = "" # the name of the typedef to the pointer to the function type
     argNames = "" # a list of names that are being patched into the function type
 
+    @property
+    def key(self):
+        return self.typeName
+

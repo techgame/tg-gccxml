@@ -20,7 +20,6 @@ from TG.gccxml.xforms.ctypes import AtomFilterVisitor, CCodeGenContext
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 analyzer = CodeAnalyzer(
-        frameworks=['/System/Library/Frameworks', '/Library/Frameworks'],
         inc=['inc/'],
         src=['src/genQuickTime.c'], 
         baseline=['src/baseline.c'])

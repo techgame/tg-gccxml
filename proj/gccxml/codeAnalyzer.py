@@ -41,7 +41,13 @@ class CodeAnalyzer(StepProcessorBase):
     def endVisitSteps(self):
         modelFile = self.cfg.modelFile
         if modelFile:
-            self.root.storeToFileNamed(modelFile)
+            try:
+                self.root.storeToFileNamed(modelFile)
+            except RuntimeError:
+                import traceback
+                traceback.print_exc()
+                return False
+        return True
 
     def loadModel(self, runIfNotFound=True):
         modelFile = self.cfg.modelFile
