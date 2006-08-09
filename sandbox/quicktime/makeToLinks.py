@@ -4,6 +4,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import os
+import subprocess
 from TG.gccxml.model.emitters import FileBasedEmitter, emitKind
 from TG.gccxml.analyzer.handlers.makefileRule import MakefileRuleScanner
 
@@ -67,14 +68,20 @@ class MakeEmitter(FileBasedEmitter):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if __name__=='__main__':
+    filename = 'build/gccxml/makefile.deps'
+    basepath = os.path.dirname(filename)
+
+    if not os.path.exists(basepath):
+        os.makedirs(basepath)
+
     frameworks = {}
     emitter = MakeEmitter(frameworks)
     scanner = MakefileRuleScanner()
 
-    if os.path.exists('Makefile.deps'):
-        makefile = open('Makefile.deps')
+    if os.path.exists(filename):
+        makefile = open(filename)
     else:
-        depsProcess = subprocess.Popen('gcc -E -MT TARGET -M src/genQuickTime.c -I inc  > Makefile.deps ', shell=True, stdout=subprocess.PIPE)
+        depsProcess = subprocess.Popen('gcc -E -MT TARGET -M src/genQuickTime.c -I inc  > %s ' % (filename,), shell=True, stdout=subprocess.PIPE)
         makefile = depsProcess.stdout
 
     try:
