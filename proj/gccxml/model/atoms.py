@@ -248,18 +248,20 @@ class File(ModelAtom):
     
     patches = None
     def addPatch(self, patchAtom):
+        self.addAtom(patchAtom)
         if self.patches is None:
             self.patches = {}
         subPatches = self.patches.setdefault(patchAtom.kind, {})
         subPatches.setdefault(patchAtom.key, []).append(patchAtom)
     
-    def getPatchFor(self, featureKey, itemKey=NotImplemented):
+    def getPatchFor(self, kind, itemKey=NotImplemented, default=()):
         if self.patches:
-            subPatches = self.patches[featureKey]
+            subPatches = self.patches[kind]
+
             if itemKey is NotImplemented:
                 return subPatches
             else:
-                return subPatches.get(itemKey)
+                return subPatches.get(itemKey, default)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1026,12 +1028,24 @@ class PatchAtom(LocatedElement):
     kind = None # Major index - usually string
     key = None  # Minor index - usually a reference to the item the patch is associated with
 
+    def isPatch(self):
+        return True
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onPatch(self, *args, **kw)
+
 class FunctionTypeNamesPatch(PatchAtom):
     kind = "FunctionType"
     typeName = "" # the name of the typedef to the pointer to the function type
-    argNames = "" # a list of names that are being patched into the function type
+    argNames = () # a list of names that are being patched into the function type
 
     @property
     def key(self):
         return self.typeName
+
+    def getName(self):
+        return self.typeName
+    name = property(getName)
+
+    def getArgNames(self):
+        return self.argNames
 

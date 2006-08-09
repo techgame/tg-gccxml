@@ -70,6 +70,9 @@ class AtomVisitorInterface(ModelAtomVisitorInterface):
     def onPPDefine(self, atom, *args, **kw): pass
     def onPPMacro(self, atom, *args, **kw): pass
 
+    # preprocessor
+    def onPatch(self, atom, *args, **kw): pass
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class BasicAtomVisitorMixin(object):
