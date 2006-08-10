@@ -262,6 +262,11 @@ class File(ModelAtom):
                 return subPatches
             else:
                 return subPatches.get(itemKey, default)
+        else:
+            if itemKey is NotImplemented:
+                return {}
+            else:
+                return default
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
