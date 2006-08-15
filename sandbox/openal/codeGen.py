@@ -47,6 +47,9 @@ class FilterVisitor(AtomFilterVisitor):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     filterConditionals = set([
+        'AL_AL_H',
+        'AL_ALC_H',
+        'AL_NO_PROTOTYPES',
         'AL_NO_PROTOTYPES',
         'ALC_NO_PROTOTYPES',
         ])
@@ -77,20 +80,13 @@ def main():
     for ciFile in ciFilesByName.itervalues():
         ciFile.importAll('_ctypes_openal')
 
-    altypes = ciFilesByName['altypes.h']
-    altypes.importAll()
-
     al = ciFilesByName['al.h']
-    al.importAll(altypes)
-
-    alctypes = ciFilesByName['alctypes.h']
-    alctypes.importAll()
-
+    #al.importAll(altypes)
     alc = ciFilesByName['alc.h']
-    alc.importAll(altypes, alctypes)
+    #al.importAll(altypes)
 
-    alut = ciFilesByName['alut.h']
-    alut.importAll(altypes, alctypes)
+    #alut = ciFilesByName['alut.h']
+    #alut.importAll(altypes, alctypes)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # write output files
