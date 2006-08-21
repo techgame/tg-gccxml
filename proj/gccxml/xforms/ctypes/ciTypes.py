@@ -32,18 +32,18 @@ class TypeCodeItem(CodeItem):
     def typeRefNoTypedef(self):
         return self.typeRefTemplate % (self._typeDecl(),)
 
-    #def ptrTypeRefFrom(self, ciPtrType):
-    #    typeRef = self.typeRef(False)
-    #    if typeRef is None:
-    #        return 'c_void_p'
-    #    else:
-    #        return 'POINTER(%s)' % (typeRef,)
+    def ptrTypeRefFrom(self, ciPtrType):
+        typeRef = self.typeRef(False)
+        if typeRef is None:
+            return 'c_void_p'
+        else:
+            return 'POINTER(%s)' % (typeRef,)
 
     def _typeDecl(self):
         return self.typeRefFor(self.item.type)
 
-    def ptrTypeRefFrom(self, ciPtrType):
-        return self.ptrTypeRefFor(self.item.type)
+    #def ptrTypeRefFrom(self, ciPtrType):
+    #    return self.ptrTypeRefFor(self.item.type)
 
     def getCIBasicType(self):
         return self.item.basicType.codeItem
