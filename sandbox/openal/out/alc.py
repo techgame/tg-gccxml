@@ -20,11 +20,13 @@ ALC_APIENTRY = None # empty
 ALC_VERSION_0_1 = 1
 
 class ALCdevice_struct(Structure):
-    _fields_ = []
+    _fields_ = [
+        ]
 # typedef ALCdevice
 ALCdevice = ALCdevice_struct
 class ALCcontext_struct(Structure):
-    _fields_ = []
+    _fields_ = [
+        ]
 # typedef ALCcontext
 ALCcontext = ALCcontext_struct
 
@@ -127,53 +129,53 @@ ALC_CAPTURE_SAMPLES = 0x312
 
 #~ line: 172, skipped: 8 ~~~~~~
 
-@bind(POINTER(ALCcontext_struct), [POINTER(ALCdevice_struct), POINTER(c_int)])
+@bind(POINTER(ALCcontext), [POINTER(ALCdevice), POINTER(ALCint)])
 def alcCreateContext(device, attrlist, _api_=None): 
     """alcCreateContext(device, attrlist)
     
-        device : POINTER(ALCdevice_struct)
-        attrlist : POINTER(c_int)
+        device : POINTER(ALCdevice)
+        attrlist : POINTER(ALCint)
     """
     return _api_(device, attrlist)
     
 
-@bind(ALCboolean, [POINTER(ALCcontext_struct)])
+@bind(ALCboolean, [POINTER(ALCcontext)])
 def alcMakeContextCurrent(context, _api_=None): 
     """alcMakeContextCurrent(context)
     
-        context : POINTER(ALCcontext_struct)
+        context : POINTER(ALCcontext)
     """
     return _api_(context)
     
 
-@bind(None, [POINTER(ALCcontext_struct)])
+@bind(None, [POINTER(ALCcontext)])
 def alcProcessContext(context, _api_=None): 
     """alcProcessContext(context)
     
-        context : POINTER(ALCcontext_struct)
+        context : POINTER(ALCcontext)
     """
     return _api_(context)
     
 
-@bind(None, [POINTER(ALCcontext_struct)])
+@bind(None, [POINTER(ALCcontext)])
 def alcSuspendContext(context, _api_=None): 
     """alcSuspendContext(context)
     
-        context : POINTER(ALCcontext_struct)
+        context : POINTER(ALCcontext)
     """
     return _api_(context)
     
 
-@bind(None, [POINTER(ALCcontext_struct)])
+@bind(None, [POINTER(ALCcontext)])
 def alcDestroyContext(context, _api_=None): 
     """alcDestroyContext(context)
     
-        context : POINTER(ALCcontext_struct)
+        context : POINTER(ALCcontext)
     """
     return _api_(context)
     
 
-@bind(POINTER(ALCcontext_struct), [])
+@bind(POINTER(ALCcontext), [])
 def alcGetCurrentContext(_api_=None): 
     """alcGetCurrentContext()
     
@@ -182,109 +184,109 @@ def alcGetCurrentContext(_api_=None):
     return _api_()
     
 
-@bind(POINTER(ALCdevice_struct), [POINTER(ALCcontext_struct)])
+@bind(POINTER(ALCdevice), [POINTER(ALCcontext)])
 def alcGetContextsDevice(context, _api_=None): 
     """alcGetContextsDevice(context)
     
-        context : POINTER(ALCcontext_struct)
+        context : POINTER(ALCcontext)
     """
     return _api_(context)
     
 
 #~ line: 190, skipped: 6 ~~~~~~
 
-@bind(POINTER(ALCdevice_struct), [c_char_p])
+@bind(POINTER(ALCdevice), [POINTER(ALCchar)])
 def alcOpenDevice(devicename, _api_=None): 
     """alcOpenDevice(devicename)
     
-        devicename : c_char_p
+        devicename : POINTER(ALCchar)
     """
     return _api_(devicename)
     
 
-@bind(ALCboolean, [POINTER(ALCdevice_struct)])
+@bind(ALCboolean, [POINTER(ALCdevice)])
 def alcCloseDevice(device, _api_=None): 
     """alcCloseDevice(device)
     
-        device : POINTER(ALCdevice_struct)
+        device : POINTER(ALCdevice)
     """
     return _api_(device)
     
 
 #~ line: 199, skipped: 7 ~~~~~~
 
-@bind(ALCenum, [POINTER(ALCdevice_struct)])
+@bind(ALCenum, [POINTER(ALCdevice)])
 def alcGetError(device, _api_=None): 
     """alcGetError(device)
     
-        device : POINTER(ALCdevice_struct)
+        device : POINTER(ALCdevice)
     """
     return _api_(device)
     
 
 #~ line: 207, skipped: 8 ~~~~~~
 
-@bind(ALCboolean, [POINTER(ALCdevice_struct), c_char_p])
+@bind(ALCboolean, [POINTER(ALCdevice), POINTER(ALCchar)])
 def alcIsExtensionPresent(device, extname, _api_=None): 
     """alcIsExtensionPresent(device, extname)
     
-        device : POINTER(ALCdevice_struct)
-        extname : c_char_p
+        device : POINTER(ALCdevice)
+        extname : POINTER(ALCchar)
     """
     return _api_(device, extname)
     
 
-@bind(c_void_p, [POINTER(ALCdevice_struct), c_char_p])
+@bind(c_void_p, [POINTER(ALCdevice), POINTER(ALCchar)])
 def alcGetProcAddress(device, funcname, _api_=None): 
     """alcGetProcAddress(device, funcname)
     
-        device : POINTER(ALCdevice_struct)
-        funcname : c_char_p
+        device : POINTER(ALCdevice)
+        funcname : POINTER(ALCchar)
     """
     return _api_(device, funcname)
     
 
-@bind(ALCenum, [POINTER(ALCdevice_struct), c_char_p])
+@bind(ALCenum, [POINTER(ALCdevice), POINTER(ALCchar)])
 def alcGetEnumValue(device, enumname, _api_=None): 
     """alcGetEnumValue(device, enumname)
     
-        device : POINTER(ALCdevice_struct)
-        enumname : c_char_p
+        device : POINTER(ALCdevice)
+        enumname : POINTER(ALCchar)
     """
     return _api_(device, enumname)
     
 
 #~ line: 217, skipped: 6 ~~~~~~
 
-@bind(c_char_p, [POINTER(ALCdevice_struct), ALCenum])
+@bind(POINTER(ALCchar), [POINTER(ALCdevice), ALCenum])
 def alcGetString(device, param, _api_=None): 
     """alcGetString(device, param)
     
-        device : POINTER(ALCdevice_struct)
+        device : POINTER(ALCdevice)
         param : ALCenum
     """
     return _api_(device, param)
     
 
-@bind(None, [POINTER(ALCdevice_struct), ALCenum, ALCsizei, POINTER(c_int)])
+@bind(None, [POINTER(ALCdevice), ALCenum, ALCsizei, POINTER(ALCint)])
 def alcGetIntegerv(device, param, size, data, _api_=None): 
     """alcGetIntegerv(device, param, size, data)
     
-        device : POINTER(ALCdevice_struct)
+        device : POINTER(ALCdevice)
         param : ALCenum
         size : ALCsizei
-        data : POINTER(c_int)
+        data : POINTER(ALCint)
     """
     return _api_(device, param, size, data)
     
 
 #~ line: 225, skipped: 6 ~~~~~~
 
-@bind(POINTER(ALCdevice_struct), [c_char_p, ALCuint, ALCenum, ALCsizei])
+@bind(POINTER(ALCdevice), [POINTER(ALCchar), ALCuint, ALCenum, ALCsizei])
 def alcCaptureOpenDevice(devicename, frequency, format, buffersize, _api_=None): 
     """alcCaptureOpenDevice(devicename, frequency, format, buffersize)
     
-        devicename : c_char_p
+        devicename : POINTER(ALCchar)
         frequency : ALCuint
         format : ALCenum
         buffersize : ALCsizei
@@ -292,39 +294,39 @@ def alcCaptureOpenDevice(devicename, frequency, format, buffersize, _api_=None):
     return _api_(devicename, frequency, format, buffersize)
     
 
-@bind(ALCboolean, [POINTER(ALCdevice_struct)])
+@bind(ALCboolean, [POINTER(ALCdevice)])
 def alcCaptureCloseDevice(device, _api_=None): 
     """alcCaptureCloseDevice(device)
     
-        device : POINTER(ALCdevice_struct)
+        device : POINTER(ALCdevice)
     """
     return _api_(device)
     
 
-@bind(None, [POINTER(ALCdevice_struct)])
+@bind(None, [POINTER(ALCdevice)])
 def alcCaptureStart(device, _api_=None): 
     """alcCaptureStart(device)
     
-        device : POINTER(ALCdevice_struct)
+        device : POINTER(ALCdevice)
     """
     return _api_(device)
     
 
-@bind(None, [POINTER(ALCdevice_struct)])
+@bind(None, [POINTER(ALCdevice)])
 def alcCaptureStop(device, _api_=None): 
     """alcCaptureStop(device)
     
-        device : POINTER(ALCdevice_struct)
+        device : POINTER(ALCdevice)
     """
     return _api_(device)
     
 
-@bind(None, [POINTER(ALCdevice_struct), c_void_p, ALCsizei])
+@bind(None, [POINTER(ALCdevice), POINTER(ALCvoid), ALCsizei])
 def alcCaptureSamples(device, buffer, samples, _api_=None): 
     """alcCaptureSamples(device, buffer, samples)
     
-        device : POINTER(ALCdevice_struct)
-        buffer : c_void_p
+        device : POINTER(ALCdevice)
+        buffer : POINTER(ALCvoid)
         samples : ALCsizei
     """
     return _api_(device, buffer, samples)

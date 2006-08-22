@@ -32,18 +32,15 @@ class TypeCodeItem(CodeItem):
     def typeRefNoTypedef(self):
         return self.typeRefTemplate % (self._typeDecl(),)
 
+    def _typeDecl(self):
+        return self.typeRefFor(self.item.type)
+
     def ptrTypeRefFrom(self, ciPtrType):
         typeRef = self.typeRef(False)
         if typeRef is None:
             return 'c_void_p'
         else:
             return 'POINTER(%s)' % (typeRef,)
-
-    def _typeDecl(self):
-        return self.typeRefFor(self.item.type)
-
-    #def ptrTypeRefFrom(self, ciPtrType):
-    #    return self.ptrTypeRefFor(self.item.type)
 
     def getCIBasicType(self):
         return self.item.basicType.codeItem
@@ -150,7 +147,7 @@ class CICvQualifiedType(TypeCodeItem):
         return self.typeRefFor(self.item.type)
 
     def ptrTypeRefFrom(self, ciPtrType):
-        return self.ptrTypeRefFor(self.item.type)
+        return self.ptrTypeRefFor(self.item.type, ciPtrType)
         
 
 class CIPointerType(TypeCodeItem):
@@ -180,6 +177,9 @@ class CIArrayType(TypeCodeItem):
         itype = TypeCodeItem._typeDecl(self)
         return '(%d*%s)' % (self.item.size, itype)
 
+    def ptrTypeRefFrom(self, ciPtrType):
+        return self.ptrTypeRefFor(self.item.type, ciPtrType)
+
 class CITypedef(TypeCodeItem):
     typeRefTemplate = '%s'
     typedefTemplate = '# %(comment)s\n%(name)s = %(typeRef)s'
@@ -200,6 +200,12 @@ class CITypedef(TypeCodeItem):
             ciBasicType.ciTypedefs = [self]
         else:
             ciBasicType.ciTypedefs.append(self)
+
+    def ptrTypeRefFrom(self, ciPtrType):
+        if self.item.type.isFundamentalType():
+            return self.ptrTypeRefFor(self.item.type, ciPtrType)
+        else:
+            return TypeCodeItem.ptrTypeRefFrom(self, ciPtrType)
 
     def typedefDecl(self, itemType=None):
         if itemType is None:

@@ -257,7 +257,7 @@ def alIsEnabled(capability, _api_=None):
 
 #~ line: 398, skipped: 6 ~~~~~~
 
-@bind(c_char_p, [ALenum])
+@bind(POINTER(ALchar), [ALenum])
 def alGetString(param, _api_=None): 
     """alGetString(param)
     
@@ -266,42 +266,42 @@ def alGetString(param, _api_=None):
     return _api_(param)
     
 
-@bind(None, [ALenum, c_char_p])
+@bind(None, [ALenum, POINTER(ALboolean)])
 def alGetBooleanv(param, data, _api_=None): 
     """alGetBooleanv(param, data)
     
         param : ALenum
-        data : c_char_p
+        data : POINTER(ALboolean)
     """
     return _api_(param, data)
     
 
-@bind(None, [ALenum, POINTER(c_int)])
+@bind(None, [ALenum, POINTER(ALint)])
 def alGetIntegerv(param, data, _api_=None): 
     """alGetIntegerv(param, data)
     
         param : ALenum
-        data : POINTER(c_int)
+        data : POINTER(ALint)
     """
     return _api_(param, data)
     
 
-@bind(None, [ALenum, POINTER(c_float)])
+@bind(None, [ALenum, POINTER(ALfloat)])
 def alGetFloatv(param, data, _api_=None): 
     """alGetFloatv(param, data)
     
         param : ALenum
-        data : POINTER(c_float)
+        data : POINTER(ALfloat)
     """
     return _api_(param, data)
     
 
-@bind(None, [ALenum, POINTER(c_double)])
+@bind(None, [ALenum, POINTER(ALdouble)])
 def alGetDoublev(param, data, _api_=None): 
     """alGetDoublev(param, data)
     
         param : ALenum
-        data : POINTER(c_double)
+        data : POINTER(ALdouble)
     """
     return _api_(param, data)
     
@@ -355,29 +355,29 @@ def alGetError(_api_=None):
 
 #~ line: 429, skipped: 8 ~~~~~~
 
-@bind(ALboolean, [c_char_p])
+@bind(ALboolean, [POINTER(ALchar)])
 def alIsExtensionPresent(extname, _api_=None): 
     """alIsExtensionPresent(extname)
     
-        extname : c_char_p
+        extname : POINTER(ALchar)
     """
     return _api_(extname)
     
 
-@bind(c_void_p, [c_char_p])
+@bind(c_void_p, [POINTER(ALchar)])
 def alGetProcAddress(fname, _api_=None): 
     """alGetProcAddress(fname)
     
-        fname : c_char_p
+        fname : POINTER(ALchar)
     """
     return _api_(fname)
     
 
-@bind(ALenum, [c_char_p])
+@bind(ALenum, [POINTER(ALchar)])
 def alGetEnumValue(ename, _api_=None): 
     """alGetEnumValue(ename)
     
-        ename : c_char_p
+        ename : POINTER(ALchar)
     """
     return _api_(ename)
     
@@ -406,12 +406,12 @@ def alListener3f(param, value1, value2, value3, _api_=None):
     return _api_(param, value1, value2, value3)
     
 
-@bind(None, [ALenum, POINTER(c_float)])
+@bind(None, [ALenum, POINTER(ALfloat)])
 def alListenerfv(param, values, _api_=None): 
     """alListenerfv(param, values)
     
         param : ALenum
-        values : POINTER(c_float)
+        values : POINTER(ALfloat)
     """
     return _api_(param, values)
     
@@ -438,100 +438,100 @@ def alListener3i(param, value1, value2, value3, _api_=None):
     return _api_(param, value1, value2, value3)
     
 
-@bind(None, [ALenum, POINTER(c_int)])
+@bind(None, [ALenum, POINTER(ALint)])
 def alListeneriv(param, values, _api_=None): 
     """alListeneriv(param, values)
     
         param : ALenum
-        values : POINTER(c_int)
+        values : POINTER(ALint)
     """
     return _api_(param, values)
     
 
 #~ line: 467, skipped: 5 ~~~~~~
 
-@bind(None, [ALenum, POINTER(c_float)])
+@bind(None, [ALenum, POINTER(ALfloat)])
 def alGetListenerf(param, value, _api_=None): 
     """alGetListenerf(param, value)
     
         param : ALenum
-        value : POINTER(c_float)
+        value : POINTER(ALfloat)
     """
     return _api_(param, value)
     
 
-@bind(None, [ALenum, POINTER(c_float), POINTER(c_float), POINTER(c_float)])
+@bind(None, [ALenum, POINTER(ALfloat), POINTER(ALfloat), POINTER(ALfloat)])
 def alGetListener3f(param, value1, value2, value3, _api_=None): 
     """alGetListener3f(param, value1, value2, value3)
     
         param : ALenum
-        value1 : POINTER(c_float)
-        value2 : POINTER(c_float)
-        value3 : POINTER(c_float)
+        value1 : POINTER(ALfloat)
+        value2 : POINTER(ALfloat)
+        value3 : POINTER(ALfloat)
     """
     return _api_(param, value1, value2, value3)
     
 
-@bind(None, [ALenum, POINTER(c_float)])
+@bind(None, [ALenum, POINTER(ALfloat)])
 def alGetListenerfv(param, values, _api_=None): 
     """alGetListenerfv(param, values)
     
         param : ALenum
-        values : POINTER(c_float)
+        values : POINTER(ALfloat)
     """
     return _api_(param, values)
     
 
-@bind(None, [ALenum, POINTER(c_int)])
+@bind(None, [ALenum, POINTER(ALint)])
 def alGetListeneri(param, value, _api_=None): 
     """alGetListeneri(param, value)
     
         param : ALenum
-        value : POINTER(c_int)
+        value : POINTER(ALint)
     """
     return _api_(param, value)
     
 
-@bind(None, [ALenum, POINTER(c_int), POINTER(c_int), POINTER(c_int)])
+@bind(None, [ALenum, POINTER(ALint), POINTER(ALint), POINTER(ALint)])
 def alGetListener3i(param, value1, value2, value3, _api_=None): 
     """alGetListener3i(param, value1, value2, value3)
     
         param : ALenum
-        value1 : POINTER(c_int)
-        value2 : POINTER(c_int)
-        value3 : POINTER(c_int)
+        value1 : POINTER(ALint)
+        value2 : POINTER(ALint)
+        value3 : POINTER(ALint)
     """
     return _api_(param, value1, value2, value3)
     
 
-@bind(None, [ALenum, POINTER(c_int)])
+@bind(None, [ALenum, POINTER(ALint)])
 def alGetListeneriv(param, values, _api_=None): 
     """alGetListeneriv(param, values)
     
         param : ALenum
-        values : POINTER(c_int)
+        values : POINTER(ALint)
     """
     return _api_(param, values)
     
 
 #~ line: 514, skipped: 37 ~~~~~~
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alGenSources(n, sources, _api_=None): 
     """alGenSources(n, sources)
     
         n : ALsizei
-        sources : POINTER(c_uint)
+        sources : POINTER(ALuint)
     """
     return _api_(n, sources)
     
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alDeleteSources(n, sources, _api_=None): 
     """alDeleteSources(n, sources)
     
         n : ALsizei
-        sources : POINTER(c_uint)
+        sources : POINTER(ALuint)
     """
     return _api_(n, sources)
     
@@ -571,13 +571,13 @@ def alSource3f(sid, param, value1, value2, value3, _api_=None):
     return _api_(sid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat)])
 def alSourcefv(sid, param, values, _api_=None): 
     """alSourcefv(sid, param, values)
     
         sid : ALuint
         param : ALenum
-        values : POINTER(c_float)
+        values : POINTER(ALfloat)
     """
     return _api_(sid, param, values)
     
@@ -606,127 +606,127 @@ def alSource3i(sid, param, value1, value2, value3, _api_=None):
     return _api_(sid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint)])
 def alSourceiv(sid, param, values, _api_=None): 
     """alSourceiv(sid, param, values)
     
         sid : ALuint
         param : ALenum
-        values : POINTER(c_int)
+        values : POINTER(ALint)
     """
     return _api_(sid, param, values)
     
 
 #~ line: 540, skipped: 5 ~~~~~~
 
-@bind(None, [ALuint, ALenum, POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat)])
 def alGetSourcef(sid, param, value, _api_=None): 
     """alGetSourcef(sid, param, value)
     
         sid : ALuint
         param : ALenum
-        value : POINTER(c_float)
+        value : POINTER(ALfloat)
     """
     return _api_(sid, param, value)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_float), POINTER(c_float), POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat), POINTER(ALfloat), POINTER(ALfloat)])
 def alGetSource3f(sid, param, value1, value2, value3, _api_=None): 
     """alGetSource3f(sid, param, value1, value2, value3)
     
         sid : ALuint
         param : ALenum
-        value1 : POINTER(c_float)
-        value2 : POINTER(c_float)
-        value3 : POINTER(c_float)
+        value1 : POINTER(ALfloat)
+        value2 : POINTER(ALfloat)
+        value3 : POINTER(ALfloat)
     """
     return _api_(sid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat)])
 def alGetSourcefv(sid, param, values, _api_=None): 
     """alGetSourcefv(sid, param, values)
     
         sid : ALuint
         param : ALenum
-        values : POINTER(c_float)
+        values : POINTER(ALfloat)
     """
     return _api_(sid, param, values)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint)])
 def alGetSourcei(sid, param, value, _api_=None): 
     """alGetSourcei(sid, param, value)
     
         sid : ALuint
         param : ALenum
-        value : POINTER(c_int)
+        value : POINTER(ALint)
     """
     return _api_(sid, param, value)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int), POINTER(c_int), POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint), POINTER(ALint), POINTER(ALint)])
 def alGetSource3i(sid, param, value1, value2, value3, _api_=None): 
     """alGetSource3i(sid, param, value1, value2, value3)
     
         sid : ALuint
         param : ALenum
-        value1 : POINTER(c_int)
-        value2 : POINTER(c_int)
-        value3 : POINTER(c_int)
+        value1 : POINTER(ALint)
+        value2 : POINTER(ALint)
+        value3 : POINTER(ALint)
     """
     return _api_(sid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint)])
 def alGetSourceiv(sid, param, values, _api_=None): 
     """alGetSourceiv(sid, param, values)
     
         sid : ALuint
         param : ALenum
-        values : POINTER(c_int)
+        values : POINTER(ALint)
     """
     return _api_(sid, param, values)
     
 
 #~ line: 558, skipped: 8 ~~~~~~
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alSourcePlayv(ns, sids, _api_=None): 
     """alSourcePlayv(ns, sids)
     
         ns : ALsizei
-        sids : POINTER(c_uint)
+        sids : POINTER(ALuint)
     """
     return _api_(ns, sids)
     
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alSourceStopv(ns, sids, _api_=None): 
     """alSourceStopv(ns, sids)
     
         ns : ALsizei
-        sids : POINTER(c_uint)
+        sids : POINTER(ALuint)
     """
     return _api_(ns, sids)
     
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alSourceRewindv(ns, sids, _api_=None): 
     """alSourceRewindv(ns, sids)
     
         ns : ALsizei
-        sids : POINTER(c_uint)
+        sids : POINTER(ALuint)
     """
     return _api_(ns, sids)
     
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alSourcePausev(ns, sids, _api_=None): 
     """alSourcePausev(ns, sids)
     
         ns : ALsizei
-        sids : POINTER(c_uint)
+        sids : POINTER(ALuint)
     """
     return _api_(ns, sids)
     
@@ -771,46 +771,46 @@ def alSourcePause(sid, _api_=None):
 
 #~ line: 588, skipped: 5 ~~~~~~
 
-@bind(None, [ALuint, ALsizei, POINTER(c_uint)])
+@bind(None, [ALuint, ALsizei, POINTER(ALuint)])
 def alSourceQueueBuffers(sid, numEntries, bids, _api_=None): 
     """alSourceQueueBuffers(sid, numEntries, bids)
     
         sid : ALuint
         numEntries : ALsizei
-        bids : POINTER(c_uint)
+        bids : POINTER(ALuint)
     """
     return _api_(sid, numEntries, bids)
     
 
-@bind(None, [ALuint, ALsizei, POINTER(c_uint)])
+@bind(None, [ALuint, ALsizei, POINTER(ALuint)])
 def alSourceUnqueueBuffers(sid, numEntries, bids, _api_=None): 
     """alSourceUnqueueBuffers(sid, numEntries, bids)
     
         sid : ALuint
         numEntries : ALsizei
-        bids : POINTER(c_uint)
+        bids : POINTER(ALuint)
     """
     return _api_(sid, numEntries, bids)
     
 
 #~ line: 608, skipped: 18 ~~~~~~
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alGenBuffers(n, buffers, _api_=None): 
     """alGenBuffers(n, buffers)
     
         n : ALsizei
-        buffers : POINTER(c_uint)
+        buffers : POINTER(ALuint)
     """
     return _api_(n, buffers)
     
 
-@bind(None, [ALsizei, POINTER(c_uint)])
+@bind(None, [ALsizei, POINTER(ALuint)])
 def alDeleteBuffers(n, buffers, _api_=None): 
     """alDeleteBuffers(n, buffers)
     
         n : ALsizei
-        buffers : POINTER(c_uint)
+        buffers : POINTER(ALuint)
     """
     return _api_(n, buffers)
     
@@ -824,13 +824,13 @@ def alIsBuffer(bid, _api_=None):
     return _api_(bid)
     
 
-@bind(None, [ALuint, ALenum, c_void_p, ALsizei, ALsizei])
+@bind(None, [ALuint, ALenum, POINTER(ALvoid), ALsizei, ALsizei])
 def alBufferData(bid, format, data, size, freq, _api_=None): 
     """alBufferData(bid, format, data, size, freq)
     
         bid : ALuint
         format : ALenum
-        data : c_void_p
+        data : POINTER(ALvoid)
         size : ALsizei
         freq : ALsizei
     """
@@ -863,13 +863,13 @@ def alBuffer3f(bid, param, value1, value2, value3, _api_=None):
     return _api_(bid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat)])
 def alBufferfv(bid, param, values, _api_=None): 
     """alBufferfv(bid, param, values)
     
         bid : ALuint
         param : ALenum
-        values : POINTER(c_float)
+        values : POINTER(ALfloat)
     """
     return _api_(bid, param, values)
     
@@ -898,85 +898,85 @@ def alBuffer3i(bid, param, value1, value2, value3, _api_=None):
     return _api_(bid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint)])
 def alBufferiv(bid, param, values, _api_=None): 
     """alBufferiv(bid, param, values)
     
         bid : ALuint
         param : ALenum
-        values : POINTER(c_int)
+        values : POINTER(ALint)
     """
     return _api_(bid, param, values)
     
 
 #~ line: 637, skipped: 5 ~~~~~~
 
-@bind(None, [ALuint, ALenum, POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat)])
 def alGetBufferf(bid, param, value, _api_=None): 
     """alGetBufferf(bid, param, value)
     
         bid : ALuint
         param : ALenum
-        value : POINTER(c_float)
+        value : POINTER(ALfloat)
     """
     return _api_(bid, param, value)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_float), POINTER(c_float), POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat), POINTER(ALfloat), POINTER(ALfloat)])
 def alGetBuffer3f(bid, param, value1, value2, value3, _api_=None): 
     """alGetBuffer3f(bid, param, value1, value2, value3)
     
         bid : ALuint
         param : ALenum
-        value1 : POINTER(c_float)
-        value2 : POINTER(c_float)
-        value3 : POINTER(c_float)
+        value1 : POINTER(ALfloat)
+        value2 : POINTER(ALfloat)
+        value3 : POINTER(ALfloat)
     """
     return _api_(bid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_float)])
+@bind(None, [ALuint, ALenum, POINTER(ALfloat)])
 def alGetBufferfv(bid, param, values, _api_=None): 
     """alGetBufferfv(bid, param, values)
     
         bid : ALuint
         param : ALenum
-        values : POINTER(c_float)
+        values : POINTER(ALfloat)
     """
     return _api_(bid, param, values)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint)])
 def alGetBufferi(bid, param, value, _api_=None): 
     """alGetBufferi(bid, param, value)
     
         bid : ALuint
         param : ALenum
-        value : POINTER(c_int)
+        value : POINTER(ALint)
     """
     return _api_(bid, param, value)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int), POINTER(c_int), POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint), POINTER(ALint), POINTER(ALint)])
 def alGetBuffer3i(bid, param, value1, value2, value3, _api_=None): 
     """alGetBuffer3i(bid, param, value1, value2, value3)
     
         bid : ALuint
         param : ALenum
-        value1 : POINTER(c_int)
-        value2 : POINTER(c_int)
-        value3 : POINTER(c_int)
+        value1 : POINTER(ALint)
+        value2 : POINTER(ALint)
+        value3 : POINTER(ALint)
     """
     return _api_(bid, param, value1, value2, value3)
     
 
-@bind(None, [ALuint, ALenum, POINTER(c_int)])
+@bind(None, [ALuint, ALenum, POINTER(ALint)])
 def alGetBufferiv(bid, param, values, _api_=None): 
     """alGetBufferiv(bid, param, values)
     
         bid : ALuint
         param : ALenum
-        values : POINTER(c_int)
+        values : POINTER(ALint)
     """
     return _api_(bid, param, values)
     

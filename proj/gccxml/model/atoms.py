@@ -623,6 +623,11 @@ class CompositeType(CType):
     def iterVisitChildren(self):
         return chain(self.bases, self.members)
 
+    def hasFields(self):
+        for e in self.iterFields():
+            return True
+        else: return False
+
     def iterFields(self):
         return (e for e in self.members if e.isField())
 

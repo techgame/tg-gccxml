@@ -53,10 +53,10 @@ class CompositeCodeItem(TypeCodeItem):
     template = 'class %(name)s(%(bindClass)s):'
     pointerTemplate = 'POINTER(%(name)s)'
     forwardPtrTemplate = '%(ptrTypedefName)s.set_type(%(name)s)'
+    emptyTemplate = '%(name)s = c_void_p # %(bindClass)s with empty _fields_'
 
     fieldOpenTemplate = '_fields_ = ['
     fieldCloseTemplate = '    ]'
-    fieldEmptyTemplate = '_fields_ = []'
 
     bindClass = None #'Structure' or 'Union'
     forwardPtrs = ()
@@ -82,29 +82,30 @@ class CompositeCodeItem(TypeCodeItem):
         return self.item.name
 
     def writeTo(self, stream):
-        self.writeDeclTo(stream)
-        stream.indent()
-        self.writeFieldsTo(stream)
-        stream.dedent()
-        self.writePointerDefTo(stream)
+        if self.item.hasFields():
+            self.writeDeclTo(stream)
+            stream.indent()
+            self.writeFieldsTo(stream)
+            stream.dedent()
+            self.writePointerDefTo(stream)
+        else:
+            self.writeEmptyDeclTo(stream)
 
+    def writeEmptyDeclTo(self, stream):
+        print >> stream, self.compositeDecl(self.emptyTemplate)
     def writeDeclTo(self, stream):
-        print >> stream, self.compositeDecl()
+        print >> stream, self.compositeDecl(self.template)
 
     def writeFieldsTo(self, stream):
         fieldList = list(self.item.iterFields())
-        if not fieldList:
-            print >> stream, self.fieldEmptyTemplate
+        print >> stream, self.fieldOpenTemplate
+        stream.indent()
 
-        else:
-            print >> stream, self.fieldOpenTemplate
-            stream.indent()
+        for field in fieldList:
+            field.codeItem.writeTo(stream)
 
-            for field in fieldList:
-                field.codeItem.writeTo(stream)
-
-            stream.dedent()
-            print >> stream, self.fieldCloseTemplate
+        stream.dedent()
+        print >> stream, self.fieldCloseTemplate
 
     def writePointerDefTo(self, stream):
         for fwdPtr in self.forwardPtrs:
@@ -119,10 +120,8 @@ class CompositeCodeItem(TypeCodeItem):
     def add(self, ciField):
         pass
 
-    def compositeDecl(self):
-        return self.template % dict(
-                name=self.typeRef(),
-                bindClass=self.bindClass)
+    def compositeDecl(self, template):
+        return template % dict( name=self.typeRef(), bindClass=self.bindClass)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
