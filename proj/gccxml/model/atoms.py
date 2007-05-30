@@ -771,6 +771,8 @@ class Argument(LocatedElement):
 
 class Ellipsis(ModelAtom):
     host = None # a Callable instance
+    name = '...'
+    type = None
 
     def __repr_atom__(self):
         return '...'
@@ -805,6 +807,13 @@ class Callable(LocatedElement):
     def setArguments(self, arguments):
         self._arguments = arguments
     arguments = property(getArguments, setArguments)
+
+    def hasEllipsis(self):
+        arguments = self.arguments
+        if not arguments:
+            return False
+
+        return arguments[-1].isEllipsisArgument()
 
     def iterVisitChildren(self):
         return chain([self.returns], self.arguments)

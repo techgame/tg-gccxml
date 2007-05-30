@@ -97,7 +97,8 @@ class CodeItem(object):
 
     def typeRefFor(self, atom):
         ci = asCodeItem(atom)
-        return ci.typeRef()
+        if ci is not None:
+            return ci.typeRef()
     
     def ptrTypeRefFor(self, atom, ciPtrType=None):
         ci = asCodeItem(atom)

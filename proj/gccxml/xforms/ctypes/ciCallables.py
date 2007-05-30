@@ -10,12 +10,16 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from keyword import iskeyword
 from ciBase import CodeItem
 from ciTypes import TypeCodeItem
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def safeName(name):
+    return iskeyword(name) and name+'_' or name
 
 CIEllipsis = None
 
@@ -32,12 +36,16 @@ class CIArgument(CodeItem):
         return self.typeRefFor(self.item.type)
 
 class CIEllipsis(CodeItem):
+    @property
+    def name(self):
+        return self.item.name
+
     def getHostCI(self):
         return None
 
     def typeRef(self, require=True):
         if require: self.require()
-        raise NotImplementedError()
+        return self.typeRefFor(self.item.type)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -47,7 +55,7 @@ class CallableCodeItem(CodeItem):
     _argTypeRefs = None
     def argTypeRefs(self):
         if self._argTypeRefs is None:
-            self._argTypeRefs = [self.typeRefFor(a) for a in self.item.arguments]
+            self._argTypeRefs = [atr for a in self.item.arguments for atr in (self.typeRefFor(a),) if atr is not None]
         return self._argTypeRefs
     def joinArgTypeRefs(self, sep=', '):
         return sep.join(self.argTypeRefs())
@@ -56,7 +64,7 @@ class CallableCodeItem(CodeItem):
     def argNames(self):
         if self._argNames is None:
             def argName(idx, a):
-                return a.name or (self.templateArgIndex % idx)
+                return safeName(a.name) or (self.templateArgIndex % idx)
             self._argNames = [argName(idx,a) for idx, a in enumerate(self.item.arguments)]
         return self._argNames
     def joinArgNames(self, sep=', '):
