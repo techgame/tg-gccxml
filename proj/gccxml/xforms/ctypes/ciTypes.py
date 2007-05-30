@@ -277,6 +277,15 @@ class CIEnumeration(TypeCodeItem):
         stream.indent()
         for enum in self.item.enumValues:
             enum.codeItem.writeTo(stream)
+
+        print >> stream, 'lookup = {'
+        stream.indent()
+        for enum in self.item.enumValues:
+            enum.codeItem.writeLookupTo(stream)
+        print >> stream, '}'
+        stream.dedent()
+        print >> stream, 'lookup.update([(v,k) for k,v in lookup.items()])'
+
         stream.dedent()
 
     def enumDecl(self):
@@ -290,7 +299,8 @@ class CIEnumeration(TypeCodeItem):
 class CIEnumValue(CodeItem):
     def writeTo(self, stream):
         print >> stream, '%s = %s' % (self.item.name, self.item.value)
-
+    def writeLookupTo(self, stream):
+        print >> stream, '%s: "%s",' % (self.item.value, self.item.name)
     def getHostCI(self):
         return self.item.host.codeItem
 
