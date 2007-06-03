@@ -284,7 +284,13 @@ class CIEnumeration(TypeCodeItem):
             enum.codeItem.writeLookupTo(stream)
         print >> stream, '}'
         stream.dedent()
-        print >> stream, 'lookup.update([(v,k) for k,v in lookup.items()])'
+        print >> stream, 'rlookup = dict([(v,k) for k,v in lookup.items()])'
+
+        print >> stream
+        print >> stream, 'def __repr__(self): return str(self)'
+        print >> stream, 'def __str__(self): '
+        print >> stream, '    return self.lookup.get(self.value) or str(self.value)'
+        print >> stream
 
         stream.dedent()
 
