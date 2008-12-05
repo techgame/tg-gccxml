@@ -1,5 +1,4 @@
 syntax: glob
-Icon?
 \.DS_Store
 *.pyc
 *.pyo
@@ -11,3 +10,7 @@ syntax: regexp
 ^sandbox/.*/build/.*
 ^sandbox/.*/srcCode\.model
 ^sandbox/ctypes-playground
+
+syntax: regexp
+Icon\r
+
