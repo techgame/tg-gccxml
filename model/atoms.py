@@ -35,6 +35,7 @@ class ModelAtom(object):
     def isBasicType(self): return False
     def isFundamentalType(self): return False
     def isPointerType(self): return False
+    def isFunctionPointerType(self): return False
     def isReferenceType(self): return False
     def isArrayType(self): return False
     def isEnumeration(self): return False
@@ -504,9 +505,9 @@ class Typedef(CDelgateType):
     type = property(getType, setType)
 
     def isPointerTypedef(self):
-        return aType.isPointerType()
+        return self.type.isPointerType()
     def isFunctionPointerTypedef(self):
-        return aType.isPointerType() and aType.type.isFunctionType()
+        return self.type.isFunctionPointerType()
 
     def _updateBacklinks(self, aType):
         if aType is not None:
@@ -534,6 +535,8 @@ class PointerType(CType):
     def getTypeString(self, descriptive=False):
         return getTypeString(self.type, True) + '*'
 
+    def isFunctionPointerType(self):
+        return self.type.isFunctionType()
     def isPointerType(self): 
         return True
     def isBasicPointerType(self): 

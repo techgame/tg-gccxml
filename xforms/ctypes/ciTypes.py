@@ -170,6 +170,10 @@ class CIPointerType(TypeCodeItem):
 # In case someone uses references in C code accidentally
 CIReferenceType = CIPointerType
 
+class CIFunctionPointerType(CIPointerType):
+    def _typeDecl(self):
+        return self.typeRefFor(self.item.type)
+
 class CIArrayType(TypeCodeItem):
     typeRefTemplate = '%s'
 

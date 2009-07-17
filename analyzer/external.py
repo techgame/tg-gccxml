@@ -57,12 +57,13 @@ class GCCXMLProcessStep(ExternalProcessStep):
             return None, open(outfile, 'rb')
 
         cmdline = self.getCmdLine(srcfile, outfile)
+        ##print cmdline
         process = self._subprocess(cmdline, **kw)
         if outfile:
             retcode = process.wait()
             if retcode != 0:
                 # unsuccessful compile, proceed
-                raise GCCXMLException("GCCXML subprocess returned failure code: %d (%08x)" % (retcode, retcode))
+                raise GCCXMLException("GCCXML subprocess returned failure code: %d (%08x)\ncmd: %r" % (retcode, retcode, cmdline))
             process.outfile = open(outfile, 'rb')
         else:
             process.outfile = process.stdout

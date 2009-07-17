@@ -18,6 +18,7 @@ from ciFile import CIFile
 
 from ciTypes import CIFundamentalType, CICvQualifiedType
 from ciTypes import CIPointerType, CIReferenceType, CIArrayType
+from ciTypes import CIFunctionPointerType
 from ciTypes import CITypedef
 from ciTypes import CIEnumeration, CIEnumValue
 
@@ -69,8 +70,12 @@ class CCodeItemVisitor(BaseCodeItemVisitor):
         return self.CITypedef(self.context, atom)
 
     CIPointerType = CIPointerType
-    def onPointerType(self, atom):
-        return self.CIPointerType(self.context, atom)
+    CIFunctionPointerType = CIFunctionPointerType
+    def onPointerType(self, atom, *args, **kw):
+        if atom.isFunctionPointerType():
+            return self.CIFunctionPointerType(self.context, atom)
+        else:
+            return self.CIPointerType(self.context, atom)
 
     CIReferenceType = CIReferenceType
     def onReferenceType(self, atom):
