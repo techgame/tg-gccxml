@@ -30,7 +30,11 @@ class ExternalProcessStep(ProcessStep):
     stderr_fd = None # PIPE
 
     def _subprocess(self, cmd, **kw):
-        subProc = subprocess.Popen(cmd, shell=True, stdin=self.stdin_fd, stdout=self.stdout_fd, stderr=self.stderr_fd, **kw)
+        kw.setdefault('shell', True)
+        kw.setdefault('stdin', self.stdin_fd)
+        kw.setdefault('stdout', self.stdout_fd)
+        kw.setdefault('stderr', self.stderr_fd)
+        subProc = subprocess.Popen(cmd, **kw)
         return subProc
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,7 +44,7 @@ class GCCXMLException(Exception):
 
 class GCCXMLProcessStep(ExternalProcessStep):
     # an example command
-    command = r"gccxml <options> %(srcfile)s %(includes)s > '%(outfile)s'"
+    command = r'gccxml <options> %(srcfile)s %(includes)s > "%(outfile)s"'
     command = None
     allowFrameworkInclude = False
 

@@ -21,8 +21,8 @@ from handlers.makefileRule import MakefileRuleScanner
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class DependencyProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
-    command = r"gcc -E -MT TARGET -M %(srcfile)s %(includes)s > %(outfile)s"
+class GCCDependencyProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
+    command = r'gcc -E -MT TARGET -M %(srcfile)s %(includes)s > "%(outfile)s"'
     #allowFrameworkInclude = True
 
     def _getEmitterForStep(self, elements):
@@ -69,4 +69,21 @@ class DependencyProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
 
         for basesrcfile in filelist:
             self.fileToElements(elements, emitter, basesrcfile)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class NoopDependencyProcessorStep(ElementFileStepMixin):
+    def _getEmitterForStep(self, elements):
+        return None
+    def _getFilesForStep(self, elements):
+        return []
+    def fileToElements(self, elements, emitter, srcfile):
+        pass
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+if os.sep == '/':
+    DependencyProcessorStep = GCCDependencyProcessorStep
+else:
+    DependencyProcessorStep = NoopDependencyProcessorStep
 

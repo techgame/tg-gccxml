@@ -23,7 +23,7 @@ from handlers.funcTypedefScanner import FuncTypedefScanner
 
 class DefinesProcessorStep(PreprocessorStep, GCCXMLProcessStep):
     ScannerFactory = DefinesScanner
-    command = r"gccxml -E -dD %(srcfile)s %(includes)s > '%(outfile)s'"
+    command = r'gccxml -E -dD %(srcfile)s %(includes)s > "%(outfile)s"'
 
     def _getEmitterForStep(self, elements):
         return elements.getEmitterFor('preprocess', 'defines')

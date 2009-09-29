@@ -22,7 +22,7 @@ from handlers.gccxml import GCCXMLScanner
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class CodeProcessorStep(ElementFileStepMixin, GCCXMLProcessStep):
-    command = r"gccxml %(srcfile)s %(includes)s -fxml='%(outfile)s'"
+    command = r'gccxml %(srcfile)s %(includes)s -fxml="%(outfile)s"'
 
     def _getEmitterForStep(self, elements):
         return elements.getEmitterFor('code', 'gccxml')
