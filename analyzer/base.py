@@ -64,7 +64,7 @@ class ElementFileStepMixin(ProcessStep):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class PreprocessorStep(ElementFileStepMixin):
+class ScannerStep(ElementFileStepMixin):
     ScannerFactory = None
 
     def fileToElements(self, elements, emitter, srcfile):
@@ -89,5 +89,10 @@ class PreprocessorStep(ElementFileStepMixin):
     def createScanner(self, elements, emitter):
         scanner = self.ScannerFactory()
         self.setScanner(scanner)
+        self.initScanner(scanner, elements, emitter)
 
+    def initScanner(self, scanner, elements, emitter):
+        pass
+
+PreprocessorStep = ScannerStep
 

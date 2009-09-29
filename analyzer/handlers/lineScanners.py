@@ -8,6 +8,7 @@ class LineScanner(object):
         if emitter:
             incLineno = emitter.incLineno
         else: incLineno = lambda: None
+        self.scanFileStart(emitter)
         for line in fileToScan:
             line = line.strip('\r\n')
             if mode is not None:
@@ -16,9 +17,15 @@ class LineScanner(object):
                 mode = scanLine(emitter, line)
 
             incLineno()
+        self.scanFileEnd(emitter)
 
     def scanLine(self, emitter, line):
         raise NotImplementedError('Subclass Responsibility: %r' % (self,))
+
+    def scanFileStart(self, emitter):
+        pass
+    def scanFileEnd(self, emitter):
+        pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

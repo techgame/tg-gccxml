@@ -78,11 +78,20 @@ class DefinesScannerBase(CPreprocessorScanner):
         lineno = int(lineno)
         flags = int(flags or 0)
         if flags == 1:
-            emitter.emit('position-push', filename, lineno, flags)
+            self.pushPosition(emitter, filename, lineno, flags)
         elif flags == 2:
-            emitter.emit('position-pop', filename, lineno, flags)
+            self.popPosition(emitter, filename, lineno, flags)
         else:
-            emitter.emit('position-load', filename, lineno, flags)
+            self.loadPosition(emitter, filename, lineno, flags)
+        self.absPosition(emitter, filename, lineno, flags)
+
+    def pushPosition(self, emitter, filename, lineno, flags):
+        emitter.emit('position-push', filename, lineno, flags)
+    def popPosition(self, emitter, filename, lineno, flags):
+        emitter.emit('position-pop', filename, lineno, flags)
+    def loadPosition(self, emitter, filename, lineno, flags):
+        emitter.emit('position-load', filename, lineno, flags)
+    def absPosition(self, emitter, filename, lineno, flags):
         emitter.emit('position', filename, lineno, flags)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,4 +119,63 @@ class DefinesScanner(DefinesScannerBase):
             args, body = marcoPart.groups()
             args = tuple(a.strip() for a in args.split(','))
             emitter.emit('macro', ident, args, body)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class DependencyScannerBase(DefinesScannerBase):
+    baselineMode = False
+
+    def __init__(self): 
+        self.baseline = set()
+        self.all = set()
+        self.tree = {}
+        self.stack = [self.tree]
+
+    def addFilename(self, filename):
+        res = False
+        tos = self.stack[-1]
+        if filename in self.baseline or tos is None:
+            return False, None
+
+        if filename not in self.all:
+            self.all.add(filename)
+            res = True
+
+        e = tos.get(filename)
+        if e is None:
+            tos[filename] = e = {}
+
+        return res, e
+
+    def pushPosition(self, emitter, filename, lineno, flags):
+        res, e = self.addFilename(filename)
+        self.stack.append(e)
+    def popPosition(self, emitter, filename, lineno, flags):
+        self.stack.pop()
+        res, e = self.addFilename(filename)
+    def loadPosition(self, emitter, filename, lineno, flags):
+        res, e = self.addFilename(filename)
+    def absPosition(self, emitter, filename, lineno, flags):
+        pass
+
+    def scanFileEnd(self, emitter):
+        if self.baselineMode:
+            emitKey = 'includes-baseline'
+        else: emitKey = 'includes'
+
+        def flatten(tree):
+            for fn, subtree in tree.iteritems():
+                yield fn
+                for e in flatten(subtree):
+                    yield e
+
+        for srcFile, deps in self.tree.iteritems():
+            files = list(flatten(deps))
+            emitter.emit(emitKey, srcFile, files)
+
+        if self.baselineMode:
+            self.baseline = self.all
+            self.all = set()
+            self.tree = {}
+            self.stack = [self.tree]
 

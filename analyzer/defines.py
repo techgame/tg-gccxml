@@ -13,7 +13,7 @@
 import os
 
 from base import PreprocessorStep
-from external import GCCXMLProcessStep
+from external import GCCXMLPreprocessorStep
 from handlers.cpreprocessor import DefinesScanner
 from handlers.funcTypedefScanner import FuncTypedefScanner
 
@@ -21,9 +21,8 @@ from handlers.funcTypedefScanner import FuncTypedefScanner
 #~ Definitions 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class DefinesProcessorStep(PreprocessorStep, GCCXMLProcessStep):
+class DefinesProcessorStep(PreprocessorStep, GCCXMLPreprocessorStep):
     ScannerFactory = DefinesScanner
-    command = r'gccxml -E -dD %(srcfile)s %(includes)s > "%(outfile)s"'
 
     def _getEmitterForStep(self, elements):
         return elements.getEmitterFor('preprocess', 'defines')

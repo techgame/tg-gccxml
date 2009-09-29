@@ -94,3 +94,8 @@ class GCCXMLProcessStep(ExternalProcessStep):
     def _getOutFile(self, outfile):
         return self.config.getOutFile(outfile)
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class GCCXMLPreprocessorStep(GCCXMLProcessStep):
+    command = r'gccxml -E -dD %(srcfile)s %(includes)s > "%(outfile)s"'
+
