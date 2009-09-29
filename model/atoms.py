@@ -10,6 +10,7 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+from warnings import warn
 from collections import deque
 from bisect import insort, bisect_left, bisect_right
 from itertools import chain
@@ -130,8 +131,12 @@ class ModelAtom(object):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def _updateAttrs(self, attrs):
+        sentinal = object()
         for n,v in attrs.iteritems():
-            if v != getattr(self, n):
+            r = getattr(self, n, sentinal)
+            if v != r:
+                if r is sentinal:
+                    warn('Atom class "%s" does not have attribute "%s"' % (self.__class__.__name__, n))
                 setattr(self, n, v)
 
     def addAtom(self, atom): 
@@ -481,6 +486,7 @@ class Typedef(CDelgateType):
     name = ''
     _type = None # a Type Atom
     context = None # a Context Atom
+    attributes = () # list of string attributes
 
     def __init__(self):
         CDelgateType.__init__(self)
@@ -643,6 +649,7 @@ class Union(CompositeType):
 
 class Struct(CompositeType):
     baseRefs = () # list of base references
+    abstract = False
 
     def __init__(self):
         self.baseRefs = []
@@ -704,6 +711,7 @@ class Variable(LocatedElement):
 
     artificial = False
     extern = False
+    attributes = () # list of string attributes
 
     value = ''
 
@@ -791,6 +799,7 @@ class Ellipsis(ModelAtom):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Callable(LocatedElement):
+    attributes = () # list of string attributes
     returns = None # a Type Atom
 
     def isCallable(self): 
@@ -872,7 +881,6 @@ class Function(Callable):
     inline = False
     extern = False
 
-    attributes = () # list of string attributes
     throw = () # list of references
 
     def __repr_atom__(self):
@@ -888,13 +896,19 @@ class Function(Callable):
     def _visit(self, visitor, *args, **kw):
         return visitor.onFunction(self, *args, **kw)
 
+class OperatorFunction(Function):
+    def _visit(self, visitor, *args, **kw):
+        return visitor.onOperatorFunction(self, *args, **kw)
+
 class Method(Function):
     access = ''
     virtual = False
+    pure_virtual = False
     const = False
     static = False
     explicit = False
     artificial = False
+    overrides = None
 
     def isMethod(self): 
         return True

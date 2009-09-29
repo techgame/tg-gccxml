@@ -48,13 +48,23 @@ def passThrough(v):
     return v
 
 def intOr0(v):
+    if v.startswith('0x'):
+        return hexOr0(v[2:])
     return int(v or 0)
 def intOrNone(v):
-    if v: return int(v)
+    if v:
+        if v.startswith('0x'):
+            return hexOr0(v[2:])
+        else:
+            return int(v)
     else: return None
 def hexOr0(v):
+    if v.endswith('u'):
+        return intOr0(v[:-1])
     return int(v or 0, 16)
 def hexOrNone(v):
+    if v.endswith('u'):
+        return intOrNone(v[:-1])
     if v: return int(v, 16)
     else: return None
 def boolOr0(v):
@@ -116,7 +126,7 @@ class XMLElement(object):
                 # set it into the new attr map under the new name
                 newAttrs[n] = v
             except Exception, e:
-                e.args += (self, attrs)
+                e.args += (self, attrs, n)
                 raise
 
         return newAttrs
@@ -311,6 +321,7 @@ class Typedef(LocatedElement):
         name=passThrough,
         type=reference,
         context=reference,
+        attributes=attrList,
         )
 
 class PointerType(SizedType):
@@ -409,6 +420,7 @@ class Struct(CompositeType):
 
     attrValueMap = CompositeType.attrValueMap.copy()
     attrValueMap.update(
+        abstract=boolOr0,
         )
 
     _baseReferences = None
@@ -464,6 +476,7 @@ class Variable(LocatedElement):
         artificial=boolOr0,
         extern=boolOr0,
         init=passThrough,
+        attributes=attrList,
         )
     attrNameMap = LocatedElement.attrNameMap.copy()
     attrNameMap.update(init='value')
@@ -538,6 +551,7 @@ class FunctionType(Callable):
 
     attrValueMap = Callable.attrValueMap.copy()
     attrValueMap.update(
+        attributes=attrList,
         returns=reference,
         )
 
@@ -561,6 +575,13 @@ class Function(Callable):
         throw=throwList,
         )
 
+class OperatorFunction(Function):
+    itemKind = 'OperatorFunction'
+
+    attrValueMap = Function.attrValueMap.copy()
+    attrValueMap.update(
+        )
+
 class Method(Function):
     itemKind = 'Method'
 
@@ -568,6 +589,8 @@ class Method(Function):
     attrValueMap.update(
         access=acccessStr,
         virtual=boolOr0,
+        pure_virtual=boolOr0,
+        overrides=reference,
         const=boolOr0,
         static=boolOr0,
         artificial=boolOr0,
@@ -650,7 +673,8 @@ GCC_XML.setChildTypes([
         FundamentalType, CvQualifiedType, Enumeration, 
         PointerType, ReferenceType, ArrayType, 
         Typedef, Union, Struct, Class,
-        FunctionType, Function, Method, OperatorMethod, Constructor, Destructor, 
+        FunctionType, Function, OperatorFunction,
+        Method, OperatorMethod, Constructor, Destructor, 
         Variable, Field,
         ])
 
