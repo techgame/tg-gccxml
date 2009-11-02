@@ -79,8 +79,6 @@ class IncludeStackDependencyProcessorStep(BaselineScannerStep, GCCXMLPreprocesso
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-if os.sep == '/':
-    DependencyProcessorStep = GCCDependencyProcessorStep
-else:
-    DependencyProcessorStep = IncludeStackDependencyProcessorStep
+#DependencyProcessorStep = GCCDependencyProcessorStep
+DependencyProcessorStep = IncludeStackDependencyProcessorStep
 
