@@ -77,6 +77,9 @@ class CIFundamentalType(TypeCodeItem):
         'signed char': 'c_byte',
         'unsigned char': 'c_ubyte',
 
+        # bool
+        'bool': 'c_bool',
+
         # short
         'short int': 'c_short',
         'short unsigned int': 'c_ushort',
