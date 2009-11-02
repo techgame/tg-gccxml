@@ -14,6 +14,7 @@ try:
     import cPickle as _pickle
 except ImportError:
     import pickle as _pickle
+import pickle as _pickle
 
 import emitters
 import atoms
@@ -41,14 +42,18 @@ class RootElement(atoms.Root):
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def storeToFileNamed(self, filename):
-        modelFile = file(filename, 'wb')
+        modelFile = file(filename+'~', 'wb')
         try:
             result = self.storeToFile(modelFile)
         finally:
             modelFile.close()
+        os.rename(filename+'~', filename)
         return result
 
     def storeToFile(self, file):
+        s = _pickle.dumps(self, _pickle.HIGHEST_PROTOCOL)
+        me = _pickle.loads(s)
+
         return _pickle.dump(self, file, _pickle.HIGHEST_PROTOCOL)
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
