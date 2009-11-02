@@ -53,10 +53,17 @@ class IncludesScanner(CPreprocessorScanner):
         if directive in self.includeDirectives:
             self.onInclude(emitter, body)
 
-    def onInclude(self, emitter, filename):
-        isSystemInclude = (filename[0:1] == '<')
-        filename=filename[1:-1]
-        emitter.emit('include', filename, isSystemInclude)
+    def onInclude(self, emitter, body):
+        fn = body
+        if not body: 
+            return
+
+        s0 = body[0]
+        s1 = {'<':'>'}.get(s0, s0)
+        fn = body[1:fn.find(s1, 1)]
+
+        isSystemInclude = (s0 == '<')
+        emitter.emit('include', fn, isSystemInclude)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
