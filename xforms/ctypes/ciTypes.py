@@ -96,6 +96,8 @@ class CIFundamentalType(TypeCodeItem):
         'long long': 'c_longlong',
         'long long unsigned long': 'c_ulonglong',
 
+        # size_t
+        'size_t': 'c_size_t',
 
         # float & double
         'float': 'c_float',
