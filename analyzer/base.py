@@ -10,6 +10,8 @@
 #~ Imports 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+import os, sys
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Step Visitor
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,6 +71,10 @@ class ScannerStep(ElementFileStepMixin):
 
     def fileToElements(self, elements, emitter, srcfile):
         scanner = self.getScanner(elements, emitter)
+
+        if not os.path.exists(srcfile):
+            print >> sys.stderr, 'Warning: path does not exist: %s' % (srcfile,)
+            return 
 
         srcfile = open(srcfile, 'rb')
         try:
