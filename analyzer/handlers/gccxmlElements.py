@@ -275,6 +275,7 @@ class Enumeration(SizedType):
         name=passThrough,
         artificial=boolOr0,
         context=reference,
+        access=acccessStr,
         )
 
     _enumValues = None
@@ -321,6 +322,7 @@ class Typedef(LocatedElement):
         name=passThrough,
         type=reference,
         context=reference,
+        access=acccessStr,
         attributes=attrList,
         )
 
@@ -421,6 +423,7 @@ class Struct(CompositeType):
     attrValueMap = CompositeType.attrValueMap.copy()
     attrValueMap.update(
         abstract=boolOr0,
+        attributes=attrList,
         )
 
     _baseReferences = None
@@ -471,9 +474,12 @@ class Variable(LocatedElement):
     attrValueMap = LocatedElement.attrValueMap.copy()
     attrValueMap.update(
         name=passThrough,
+        mangled=passThrough,
+        demangled=passThrough,
         type=reference,
         context=reference,
         artificial=boolOr0,
+        access=acccessStr,
         extern=boolOr0,
         init=passThrough,
         attributes=attrList,
@@ -490,6 +496,7 @@ class Field(LocatedElement):
         name=passThrough,
         mangled=passThrough,
         demangled=passThrough,
+        mutable=boolOr0,
         access=acccessStr,
         attributes=attrList,
 
@@ -513,6 +520,7 @@ class Argument(LocatedElement):
         name=passThrough,
         type=reference,
         default=passThrough,
+        attributes=attrList,
         )
 
 class Ellipsis(XMLElement):
