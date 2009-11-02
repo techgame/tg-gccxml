@@ -427,6 +427,7 @@ class CvQualifiedType(CDelgateType):
 
 class Enumeration(CType):
     name = ''
+    access = ''
     align = 0
     size = 0
     artificial = False
@@ -484,6 +485,7 @@ class EnumValue(ModelAtom):
 
 class Typedef(CDelgateType):
     name = ''
+    access = ''
     _type = None # a Type Atom
     context = None # a Context Atom
     attributes = () # list of string attributes
@@ -650,6 +652,7 @@ class Union(CompositeType):
 class Struct(CompositeType):
     baseRefs = () # list of base references
     abstract = False
+    attributes = () # list of string attributes
 
     def __init__(self):
         self.baseRefs = []
@@ -706,6 +709,9 @@ class Base(ModelAtom):
 
 class Variable(LocatedElement):
     name = ""
+    access = ''
+    mangled = '' # mangled name
+    demangled = ''
     type = None # a Type Atom
     context = None # a Context Atom
 
@@ -733,6 +739,7 @@ class Field(LocatedElement):
     mangled = '' # mangled name
     demangled = ''
     access = ''
+    mutable = False
     attributes = () # list of string attributes
 
     bits = None
@@ -764,6 +771,7 @@ class Argument(LocatedElement):
     host = None # a Callable instance
     name = ''
     default = ''
+    attributes = () # list of string attributes
     type = None # a Type Atom
 
     def __repr_atom__(self):
