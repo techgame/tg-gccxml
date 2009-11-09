@@ -75,6 +75,84 @@ def scrubNamespace(namespace, hostNamespace):
             del namespace[n]
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class c_enum(ctypes.c_int):
+    values = None
+
+    def __repr__(self):
+        return str(self)
+    def __str__(self):
+        return self.lookup.get(self.value) or str(self.value)
+    def __int__(self): 
+        return self.value
+    def __long__(self): 
+        return self.value
+    def __index__(self): 
+        return self.value
+    def __cmp__(self, other): 
+        return cmp(self.value, other)
+    def __rcmp__(self, other): 
+        return cmp(other, self.value)
+
+    def __add__(self, other):
+        return self.value + int(other)
+    def __sub__(self, other):
+        return self.value - int(other)
+    def __mul__(self, other):
+        return self.value * int(other)
+    def __div__(self, other):
+        return self.value / int(other)
+    def __truediv__(self, other):
+        return self.value // int(other)
+    def __mod__(self, other):
+        return self.value % int(other)
+    def __divmod__(self, other):
+        return divmod(self.value, other)
+    def __pow__(self, other):
+        return self.value ** int(other)
+    def __rshift__(self, other):
+        return self.value >> int(other)
+    def __lshift__(self, other):
+        return self.value << int(other)
+    def __and__(self, other):
+        return self.value & int(other)
+    def __or__(self, other):
+        return self.value | int(other)
+    def __xor__(self, other):
+        return self.value ^ int(other)
+
+    def __coerce__(self, other):
+        return (self.value, other)
+
+    _lookup = None
+    def getLookup(self):
+        lut = self._lookup
+        if lut is None:
+            lut = self._createLut_()
+        return lut
+    lookup = property(getLookup)
+
+    @classmethod
+    def _createLut_(klass):
+        lut = dict([(k, v) for k, v in klass.values.items()])
+        klass._lookup = lut
+        return lut
+
+    @classmethod
+    def _nsUpdate_(klass, ns=None):
+        values = dict()
+        for k,v in klass.values.iteritems():
+            v = klass(v)
+            values[k] = v
+            setattr(klass, k, v)
+        klass.rlookup = klass.values = values
+        klass._lookup = None
+
+        if ns is not None:
+            ns.update(values)
+        return values
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Customized find library for applications
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

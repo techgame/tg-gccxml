@@ -43,7 +43,7 @@ class CodeAnalyzer(StepProcessorBase):
         if modelFile:
             try:
                 self.root.storeToFileNamed(modelFile)
-            except RuntimeError:
+            except Exception:
                 import traceback
                 traceback.print_exc()
                 return False

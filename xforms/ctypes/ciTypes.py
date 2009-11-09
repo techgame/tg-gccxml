@@ -94,6 +94,8 @@ class CIFundamentalType(TypeCodeItem):
 
         # long longs
         'long long': 'c_longlong',
+        'long long int': 'c_longlong',
+        'long long signed long': 'c_longlong',
         'long long unsigned long': 'c_ulonglong',
 
         # size_t
@@ -184,7 +186,8 @@ class CIArrayType(TypeCodeItem):
 
     def _typeDecl(self):
         itype = TypeCodeItem._typeDecl(self)
-        return '(%d*%s)' % (self.item.size, itype)
+        count = self.item.max-self.item.min+1 # 3-0 == 4 slots
+        return '(%d*%s)' % (count, itype)
 
     def ptrTypeRefFrom(self, ciPtrType):
         return self.ptrTypeRefFor(self.item.type, ciPtrType)
@@ -276,7 +279,7 @@ class CITypedef(TypeCodeItem):
 
 class CIEnumeration(TypeCodeItem):
     typeRefTemplate = '%s'
-    template = "class %(enumName)s(c_int):\n    '''enum %(enumName)s''' "
+    template = "class %(enumName)s(c_enum):\n    '''enum %(enumName)s''' "
 
     def _typeDecl(self):
         return self.item.name
@@ -284,24 +287,16 @@ class CIEnumeration(TypeCodeItem):
     def writeTo(self, stream):
         print >> stream, self.enumDecl()
         stream.indent()
-        for enum in self.item.enumValues:
-            enum.codeItem.writeTo(stream)
-
-        print >> stream, 'lookup = {'
+        print >> stream, 'values = dict('
         stream.indent()
         for enum in self.item.enumValues:
-            enum.codeItem.writeLookupTo(stream)
-        print >> stream, '}'
+            enum.codeItem.writeEntryTo(stream)
+        print >> stream, ')'
         stream.dedent()
-        print >> stream, 'rlookup = dict([(v,k) for k,v in lookup.items()])'
-
-        print >> stream
-        print >> stream, 'def __repr__(self): return str(self)'
-        print >> stream, 'def __str__(self): '
-        print >> stream, '    return self.lookup.get(self.value) or str(self.value)'
-        print >> stream
-
         stream.dedent()
+
+        print >> stream, '%s._nsUpdate_(locals())' % (self._typeDecl(), )
+        print >> stream
 
     def enumDecl(self):
         return self.template % dict(
@@ -314,8 +309,8 @@ class CIEnumeration(TypeCodeItem):
 class CIEnumValue(CodeItem):
     def writeTo(self, stream):
         print >> stream, '%s = %s' % (self.item.name, self.item.value)
-    def writeLookupTo(self, stream):
-        print >> stream, '%s: "%s",' % (self.item.value, self.item.name)
+    def writeEntryTo(self, stream):
+        print >> stream, '%s=%s,' % (self.item.name, self.item.value)
     def getHostCI(self):
         return self.item.host.codeItem
 
